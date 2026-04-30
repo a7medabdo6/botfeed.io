@@ -1,0 +1,55 @@
+import { authoption } from "@/src/app/api/auth/[...nextauth]/authOption";
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+
+const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export async function GET(request: NextRequest, context: { params: Promise<{ google_account_id: string }> }) {
+  try {
+    const { google_account_id } = await context.params;
+    const session = await getServerSession(authoption);
+    const bearer = request.headers.get("authorization");
+    const token =
+      (bearer?.startsWith("Bearer ") ? bearer.slice(7) : undefined) || (session?.accessToken as string | undefined);
+
+    const response = await fetch(`${BACKEND_API_URL}/google/accounts/${google_account_id}/calendars`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
+
+    const data = await response.json();
+    return NextResponse.json(data, { status: response.status });
+  } catch (error: unknown) {
+    console.error("Google calendars GET proxy error:", error);
+    return NextResponse.json({ success: false, message: "Internal server error" }, { status: 500 });
+  }
+}
+
+export async function POST(request: NextRequest, context: { params: Promise<{ google_account_id: string }> }) {
+  try {
+    const { google_account_id } = await context.params;
+    const session = await getServerSession(authoption);
+    const bearer = request.headers.get("authorization");
+    const token =
+      (bearer?.startsWith("Bearer ") ? bearer.slice(7) : undefined) || (session?.accessToken as string | undefined);
+    const body = await request.text();
+
+    const response = await fetch(`${BACKEND_API_URL}/google/accounts/${google_account_id}/calendars`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: body || undefined,
+    });
+
+    const data = await response.json();
+    return NextResponse.json(data, { status: response.status });
+  } catch (error: unknown) {
+    console.error("Google calendars POST proxy error:", error);
+    return NextResponse.json({ success: false, message: "Internal server error" }, { status: 500 });
+  }
+}
