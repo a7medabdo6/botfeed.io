@@ -4,11 +4,12 @@ import { getServerSession } from "next-auth";
 
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-function authHeader(request: NextRequest, sessionToken?: string) {
+function authHeader(request: NextRequest, sessionToken?: string): Record<string, string> {
   const bearer = request.headers.get("authorization");
   const token =
     (bearer?.startsWith("Bearer ") ? bearer.slice(7) : undefined) || sessionToken;
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  if (!token) return {};
+  return { Authorization: `Bearer ${token}` };
 }
 
 export async function GET(request: NextRequest) {
