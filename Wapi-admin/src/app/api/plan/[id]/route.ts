@@ -4,11 +4,10 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> | { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const params = await Promise.resolve(context.params);
-    const planId = params.id;
+    const { id: planId } = await context.params;
     
     const authHeader = request.headers.get('authorization');
     const headers: HeadersInit = {
@@ -48,11 +47,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> | { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const params = await Promise.resolve(context.params);
-    const planId = params.id;
+    const { id: planId } = await context.params;
     
     const body = await request.json();
     const token = request.headers.get('authorization');
