@@ -1,7 +1,10 @@
 # Production stack: MongoDB, Redis, API, Next.js, Caddy (HTTPS).
+# Env files live under deploy/env/ (tracked) so clone + compose works without extra copies.
+# Edit CHANGE_ME values on the server before going live (see deploy/DIGITALOCEAN.md).
+# Optional: copy these to wapi-api/.env.production etc. and change env_file paths for gitignored secrets.
 # Usage on Droplet:
-#   1. Copy wapi-api/.env.production and Wapi-frontend/.env.production; replace CHANGE_ME secrets.
-#   2. Point DNS: botfeed.io, www.botfeed.io, api.botfeed.io → server IP.
+#   1. Point DNS: botfeed.io, www.botfeed.io, api.botfeed.io → server IP.
+#   2. Edit deploy/env/*.example secrets on the server (or use copies + env_file override).
 #   3. docker compose up -d --build
 #
 # Google Cloud Console — Authorized redirect URI:
@@ -38,7 +41,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     env_file:
-      - ./wapi-api/.env.production
+      - ./deploy/env/wapi-api.env.production.example
     environment:
       NODE_ENV: production
       PORT: "5000"
@@ -66,7 +69,7 @@ services:
         NEXT_PUBLIC_SOCKET_URL: https://api.botfeed.io
     restart: unless-stopped
     env_file:
-      - ./Wapi-frontend/.env.production
+      - ./deploy/env/wapi-frontend.env.production.example
     environment:
       NODE_ENV: production
       PORT: "3000"

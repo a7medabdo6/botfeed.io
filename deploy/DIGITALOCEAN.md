@@ -10,12 +10,9 @@
 
 ## Secrets
 
-On the server, copy the examples and edit (do not commit real secrets to git):
+`docker-compose.yml` loads **`deploy/env/wapi-api.env.production.example`** and **`deploy/env/wapi-frontend.env.production.example`** (files in git) so `docker compose up` works right after clone.
 
-```bash
-cp deploy/env/wapi-api.env.production.example wapi-api/.env.production
-cp deploy/env/wapi-frontend.env.production.example Wapi-frontend/.env.production
-```
+**On the server**, edit those two files and replace every `CHANGE_ME` (do not commit real secrets back to GitHub if you use placeholders in the tracked examples).
 
 Generate strong values, for example:
 
@@ -24,8 +21,10 @@ openssl rand -base64 48   # JWT_SECRET / SESSION_SECRET
 openssl rand -base64 32   # NEXTAUTH_SECRET
 ```
 
-- **`wapi-api/.env.production`** — set `JWT_SECRET`, `SESSION_SECRET`, `ENCRYPTION_KEY` (exactly **32 ASCII characters** for the default AES-256-CBC helper), `GOOGLE_*`, admin password, payment keys. **MongoDB:** Compose sets `MONGODB_URI=mongodb://mongo:27017/wapi` for the `api` service; add your own `MONGODB_URI` only if you run the API **without** the bundled `mongo` container (e.g. Atlas).
-- **`Wapi-frontend/.env.production`** — set `NEXTAUTH_SECRET` and optional OAuth client IDs for NextAuth.
+- **API file** — set `JWT_SECRET`, `SESSION_SECRET`, `ENCRYPTION_KEY` (exactly **32 ASCII characters** for the default AES-256-CBC helper), `GOOGLE_*`, admin password, payment keys. **MongoDB:** Compose sets `MONGODB_URI=mongodb://mongo:27017/wapi` for the `api` service; use Atlas only if you remove the `mongo` service and set `MONGODB_URI` yourself.
+- **Frontend file** — set `NEXTAUTH_SECRET` and optional OAuth client IDs for NextAuth.
+
+**Optional (gitignored secrets):** copy to `wapi-api/.env.production` and `Wapi-frontend/.env.production`, fill them in, then change `env_file` in `docker-compose.yml` to point at those paths instead of `deploy/env/*.example`.
 
 ## Google OAuth (API Calendar integration)
 
