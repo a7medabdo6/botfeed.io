@@ -4,15 +4,15 @@ import { getServerSession } from "next-auth";
 
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function GET(request: NextRequest, context: { params: Promise<{ google_account_id: string }> }) {
+export async function GET(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    const { google_account_id } = await context.params;
+    const { id: googleAccountId } = await context.params;
     const session = await getServerSession(authoption);
     const bearer = request.headers.get("authorization");
     const token =
       (bearer?.startsWith("Bearer ") ? bearer.slice(7) : undefined) || (session?.accessToken as string | undefined);
 
-    const response = await fetch(`${BACKEND_API_URL}/google/accounts/${google_account_id}/calendars`, {
+    const response = await fetch(`${BACKEND_API_URL}/google/accounts/${googleAccountId}/calendars`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -28,16 +28,16 @@ export async function GET(request: NextRequest, context: { params: Promise<{ goo
   }
 }
 
-export async function POST(request: NextRequest, context: { params: Promise<{ google_account_id: string }> }) {
+export async function POST(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    const { google_account_id } = await context.params;
+    const { id: googleAccountId } = await context.params;
     const session = await getServerSession(authoption);
     const bearer = request.headers.get("authorization");
     const token =
       (bearer?.startsWith("Bearer ") ? bearer.slice(7) : undefined) || (session?.accessToken as string | undefined);
     const body = await request.text();
 
-    const response = await fetch(`${BACKEND_API_URL}/google/accounts/${google_account_id}/calendars`, {
+    const response = await fetch(`${BACKEND_API_URL}/google/accounts/${googleAccountId}/calendars`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
