@@ -142,7 +142,7 @@ const QRCodeConnection = ({ isDisabled }: QRCodeConnectionProps) => {
     return (
       <Card className="border-gray-100 dark:border-(--card-border-color) dark:bg-(--card-color) shadow-sm overflow-hidden rounded-none!">
         <CardContent className="p-8 flex flex-col items-center justify-center text-center space-y-4">
-          <div className="w-16 h-16 rounded-full bg-green-50 dark:bg-green-500/10 flex items-center justify-center text-primary">
+          <div className="w-16 h-16 rounded-full bg-sky-50 dark:bg-sky-500/10 flex items-center justify-center text-primary">
             <CheckCircle2 size={32} />
           </div>
           <div className="space-y-1">

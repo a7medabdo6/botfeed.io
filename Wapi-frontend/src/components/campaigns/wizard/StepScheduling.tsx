@@ -26,7 +26,7 @@ const StepScheduling = ({ formik }: { formik: FormikProps<CampaignFormValues> })
       <div className="max-w-xl space-y-8">
         <CardItem title="Send Immediately" description="Process and send this campaign right after you hit the launch button." icon={<Rocket size={20} />} isActive={!formik.values.is_scheduled} onClick={() => formik.setFieldValue("is_scheduled", false)} />
 
-        <div className={cn("p-4 sm:p-6 md:p-8 rounded-lg border transition-all duration-500 space-y-4 sm:space-y-6", formik.values.is_scheduled ? "bg-emerald-50/30 border-[#16a34a57] dark:bg-emerald-500/5 dark:border-emerald-500/20" : "bg-white dark:bg-(--dark-sidebar) border-slate-100 dark:border-none")}>
+        <div className={cn("p-4 sm:p-6 md:p-8 rounded-lg border transition-all duration-500 space-y-4 sm:space-y-6", formik.values.is_scheduled ? "bg-sky-50/30 border-[#00aeef57] dark:bg-sky-500/5 dark:border-sky-500/20" : "bg-white dark:bg-(--dark-sidebar) border-slate-100 dark:border-none")}>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0">
             <div className="flex items-center gap-3 sm:gap-4">
               <div className={cn("w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center transition-colors shrink-0", formik.values.is_scheduled ? "bg-(--light-primary) text-gray-600" : "bg-slate-100 dark:bg-(--dark-body) text-slate-400")}>
@@ -50,7 +50,7 @@ const StepScheduling = ({ formik }: { formik: FormikProps<CampaignFormValues> })
                   date={formik.values.scheduled_at ? parse(formik.values.scheduled_at, "yyyy-MM-dd'T'HH:mm", new Date()) : undefined} 
                   onChange={(date) => formik.setFieldValue("scheduled_at", date ? format(date, "yyyy-MM-dd'T'HH:mm") : "")} 
                   showTime={true}
-                  className="h-12 sm:h-14 pl-10 sm:pl-12 font-bold text-sm sm:text-base border-[#16a34a57]"
+                  className="h-12 sm:h-14 pl-10 sm:pl-12 font-bold text-sm sm:text-base border-[#00aeef57]"
                 />
                 <Calendar className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-primary pointer-events-none" size={16} aria-hidden="true" />
               </div>

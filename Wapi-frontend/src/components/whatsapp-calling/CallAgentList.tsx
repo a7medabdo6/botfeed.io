@@ -176,7 +176,7 @@ const CallAgentList = () => {
             <UserPlus size={16} />
           </Button>
           <Can permission="update.whatsapp_calling">
-            <Button variant="outline" size="icon" className="h-9 w-9 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 border-none" onClick={() => router.push(`/whatsapp_calling/agents/edit/${row._id}`)}>
+            <Button variant="outline" size="icon" className="h-9 w-9 text-slate-500 hover:text-sky-600 hover:bg-sky-50 border-none" onClick={() => router.push(`/whatsapp_calling/agents/edit/${row._id}`)}>
               <Edit2 size={16} />
             </Button>
           </Can>

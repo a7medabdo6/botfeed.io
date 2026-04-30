@@ -98,7 +98,7 @@ export default function WorkspaceSwitcherModal({ isOpen, onClose }: WorkspaceSwi
                     setEditWorkspace(null);
                     setFormOpen(true);
                   }}
-                  className="mt-1 text-sm font-semibold text-emerald-500 hover:text-emerald-600 transition-colors"
+                  className="mt-1 text-sm font-semibold text-sky-500 hover:text-sky-600 transition-colors"
                 >
                   + Create Workspace
                 </button>
@@ -114,7 +114,7 @@ export default function WorkspaceSwitcherModal({ isOpen, onClose }: WorkspaceSwi
 
                 return (
                   <div key={ws._id} className={`w-full relative group p-1`}>
-                    <button onClick={() => handleSelect(ws)} className={`w-full text-start flex items-start gap-3 p-3.5 rounded-xl border transition-all duration-200 ${isActive ? "border-primary/80 dark:border-primary bg-primary/10 dark:bg-emerald-900/15" : "border-slate-200 dark:border-white/10 hover:border-primary/10 dark:hover:border-emerald-500/30 hover:bg-slate-50 dark:hover:bg-white/5"}`}>
+                    <button onClick={() => handleSelect(ws)} className={`w-full text-start flex items-start gap-3 p-3.5 rounded-xl border transition-all duration-200 ${isActive ? "border-primary/80 dark:border-primary bg-primary/10 dark:bg-sky-900/15" : "border-slate-200 dark:border-white/10 hover:border-primary/10 dark:hover:border-sky-500/30 hover:bg-slate-50 dark:hover:bg-white/5"}`}>
                       <div className={`h-9 w-9 rounded-lg flex items-center justify-center shrink-0 font-bold text-sm ${isActive ? "bg-primary text-white" : "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-gray-300"}`}>{ws.name.charAt(0).toUpperCase()}</div>
 
                       <div className="flex-1 min-w-0 pe-12">

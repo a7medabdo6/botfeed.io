@@ -41,7 +41,7 @@ export function SendMessageNode({ data, id }: any) {
       <Handle type="target" position={Position.Left} className="w-3! h-3! bg-primary! border-2! border-white! shadow-sm" />
 
       <div className="mb-4 flex items-center gap-2">
-        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-50 text-emerald-600">
+        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-sky-50 text-sky-600">
           <Badge variant="outline" className="h-6 w-6 border-none p-0 flex items-center justify-center text-lg">
             📧
           </Badge>
@@ -89,7 +89,7 @@ export function SendMessageNode({ data, id }: any) {
         {(touched || data.forceValidation) && !data.message?.trim() && <p className="mt-1 text-[10px] text-red-500 font-medium">Message content cannot be empty</p>}
       </div>
 
-      <Handle type="source" position={Position.Right} className="w-3! h-3! bg-emerald-500! border-2! border-white! dark:border-(--card-border-color)! shadow-sm" />
+      <Handle type="source" position={Position.Right} className="w-3! h-3! bg-sky-500! border-2! border-white! dark:border-(--card-border-color)! shadow-sm" />
     </div>
   );
 }

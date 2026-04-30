@@ -183,7 +183,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSend, onCancel }) => {
               )}
 
               {(isRecording || audioBlob) && (
-                <button onClick={restartRecording} className="p-2 rounded-full text-slate-400 hover:text-primary hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-all active:scale-95" title="Restart recording">
+                <button onClick={restartRecording} className="p-2 rounded-full text-slate-400 hover:text-primary hover:bg-sky-50 dark:hover:bg-sky-900/10 transition-all active:scale-95" title="Restart recording">
                   <RotateCcw size={18} />
                 </button>
               )}
@@ -193,7 +193,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSend, onCancel }) => {
       </div>
 
       <div className="z-10 bg-white dark:bg-transparent rounded-full p-1">
-        <Button onClick={handleSend} disabled={isRecording || !audioBlob || !!error} className={cn("h-12 w-12 rounded-lg  flex items-center justify-center transition-all duration-300 shadow-lg", !isRecording && audioBlob && !error ? "bg-primary text-white scale-110 shadow-emerald-500/30 hover:shadow-emerald-500/50" : "bg-slate-100 text-slate-300 dark:bg-slate-800 dark:text-slate-600 shadow-none")}>
+        <Button onClick={handleSend} disabled={isRecording || !audioBlob || !!error} className={cn("h-12 w-12 rounded-lg  flex items-center justify-center transition-all duration-300 shadow-lg", !isRecording && audioBlob && !error ? "bg-primary text-white scale-110 shadow-sky-500/30 hover:shadow-sky-500/50" : "bg-slate-100 text-slate-300 dark:bg-slate-800 dark:text-slate-600 shadow-none")}>
           <Send size={22} className={cn("transition-transform duration-300", !isRecording && audioBlob && "scale-110")} />
         </Button>
       </div>

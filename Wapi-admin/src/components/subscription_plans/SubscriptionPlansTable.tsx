@@ -60,7 +60,7 @@ const SubscriptionPlansTable = ({ subscriptions, page, totalPages, total, onPage
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
-        return <Badge className="bg-emerald-100 text-(--text-green-primary) dark:bg-transparent dark:border-(--card-border-color) dark:hover:bg-page-body hover:bg-emerald-100">{t("subscription.status.active")}</Badge>;
+        return <Badge className="bg-sky-100 text-(--text-green-primary) dark:bg-transparent dark:border-(--card-border-color) dark:hover:bg-page-body hover:bg-sky-100">{t("subscription.status.active")}</Badge>;
       case "pending":
         return <Badge className="bg-amber-100 text-amber-700 dark:bg-transparent dark:border-(--card-border-color) dark:hover:bg-page-body hover:bg-amber-100">{t("subscription.status.pending")}</Badge>;
       case "expired":
@@ -178,7 +178,7 @@ const SubscriptionPlansTable = ({ subscriptions, page, totalPages, total, onPage
         {isManualOrAdmin && isPending ? (
           <>
             <Can permission="update.subscriptions">
-              <Button variant="ghost" size="icon" className="w-10 h-10 text-primary hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-all" onClick={() => handleApprove(sub._id)} title={t("common.approve")}>
+              <Button variant="ghost" size="icon" className="w-10 h-10 text-primary hover:text-sky-700 hover:bg-sky-50 dark:hover:bg-sky-900/20 rounded-lg transition-all" onClick={() => handleApprove(sub._id)} title={t("common.approve")}>
                 <Check className="w-5 h-5" />
               </Button>
             </Can>

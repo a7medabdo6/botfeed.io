@@ -67,7 +67,7 @@ const MessageSearchOverlay = ({ isOpen, onClose, contactId, phoneNumberId, onMes
         <div className="max-h-100 overflow-y-auto border-t border-gray-100 dark:border-(--card-border-color) bg-white dark:bg-(--dark-sidebar) shadow-xl custom-scrollbar">
           {isLoading ? (
             <div className="flex justify-center p-8">
-              <Loader2 className="w-6 h-6 animate-spin text-emerald-500" />
+              <Loader2 className="w-6 h-6 animate-spin text-sky-500" />
             </div>
           ) : flatMessages.length === 0 ? (
             <div className="p-8 text-center text-slate-500 dark:text-gray-400 text-sm">No messages found matching &quot;{debouncedSearch}&quot;</div>

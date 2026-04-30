@@ -91,11 +91,11 @@ const ConnectWABA = () => {
             <Card className="border-gray-100 dark:bg-(--card-color) dark:border-(--card-border-color) shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 rounded-lg bg-green-50 dark:bg-(--dark-sidebar) flex items-center justify-center text-primary shadow-inner">
+                  <div className="w-12 h-12 rounded-lg bg-sky-50 dark:bg-(--dark-sidebar) flex items-center justify-center text-primary shadow-inner">
                     <MessageCircle size={28} />
                   </div>
                   {isConnected ? (
-                    <Badge variant="success" className="px-2.5 py-1 gap-1.5 flex items-center bg-green-50 dark:bg-(--page-body-bg) dark:border-(--card-border-color) dark:hover:bg-(--table-hover) text-primary border-green-100">
+                    <Badge variant="success" className="px-2.5 py-1 gap-1.5 flex items-center bg-sky-50 dark:bg-(--page-body-bg) dark:border-(--card-border-color) dark:hover:bg-(--table-hover) text-primary border-sky-100">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                       Connected
                     </Badge>

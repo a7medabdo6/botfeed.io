@@ -14,7 +14,7 @@ export function BaseNode({
   iconBgColor = "bg-gray-100",
   iconColor = "text-gray-600",
   borderColor = "border-gray-200",
-  handleColor = "bg-emerald-500!",
+  handleColor = "bg-primary!",
   errors = [],
   children,
   showInHandle = true,
@@ -25,7 +25,7 @@ export function BaseNode({
   filledHeaderTone = "violet",
 }: BaseNodeProps) {
   const { deleteElements } = useReactFlow();
-  const headerBarClass = filledHeader ? (filledHeaderTone === "emerald" ? "bg-emerald-600" : "bg-violet-600") : "";
+  const headerBarClass = filledHeader ? (filledHeaderTone === "emerald" ? "bg-primary" : "bg-violet-600") : "";
 
   return (
     <div

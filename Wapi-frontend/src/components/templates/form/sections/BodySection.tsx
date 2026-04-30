@@ -18,14 +18,14 @@ export const BodySection = ({ messageBody, handleBodyChange, addVariable, setEdi
 
       <div className="space-y-4">
         <CharacterCountWrapper current={messageBody?.replace(/<[^>]*>/g, "")?.length || 0} max={1600}>
-          <div className="relative group rounded-lg overflow-hidden border-2 border-slate-100 dark:border-(--card-border-color) focus-within:border-emerald-500/30 transition-all shadow-sm">
+          <div className="relative group rounded-lg overflow-hidden border-2 border-slate-100 dark:border-(--card-border-color) focus-within:border-sky-500/30 transition-all shadow-sm">
             <CkEditor value={messageBody} onChange={handleBodyChange} onReady={setEditor} placeholder="Type your message here..." minHeight="200px" />
             <div className="p-3 bg-slate-50/50 dark:bg-(--table-hover) border-t border-slate-100 dark:border-(--card-border-color) flex flex-wrap gap-3 sm:gap-0 items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <div className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
                 <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none">Rich Text Editor</span>
               </div>
-              <button type="button" onClick={addVariable} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-(--dark-sidebar) border border-slate-200 dark:border-(--card-border-color) rounded-lg text-[10px] font-bold text-emerald-600 dark:text-primary hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-(--table-hover) transition-all shadow-sm uppercase tracking-wider">
+              <button type="button" onClick={addVariable} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-(--dark-sidebar) border border-slate-200 dark:border-(--card-border-color) rounded-lg text-[10px] font-bold text-sky-600 dark:text-primary hover:border-sky-500 hover:bg-sky-50 dark:hover:bg-(--table-hover) transition-all shadow-sm uppercase tracking-wider">
                 <Plus size={12} />
                 Add Variable
               </button>
@@ -46,7 +46,7 @@ export const BodySection = ({ messageBody, handleBodyChange, addVariable, setEdi
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold text-primary uppercase tracking-widest leading-none">Variable {"{{" + variable.key + "}}"}</span>
                 </div>
-                <Input placeholder={`Example for ${variable.key}`} value={variable.example} onChange={(e) => updateVariable(index, e.target.value)} className="h-10 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-white dark:bg-(--page-body-bg) text-sm focus:border-emerald-500/50 transition-all" />
+                <Input placeholder={`Example for ${variable.key}`} value={variable.example} onChange={(e) => updateVariable(index, e.target.value)} className="h-10 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-white dark:bg-(--page-body-bg) text-sm focus:border-sky-500/50 transition-all" />
               </div>
             ))}
           </div>

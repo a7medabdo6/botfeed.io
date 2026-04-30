@@ -49,7 +49,7 @@ const ChatFilterModal = ({ isOpen, onClose, onApply, initialFilters }: ChatFilte
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-106.25 p-0! gap-0 overflow-hidden bg-white dark:bg-(--card-color) border-none shadow-xl rounded-lg">
         <DialogHeader className="p-4 border-b border-gray-100 dark:border-(--card-border-color)">
-          <DialogTitle className="flex items-center gap-2 text-lg font-bold text-primary dark:text-emerald-100">
+          <DialogTitle className="flex items-center gap-2 text-lg font-bold text-primary dark:text-sky-100">
             <Filter className="w-5 h-5 text-primary" />
             Filter Conversations
             <Button
@@ -132,7 +132,7 @@ const ChatFilterModal = ({ isOpen, onClose, onApply, initialFilters }: ChatFilte
             <X className="w-4 h-4 mr-2" />
             Reset Filters
           </Button>
-          <Button onClick={handleApply} className="flex-1 h-10 rounded-lg bg-primary hover:bg-primary text-white shadow-lg shadow-emerald-500/20">
+          <Button onClick={handleApply} className="flex-1 h-10 rounded-lg bg-primary hover:bg-primary text-white shadow-lg shadow-sky-500/20">
             Apply Filters
           </Button>
         </div>

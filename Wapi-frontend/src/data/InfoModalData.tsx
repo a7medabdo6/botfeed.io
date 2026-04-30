@@ -40,7 +40,7 @@ export const INFOMODALDATE: Record<string, InfoModalItem> = {
   },
   manual_connection_keys: {
     title: "Manual Connection Keys",
-    description: "Essential credentials from your Meta Developer App to sync with WAPI.",
+    description: "Essential credentials from your Meta Developer App to sync with Botfeed.",
     content: [
       {
         label: "Phone Number ID",

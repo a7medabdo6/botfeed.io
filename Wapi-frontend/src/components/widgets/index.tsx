@@ -19,15 +19,15 @@ const DEFAULTS: Partial<WidgetData> = {
   default_open_popup: false,
   default_user_message: "Hi, I need help !!",
   widget_position: "bottom-right",
-  widget_color: "#059669",
+  widget_color: "#00AEEF",
   header_text: "Chat with us",
   header_text_color: "#ffffff",
-  header_background_color: "#059669",
+  header_background_color: "#00AEEF",
   body_background_color: "#f0faf6",
   welcome_text_color: "#1a2a2a",
   welcome_text_background: "#ffffff",
   start_chat_button_text: "Start Chat on WhatsApp",
-  start_chat_button_background: "#059669",
+  start_chat_button_background: "#00AEEF",
   start_chat_button_text_color: "#ffffff",
 };
 

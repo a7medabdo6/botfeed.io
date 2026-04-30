@@ -364,7 +364,7 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
           </div>
         )}
         <div className="flex items-center gap-3 contact-info [@media(max-width:991px)]:mr-auto" onClick={() => !isModal && onToggleProfile()}>
-          <div className="h-10 w-10 rounded-full flex items-center justify-center text-white font-bold overflow-hidden" style={{ backgroundColor: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" }}>
+          <div className="h-10 w-10 rounded-full flex items-center justify-center text-white font-bold overflow-hidden" style={{ backgroundColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" }}>
             {currentContactAvatar ? <Image src={currentContactAvatar} alt={currentContactName || ""} width={40} height={40} className="object-cover" unoptimized /> : getInitials(app_name || "W")}
           </div>
           <div>
@@ -388,11 +388,11 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
             size="sm"
             onClick={handleToggleStatus}
             disabled={isStatusUpdating}
-            className={cn("flex items-center gap-1.5 h-9 px-3 rounded-lg transition-all font-bold text-[12px] tracking-wider", selectedChat?.contact?.chat_status === "resolved" ? "border border-primary/20 bg-primary/10 text-primary hover:text-primary/70 hover:bg-primary20 dark:bg-emerald-500/20 dark:text-primary" : "border border-slate-300 bg-slate-100 text-slate-600 dark:border-(--card-border-color) hover:bg-slate-200 dark:bg-(--page-body-bg) dark:text-gray-400 hover:text-primary")}
+            className={cn("flex items-center gap-1.5 h-9 px-3 rounded-lg transition-all font-bold text-[12px] tracking-wider", selectedChat?.contact?.chat_status === "resolved" ? "border border-primary/20 bg-primary/10 text-primary hover:text-primary/70 hover:bg-primary20 dark:bg-sky-500/20 dark:text-primary" : "border border-slate-300 bg-slate-100 text-slate-600 dark:border-(--card-border-color) hover:bg-slate-200 dark:bg-(--page-body-bg) dark:text-gray-400 hover:text-primary")}
             style={
               isCustom
                 ? {
-                    color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)",
+                    color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)",
                     borderColor: selectedChat?.contact?.chat_status === "resolved" ? "var(--chat-theme-color)" : undefined,
                     backgroundColor: selectedChat?.contact?.chat_status === "resolved" ? (userSettingData?.theme_color == "null" ? "var(--light-primary)" : "color-mix(in srgb, var(--chat-theme-color), transparent 90%)") : undefined,
                   }
@@ -408,10 +408,10 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
           )}
           {!isModal && (
             <>
-              <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(!isSearchOpen)} className={isSearchOpen ? "text-emerald-500 bg-emerald-50 dark:bg-(--card-color) dark:hover:bg-(--table-hover) " : "text-slate-600 hover:text-primary dark:hover:text-primary dark:text-white"}>
+              <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(!isSearchOpen)} className={isSearchOpen ? "text-sky-500 bg-sky-50 dark:bg-(--card-color) dark:hover:bg-(--table-hover) " : "text-slate-600 hover:text-primary dark:hover:text-primary dark:text-white"}>
                 <Search size={20} />
               </Button>
-              <Button variant="ghost" size="icon" onClick={() => setIsDateFilterOpen(true)} className={`relative ${activeFilterCount > 0 ? "text-primary bg-emerald-50 dark:bg-(--dark-sidebar) dark:hover:bg-(--table-hover)" : "text-slate-600 hover:text-primary dark:hover:text-primary dark:text-white"}`}>
+              <Button variant="ghost" size="icon" onClick={() => setIsDateFilterOpen(true)} className={`relative ${activeFilterCount > 0 ? "text-primary bg-sky-50 dark:bg-(--dark-sidebar) dark:hover:bg-(--table-hover)" : "text-slate-600 hover:text-primary dark:hover:text-primary dark:text-white"}`}>
                 <Filter size={20} />
                 {activeFilterCount > 0 && <span className="absolute top-2 right-2 h-2 w-2 bg-primary rounded-full" />}
               </Button>
@@ -442,7 +442,7 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
         <div className="relative p-3 bg-slate-50 dark:bg-(--table-hover) border-t border-gray-200 dark:border-(--card-border-color)">
           <div className="flex justify-between pb-2">
             <div className="flex flex-col justify-center">
-              <span className="text-xs font-semibold text-primary bg-emerald-50 dark:bg-emerald-500/10 px-2 py-1 rounded-md border border-emerald-100 dark:border-emerald-500/20">{selectedMedia.length} files selected</span>
+              <span className="text-xs font-semibold text-primary bg-sky-50 dark:bg-sky-500/10 px-2 py-1 rounded-md border border-sky-100 dark:border-sky-500/20">{selectedMedia.length} files selected</span>
             </div>
             <button onClick={() => setSelectedMedia([])} className="absolute top-2 right-2 text-slate-400 hover:text-rose-500 transition-colors">
               <X size={18} />
@@ -514,7 +514,7 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
                   size="icon"
                   onClick={() => setIsSuggestReplyModalOpen(true)}
                   className="bg-gray-100 rounded-lg dark:bg-(--page-body-bg) dark:hover:bg-(--table-hover) dark:text-gray-400 transition-colors"
-                  style={{ color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" }}
+                  style={{ color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = "color-mix(in srgb, var(--chat-theme-color), transparent 90%)";
                   }}
@@ -533,7 +533,7 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
                   size="icon"
                   onClick={() => setIsQuickReplyModalOpen(true)}
                   className="bg-gray-100 rounded-lg dark:bg-(--page-body-bg) dark:hover:bg-(--table-hover) dark:text-gray-400 transition-colors"
-                  style={{ color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" }}
+                  style={{ color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = "color-mix(in srgb, var(--chat-theme-color), transparent 90%)";
                   }}
@@ -563,14 +563,14 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
                 />
 
                 {messageText.trim() && (
-                  <button onClick={() => setIsAiTransformModalOpen(true)} className="p-1.5 rounded-lg text-primary hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-(--table-hover) dark:bg-(--dark-sidebar) transition-all group" title="AI Text Transform">
+                  <button onClick={() => setIsAiTransformModalOpen(true)} className="p-1.5 rounded-lg text-primary hover:text-sky-600 hover:bg-sky-50 dark:hover:bg-(--table-hover) dark:bg-(--dark-sidebar) transition-all group" title="AI Text Transform">
                     <Sparkles size={18} className="group-hover:animate-pulse" />
                   </button>
                 )}
               </div>
 
               <div className="pr-1 [@media(max-width:535px)]:absolute [@media(max-width:535px)]:right-2.5 [@media(max-width:535px)]:bottom-2">
-                <Button onClick={handleSend} disabled={(!messageText.trim() && selectedMedia.length === 0) || isSending || isLoading} className={cn("h-10 w-10 rounded-lg flex items-center justify-center transition-all duration-300", messageText.trim() || selectedMedia.length > 0 ? "text-white shadow-emerald-500/20" : "bg-slate-100 dark:bg-primary dark:text-gray-300 text-slate-400")} style={messageText.trim() || selectedMedia.length > 0 ? { backgroundColor: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}}>
+                <Button onClick={handleSend} disabled={(!messageText.trim() && selectedMedia.length === 0) || isSending || isLoading} className={cn("h-10 w-10 rounded-lg flex items-center justify-center transition-all duration-300", messageText.trim() || selectedMedia.length > 0 ? "text-white shadow-sky-500/20" : "bg-slate-100 dark:bg-primary dark:text-gray-300 text-slate-400")} style={messageText.trim() || selectedMedia.length > 0 ? { backgroundColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}>
                   {isSending || isLoading ? <Loader2 className="animate-spin" size={20} /> : <Send size={20} />}
                 </Button>
               </div>

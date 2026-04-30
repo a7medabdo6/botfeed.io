@@ -42,7 +42,7 @@ const InteractiveMessage: React.FC<InteractiveMessageProps> = ({ message, isWind
           {interactiveData?.interactiveType === "button" && interactiveData.buttons && (
             <div className={cn("flex flex-col border-t m-1 mx-2 gap-1 pt-1", isOutgoing ? "border-white/10" : "border-slate-100 dark:border-white/10")}>
               {interactiveData.buttons.map((btn, index) => (
-                <Button key={index} className={cn("w-full text-[13.5px] py-1.5 border rounded-lg font-semibold transition-colors text-center", isOutgoing ? "border-white/20 text-white hover:bg-white/10" : "border-primary/20 text-primary hover:bg-emerald-50 dark:border-primary/20 dark:hover:bg-primary/10")} disabled>
+                <Button key={index} className={cn("w-full text-[13.5px] py-1.5 border rounded-lg font-semibold transition-colors text-center", isOutgoing ? "border-white/20 text-white hover:bg-white/10" : "border-primary/20 text-primary hover:bg-sky-50 dark:border-primary/20 dark:hover:bg-primary/10")} disabled>
                   {btn.title}
                 </Button>
               ))}
@@ -51,7 +51,7 @@ const InteractiveMessage: React.FC<InteractiveMessageProps> = ({ message, isWind
 
           {interactiveData?.interactiveType === "list" && interactiveData.list && (
             <div className={cn("border-t m-1 mx-2 pt-1", isOutgoing ? "border-white/10" : "border-slate-100 dark:border-white/10")}>
-              <div onClick={() => setIsListModalOpen(true)} className={cn("flex items-center justify-center gap-2 cursor-pointer px-4 py-1.5 border rounded-lg transition-colors", isOutgoing ? "border-primary/50 hover:bg-white/10" : "border-primary/20 hover:bg-emerald-50 dark:hover:bg-primary/10")}>
+              <div onClick={() => setIsListModalOpen(true)} className={cn("flex items-center justify-center gap-2 cursor-pointer px-4 py-1.5 border rounded-lg transition-colors", isOutgoing ? "border-primary/50 hover:bg-white/10" : "border-primary/20 hover:bg-sky-50 dark:hover:bg-primary/10")}>
                 <List size={15} className={isOutgoing ? "text-primary" : "text-primary"} />
                 <span className={cn("text-[13.5px] font-bold", isOutgoing ? "text-slate-600" : "text-white/80")}>{interactiveData.list.buttonTitle}</span>
               </div>

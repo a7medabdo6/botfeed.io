@@ -116,7 +116,7 @@ const ImportJobTable: React.FC = () => {
     switch (status) {
       case "completed":
         return (
-          <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 gap-1.5 px-2.5 py-0.5 font-bold">
+          <Badge className="bg-sky-500/10 text-sky-600 border-sky-500/20 gap-1.5 px-2.5 py-0.5 font-bold">
             <CheckCircle2 size={12} /> Completed
           </Badge>
         );
@@ -194,7 +194,7 @@ const ImportJobTable: React.FC = () => {
               </span>
             </div>
             <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-              <div className={cn("h-full transition-all duration-500", item.status === "completed" ? "bg-emerald-500" : item.status === "failed" ? "bg-red-500" : "bg-primary animate-pulse")} style={{ width: `${(item.processed_count / (item.total_records || 1)) * 100}%` }} />
+              <div className={cn("h-full transition-all duration-500", item.status === "completed" ? "bg-sky-500" : item.status === "failed" ? "bg-red-500" : "bg-primary animate-pulse")} style={{ width: `${(item.processed_count / (item.total_records || 1)) * 100}%` }} />
             </div>
           </div>
         ),
@@ -228,7 +228,7 @@ const ImportJobTable: React.FC = () => {
         className: "text-right [@media(max-width:1540px)]:min-w-[160px]",
         cell: (item) => (
           <div className="flex items-center justify-end gap-2">
-            <Button variant="outline" size="sm" className={cn("h-10 w-10 border-none p-0 text-slate-500 hover:text-primary hover:bg-emerald-50 dark:hover:bg-emerald-500/10", (!item.errors || item.errors.length === 0) && "opacity-50 cursor-not-allowed")} onClick={() => handleDownloadErrors(item)} title="Download Error Log" disabled={!item.errors || item.errors.length === 0}>
+            <Button variant="outline" size="sm" className={cn("h-10 w-10 border-none p-0 text-slate-500 hover:text-primary hover:bg-sky-50 dark:hover:bg-sky-500/10", (!item.errors || item.errors.length === 0) && "opacity-50 cursor-not-allowed")} onClick={() => handleDownloadErrors(item)} title="Download Error Log" disabled={!item.errors || item.errors.length === 0}>
               <FileDown size={16} />
             </Button>
             <Can permission="delete.import_jobs">

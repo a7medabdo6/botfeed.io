@@ -183,7 +183,7 @@ const GoogleAccountPage = () => {
         className: "text-right",
         cell: (item: GoogleAccountRow) => (
           <div className="flex justify-end gap-1">
-            <Button variant="outline" size="icon" className="h-9 w-9 border-none text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-lg" asChild title="Calendars">
+            <Button variant="outline" size="icon" className="h-9 w-9 border-none text-slate-400 hover:text-primary hover:bg-sky-50 rounded-lg" asChild title="Calendars">
               <Link href={`/google_account/${item._id}`}>
                 <Calendar size={15} />
               </Link>
@@ -192,7 +192,7 @@ const GoogleAccountPage = () => {
               <Button
                 variant="outline"
                 size="icon"
-                className="h-9 w-9 border-none text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-lg"
+                className="h-9 w-9 border-none text-slate-400 hover:text-primary hover:bg-sky-50 rounded-lg"
                 title="Sync calendars"
                 disabled={!!syncingId}
                 onClick={(e) => {
@@ -275,7 +275,7 @@ const GoogleAccountPage = () => {
         onConfirm={confirmDisconnect}
         isLoading={isDisconnecting}
         title="Disconnect Google account"
-        subtitle="This removes the link in Wapi. Calendars stored for this account will be marked disconnected."
+        subtitle="This removes the link in Botfeed. Calendars stored for this account will be marked disconnected."
         confirmText="Disconnect"
         variant="danger"
       />

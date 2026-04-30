@@ -17,7 +17,7 @@ const QuickActionsCard = () => {
     },
     {
       title: "Tools",
-      icon: <Users size={18} className="text-emerald-500" />,
+      icon: <Users size={18} className="text-sky-500" />,
       path: "/tools",
       color: "emerald",
       description: "Manage chat bot & message link",
@@ -37,7 +37,7 @@ const QuickActionsCard = () => {
         {actions.map((action, i) => (
           <button key={i} onClick={() => router.push(action.path)} className="w-full flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-(--page-body-bg) border border-slate-100 dark:border-none hover:border-primary/30 hover:bg-primary/5 transition-all group">
             <div className="flex items-center gap-3">
-              <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110", action.color === "blue" && "bg-blue-50 dark:bg-blue-500/10", action.color === "emerald" && "bg-emerald-50 dark:bg-emerald-500/10", action.color === "amber" && "bg-amber-50 dark:bg-amber-500/10")}>{action.icon}</div>
+              <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110", action.color === "blue" && "bg-blue-50 dark:bg-blue-500/10", action.color === "emerald" && "bg-sky-50 dark:bg-sky-500/10", action.color === "amber" && "bg-amber-50 dark:bg-amber-500/10")}>{action.icon}</div>
               <div className="text-left">
                 <p className="text-sm font-bold text-slate-700 dark:text-white">{action.title}</p>
                 <p className="text-[10px] text-slate-400 font-medium line-clamp-1">{action.description}</p>

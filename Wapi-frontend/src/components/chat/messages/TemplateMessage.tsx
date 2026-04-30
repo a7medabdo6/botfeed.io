@@ -35,7 +35,7 @@ const TemplateMessage: React.FC<TemplateMessageProps> = ({ message, isWindowExpi
         {isLimitedTimeOffer && (
           <div className="dark:bg-slate-800 p-3 border-b border-slate-100 dark:border-slate-700">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+              <div className="w-10 h-10 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center text-sky-600 dark:text-sky-400 shrink-0">
                 <Gift size={20} />
               </div>
               <div className="flex-1 min-w-0">
@@ -49,8 +49,8 @@ const TemplateMessage: React.FC<TemplateMessageProps> = ({ message, isWindowExpi
         {isCatalog && (
           <div className="border-b border-slate-100 dark:border-slate-700">
             <div className="flex items-center gap-2.5 p-3">
-              <div className="w-12 h-12 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800 flex items-center justify-center shrink-0 overflow-hidden">
-                <ShoppingBag size={20} className="text-emerald-500" />
+              <div className="w-12 h-12 rounded-lg bg-sky-50 dark:bg-sky-900/20 border border-sky-100 dark:border-sky-800 flex items-center justify-center shrink-0 overflow-hidden">
+                <ShoppingBag size={20} className="text-sky-500" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-[12px] font-bold text-slate-800 dark:text-slate-200 leading-tight">View our catalog</p>
@@ -61,9 +61,9 @@ const TemplateMessage: React.FC<TemplateMessageProps> = ({ message, isWindowExpi
         )}
 
         {isAuthentication && (
-          <div className="p-3 flex items-center gap-2.5 border-b border-slate-100 dark:border-slate-700 bg-emerald-50/30 dark:bg-emerald-900/10">
-            <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center shrink-0">
-              <ShieldCheck size={15} className="text-emerald-600 dark:text-emerald-400" />
+          <div className="p-3 flex items-center gap-2.5 border-b border-slate-100 dark:border-slate-700 bg-sky-50/30 dark:bg-sky-900/10">
+            <div className="w-8 h-8 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center shrink-0">
+              <ShieldCheck size={15} className="text-sky-600 dark:text-sky-400" />
             </div>
             <div>
               <p className="text-[12px] font-bold text-slate-800 dark:text-slate-200 leading-tight">OTP Verification</p>

@@ -21,7 +21,7 @@ const ProfileContactSummary = ({ profileData, onDelete, onOpenTagModal, onRemove
 
   return (
     <div className="relative border dark:bg-(--table-hover)! dark:border-none border-gray-100 dark:border-(--card-border-color) rounded-lg p-5 flex items-center justify-center flex-col" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 95%)" } : {}}>
-      <div className="h-12 w-12 shrink-0 mb-4 rounded-full flex items-center justify-center text-white font-bold text-xl overflow-hidden" style={isCustom ? { backgroundColor: userSettingData?.bg_color == "null" ? "#059669" : "var(--chat-theme-color)" } : { backgroundColor: userSettingData?.bg_color == "null" ? "#059669" : "var(--primary)" }}>
+      <div className="h-12 w-12 shrink-0 mb-4 rounded-full flex items-center justify-center text-white font-bold text-xl overflow-hidden" style={isCustom ? { backgroundColor: userSettingData?.bg_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : { backgroundColor: userSettingData?.bg_color == "null" ? "#00AEEF" : "var(--primary)" }}>
         {profileData?.contact?.avatar ? <Image src={profileData?.contact?.avatar} alt={profileData?.contact?.name} width={64} height={64} className="object-cover" unoptimized /> : getInitials(app_name || "W")}
       </div>
       <h3 className="font-bold text-slate-900 dark:text-white truncate">{isAgent && user?.is_phoneno_hide ? "Customer" : maskSensitiveData(profileData?.contact?.phone_number, "phone", is_demo_mode)}</h3>

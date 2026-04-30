@@ -26,7 +26,7 @@ export const TemplatePreviewBubble = ({ templateType, headerText, bodyText, foot
         {isLimitedTimeOffer && (
           <div className="bg-white p-3 border-b border-(--input-border-color) dark:bg-(--card-color) dark:border-(--card-border-color)">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-(--dark-body) flex items-center justify-center text-primary shrink-0">
+              <div className="w-10 h-10 rounded-full bg-sky-100 dark:bg-(--dark-body) flex items-center justify-center text-primary shrink-0">
                 <Gift size={20} />
               </div>
               <div className="flex-1 min-w-0">
@@ -52,8 +52,8 @@ export const TemplatePreviewBubble = ({ templateType, headerText, bodyText, foot
           </div>
         )}
         {isAuthentication && (
-          <div className="p-3 flex items-center gap-2.5 border-b border-(--input-border-color) dark:border-(--card-border-color) bg-green-50 dark:bg-(--card-color)">
-            <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-(--dark-body) flex items-center justify-center shrink-0">
+          <div className="p-3 flex items-center gap-2.5 border-b border-(--input-border-color) dark:border-(--card-border-color) bg-sky-50 dark:bg-(--card-color)">
+            <div className="w-8 h-8 rounded-full bg-sky-100 dark:bg-(--dark-body) flex items-center justify-center shrink-0">
               <ShieldCheck size={15} className="text-primary" />
             </div>
             <div>

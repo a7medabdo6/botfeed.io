@@ -1,4 +1,4 @@
-# Wapi — Feature Overview
+# Botfeed — Feature Overview
 
 A comprehensive WhatsApp Business platform for customer engagement, automation, and e-commerce.
 

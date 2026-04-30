@@ -152,7 +152,7 @@ const DataTable = <T,>({ data, columns, page = 1, total = 0, onPageChange, onLim
               <tr>
                 {hasDeleteActions && (
                   <th className={`w-12 px-6 py-3 ${selectionClassName}`}>
-                    <input type="checkbox" className="relative w-4 h-4 rounded appearance-none checked:bg-(--text-green-primary) checked:before:content-['✓'] checked:before:absolute checked:before:-top-1.25 checked:before:text-white checked:before:right-0 border indeterminate:before:content-[''] indeterminate:before:absolute indeterminate:before:top-1/2 indeterminate:before:left-1/2 indeterminate:before:w-2 indeterminate:before:h-0.5 indeterminate:before:-translate-x-1/2 indeterminate:before:-translate-y-1/2 indeterminate:before:bg-white border-gray-300 text-green-500 focus:ring-green-500 dark:border-(--card-border-color) indeterminate:bg-(--text-green-primary)" checked={allSelected} onChange={(e) => handleSelectAll(e.target.checked)} ref={headerCheckboxRef} />
+                    <input type="checkbox" className="relative w-4 h-4 rounded appearance-none checked:bg-(--text-green-primary) checked:before:content-['✓'] checked:before:absolute checked:before:-top-1.25 checked:before:text-white checked:before:right-0 border indeterminate:before:content-[''] indeterminate:before:absolute indeterminate:before:top-1/2 indeterminate:before:left-1/2 indeterminate:before:w-2 indeterminate:before:h-0.5 indeterminate:before:-translate-x-1/2 indeterminate:before:-translate-y-1/2 indeterminate:before:bg-white border-gray-300 text-sky-500 focus:ring-sky-500 dark:border-(--card-border-color) indeterminate:bg-(--text-green-primary)" checked={allSelected} onChange={(e) => handleSelectAll(e.target.checked)} ref={headerCheckboxRef} />
                   </th>
                 )}
                 {columns.map((column, index) => {
@@ -192,7 +192,7 @@ const DataTable = <T,>({ data, columns, page = 1, total = 0, onPageChange, onLim
                           <div className="flex items-center gap-2 max-w-xs sm:max-w-md">
                             <div className="whitespace-normal overflow-hidden break-all">{column.cell ? column.cell(row) : column.accessor ? column.accessor(row) : column.accessorKey ? String((row as any)[column.accessorKey] ?? "") : null}</div>
                             {column.copyable && (
-                              <button onClick={(e) => !is_demo_mode && handleCopy(e, valueToCopy)} disabled={is_demo_mode} className={`p-1.5 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-md transition-all text-gray-400 hover:text-primary opacity-0 group-hover/row:opacity-100 shrink-0 ${is_demo_mode ? "cursor-not-allowed" : ""}`} title={is_demo_mode ? "Copying restricted in demo mode" : "Copy to clipboard"}>
+                              <button onClick={(e) => !is_demo_mode && handleCopy(e, valueToCopy)} disabled={is_demo_mode} className={`p-1.5 hover:bg-sky-50 dark:hover:bg-sky-900/20 rounded-md transition-all text-gray-400 hover:text-primary opacity-0 group-hover/row:opacity-100 shrink-0 ${is_demo_mode ? "cursor-not-allowed" : ""}`} title={is_demo_mode ? "Copying restricted in demo mode" : "Copy to clipboard"}>
                                 <Copy size={13} />
                               </button>
                             )}

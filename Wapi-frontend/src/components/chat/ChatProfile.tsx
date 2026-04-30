@@ -199,7 +199,7 @@ const ChatProfile = () => {
 
       {isLoadingProfile ? (
         <div className="flex-1 flex items-center justify-center">
-          <Loader2 className="animate-spin text-emerald-500" size={32} />
+          <Loader2 className="animate-spin text-sky-500" size={32} />
         </div>
       ) : (
         <div className="sm:p-4 p-2 space-y-4 overflow-y-auto custom-scrollbar">

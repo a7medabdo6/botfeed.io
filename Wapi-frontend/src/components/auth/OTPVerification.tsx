@@ -117,15 +117,15 @@ export const OTPVerificationPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-emerald-50 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-sky-50 flex items-center justify-center p-4 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-sky-200/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 w-full max-w-5xl">
         <div className="grid lg:grid-cols-2 gap-0 items-center">
-          <div className="hidden lg:flex flex-col justify-center p-12 bg-linear-to-br from-emerald-600 to-teal-700 rounded-l-3xl relative overflow-hidden min-h-150">
+          <div className="hidden lg:flex flex-col justify-center p-12 bg-linear-to-br from-sky-600 to-teal-700 rounded-l-3xl relative overflow-hidden min-h-150">
             <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-24 -mt-24"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mb-32"></div>
 
@@ -136,18 +136,18 @@ export const OTPVerificationPage = () => {
 
               <div>
                 <h2 className="text-4xl text-white mb-4 leading-tight">{t("auth.verify_email_address_title")}</h2>
-                <p className="text-emerald-100 text-lg">{t("auth.verification_code_sent_desc")}</p>
+                <p className="text-sky-100 text-lg">{t("auth.verification_code_sent_desc")}</p>
               </div>
 
               <div className="space-y-4">
                 <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-5">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 bg-sky-500 rounded-lg flex items-center justify-center shrink-0">
                       <Mail className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <p className="text-white font-semibold mb-1">{t("auth.check_inbox")}</p>
-                      <p className="text-emerald-100 text-sm">
+                      <p className="text-sky-100 text-sm">
                         {t("auth.sent_code_to")} <span className="font-semibold">{email}</span>
                       </p>
                     </div>
@@ -161,15 +161,15 @@ export const OTPVerificationPage = () => {
                     </div>
                     <div>
                       <p className="text-white font-semibold mb-1">{t("auth.valid_for_10_mins")}</p>
-                      <p className="text-emerald-100 text-sm">{t("auth.code_expires_desc")}</p>
+                      <p className="text-sky-100 text-sm">{t("auth.code_expires_desc")}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="pt-4">
-                <p className="text-emerald-200 text-sm font-medium mb-2">💡 {t("auth.didnt_receive_it_tip")}</p>
-                <ul className="text-emerald-100 text-sm space-y-1">
+                <p className="text-sky-200 text-sm font-medium mb-2">💡 {t("auth.didnt_receive_it_tip")}</p>
+                <ul className="text-sky-100 text-sm space-y-1">
                   <li>• {t("auth.check_spam_bullet")}</li>
                   <li>• {t("auth.ensure_email_correct", { email })}</li>
                   <li>• {t("auth.wait_and_request_bullet")}</li>
@@ -179,7 +179,7 @@ export const OTPVerificationPage = () => {
           </div>
 
           <div className="bg-white lg:rounded-r-3xl shadow-2xl p-8 lg:p-12 min-h-150 flex flex-col justify-center relative">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-emerald-100/50 to-teal-100/50 rounded-bl-full"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-sky-100/50 to-teal-100/50 rounded-bl-full"></div>
 
             <div className="relative z-10 max-w-md mx-auto w-full">
               <Button onClick={() => router.push(ROUTES.Login)} className="bg-transparent hover:bg-gray-100 flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-8 transition-colors group">
@@ -214,7 +214,7 @@ export const OTPVerificationPage = () => {
                         value={digit}
                         onChange={(e) => handleChange(index, e.target.value)}
                         onKeyDown={(e) => handleKeyDown(index, e)}
-                        className="w-14 h-16 text-center text-2xl font-bold border border-(--input-border-color) rounded-lg focus:border-primary focus:ring-4 focus:ring-emerald-100 outline-none transition-all bg-slate-50 focus:bg-white"
+                        className="w-14 h-16 text-center text-2xl font-bold border border-(--input-border-color) rounded-lg focus:border-primary focus:ring-4 focus:ring-sky-100 outline-none transition-all bg-slate-50 focus:bg-white"
                       />
                     ))}
                   </div>
@@ -244,7 +244,7 @@ export const OTPVerificationPage = () => {
                   )}
                 </div>
 
-                <Button type="submit" className="w-full h-13 bg-primary text-white rounded-lg shadow-lg shadow-emerald-500/30 transition-all text-base font-semibold" disabled={isLoading || otp.some((d) => !d)}>
+                <Button type="submit" className="w-full h-13 bg-primary text-white rounded-lg shadow-lg shadow-sky-500/30 transition-all text-base font-semibold" disabled={isLoading || otp.some((d) => !d)}>
                   {isLoading ? (
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

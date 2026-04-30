@@ -43,7 +43,7 @@ const ChatbotPreview: React.FC<ChatbotPreviewProps> = ({ data, bodyBgImagePrevie
             <div
               className="flex items-center gap-3 px-4 py-4 shrink-0"
               style={{
-                backgroundColor: data.header_background_color || "#059669",
+                backgroundColor: data.header_background_color || "#00AEEF",
                 color: data.header_text_color || "#ffffff",
               }}
             >
@@ -79,9 +79,9 @@ const ChatbotPreview: React.FC<ChatbotPreviewProps> = ({ data, bodyBgImagePrevie
 
               <div className="pt-2 pb-1 shrink-0">
                 <button
-                  className="w-full py-3 px-6 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-lg shadow-emerald-900/10 hover:brightness-110"
+                  className="w-full py-3 px-6 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-lg shadow-sky-900/10 hover:brightness-110"
                   style={{
-                    backgroundColor: data.start_chat_button_background || "#059669",
+                    backgroundColor: data.start_chat_button_background || "#00AEEF",
                     color: data.start_chat_button_text_color || "#ffffff",
                   }}
                 >
@@ -97,7 +97,7 @@ const ChatbotPreview: React.FC<ChatbotPreviewProps> = ({ data, bodyBgImagePrevie
       </AnimatePresence>
 
       <div className="z-20">
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setIsOpen(!isOpen)} className="w-14 h-14 rounded-full shadow-2xl flex items-center justify-center cursor-pointer relative border-2 border-white dark:border-slate-800 transition-colors" style={{ backgroundColor: data.widget_color || "#059669" }}>
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setIsOpen(!isOpen)} className="w-14 h-14 rounded-full shadow-2xl flex items-center justify-center cursor-pointer relative border-2 border-white dark:border-slate-800 transition-colors" style={{ backgroundColor: data.widget_color || "#00AEEF" }}>
           <AnimatePresence mode="wait">
             {isOpen ? (
               <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>

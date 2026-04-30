@@ -30,7 +30,7 @@ const SetupManager = () => {
   if (isLoadingModels || !userSetting) {
     return (
       <div className="flex h-[80vh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-sky-500" />
       </div>
     );
   }
@@ -61,7 +61,7 @@ const SetupManager = () => {
             <div className="sticky bottom-0 left-0 right-0 lg:left-72 z-20 px-4 pb-4 sm:px-6 sm:pb-6">
               <div className="max-w-6xl mx-auto p-3 sm:p-4 bg-white/80 dark:bg-(--card-color) backdrop-blur-xl border border-slate-200 dark:border-(--card-border-color) rounded-lg shadow-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
                 <p className="text-xs sm:text-sm text-slate-500 dark:text-gray-500 flex items-center justify-center sm:justify-start gap-2 text-center sm:text-left">{t("setup.footer_note")}</p>
-                <Button type="submit" disabled={isUpdating} className=" h-10 sm:h-11 px-4.5! py-5 sm:px-8 rounded-lg bg-primary text-white font-bold shadow-lg shadow-emerald-600/20 text-sm sm:text-base">
+                <Button type="submit" disabled={isUpdating} className=" h-10 sm:h-11 px-4.5! py-5 sm:px-8 rounded-lg bg-primary text-white font-bold shadow-lg shadow-sky-600/20 text-sm sm:text-base">
                   {isUpdating ? (
                     <>
                       <Loader2 size={18} className="sm:w-4.5 sm:h-4.5 mr-2 animate-spin" /> {t("setup.updating")}

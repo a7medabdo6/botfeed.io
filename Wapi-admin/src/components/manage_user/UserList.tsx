@@ -82,7 +82,7 @@ const UserList = ({ users, page, totalPages, total, limit, isLoading, onPageChan
       className: "[@media(max-width:1240px)]:min-w-[125px]",
       sortable: true,
       sortKey: "status",
-      accessor: (user) => <Badge className={`border-none text-xs font-medium ${user.status ? "bg-(--light-primary) hover:bg-(--light-primary) text-primary dark:bg-emerald-900/20 dark:text-primary" : "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400"}`}>{user.status ? "Active" : "Inactive"}</Badge>,
+      accessor: (user) => <Badge className={`border-none text-xs font-medium ${user.status ? "bg-(--light-primary) hover:bg-(--light-primary) text-primary dark:bg-sky-900/20 dark:text-primary" : "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400"}`}>{user.status ? "Active" : "Inactive"}</Badge>,
     },
     {
       header: "Plan",
@@ -114,13 +114,13 @@ const UserList = ({ users, page, totalPages, total, limit, isLoading, onPageChan
       <div className="flex items-center gap-1">
         {!isSuperAdmin && (
           <Can permission="create.subscriptions">
-            <Button variant="ghost" size="icon" onClick={() => handleOpenAssignModal(user)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" title="Assign plan" disabled={isLoading}>
+            <Button variant="ghost" size="icon" onClick={() => handleOpenAssignModal(user)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" title="Assign plan" disabled={isLoading}>
               <CreditCard className="w-4 h-4" />
             </Button>
           </Can>
         )}
         <Can permission="update.users">
-          <Button variant="ghost" size="icon" onClick={() => router.push(`/manage_users/add?id=${user._id}`)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" title="Edit user" disabled={isLoading}>
+          <Button variant="ghost" size="icon" onClick={() => router.push(`/manage_users/add?id=${user._id}`)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" title="Edit user" disabled={isLoading}>
             <Edit className="w-4 h-4" />
           </Button>
         </Can>

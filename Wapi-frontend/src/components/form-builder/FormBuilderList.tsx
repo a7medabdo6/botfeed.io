@@ -128,11 +128,11 @@ const FormBuilderList = () => {
       cell: (row: any) => (
         <div className="flex items-center gap-2">
           <Can permission="update.form_builder">
-            <Button variant="outline" size="icon" title="Edit Form" className="h-9 w-9 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 border-none" onClick={() => router.push(`/form_builder/${row._id}/edit`)}>
+            <Button variant="outline" size="icon" title="Edit Form" className="h-9 w-9 text-slate-500 hover:text-sky-600 hover:bg-sky-50 border-none" onClick={() => router.push(`/form_builder/${row._id}/edit`)}>
               <Edit2 size={16} />
             </Button>
 
-            <Button variant="outline" size="icon" title="Publish to Meta" className="h-9 w-9 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 border-none" onClick={() => handlePublish(row._id)} disabled={row?.meta_status.toLowerCase() == "published" || row?.meta_status.toLowerCase() == "deprecated" || isPublishing}>
+            <Button variant="outline" size="icon" title="Publish to Meta" className="h-9 w-9 text-slate-500 hover:text-sky-600 hover:bg-sky-50 border-none" onClick={() => handlePublish(row._id)} disabled={row?.meta_status.toLowerCase() == "published" || row?.meta_status.toLowerCase() == "deprecated" || isPublishing}>
               <Rocket size={16} />
             </Button>
 

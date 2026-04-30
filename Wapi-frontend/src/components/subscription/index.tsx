@@ -74,7 +74,7 @@ const Subscription = () => {
     return (
       <div className="flex h-100 w-full items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-10 w-10 animate-spin text-emerald-500" />
+          <Loader2 className="h-10 w-10 animate-spin text-sky-500" />
           <p className="text-slate-500 font-medium animate-pulse">{t("subscription_page.loading")}</p>
         </div>
       </div>

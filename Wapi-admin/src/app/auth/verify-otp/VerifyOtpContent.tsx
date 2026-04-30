@@ -115,9 +115,9 @@ const VerifyOtpContent = () => {
           )}
 
           {success && (
-            <div className="mb-6 p-3 bg-green-50 border border-green-200 dark:bg-[#32433230] dark:border-[var(--card-border-color)] rounded-lg flex items-start gap-2">
-              <AlertCircle className="w-5 h-5 text-green-600 shrink-0" />
-              <p className="text-sm text-green-600">{success}</p>
+            <div className="mb-6 p-3 bg-sky-50 border border-sky-200 dark:bg-[#32433230] dark:border-[var(--card-border-color)] rounded-lg flex items-start gap-2">
+              <AlertCircle className="w-5 h-5 text-sky-600 shrink-0" />
+              <p className="text-sm text-sky-600">{success}</p>
             </div>
           )}
 

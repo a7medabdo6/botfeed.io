@@ -153,7 +153,7 @@ const TagsPage = () => {
             <Button
               variant="outline"
               size="sm"
-              className="w-10 h-10 text-slate-400 border-none hover:text-primary hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all"
+              className="w-10 h-10 text-slate-400 border-none hover:text-primary hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all"
               onClick={() => {
                 setEditingTag(row);
                 setModalOpen(true);

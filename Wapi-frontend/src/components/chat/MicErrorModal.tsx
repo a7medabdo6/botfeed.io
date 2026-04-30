@@ -60,7 +60,7 @@ const MicErrorModal: React.FC<MicErrorModalProps> = ({ isOpen, onClose, errorTyp
         </div>
 
         <DialogFooter className="sm:justify-center">
-          <Button onClick={onClose} className="w-full sm:w-32 bg-primary hover:bg-primary/90 text-white font-bold h-11 rounded-xl shadow-lg shadow-emerald-500/20">
+          <Button onClick={onClose} className="w-full sm:w-32 bg-primary hover:bg-primary/90 text-white font-bold h-11 rounded-xl shadow-lg shadow-sky-500/20">
             Got it
           </Button>
         </DialogFooter>

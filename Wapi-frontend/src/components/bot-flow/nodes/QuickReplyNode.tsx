@@ -75,8 +75,8 @@ export function QuickReplyNode({ data, id }: any) {
       id={id}
       title="Quick Reply"
       icon={<CheckSquare size={18} />}
-      borderColor="border-emerald-200"
-      handleColor="bg-emerald-500!"
+      borderColor="border-sky-200"
+      handleColor="bg-sky-500!"
       errors={errors}
       showOutHandle={false}
       filledHeader
@@ -106,7 +106,7 @@ export function QuickReplyNode({ data, id }: any) {
 
         {(data.buttons || []).map((btn: any, index: number) => (
           <div key={index} className="relative rounded-lg border border-gray-100 dark:border-(--card-border-color) dark:bg-(--dark-sidebar) bg-gray-50/50 p-3 pt-7">
-            <Handle type="source" id={`src-btn-${index}`} position={Position.Right} style={{ top: "50%" }} className="w-3! h-3! bg-emerald-500! border-2! border-white! dark:border-(--card-border-color)! shadow-sm" />
+            <Handle type="source" id={`src-btn-${index}`} position={Position.Right} style={{ top: "50%" }} className="w-3! h-3! bg-sky-500! border-2! border-white! dark:border-(--card-border-color)! shadow-sm" />
 
             <Button onClick={() => removeButton(index)} variant="ghost" size="icon" className="absolute right-1 top-1 h-5 w-5 text-gray-400 hover:text-red-500">
               <X size={12} />
@@ -128,7 +128,7 @@ export function QuickReplyNode({ data, id }: any) {
         ))}
 
         {(!data.buttons || data.buttons.length < 3) && (
-          <Button onClick={addButton} variant="outline" className="h-9 w-full border-dashed border-emerald-200 text-xs text-emerald-700 hover:bg-emerald-50 dark:border-(--card-border-color) dark:text-emerald-400">
+          <Button onClick={addButton} variant="outline" className="h-9 w-full border-dashed border-sky-200 text-xs text-sky-700 hover:bg-sky-50 dark:border-(--card-border-color) dark:text-sky-400">
             <Plus className="mr-1 h-3 w-3" /> Add Quick Option
           </Button>
         )}

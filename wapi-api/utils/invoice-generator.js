@@ -40,12 +40,12 @@ export const generateInvoicePDF = async (paymentHistory, user, plan) => {
                 doc.fillColor(secondaryColor)
                    .font('Helvetica-Bold')
                    .fontSize(18)
-                   .text(settings?.app_name || 'Wapi', 100, 52);
+                   .text(settings?.app_name || 'Botfeed', 100, 52);
             } else {
                 doc.fillColor(primaryColor)
                    .font('Helvetica-Bold')
                    .fontSize(24)
-                   .text(settings?.app_name || 'Wapi', 50, 50);
+                   .text(settings?.app_name || 'Botfeed', 50, 50);
             }
 
             doc.fillColor(primaryColor)
@@ -84,7 +84,7 @@ export const generateInvoicePDF = async (paymentHistory, user, plan) => {
                .font('Helvetica')
                .fontSize(10)
                .fillColor(textColor)
-               .text(settings?.app_name || 'Wapi Service', 300, 168)
+               .text(settings?.app_name || 'Botfeed Service', 300, 168)
                .fillColor(mutedTextColor)
                .text(settings?.app_email || '', 300, 183);
 
@@ -159,7 +159,7 @@ export const generateInvoicePDF = async (paymentHistory, user, plan) => {
             doc.fillColor(mutedTextColor)
                .font('Helvetica')
                .fontSize(9)
-               .text('Thank you for choosing Wapi for your WhatsApp marketing needs!', 50, 750, { align: 'center', width: 500 })
+               .text('Thank you for choosing Botfeed for your WhatsApp marketing needs!', 50, 750, { align: 'center', width: 500 })
                .text('For any questions, please contact support at ' + (settings?.support_email || 'support@example.com'), 50, 765, { align: 'center', width: 500 });
 
             doc.end();

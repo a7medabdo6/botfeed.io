@@ -22,7 +22,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
           cancelButton:
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-          success: "group-[.toast]:bg-emerald-50 group-[.toast]:text-primary group-[.toast]:border-emerald-200 dark:group-[.toast]:bg-emerald-950 dark:group-[.toast]:text-emerald-400 dark:group-[.toast]:border-emerald-800",
+          success: "group-[.toast]:bg-sky-50 group-[.toast]:text-primary group-[.toast]:border-sky-200 dark:group-[.toast]:bg-sky-950 dark:group-[.toast]:text-sky-400 dark:group-[.toast]:border-sky-800",
           error: "group-[.toast]:bg-red-50 group-[.toast]:text-red-600 group-[.toast]:border-red-200 dark:group-[.toast]:bg-red-950 dark:group-[.toast]:text-red-400 dark:group-[.toast]:border-red-800",
         },
       }}

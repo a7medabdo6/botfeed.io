@@ -41,12 +41,12 @@ export const FormLivePreview = ({ templateType, headerText, messageBody, variabl
         <div className="w-full h-full bg-[#E5DDD5] rounded-[2.2rem] overflow-hidden flex flex-col min-h-150 max-h-150">
           <div className="bg-[#075E54] p-4 pt-8 flex items-center gap-3 shrink-0">
             <ArrowLeft size={18} className="text-white" />
-            <div className="w-8 h-8 rounded-full bg-emerald-800 flex items-center justify-center overflow-hidden">
-              <ImageIcon size={16} className="text-emerald-200" />
+            <div className="w-8 h-8 rounded-full bg-sky-800 flex items-center justify-center overflow-hidden">
+              <ImageIcon size={16} className="text-sky-200" />
             </div>
             <div className="flex-1 min-w-0">
               <h4 className="text-white text-sm font-bold truncate">Your Brand</h4>
-              <p className="text-[10px] text-emerald-100/70 py-0">Business Account</p>
+              <p className="text-[10px] text-sky-100/70 py-0">Business Account</p>
             </div>
           </div>
 

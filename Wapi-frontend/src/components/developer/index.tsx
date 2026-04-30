@@ -65,7 +65,7 @@ const Developer = () => {
 
       <div className="flex-1 overflow-hidden relative flex flex-col">
         <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-slate-200 dark:border-(--card-border-color) bg-white dark:bg-(--card-color) shrink-0">
-          <button onClick={() => setSidebarOpen(true)} className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-primary border border-emerald-100 dark:border-emerald-500/20 text-sm font-semibold hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-colors shadow-sm" aria-label="Open API menu">
+          <button onClick={() => setSidebarOpen(true)} className="flex items-center gap-2 px-3 py-2 rounded-xl bg-sky-50 dark:bg-sky-500/10 text-primary border border-sky-100 dark:border-sky-500/20 text-sm font-semibold hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-colors shadow-sm" aria-label="Open API menu">
             <LayoutList size={16} />
             <span>API Menu</span>
           </button>

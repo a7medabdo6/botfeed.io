@@ -33,15 +33,18 @@ const Dashboard = () => {
   const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    const isNewRegistration = localStorage.getItem("wapi_new_registration");
+    const legacyKey = localStorage.getItem("wapi_new_registration");
+    const regKey = localStorage.getItem("botfeed_new_registration");
+    const isNewRegistration = regKey || legacyKey;
     if (isNewRegistration && btoa(user?.email || "") === isNewRegistration) {
       confetti({
         particleCount: 200,
         spread: 120,
         origin: { y: 0.6 },
         zIndex: 9999,
-        colors: ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#059669'],
+        colors: ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#00AEEF'],
       });
+      localStorage.removeItem("botfeed_new_registration");
       localStorage.removeItem("wapi_new_registration");
     }
   }, [user]);

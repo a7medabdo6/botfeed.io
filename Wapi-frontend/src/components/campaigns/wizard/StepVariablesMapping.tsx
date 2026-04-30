@@ -160,7 +160,7 @@ const StepVariablesMapping = ({ formik }: { formik: FormikProps<CampaignFormValu
 
         {/* No variables and no extra fields */}
         {!hasVariables && !hasExtraFields && (
-          <div className="bg-emerald-50/50 dark:bg-(--dark-body) dark:border-none rounded-lg border border-emerald-100 p-10 text-center space-y-4">
+          <div className="bg-sky-50/50 dark:bg-(--dark-body) dark:border-none rounded-lg border border-sky-100 p-10 text-center space-y-4">
             <Sparkles className="mx-auto text-primary" size={40} />
             <p className="text-primary font-bold">This template has no dynamic variables.</p>
             <p className="text-xs text-slate-400 font-medium italic">You can proceed directly to recipient selection.</p>

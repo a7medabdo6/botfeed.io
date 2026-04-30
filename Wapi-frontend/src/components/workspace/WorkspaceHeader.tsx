@@ -9,7 +9,7 @@ export function WorkspaceHeader({ logoUrl, appName, title, description, badgeTex
     <>
       <div className="flex items-center justify-between px-8 pt-8 pb-0">
         <div className="flex items-center gap-2.5">
-          <Image src={logoUrl || "/assets/logos/logo1.png"} alt={appName || "logo"} width={140} height={40} unoptimized />
+          <Image src={logoUrl || "/branding/botfeed-logo.png"} alt={appName || "logo"} width={140} height={40} unoptimized />
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-# Wapi-admin (Next.js) — standalone, same pattern as Wapi-frontend
+# Botfeed admin (Next.js) — standalone, same pattern as the web app (Wapi-frontend/)
 FROM node:22-bookworm-slim AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./

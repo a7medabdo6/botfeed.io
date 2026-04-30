@@ -21,7 +21,7 @@ const ManagePlanModal = ({ isOpen, onOpenChange, onUpgrade, onDowngrade, onCance
               onUpgrade();
               onOpenChange(false);
             }}
-            className="w-full flex items-center justify-between p-4 bg-emerald-50 dark:bg-emerald-500/10 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 rounded-xl transition-all group border border-emerald-100/50 dark:border-emerald-500/20"
+            className="w-full flex items-center justify-between p-4 bg-sky-50 dark:bg-sky-500/10 hover:bg-sky-100 dark:hover:bg-sky-500/20 text-sky-700 dark:text-sky-400 rounded-xl transition-all group border border-sky-100/50 dark:border-sky-500/20"
           >
             <div className="flex items-center gap-4">
               <div className="p-2.5 bg-white dark:bg-(--dark-body) rounded-lg shadow-sm">

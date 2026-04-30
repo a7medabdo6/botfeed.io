@@ -21,7 +21,7 @@ export const ButtonSection = ({ interactiveType, setInteractiveType, buttons, ad
         {interactiveActions
           .filter((action) => (isLimitedTimeOffer ? action.value === "cta" : true))
           .map((action) => (
-            <button key={action.value} type="button" onClick={() => setInteractiveType(action.value)} className={`px-5 py-2.5 rounded-lg border transition-all text-xs font-bold uppercase tracking-wider ${interactiveType === action.value ? "border-primary bg-emerald-50/50 text-primary dark:bg-(--card-color) dark:text-primary shadow-sm" : "border-slate-50 dark:border-(--card-border-color) bg-slate-50/20 dark:bg-(--dark-sidebar) dark:hover:border-(--card-border-color) text-slate-400 hover:border-slate-200"}`}>
+            <button key={action.value} type="button" onClick={() => setInteractiveType(action.value)} className={`px-5 py-2.5 rounded-lg border transition-all text-xs font-bold uppercase tracking-wider ${interactiveType === action.value ? "border-primary bg-sky-50/50 text-primary dark:bg-(--card-color) dark:text-primary shadow-sm" : "border-slate-50 dark:border-(--card-border-color) bg-slate-50/20 dark:bg-(--dark-sidebar) dark:hover:border-(--card-border-color) text-slate-400 hover:border-slate-200"}`}>
               {action.label}
             </button>
           ))}
@@ -47,21 +47,21 @@ export const ButtonSection = ({ interactiveType, setInteractiveType, buttons, ad
                 <div className="space-y-2">
                   <Label className="text-xs font-bold text-slate-600 dark:text-gray-400">Button Title</Label>
                   <CharacterCountWrapper current={btn.text?.length || 0} max={60}>
-                    <Input placeholder="Enter button text" value={btn.text || ""} onChange={(e) => updateButton(btn.id, { text: e.target.value.slice(0, 60) })} className="h-11 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) focus:border-emerald-500/50 transition-all font-medium" />
+                    <Input placeholder="Enter button text" value={btn.text || ""} onChange={(e) => updateButton(btn.id, { text: e.target.value.slice(0, 60) })} className="h-11 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) focus:border-sky-500/50 transition-all font-medium" />
                   </CharacterCountWrapper>
                 </div>
 
                 {(btn.type === "url" || btn.type === "website") && (
                   <div className="space-y-2">
                     <Label className="text-xs font-bold text-slate-600 dark:text-gray-400">URL</Label>
-                    <Input placeholder="https://example.com" value={btn.url || btn.website_url || ""} onChange={(e) => updateButton(btn.id, { url: e.target.value, website_url: e.target.value })} className="h-11 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) focus:border-emerald-500/50 transition-all font-medium" />
+                    <Input placeholder="https://example.com" value={btn.url || btn.website_url || ""} onChange={(e) => updateButton(btn.id, { url: e.target.value, website_url: e.target.value })} className="h-11 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) focus:border-sky-500/50 transition-all font-medium" />
                   </div>
                 )}
 
                 {btn.type === "phone_call" && (
                   <div className="space-y-2">
                     <Label className="text-xs font-bold text-slate-600 dark:text-gray-400">Phone Number</Label>
-                    <Input placeholder="+1 234 567 890" value={btn.phone_number || ""} onChange={(e) => updateButton(btn.id, { phone_number: e.target.value })} className="h-11 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) focus:border-emerald-500/50 transition-all font-medium" />
+                    <Input placeholder="+1 234 567 890" value={btn.phone_number || ""} onChange={(e) => updateButton(btn.id, { phone_number: e.target.value })} className="h-11 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) focus:border-sky-500/50 transition-all font-medium" />
                   </div>
                 )}
 
@@ -76,18 +76,18 @@ export const ButtonSection = ({ interactiveType, setInteractiveType, buttons, ad
 
         {interactiveType === "cta" && (
           <div className="flex gap-3 flex-col sm:flex-row">
-            <button type="button" onClick={() => addButton("website")} className="flex-1 h-12 p-2 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-emerald-500/50 hover:bg-emerald-50/30 dark:hover:bg-(--table-hover) transition-all text-sm">
+            <button type="button" onClick={() => addButton("website")} className="flex-1 h-12 p-2 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-sky-500/50 hover:bg-sky-50/30 dark:hover:bg-(--table-hover) transition-all text-sm">
               <Link size={16} />
               Add URL Button ({buttons?.filter((b: any) => b.type === "url").length || 0}/2)
             </button>
             {!isLimitedTimeOffer && (
-              <button type="button" onClick={() => addButton("phone_call")} className="flex-1 h-12 p-2 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-emerald-500/50 hover:bg-emerald-50/30 dark:hover:bg-(--table-hover) transition-all text-sm">
+              <button type="button" onClick={() => addButton("phone_call")} className="flex-1 h-12 p-2 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-sky-500/50 hover:bg-sky-50/30 dark:hover:bg-(--table-hover) transition-all text-sm">
                 <Smartphone size={16} />
                 Add Phone Button ({buttons?.filter((b: any) => b.type === "phone_call").length || 0}/1)
               </button>
             )}
             {isLimitedTimeOffer && (
-              <button type="button" onClick={() => addButton("copy_code")} className="flex-1 h-12 p-2 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-emerald-500/50 hover:bg-emerald-50/30 dark:hover:bg-(--table-hover) transition-all text-sm">
+              <button type="button" onClick={() => addButton("copy_code")} className="flex-1 h-12 p-2 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-sky-500/50 hover:bg-sky-50/30 dark:hover:bg-(--table-hover) transition-all text-sm">
                 <Copy size={16} />
                 Add Copy Code ({buttons?.filter((b: any) => b.type === "copy_code").length || 0}/1)
               </button>
@@ -96,7 +96,7 @@ export const ButtonSection = ({ interactiveType, setInteractiveType, buttons, ad
         )}
 
         {interactiveType === "quick_reply" && !isLimitedTimeOffer && (
-          <button type="button" onClick={() => addButton("quick_reply")} className="w-full h-12 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-emerald-500/50 hover:bg-emerald-50/30 dark:hover:bg-(--table-hover) transition-all text-sm">
+          <button type="button" onClick={() => addButton("quick_reply")} className="w-full h-12 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-sky-500/50 hover:bg-sky-50/30 dark:hover:bg-(--table-hover) transition-all text-sm">
             <Plus size={18} />
             Add Quick Reply ({buttons?.filter((b: any) => b.type === "quick_reply").length || 0}/10)
           </button>
@@ -104,15 +104,15 @@ export const ButtonSection = ({ interactiveType, setInteractiveType, buttons, ad
 
         {interactiveType === "all" && !isLimitedTimeOffer && (
           <div className="flex gap-4">
-            <button type="button" onClick={() => addButton("quick_reply")} className="flex-1 flex flex-col items-center gap-2 p-4 rounded-lg dark:bg-(--table-hover) dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:text-amber-50 hover:border-emerald-200 transition-all font-bold text-xs text-slate-600">
+            <button type="button" onClick={() => addButton("quick_reply")} className="flex-1 flex flex-col items-center gap-2 p-4 rounded-lg dark:bg-(--table-hover) dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:text-amber-50 hover:border-sky-200 transition-all font-bold text-xs text-slate-600">
               <FileText size={18} className="text-slate-400" />
               Quick Reply ({buttons?.filter((b: any) => b.type === "quick_reply").length || 0}/10)
             </button>
-            <button type="button" onClick={() => addButton("website")} className="flex-1 flex flex-col items-center gap-2 p-4 rounded-lg dark:bg-(--table-hover) dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:text-amber-50 hover:border-emerald-200 transition-all font-bold text-xs text-slate-600">
+            <button type="button" onClick={() => addButton("website")} className="flex-1 flex flex-col items-center gap-2 p-4 rounded-lg dark:bg-(--table-hover) dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:text-amber-50 hover:border-sky-200 transition-all font-bold text-xs text-slate-600">
               <Link size={18} className="text-slate-400" />
               URL ({buttons?.filter((b: any) => b.type === "url").length || 0}/2)
             </button>
-            <button type="button" onClick={() => addButton("phone_call")} className="flex-1 flex flex-col items-center gap-2 p-4 rounded-lg dark:bg-(--table-hover) dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:text-amber-50 hover:border-emerald-200 transition-all font-bold text-xs text-slate-600">
+            <button type="button" onClick={() => addButton("phone_call")} className="flex-1 flex flex-col items-center gap-2 p-4 rounded-lg dark:bg-(--table-hover) dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:text-amber-50 hover:border-sky-200 transition-all font-bold text-xs text-slate-600">
               <Smartphone size={18} className="text-slate-400" />
               Phone ({buttons?.filter((b: any) => b.type === "phone_call").length || 0}/1)
             </button>

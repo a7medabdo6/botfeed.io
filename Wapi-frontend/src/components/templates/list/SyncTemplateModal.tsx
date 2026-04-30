@@ -97,7 +97,7 @@ export const SyncTemplateModal = ({ isOpen, onClose, wabaId, onSuccess }: SyncTe
 
               <div className="border border-slate-100 dark:border-(--card-border-color) border-t-0 rounded-b-lg divide-y divide-slate-100 dark:divide-(--card-border-color)">
                 {filteredTemplates.map((template: any) => (
-                  <div key={template.id} className={`flex items-center gap-3 px-4 py-3.5 hover:bg-slate-50 dark:hover:bg-emerald-500/5 transition-colors cursor-pointer ${selectedIds.includes(template.id) ? "bg-emerald-50/30 dark:bg-emerald-500/10" : ""}`} onClick={() => toggleSelection(template.id)}>
+                  <div key={template.id} className={`flex items-center gap-3 px-4 py-3.5 hover:bg-slate-50 dark:hover:bg-sky-500/5 transition-colors cursor-pointer ${selectedIds.includes(template.id) ? "bg-sky-50/30 dark:bg-sky-500/10" : ""}`} onClick={() => toggleSelection(template.id)}>
                     <Checkbox checked={selectedIds.includes(template.id)} onCheckedChange={() => toggleSelection(template.id)} className="w-4.5 h-4.5" />
                     <div className="flex flex-col gap-0.5">
                       <span className="text-[13px] font-bold text-slate-700 dark:text-gray-200 tracking-tight break-all">{template.name}</span>
@@ -108,7 +108,7 @@ export const SyncTemplateModal = ({ isOpen, onClose, wabaId, onSuccess }: SyncTe
                       <Badge variant="outline" className="h-5 text-[10px] font-medium border-slate-200 text-slate-500 bg-white dark:bg-(--page-body-bg) dark:border-primary dark:text-primary">
                         {template.category}
                       </Badge>
-                      <Badge className={`h-5 text-[10px] font-medium ${template.status === "APPROVED" ? "bg-emerald-50 dark:bg-emerald-900/20 dark:border-(--card-border-color) text-primary border-emerald-100 " : template.status === "REJECTED" ? "bg-rose-50 text-rose-500 border-rose-100" : "bg-amber-50 text-amber-600 border-amber-100"}`}>{template.status}</Badge>
+                      <Badge className={`h-5 text-[10px] font-medium ${template.status === "APPROVED" ? "bg-sky-50 dark:bg-sky-900/20 dark:border-(--card-border-color) text-primary border-sky-100 " : template.status === "REJECTED" ? "bg-rose-50 text-rose-500 border-rose-100" : "bg-amber-50 text-amber-600 border-amber-100"}`}>{template.status}</Badge>
                     </div>
                   </div>
                 ))}

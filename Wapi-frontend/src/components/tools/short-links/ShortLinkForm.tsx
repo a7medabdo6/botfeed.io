@@ -91,7 +91,7 @@ const ShortLinkForm: React.FC<ShortLinkFormProps> = ({ initialData, onSuccess })
                         if (country) setDialCode(country.dial_code);
                       }}
                     >
-                      <SelectTrigger className="h-12 py-6 bg-slate-50 dark:bg-(--page-body-bg) border-slate-200 dark:border-(--card-border-color) rounded-xl font-bold focus:ring-emerald-500/20">
+                      <SelectTrigger className="h-12 py-6 bg-slate-50 dark:bg-(--page-body-bg) border-slate-200 dark:border-(--card-border-color) rounded-xl font-bold focus:ring-sky-500/20">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="max-h-64 rounded-lg dark:bg-(--card-color)">
@@ -106,11 +106,11 @@ const ShortLinkForm: React.FC<ShortLinkFormProps> = ({ initialData, onSuccess })
                       </SelectContent>
                     </Select>
                   </div>
-                  <input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} placeholder="e.g. 9876543210" className="flex-1 h-12 px-4 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50 dark:bg-(--page-body-bg) text-slate-800 dark:text-slate-100 text-sm font-bold outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all placeholder:text-slate-300 placeholder:font-normal" />
+                  <input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} placeholder="e.g. 9876543210" className="flex-1 h-12 px-4 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50 dark:bg-(--page-body-bg) text-slate-800 dark:text-slate-100 text-sm font-bold outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all placeholder:text-slate-300 placeholder:font-normal" />
                 </div>
                 <p className="text-[11px] text-slate-400 font-medium italic">
                   Preview:{" "}
-                  <span className="text-emerald-500 font-bold not-italic">
+                  <span className="text-sky-500 font-bold not-italic">
                     {dialCode} {phoneNumber || "XXXXXXXXXX"}
                   </span>
                 </p>
@@ -120,7 +120,7 @@ const ShortLinkForm: React.FC<ShortLinkFormProps> = ({ initialData, onSuccess })
                 <Label className="text-sm font-bold text-slate-700 dark:text-slate-200 ">
                   Welcome Message <span className="text-slate-400 font-normal ml-2">(Optional)</span>
                 </Label>
-                <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Hi! I'm interested in your services..." rows={4} className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50 dark:bg-(--page-body-bg) text-slate-800 dark:text-slate-100 text-sm font-medium outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all placeholder:text-slate-300 resize-none leading-relaxed" />
+                <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Hi! I'm interested in your services..." rows={4} className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50 dark:bg-(--page-body-bg) text-slate-800 dark:text-slate-100 text-sm font-medium outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all placeholder:text-slate-300 resize-none leading-relaxed" />
                 <p className="text-[11px] text-slate-400 font-medium leading-tight">{"Pre-filled in customer's WhatsApp chat when they tap your link."}</p>
               </div>
             </div>
@@ -130,7 +130,7 @@ const ShortLinkForm: React.FC<ShortLinkFormProps> = ({ initialData, onSuccess })
                 Cancel
               </Button>
               <Can permission={initialData ? "update.links" : "create.links"}>
-                <Button type="submit" disabled={isLoading} className="w-full sm:w-auto h-12 px-12 gap-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm shadow-xl shadow-emerald-600/20 transition-all active:scale-95">
+                <Button type="submit" disabled={isLoading} className="w-full sm:w-auto h-12 px-12 gap-3 bg-sky-600 hover:bg-sky-700 text-white font-black text-sm shadow-xl shadow-sky-600/20 transition-all active:scale-95">
                   {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : initialData ? <Save size={18} /> : <Rocket size={18} />}
                   <span>{initialData ? "Update Link" : "Generate Link"}</span>
                 </Button>

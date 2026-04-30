@@ -129,7 +129,7 @@ export function ListMessageNode({ data, id }: any) {
                     <Button onClick={() => removeItem(sIdx, iIdx)} variant="ghost" size="icon" className="absolute -right-2 -top-2 h-5 w-5 bg-white dark:bg-(--table-hover) dark:border-(--card-border-color) border border-gray-100 rounded-full text-gray-400 hover:text-red-500 z-10 hidden group-hover:flex">
                       <X size={10} />
                     </Button>
-                    <Handle type="source" id={`src-item-${sIdx}-${iIdx}`} position={Position.Right} style={{ top: "50%" }} className="w-3! h-3! bg-emerald-500! border-2! border-white! dark:border-(--card-border-color)! shadow-sm -right-4" />
+                    <Handle type="source" id={`src-item-${sIdx}-${iIdx}`} position={Position.Right} style={{ top: "50%" }} className="w-3! h-3! bg-sky-500! border-2! border-white! dark:border-(--card-border-color)! shadow-sm -right-4" />
                     <Input value={item.title || ""} onFocus={() => setTouched(true)} onChange={(e) => updateItem(sIdx, iIdx, "title", e.target.value)} placeholder="Item title" className="h-7 text-[11px] font-medium border-none shadow-none focus-visible:ring-0 p-3 mb-1" />
                     <Input value={item.description || ""} onFocus={() => setTouched(true)} onChange={(e) => updateItem(sIdx, iIdx, "description", e.target.value)} placeholder="Item description (optional)" className="h-5 text-[10px] text-gray-500 border-none shadow-none focus-visible:ring-0 p-3" />
                   </div>

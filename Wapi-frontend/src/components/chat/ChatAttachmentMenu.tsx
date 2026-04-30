@@ -27,7 +27,7 @@ const ChatAttachmentMenu = ({ onFileSelect, onMediaLibraryOpen, onLocationClick,
           variant="ghost"
           size="icon"
           className="dark:bg-(--page-body-bg) dark:hover:bg-(--table-hover) dark:text-gray-400 bg-gray-100 rounded-lg transition-colors"
-          style={isCustom ? { color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}}
+          style={isCustom ? { color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}
           onMouseEnter={(e) => {
             if (isCustom) {
               e.currentTarget.style.backgroundColor = "color-mix(in srgb, var(--chat-theme-color), transparent 90%)";
@@ -45,7 +45,7 @@ const ChatAttachmentMenu = ({ onFileSelect, onMediaLibraryOpen, onLocationClick,
           {!isBaileys && (
             <>
               <button className="flex items-center gap-3 p-2 hover:bg-slate-100 dark:hover:bg-(--table-hover) rounded-lg transition-colors text-sm text-slate-700 dark:text-slate-300" onClick={() => onInteractiveClick("button")}>
-                <MessageSquare size={18} className="text-emerald-500" />
+                <MessageSquare size={18} className="text-sky-500" />
                 <span>Button message</span>
               </button>
 

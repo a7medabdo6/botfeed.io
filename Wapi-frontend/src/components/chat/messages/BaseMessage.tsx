@@ -73,7 +73,7 @@ const BaseMessage: React.FC<BaseMessageProps> = ({ message, children, isWindowEx
         <div className={cn("relative max-w-[85%] sm:max-w-[70%] lg:max-w-[60%] group flex flex-col", isOutgoing ? "items-end" : "items-start")}>
           {!isOutgoing && showSenderName && (
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[13px] font-semibold" style={{ color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" }}>
+              <span className="text-[13px] font-semibold" style={{ color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" }}>
                 {isAgent && user?.is_phoneno_hide ? "Customer" : maskSensitiveData(message.sender.name, "phone", is_demo_mode)}
               </span>
             </div>
@@ -89,7 +89,7 @@ const BaseMessage: React.FC<BaseMessageProps> = ({ message, children, isWindowEx
             <div
               className={cn("relative shadow-sm min-w-15 pl-1 dark:bg-(--page-body-bg)!", isOutgoing ? "px-3 py-1.5 rounded-lg rounded-tr-none border border-black/5" : "px-3 pr-2 py-1.5 rounded-lg rounded-tl-none border border-black/5 flex flex-row")}
               style={{
-                backgroundColor: isOutgoing ? (userSettingData?.user_bubble_color == "null" ? "#05966933" : "var(--chat-user-bubble)") : userSettingData?.contact_bubble_color == "null" ? "#F1F5F9" : "var(--chat-contact-bubble)",
+                backgroundColor: isOutgoing ? (userSettingData?.user_bubble_color == "null" ? "#00AEEF33" : "var(--chat-user-bubble)") : userSettingData?.contact_bubble_color == "null" ? "#F1F5F9" : "var(--chat-contact-bubble)",
                 color: isOutgoing ? (userSettingData?.user_text_color == "null" ? "text-slate-800" : "var(--chat-user-text)") : userSettingData?.contact_text_color == "null" ? "text-slate-800" : "var(--chat-contact-text)",
               }}
             >
@@ -97,7 +97,7 @@ const BaseMessage: React.FC<BaseMessageProps> = ({ message, children, isWindowEx
                 {message.reply_message && (
                   <div
                     className={cn(`mb-1.5 p-2 rounded-lg border-l-4 text-xs cursor-pointer hover:opacity-80 transition-opacity`, isOutgoing ? "bg-black/5 dark:bg-black/20" : "bg-white/60 dark:bg-black/30")}
-                    style={{ borderColor: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" }}
+                    style={{ borderColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" }}
                     onClick={() => {
                       const el = document.getElementById(`message-${message.reply_message?.id}`);
                       el?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -107,7 +107,7 @@ const BaseMessage: React.FC<BaseMessageProps> = ({ message, children, isWindowEx
                       }, 2000);
                     }}
                   >
-                    <div className="font-bold text-[10px] uppercase mb-0.5" style={{ color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" }}>
+                    <div className="font-bold text-[10px] uppercase mb-0.5" style={{ color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" }}>
                       {message.reply_message.sender.name || "User"}
                     </div>
                     <div className="flex items-center gap-1.5 opacity-70 italic text-[11px]">

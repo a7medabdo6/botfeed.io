@@ -154,7 +154,7 @@ export default function FlowList() {
           <Can permission="update.automation_flows">
             <Switch checked={flow.is_active} onCheckedChange={() => handleToggle(flow._id, flow.is_active)} disabled={isStatusToggling} />
           </Can>
-          <span className={`text-xs font-medium ${flow.is_active ? "text-emerald-600" : "text-gray-400"}`}>{flow.is_active ? "Active" : "Inactive"}</span>
+          <span className={`text-xs font-medium ${flow.is_active ? "text-sky-600" : "text-gray-400"}`}>{flow.is_active ? "Active" : "Inactive"}</span>
         </div>
       ),
     },
@@ -171,7 +171,7 @@ export default function FlowList() {
         <div className="flex justify-end gap-2">
           <Can permission="update.automation_flows">
             <Link href={`/flow_builder/builder/${flow._id}`}>
-              <Button variant="outline" size="sm" className="h-8 w-8 p-0 rounded-lg bg-white border-slate-200 text-slate-500 hover:text-emerald-600 hover:border-emerald-200 hover:bg-emerald-50 shadow-xs transition-all">
+              <Button variant="outline" size="sm" className="h-8 w-8 p-0 rounded-lg bg-white border-slate-200 text-slate-500 hover:text-sky-600 hover:border-sky-200 hover:bg-sky-50 shadow-xs transition-all">
                 <Edit2 size={14} />
               </Button>
             </Link> 

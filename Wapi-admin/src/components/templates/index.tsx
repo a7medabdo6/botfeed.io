@@ -101,7 +101,7 @@ const AdminTemplateContainer = () => {
       copyField: "template_name",
       accessor: (template: AdminTemplate) => (
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => router.push(`/templates_library/${template._id}/edit`)}>
-          <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center text-primary shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-500/20 flex items-center justify-center text-primary shrink-0">
             <LayoutTemplate size={16} />
           </div>
           <div>
@@ -203,7 +203,7 @@ const AdminTemplateContainer = () => {
         renderActions={(template) => (
           <div className="flex items-center gap-2">
             <Can permission="update.admin_templates">
-              <Button onClick={() => router.push(`/templates_library/${template._id}/edit`)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 bg-transparent shadow-none rounded-lg dark:hover:bg-primary/10 transition-all border border-transparent hover:border-emerald-100 dark:hover:border-primary/20" title={t("templates_library.edit_tooltip")}>
+              <Button onClick={() => router.push(`/templates_library/${template._id}/edit`)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-sky-50 bg-transparent shadow-none rounded-lg dark:hover:bg-primary/10 transition-all border border-transparent hover:border-sky-100 dark:hover:border-primary/20" title={t("templates_library.edit_tooltip")}>
                 <Edit size={16} />
               </Button>
             </Can>

@@ -20,7 +20,7 @@ const CatalogStatsSection = ({ data, isLoading, filters }: CatalogStatsSectionPr
 
   const STATS_CONFIG = [
     { label: "Orders Received", key: "ordersFromWhatsApp" as const, icon: <ShoppingCart size={14} />, color: "text-amber-500", prefix: "", decimals: 0 },
-    { label: "Revenue Generated", key: "revenueFromWhatsApp" as const, icon: <DollarSign size={14} />, color: "text-emerald-500", prefix: selectedCurrency?.symbol, decimals: 2 },
+    { label: "Revenue Generated", key: "revenueFromWhatsApp" as const, icon: <DollarSign size={14} />, color: "text-sky-500", prefix: selectedCurrency?.symbol, decimals: 2 },
     { label: "Live Inventory", key: "totalProducts" as const, icon: <Package size={14} />, color: "text-primary", prefix: "", decimals: 0 },
   ];
 

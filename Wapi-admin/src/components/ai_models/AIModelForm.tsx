@@ -264,7 +264,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                     type="button"
                     size="sm"
                     variant="ghost"
-                    className="text-(--text-green-primary) border border-(--text-green-primary) dark:border-none hover:bg-emerald-50 dark:bg-page-body dark:hover:bg-(--dark-sidebar) hover:text-(--text-green-primary) h-9 px-4 rounded-lg font-bold"
+                    className="text-(--text-green-primary) border border-(--text-green-primary) dark:border-none hover:bg-sky-50 dark:bg-page-body dark:hover:bg-(--dark-sidebar) hover:text-(--text-green-primary) h-9 px-4 rounded-lg font-bold"
                     onClick={() => {
                       const newList = [...values.headerList, { key: "", value: "" }];
                       setFieldValue("headerList", newList);
@@ -307,7 +307,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                     type="button"
                     size="sm"
                     variant="ghost"
-                    className="text-(--text-green-primary) border border-(--text-green-primary) dark:border-none dark:bg-page-body hover:bg-emerald-50 dark:hover:bg-(--dark-sidebar) hover:text-primary h-9 px-4 rounded-lg font-bold"
+                    className="text-(--text-green-primary) border border-(--text-green-primary) dark:border-none dark:bg-page-body hover:bg-sky-50 dark:hover:bg-(--dark-sidebar) hover:text-primary h-9 px-4 rounded-lg font-bold"
                     onClick={() => {
                       const newList = [...values.paramList, { key: "", value: "" }];
                       setFieldValue("paramList", newList);
@@ -364,7 +364,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                       <Label htmlFor="payloadJson" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                         Payload JSON
                       </Label>
-                      <Field name="payloadJson" as={Textarea} placeholder="Enter JSON payload structure.." className="min-h-40 font-mono text-sm border-none bg-slate-950 text-(--text-green-primary) rounded-lg p-6 focus:ring-1 focus:ring-emerald-500/50" />
+                      <Field name="payloadJson" as={Textarea} placeholder="Enter JSON payload structure.." className="min-h-40 font-mono text-sm border-none bg-slate-950 text-(--text-green-primary) rounded-lg p-6 focus:ring-1 focus:ring-sky-500/50" />
                     </div>
                   ) : (
                     <div className="space-y-4 flex flex-col">
@@ -411,7 +411,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                     <Button type="button" onClick={() => router.back()} className="w-full px-4.5 py-5 h-12 text-black/50 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-(--dark-sidebar) bg-white dark:bg-page-body border dark:border-none rounded-lg shadow-none dark:shadow-none text-[15px] flex items-center justify-center gap-3 transition-all active:scale-95">
                       {t("common.cancel")}
                     </Button>
-                    <Button type="submit" disabled={isLoading} className="w-full px-4.5 py-5 bg-(--text-green-primary) hover:bg-(--text-green-primary) text-white h-12 rounded-lg shadow-lg shadow-emerald-200 dark:shadow-none text-[16px] font-bold flex items-center justify-center gap-3 transition-all active:scale-95">
+                    <Button type="submit" disabled={isLoading} className="w-full px-4.5 py-5 bg-(--text-green-primary) hover:bg-(--text-green-primary) text-white h-12 rounded-lg shadow-lg shadow-sky-200 dark:shadow-none text-[16px] font-bold flex items-center justify-center gap-3 transition-all active:scale-95">
                       {isLoading ? (
                         <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                       ) : (
@@ -436,7 +436,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
               </Card>
 
               {/* Status Summary */}
-              {/* <Card className="border-none shadow-sm dark:bg-(--card-color) bg-emerald-50/50 rounded-lg">
+              {/* <Card className="border-none shadow-sm dark:bg-(--card-color) bg-sky-50/50 rounded-lg">
                 <CardContent className="p-6">
                   <h4 className="text-sm font-bold text-(--text-green-primary) mb-4 flex items-center gap-2 uppercase tracking-tight">
                     <ShieldCheck className="w-4 h-4" />
@@ -457,7 +457,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                     </li>
                     <li className="flex justify-between">
                       <span>Default Model:</span>
-                      <span className={cn("font-bold px-2 py-0.5 rounded-full text-[10px]", values.is_default ? "bg-emerald-200 text-emerald-800" : "bg-slate-200 dark:bg-(--dark-sidebar) text-slate-600 dark:text-gray-300")}>{values.is_default ? "YES" : "NO"}</span>
+                      <span className={cn("font-bold px-2 py-0.5 rounded-full text-[10px]", values.is_default ? "bg-sky-200 text-sky-800" : "bg-slate-200 dark:bg-(--dark-sidebar) text-slate-600 dark:text-gray-300")}>{values.is_default ? "YES" : "NO"}</span>
                     </li>
                   </ul>
                 </CardContent>
@@ -486,7 +486,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
 
                     <div className="flex justify-between items-center py-3 mb-2 last:p-0 border-b border-(--input-border-color) dark:border-(--card-border-color)">
                       <span className="text-sm text-slate-600 dark:text-slate-400">Custom Headers:</span>
-                      <span className="inline-flex items-center justify-center min-w-7 h-7 px-2.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-(--text-green-primary) rounded-full font-bold text-sm">{values.headerList.filter((h) => h.key).length}</span>
+                      <span className="inline-flex items-center justify-center min-w-7 h-7 px-2.5 bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-(--text-green-primary) rounded-full font-bold text-sm">{values.headerList.filter((h) => h.key).length}</span>
                     </div>
 
                     <div className="flex justify-between items-center py-3 mb-2 last:p-0">

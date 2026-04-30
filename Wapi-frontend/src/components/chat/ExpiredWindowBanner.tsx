@@ -21,7 +21,7 @@ const ExpiredWindowBanner: React.FC<ExpiredWindowBannerProps> = ({ contactId, is
     <div className="p-2 px-5 border-t border-gray-200 dark:bg-(--card-color)! dark:border-(--card-border-color) flex-wrap flex items-center justify-between animate-in fade-in slide-in-from-bottom-4 duration-500" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 85%)" } : {}}>
       <div className="">
         <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 pb-1">
-          {isNew ? <Sparkles size={16} style={isCustom ? { color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}} /> : <Lock size={16} />}
+          {isNew ? <Sparkles size={16} style={isCustom ? { color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}} /> : <Lock size={16} />}
           <p className="text-sm font-medium">{isNew ? "Start a new conversation" : "The 24-hour service window has closed."}</p>
         </div>
         <p className="text-[11px] text-slate-400 dark:text-slate-500 max-w-md pb-2">
@@ -37,7 +37,7 @@ const ExpiredWindowBanner: React.FC<ExpiredWindowBannerProps> = ({ contactId, is
           style={
             isCustom
               ? {
-                  backgroundColor: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)",
+                  backgroundColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)",
                   boxShadow: "0 10px 15px -3px color-mix(in srgb, var(--chat-theme-color), transparent 80%)",
                 }
               : {}

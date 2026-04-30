@@ -26,17 +26,17 @@ const TimeInput: React.FC<TimeInputProps> = ({ value, onChange, placeholder = "0
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: "#16a34a",
+            colorPrimary: "#00aeef",
             borderRadius: 8,
           },
           components: {
             DatePicker: {
-              cellActiveWithRangeBg: "rgba(22, 163, 74, 0.1)",
+              cellActiveWithRangeBg: "rgba(0, 174, 239, 0.1)",
             },
           },
         }}
       >
-        <TimePicker value={dayjsValue} format={format} placeholder={placeholder} onChange={handleChange} allowClear={false} suffixIcon={<Clock size={14} className="text-slate-400" />} getPopupContainer={(trigger) => trigger.parentElement || document.body} className={cn("h-10 px-3 min-w-30 text-sm font-mono font-medium transition-all text-slate-700 dark:text-white!", "bg-white border  dark:bg-(--page-body-bg)! dark:border-(--card-border-color)!", "hover:border-primary focus:border-primary focus:shadow-[0_0_0_2px_rgba(22,163,74,0.1)] cursor-pointer")} popupClassName="dark-time-picker-dropdown" inputReadOnly showNow={false} needConfirm={false} changeOnScroll={true} />
+        <TimePicker value={dayjsValue} format={format} placeholder={placeholder} onChange={handleChange} allowClear={false} suffixIcon={<Clock size={14} className="text-slate-400" />} getPopupContainer={(trigger) => trigger.parentElement || document.body} className={cn("h-10 px-3 min-w-30 text-sm font-mono font-medium transition-all text-slate-700 dark:text-white!", "bg-white border  dark:bg-(--page-body-bg)! dark:border-(--card-border-color)!", "hover:border-primary focus:border-primary focus:shadow-[0_0_0_2px_rgba(0,174,239,0.1)] cursor-pointer")} popupClassName="dark-time-picker-dropdown" inputReadOnly showNow={false} needConfirm={false} changeOnScroll={true} />
       </ConfigProvider>
     </div>
   );

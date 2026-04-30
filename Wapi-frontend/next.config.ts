@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-/** App root (folder containing this file). Keeps standalone output at `.next/standalone/` for Docker (context = Wapi-frontend only). */
+/** App root (folder containing this file). Keeps standalone output at `.next/standalone/` for Docker (compose build context = this app directory). */
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {

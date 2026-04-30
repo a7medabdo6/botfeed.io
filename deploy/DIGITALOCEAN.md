@@ -7,7 +7,7 @@
   - `botfeed.io` → Droplet IP  
   - `www.botfeed.io` → Droplet IP (optional but included in Caddyfile)  
   - `api.botfeed.io` → Droplet IP  
-  - `dashboard.botfeed.io` → Droplet IP (Wapi-admin)  
+  - `dashboard.botfeed.io` → Droplet IP (admin dashboard)  
 
 ## Secrets
 
@@ -25,7 +25,7 @@ openssl rand -base64 32   # NEXTAUTH_SECRET
 - **API file** — set `JWT_SECRET`, `SESSION_SECRET`, `ENCRYPTION_KEY` (exactly **32 ASCII characters** for the default AES-256-CBC helper), `GOOGLE_*`, admin password, payment keys. **MongoDB:** Compose sets `MONGODB_URI=mongodb://mongo:27017/wapi` for the `api` service; use Atlas only if you remove the `mongo` service and set `MONGODB_URI` yourself.
 - **Frontend file** — set `NEXTAUTH_SECRET` and optional OAuth client IDs for NextAuth.
 
-**Optional (gitignored secrets):** copy to `wapi-api/.env.production` and `Wapi-frontend/.env.production`, fill them in, then change `env_file` in `docker-compose.yml` to point at those paths instead of `deploy/env/*.example`.
+**Optional (gitignored secrets):** copy to `wapi-api/.env.production` and `Wapi-frontend/.env.production` (and admin env as needed), fill them in, then change `env_file` in `docker-compose.yml` to point at those paths instead of `deploy/env/*.example`.
 
 ## Google OAuth (API Calendar integration)
 

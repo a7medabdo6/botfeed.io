@@ -31,7 +31,7 @@ const ResolvedChatBanner: React.FC<ResolvedChatBannerProps> = ({ contactId, phon
   return (
     <div className="p-4 px-6 border-t border-gray-200 dark:border-(--card-border-color) flex-wrap flex items-center justify-between animate-in fade-in slide-in-from-bottom-4 duration-500" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 85%)" } : {}}>
       <div className="flex items-center gap-3">
-        <div className="h-10 w-10 rounded-full flex items-center justify-center" style={isCustom ? { backgroundColor: userSettingData?.theme_color == "null" ? "var(--light-primary)" : "color-mix(in srgb, var(--chat-theme-color), transparent 90%)", color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : { backgroundColor: "var(--primary-light)", color: "var(--primary)" }}>
+        <div className="h-10 w-10 rounded-full flex items-center justify-center" style={isCustom ? { backgroundColor: userSettingData?.theme_color == "null" ? "var(--light-primary)" : "color-mix(in srgb, var(--chat-theme-color), transparent 90%)", color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : { backgroundColor: "var(--primary-light)", color: "var(--primary)" }}>
           <CheckCircle2 size={24} />
         </div>
         <div>
@@ -47,7 +47,7 @@ const ResolvedChatBanner: React.FC<ResolvedChatBannerProps> = ({ contactId, phon
         style={
           isCustom
             ? {
-                backgroundColor: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)",
+                backgroundColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)",
                 boxShadow: `0 10px 15px -3px color-mix(in srgb, var(--chat-theme-color), transparent 80%)`,
               }
             : {}

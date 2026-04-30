@@ -119,7 +119,7 @@ const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) =
           <ul className="grid grid-cols-2 gap-x-4 gap-y-3">
             {features.map((feature, index) => (
               <li key={index} className="flex items-start gap-1">
-                <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center ${plan.is_featured ? "bg-emerald-100 dark:bg-emerald-900/20" : "bg-emerald-100 dark:bg-emerald-900/20"}`}>
+                <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center ${plan.is_featured ? "bg-sky-100 dark:bg-sky-900/20" : "bg-sky-100 dark:bg-sky-900/20"}`}>
                   <Check className={`w-2 h-2 ${plan.is_featured ? "text-(--text-green-primary) dark:text-(--text-green-primary)" : "text-(--text-green-primary) dark:text-(--text-green-primary)"}`} />
                 </div>
                 <span className="text-sm text-slate-700 dark:text-slate-300">{feature}</span>
@@ -134,7 +134,7 @@ const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) =
           <ul className="grid grid-cols-2 gap-x-4 gap-y-3">
             {capabilities.map((feature, index) => (
               <li key={index} className="flex items-start gap-3">
-                <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center ${plan.is_featured ? "bg-emerald-100 dark:bg-emerald-900/20" : "bg-emerald-100 dark:bg-emerald-900/20"}`}>
+                <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center ${plan.is_featured ? "bg-sky-100 dark:bg-sky-900/20" : "bg-sky-100 dark:bg-sky-900/20"}`}>
                   <Check className={`w-2 h-2 ${plan.is_featured ? "text-(--text-green-primary) dark:text-(--text-green-primary)" : "text-(--text-green-primary) dark:text-(--text-green-primary)"}`} />
                 </div>
                 <span className="text-sm text-slate-700 dark:text-slate-300">{feature}</span>

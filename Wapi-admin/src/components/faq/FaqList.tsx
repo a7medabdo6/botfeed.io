@@ -49,7 +49,7 @@ const FaqList = ({ faqs, page, totalPages, total, onPageChange, onDelete, onBulk
       className: "[@media(max-width:1830px)]:min-w-[140px]",
       sortable: true,
       sortKey: "status",
-      accessor: (faq) => <Badge className={`${faq.status ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400" : "bg-amber-100 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400"} border-none relative`}>{faq.status ? t("common.published") : t("common.draft")}</Badge>,
+      accessor: (faq) => <Badge className={`${faq.status ? "bg-sky-100 text-sky-700 dark:bg-sky-900/20 dark:text-sky-400" : "bg-amber-100 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400"} border-none relative`}>{faq.status ? t("common.published") : t("common.draft")}</Badge>,
     },
     {
       header: t("common.created_at"),
@@ -63,7 +63,7 @@ const FaqList = ({ faqs, page, totalPages, total, onPageChange, onDelete, onBulk
   const renderActions = (faq: Faq) => (
     <div className="flex items-center gap-2">
       <Can permission="update.faqs">
-        <Button variant="ghost" size="icon" onClick={() => handleEdit(faq)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" title={t("common.edit")} disabled={isLoading}>
+        <Button variant="ghost" size="icon" onClick={() => handleEdit(faq)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" title={t("common.edit")} disabled={isLoading}>
           <Edit className="w-4 h-4" />
         </Button>
       </Can>

@@ -3,7 +3,7 @@ import { Setting } from '../models/index.js';
 async function seedDefaultSettings() {
   try {
     const seedData = {
-      app_name: 'Wapi',
+      app_name: 'Botfeed',
       app_description: 'Whatsapp Marketing Platform',
       app_email: 'support@example.com',
       support_email: 'support@example.com',
@@ -27,7 +27,7 @@ async function seedDefaultSettings() {
       smtp_port: parseInt(process.env.SMTP_PORT) || 587,
       smtp_user: process.env.SMTP_USER || '',
       smtp_pass: process.env.SMTP_PASS || '',
-      mail_from_name: 'Wapi',
+      mail_from_name: 'Botfeed',
       mail_from_email: process.env.SMTP_USER || 'noreply@myapplication.com',
       default_theme_mode: 'light',
       display_customizer: true,

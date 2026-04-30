@@ -96,7 +96,7 @@ const ApiKeyManager = () => {
       accessorKey: "name",
       cell: (row) => (
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-primary flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-sky-50 dark:bg-sky-500/10 text-primary flex items-center justify-center">
             <Key size={14} />
           </div>
           <span className="font-semibold text-slate-900 dark:text-white uppercase tracking-tight">{row.name}</span>
@@ -111,7 +111,7 @@ const ApiKeyManager = () => {
         const isRevealed = revealedIds.includes(row.id);
         return (
           <div className="flex items-center gap-2">
-            <code className="text-xs font-mono bg-slate-100 dark:bg-(--dark-body) px-2 py-1 rounded text-slate-600 dark:text-emerald-400 min-w-30">{isRevealed ? `${row.prefix}••••••••••••` : `${row.prefix}••••••••••••`}</code>
+            <code className="text-xs font-mono bg-slate-100 dark:bg-(--dark-body) px-2 py-1 rounded text-slate-600 dark:text-sky-400 min-w-30">{isRevealed ? `${row.prefix}••••••••••••` : `${row.prefix}••••••••••••`}</code>
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -203,7 +203,7 @@ const ApiKeyManager = () => {
         <DialogContent className="sm:max-w-106.25 dark:bg-(--card-color) dark:border-(--card-border-color)">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-(--dark-body) text-primary flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-sky-50 dark:bg-(--dark-body) text-primary flex items-center justify-center">
                 <Plus size={18} />
               </div>
               {t("api_keys.create_key")}

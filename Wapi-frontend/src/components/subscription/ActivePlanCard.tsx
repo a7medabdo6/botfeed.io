@@ -20,7 +20,7 @@ const ActivePlanCard: React.FC<ActivePlanCardProps> = ({ currentSubscription }) 
           <div className="text-center md:text-left">
             <div className="flex flex-wrap items-center justify-start gap-3">
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Current Plan</h3>
-              <Badge variant="outline" className="border-emerald-500/20 text-primary bg-emerald-50 dark:bg-transparent font-bold px-3 py-0.5 rounded-lg text-[10px] uppercase tracking-wider">
+              <Badge variant="outline" className="border-sky-500/20 text-primary bg-sky-50 dark:bg-transparent font-bold px-3 py-0.5 rounded-lg text-[10px] uppercase tracking-wider">
                 {(currentSubscription.plan_id as any)?.name || "N/A"}
               </Badge>
             </div>

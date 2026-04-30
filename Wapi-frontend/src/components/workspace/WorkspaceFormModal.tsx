@@ -54,7 +54,7 @@ export default function WorkspaceFormModal({ isOpen, onClose, workspace }: Works
       <DialogContent className="sm:max-w-md! max-w-[calc(100%-2rem)]! dark:bg-(--card-color) dark:border-(--card-border-color)">
         <DialogHeader>
           <div className="flex items-center gap-3 mb-1">
-            <div className="h-10 w-10 rounded-xl bg-linear-to-br from-primary/80 to-primary flex items-center justify-center shadow-lg shadow-emerald-500/20">
+            <div className="h-10 w-10 rounded-xl bg-linear-to-br from-primary/80 to-primary flex items-center justify-center shadow-lg shadow-sky-500/20">
               <Building2 size={18} className="text-white" />
             </div>
             <div>

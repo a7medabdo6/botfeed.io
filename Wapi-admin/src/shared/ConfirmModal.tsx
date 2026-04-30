@@ -50,9 +50,9 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
       case "success":
         return {
           icon: CheckCircle,
-          iconBgColor: "bg-green-100",
-          iconColor: "text-green-600",
-          buttonColor: "bg-green-600 hover:bg-green-700",
+          iconBgColor: "bg-sky-100",
+          iconColor: "text-sky-600",
+          buttonColor: "bg-sky-600 hover:bg-sky-700",
         };
       case "info":
         return {

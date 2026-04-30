@@ -109,7 +109,7 @@ const GoogleAccountCalendarsPage = () => {
         onConfirm={confirmDelete}
         isLoading={isDeleting}
         title="Delete calendar"
-        subtitle="This removes the calendar from Google and clears it in Wapi for this account."
+        subtitle="This removes the calendar from Google and clears it in Botfeed for this account."
         confirmText="Delete"
         variant="danger"
       />

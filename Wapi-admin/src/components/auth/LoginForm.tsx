@@ -23,7 +23,7 @@ const resolveUrl = (url?: string): string => {
   return url.startsWith("http") ? url : `${API_URL}${url}`;
 };
 
-const DEFAULT_FAVICON = "/assets/logos/sidebarLogo.png";
+const DEFAULT_FAVICON = "/branding/botfeed-logo.png";
 
 function applyFavicon(href: string) {
   if (typeof window === "undefined") return;
@@ -198,14 +198,14 @@ const LoginForm = () => {
                   </div>
                 </div>
 
-                <div className="mt-6 p-3 bg-(--light-primary) rounded-lg border border-[#16a34a33] justify-center flex cursor-pointer dark:bg-transparent dark:border-(--card-border-color)" onClick={fillDemoCredentials}>
+                <div className="mt-6 p-3 bg-(--light-primary) rounded-lg border border-[#00aeef33] justify-center flex cursor-pointer dark:bg-transparent dark:border-(--card-border-color)" onClick={fillDemoCredentials}>
                   <p className="text-sm font-semibold text-slate-600 dark:text-gray-400">Demo Credentials</p>
                 </div>
               </>
             )}
 
             <div className="mt-6 text-center">
-              <Link href="/auth/forgot-password" prefetch={false} className="text-sm text-(--text-green-primary) hover:text-emerald-700 hover:underline font-medium">
+              <Link href="/auth/forgot-password" prefetch={false} className="text-sm text-(--text-green-primary) hover:text-sky-700 hover:underline font-medium">
                 Forgot password?
               </Link>
             </div>
@@ -225,7 +225,7 @@ const LoginForm = () => {
             Help Center
           </a>
         </div>
-        <p className="text-[13px] text-gray-400 font-semibold">© 2026 Wapi CRM. All rights reserved.</p>
+        <p className="text-[13px] text-gray-400 font-semibold">© 2026 Botfeed CRM. All rights reserved.</p>
       </footer>
     </div>
   );

@@ -27,8 +27,8 @@ const CampaignStats = ({ stats }: CampaignStatsData) => {
       label: "Delivered",
       value: stats?.messagesDelivered || 0,
       icon: <CheckCircle2 size={20} />,
-      color: "text-emerald-500",
-      bg: "bg-emerald-500/10",
+      color: "text-sky-500",
+      bg: "bg-sky-500/10",
       description: "Successfully delivered",
     },
     {

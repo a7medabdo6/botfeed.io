@@ -38,11 +38,11 @@ const NavItem: React.FC<NavItemProps> = ({
   const isLeafNode = !hasSubmenu;
 
   const activeClasses = isLeafNode
-    ? "bg-gradient-to-r from-(--text-green-primary) to-[#61896f] text-white shadow-lg shadow-(--text-green-primary)/25"
-    : "bg-green-50 dark:bg-[#455645]/50 text-(--text-green-primary)";
+    ? "bg-gradient-to-r from-(--text-green-primary) to-[#0077b6] text-white shadow-lg shadow-(--text-green-primary)/25"
+    : "bg-sky-50 dark:bg-[#1e2a36]/50 text-(--text-green-primary)";
 
   const inactiveClasses =
-    "hover:bg-slate-100 dark:hover:bg-[#455645]/30 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
+    "hover:bg-slate-100 dark:hover:bg-[#1e2a36]/30 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
 
   return (
     <div className="group/navitem">
@@ -87,7 +87,7 @@ const SubNavItem: React.FC<SubNavItemProps> = ({ label, active, onClick }) => {
       onClick={onClick}
       className={`
         w-full flex items-center gap-3 p-2.5 rounded-lg text-sm transition-all mb-1
-        ${active ? "bg-linear-to-r from-(--text-green-primary) to-[#61896f] text-white shadow-md shadow-(--text-green-primary)/20 font-medium" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#455645]/30"}
+        ${active ? "bg-linear-to-r from-(--text-green-primary) to-[#0077b6] text-white shadow-md shadow-(--text-green-primary)/20 font-medium" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#1e2a36]/30"}
       `}
     >
       <div
@@ -122,7 +122,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
           </div>
         </>
       ) : (
-        <div className="h-0.5 w-6 bg-slate-200 dark:bg-[#455645]/50 rounded-full" />
+        <div className="h-0.5 w-6 bg-slate-200 dark:bg-[#1e2a36]/50 rounded-full" />
       )}
     </div>
   );
@@ -156,13 +156,13 @@ export default function Sidebar() {
       return (
         (isDark
           ? settings?.sidebar_dark_logo_url
-          : settings?.sidebar_light_logo_url) || "/assets/logos/sidebarLogo.png"
+          : settings?.sidebar_light_logo_url) || "/branding/botfeed-logo.png"
       );
     }
 
     return (
       (isDark ? settings?.logo_dark_url : settings?.logo_light_url) ||
-      "/assets/logos/logo1.png"
+      "/branding/botfeed-logo.png"
     );
   }, [theme, settings, isVisuallyCollapsed]);
 
@@ -336,7 +336,7 @@ export default function Sidebar() {
           <div
             className={`
             h-full rounded-lg flex flex-col overflow-hidden border backdrop-blur-xl shadow-2xl transition-all duration-300
-            ${"bg-white/80 dark:bg-(--card-color) border-white/60 dark:border-(--card-border-color) shadow-green-100/50 dark:shadow-black/50"}
+            ${"bg-white/80 dark:bg-(--card-color) border-white/60 dark:border-(--card-border-color) shadow-sky-100/50 dark:shadow-black/50"}
             ${isVisuallyCollapsed ? "px-2" : "px-0"}
           `}
           >
@@ -350,7 +350,7 @@ export default function Sidebar() {
                 >
                   {sidebarLogo === null ? (
                     <div className="h-7.5 w-28 flex items-center justify-center text-sm font-semibold">
-                      <div className="h-7.5 w-28 bg-gray-200 dark:bg-[#455645]/40 animate-pulse rounded-md" />
+                      <div className="h-7.5 w-28 bg-gray-200 dark:bg-[#1e2a36]/40 animate-pulse rounded-md" />
                     </div>
                   ) : (
                     <CustomImage
@@ -417,7 +417,7 @@ export default function Sidebar() {
                                 className={`
                               overflow-hidden transition-all duration-300 ease-in-out mt-1
                               ${isRTL ? "mr-4 pr-4 border-r" : "ml-4 pl-4 border-l"} 
-                              dark:border-[#455645] border-slate-200 space-y-1
+                              dark:border-[#1e2a36] border-slate-200 space-y-1
                             `}
                               >
                                 {item.submenu.map((subItem, subIndex) => (

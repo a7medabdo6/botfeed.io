@@ -58,7 +58,7 @@ export const RegisterPage = () => {
 
         if (response.success) {
           toast.success(t("auth.registration_success"));
-          localStorage.setItem("wapi_new_registration", btoa(values.email));
+          localStorage.setItem("botfeed_new_registration", btoa(values.email));
           router.push(ROUTES.Login);
           dispatch(setAuthRedirectField(values.email));
         }
@@ -86,11 +86,11 @@ export const RegisterPage = () => {
 
   if (!allow_user_signup) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-slate-100 via-white-50 to-emerald-50 dark:bg-(--page-body-bg)">
+      <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-slate-100 via-white-50 to-sky-50 dark:bg-(--page-body-bg)">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 -left-20 w-72 h-72 bg-emerald-200/30 rounded-full blur-lg"></div>
+          <div className="absolute top-20 -left-20 w-72 h-72 bg-sky-200/30 rounded-full blur-lg"></div>
           <div className="absolute bottom-20 -right-20 w-96 h-96 bg-blue-200/30 rounded-full blur-lg"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-linear-to-r from-emerald-100/20 to-blue-100/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-linear-to-r from-sky-100/20 to-blue-100/20 rounded-full blur-3xl"></div>
         </div>
         <div className="flex flex-col items-center justify-center">
           <h1 className="font-semibold text-2xl">Registration Disabled</h1>
@@ -104,19 +104,19 @@ export const RegisterPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-emerald-50 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-sky-50 flex items-center justify-center p-4 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 -left-20 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 -left-20 w-72 h-72 bg-sky-200/30 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 -right-20 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 w-full max-w-7xl">
         <div className="grid lg:grid-cols-5 gap-0 items-stretch">
-          <div className="hidden lg:flex flex-col justify-between p-10 bg-linear-to-br from-slate-900 via-slate-800 to-emerald-900 rounded-l-3xl relative overflow-hidden lg:col-span-2">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full -mr-32 -mt-32"></div>
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/5 rounded-full -ml-40 -mb-40"></div>
-            <div className="absolute top-1/3 right-8 w-1 h-40 bg-emerald-500/20 rotate-12"></div>
-            <div className="absolute bottom-1/3 left-8 w-1 h-32 bg-emerald-500/20 -rotate-12"></div>
+          <div className="hidden lg:flex flex-col justify-between p-10 bg-linear-to-br from-slate-900 via-slate-800 to-sky-900 rounded-l-3xl relative overflow-hidden lg:col-span-2">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full -mr-32 -mt-32"></div>
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-sky-500/5 rounded-full -ml-40 -mb-40"></div>
+            <div className="absolute top-1/3 right-8 w-1 h-40 bg-sky-500/20 rotate-12"></div>
+            <div className="absolute bottom-1/3 left-8 w-1 h-32 bg-sky-500/20 -rotate-12"></div>
 
             <div className="relative z-10 space-y-10">
               <div className="flex items-center gap-3">
@@ -124,14 +124,14 @@ export const RegisterPage = () => {
               </div>
 
               <div>
-                <div className="inline-flex items-center gap-2 bg-emerald-500/20 px-4 py-2 rounded-full mb-4">
-                  <Sparkles className="w-4 h-4 text-emerald-300" />
-                  <span className="text-emerald-200 text-sm font-medium">{t("auth.start_free_trial")}</span>
+                <div className="inline-flex items-center gap-2 bg-sky-500/20 px-4 py-2 rounded-full mb-4">
+                  <Sparkles className="w-4 h-4 text-sky-300" />
+                  <span className="text-sky-200 text-sm font-medium">{t("auth.start_free_trial")}</span>
                 </div>
                 <h2 className="text-3xl text-white leading-tight mb-4">
                   {t("auth.join_businesses_header")}
                   <br />
-                  <span className="text-emerald-300">{t("auth.growing_with_us")}</span>
+                  <span className="text-sky-300">{t("auth.growing_with_us")}</span>
                 </h2>
                 <p className="text-slate-300 text-base">{t("auth.register_description_long")}</p>
               </div>
@@ -139,8 +139,8 @@ export const RegisterPage = () => {
               <div className="space-y-3">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-center gap-3 text-slate-200">
-                    <div className="w-6 h-6 bg-emerald-500/20 rounded-full flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <div className="w-6 h-6 bg-sky-500/20 rounded-full flex items-center justify-center shrink-0">
+                      <CheckCircle2 className="w-4 h-4 text-sky-400" />
                     </div>
                     <span>{benefit}</span>
                   </div>
@@ -165,7 +165,7 @@ export const RegisterPage = () => {
           </div>
 
           <div className="bg-white lg:rounded-r-3xl shadow-2xl p-8 lg:p-10 flex flex-col justify-center relative lg:col-span-3 min-h-200">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-linear-to-br from-emerald-100 to-blue-100 opacity-40 rounded-bl-[100px]"></div>
+            <div className="absolute top-0 right-0 w-40 h-40 bg-linear-to-br from-sky-100 to-blue-100 opacity-40 rounded-bl-[100px]"></div>
 
             <div className="relative z-10 max-w-2xl mx-auto w-full">
               <div className="lg:hidden flex items-center gap-3 mb-8">
@@ -184,7 +184,7 @@ export const RegisterPage = () => {
                       {t("auth.full_name")}
                     </Label>
                     <div className="relative group">
-                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-emerald-600 transition-colors" />
+                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-sky-600 transition-colors" />
                       <Input id="fullName" name="fullName" placeholder={t("auth.full_name_placeholder")} value={formik.values.fullName} onChange={formik.handleChange} onBlur={formik.handleBlur} className="pl-12 h-11 border border-(--input-border-color) focus:border-primary rounded-lg" />
                     </div>
                     {formik.touched.fullName && formik.errors.fullName && <p className="text-red-500 text-xs mt-1">{formik.errors.fullName}</p>}
@@ -195,7 +195,7 @@ export const RegisterPage = () => {
                       {t("auth.email_address")}
                     </Label>
                     <div className="relative group">
-                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-emerald-600 transition-colors" />
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-sky-600 transition-colors" />
                       <Input id="email" name="email" type="email" placeholder={t("auth.email_placeholder")} value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} className="pl-12 h-11 border border-(--input-border-color) focus:border-primary rounded-lg" />
                     </div>
                     {formik.touched.email && formik.errors.email && <p className="text-red-500 text-xs mt-1">{formik.errors.email}</p>}
@@ -208,8 +208,8 @@ export const RegisterPage = () => {
                       {t("auth.phone_number")}
                     </Label>
                     <div className="relative group">
-                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-emerald-600 transition-colors" />
-                      <Input id="phone" name="phone" type="number" placeholder={t("auth.phone_placeholder")} value={formik.values.phone} onChange={formik.handleChange} onBlur={formik.handleBlur} className="pl-12 h-12 border border-slate-200 focus:border-emerald-500 rounded-lg" />
+                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-sky-600 transition-colors" />
+                      <Input id="phone" name="phone" type="number" placeholder={t("auth.phone_placeholder")} value={formik.values.phone} onChange={formik.handleChange} onBlur={formik.handleBlur} className="pl-12 h-12 border border-slate-200 focus:border-sky-500 rounded-lg" />
                     </div>
                     {formik.touched.phone && formik.errors.phone && <p className="text-red-500 text-xs mt-1">{formik.errors.phone}</p>}
                   </div>
@@ -230,8 +230,8 @@ export const RegisterPage = () => {
                       {t("auth.password")}
                     </Label>
                     <div className="relative group">
-                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-emerald-600 transition-colors" />
-                      <Input id="password" name="password" type={showPassword ? "text" : "password"} placeholder={t("auth.password_placeholder")} value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} className="pl-12 pr-12 h-12 border border-slate-200 focus:border-emerald-500 rounded-lg" />
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-sky-600 transition-colors" />
+                      <Input id="password" name="password" type={showPassword ? "text" : "password"} placeholder={t("auth.password_placeholder")} value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} className="pl-12 pr-12 h-12 border border-slate-200 focus:border-sky-500 rounded-lg" />
                       <Button onClick={() => setShowPassword(!showPassword)} className="bg-transparent hover:bg-transparent absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                         {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                       </Button>
@@ -244,8 +244,8 @@ export const RegisterPage = () => {
                       {t("auth.confirm_password")}
                     </Label>
                     <div className="relative group">
-                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-emerald-600 transition-colors" />
-                      <Input id="confirmPassword" name="confirmPassword" type={showConfirmPassword ? "text" : "password"} placeholder={t("auth.confirm_password_placeholder")} value={formik.values.confirmPassword} onChange={formik.handleChange} onBlur={formik.handleBlur} className="pl-12 pr-12 h-12 border border-slate-200 focus:border-emerald-500 rounded-lg" />
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-sky-600 transition-colors" />
+                      <Input id="confirmPassword" name="confirmPassword" type={showConfirmPassword ? "text" : "password"} placeholder={t("auth.confirm_password_placeholder")} value={formik.values.confirmPassword} onChange={formik.handleChange} onBlur={formik.handleBlur} className="pl-12 pr-12 h-12 border border-slate-200 focus:border-sky-500 rounded-lg" />
                       <Button onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="bg-transparent hover:bg-transparent absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                         {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                       </Button>
@@ -254,7 +254,7 @@ export const RegisterPage = () => {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full h-13 mt-4 bg-primary text-white rounded-lg shadow-lg shadow-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/40 transition-all text-base font-semibold group" disabled={isLoading || formik.isSubmitting}>
+                <Button type="submit" className="w-full h-13 mt-4 bg-primary text-white rounded-lg shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 transition-all text-base font-semibold group" disabled={isLoading || formik.isSubmitting}>
                   {isLoading || formik.isSubmitting ? (
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 border border-white/30 border-t-white rounded-full animate-spin" />
@@ -303,7 +303,7 @@ export const RegisterPage = () => {
               <div className="mt-8 text-center">
                 <p className="text-slate-600">
                   {t("auth.already_have_account")}{" "}
-                  <Button onClick={onNavigateToLogin} className="bg-transparent hover:bg-gray-100 px-2 font-semibold text-primary hover:text-emerald-700 transition-colors">
+                  <Button onClick={onNavigateToLogin} className="bg-transparent hover:bg-gray-100 px-2 font-semibold text-primary hover:text-sky-700 transition-colors">
                     {t("auth.sign_in_here")}
                   </Button>
                 </p>

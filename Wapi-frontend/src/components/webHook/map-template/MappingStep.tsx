@@ -16,7 +16,7 @@ const MappingStep = ({ payloadFields, phoneNumberField, setPhoneNumberField, var
     <div className="[@media(min-width:1400px)]:col-span-7 col-span-1 space-y-8">
       <div className="bg-white dark:bg-(--card-color) sm:p-6 p-4 rounded-lg shadow-xl space-y-6">
         <div className="flex items-center gap-3 border-b dark:border-white/5 pb-4">
-          <div className="p-2 bg-emerald-500/10 rounded-lg">
+          <div className="p-2 bg-sky-500/10 rounded-lg">
             <Database size={18} className="text-primary" />
           </div>
           <div>
@@ -42,7 +42,7 @@ const MappingStep = ({ payloadFields, phoneNumberField, setPhoneNumberField, var
           <h3 className="font-black text-slate-800 dark:text-white text-sm uppercase tracking-widest flex items-center gap-2">
             <Settings2 size={16} className="text-primary" /> Template Placeholders
           </h3>
-          <Badge className="bg-emerald-500/10 text-primary border-none font-black text-[10px] px-3">{variables.length} Variables to map</Badge>
+          <Badge className="bg-sky-500/10 text-primary border-none font-black text-[10px] px-3">{variables.length} Variables to map</Badge>
         </div>
 
         <div className="grid grid-cols-1 gap-5">
@@ -53,10 +53,10 @@ const MappingStep = ({ payloadFields, phoneNumberField, setPhoneNumberField, var
               const currentVal = variableMappings[key] || "";
 
               return (
-                <div key={index} className="group bg-white dark:bg-(--card-color) p-6 rounded-lg border border-gray-50 dark:border-(--card-border-color) hover:border-emerald-500/30 transition-all hover:shadow-2xl hover:shadow-emerald-500/5 space-y-5">
+                <div key={index} className="group bg-white dark:bg-(--card-color) p-6 rounded-lg border border-gray-50 dark:border-(--card-border-color) hover:border-sky-500/30 transition-all hover:shadow-2xl hover:shadow-sky-500/5 space-y-5">
                   <div className="flex items-center justify-between gap-4 flex-wrap">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 bg-emerald-500 rounded-lg flex items-center justify-center text-white font-black text-sm shadow-lg shadow-emerald-500/20 ">
+                      <div className="h-10 w-10 bg-sky-500 rounded-lg flex items-center justify-center text-white font-black text-sm shadow-lg shadow-sky-500/20 ">
                         <Locate />
                       </div>
                       <div>
@@ -66,10 +66,10 @@ const MappingStep = ({ payloadFields, phoneNumberField, setPhoneNumberField, var
                     </div>
 
                     <div className="flex bg-slate-100 dark:bg-black/40 p-1 rounded-lg">
-                      <button onClick={() => setVariableMappings((prev) => ({ ...prev, [key]: "" }))} className={cn("px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all", !currentVal.startsWith("{{") ? "bg-white dark:bg-emerald-500 text-emerald-600 dark:text-white shadow-sm" : "text-slate-400")}>
+                      <button onClick={() => setVariableMappings((prev) => ({ ...prev, [key]: "" }))} className={cn("px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all", !currentVal.startsWith("{{") ? "bg-white dark:bg-sky-500 text-sky-600 dark:text-white shadow-sm" : "text-slate-400")}>
                         Manual
                       </button>
-                      <button onClick={() => setVariableMappings((prev) => ({ ...prev, [key]: "{{" }))} className={cn("px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all", currentVal.startsWith("{{") ? "bg-white dark:bg-emerald-500 text-emerald-600 dark:text-white shadow-sm" : "text-slate-400")}>
+                      <button onClick={() => setVariableMappings((prev) => ({ ...prev, [key]: "{{" }))} className={cn("px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all", currentVal.startsWith("{{") ? "bg-white dark:bg-sky-500 text-sky-600 dark:text-white shadow-sm" : "text-slate-400")}>
                         Payload
                       </button>
                     </div>
@@ -77,24 +77,24 @@ const MappingStep = ({ payloadFields, phoneNumberField, setPhoneNumberField, var
 
                   {currentVal.startsWith("{{") ? (
                     <div className="animate-in slide-in-from-top-2 duration-300">
-                      <PayloadFieldSelector fields={payloadFields} value={currentVal.replace("{{", "").replace("}}", "")} onChange={(val) => setVariableMappings((prev) => ({ ...prev, [key]: val ? `{{${val}}}` : "{{" }))} placeholder="Choose field from JSON..." className="h-12 rounded-lg border-emerald-500/10 bg-emerald-50/20 dark:border-none" />
+                      <PayloadFieldSelector fields={payloadFields} value={currentVal.replace("{{", "").replace("}}", "")} onChange={(val) => setVariableMappings((prev) => ({ ...prev, [key]: val ? `{{${val}}}` : "{{" }))} placeholder="Choose field from JSON..." className="h-12 rounded-lg border-sky-500/10 bg-sky-50/20 dark:border-none" />
                     </div>
                   ) : (
                     <div className="animate-in slide-in-from-bottom-2 duration-300">
-                      <Input placeholder="Enter custom text here..." value={currentVal} onChange={(e) => setVariableMappings((prev) => ({ ...prev, [key]: e.target.value }))} className="h-12 rounded-lg bg-slate-50/50 dark:bg-(--page-body-bg) border-slate-100 focus:ring-emerald-500/20 font-bold text-sm" />
+                      <Input placeholder="Enter custom text here..." value={currentVal} onChange={(e) => setVariableMappings((prev) => ({ ...prev, [key]: e.target.value }))} className="h-12 rounded-lg bg-slate-50/50 dark:bg-(--page-body-bg) border-slate-100 focus:ring-sky-500/20 font-bold text-sm" />
                     </div>
                   )}
                 </div>
               );
             })
           ) : (
-            <div className="bg-emerald-50/50 dark:bg-(--card-color) sm:p-8 p-4 rounded-lg border border-dashed border-emerald-200/50 dark:border-(--card-border-color) text-center space-y-4">
-              <div className="h-16 w-16 bg-emerald-100 dark:bg-(--page-body-bg) rounded-lg flex items-center justify-center mx-auto">
+            <div className="bg-sky-50/50 dark:bg-(--card-color) sm:p-8 p-4 rounded-lg border border-dashed border-sky-200/50 dark:border-(--card-border-color) text-center space-y-4">
+              <div className="h-16 w-16 bg-sky-100 dark:bg-(--page-body-bg) rounded-lg flex items-center justify-center mx-auto">
                 <CheckCircle2 className="h-8 w-8 text-primary" />
               </div>
               <div className="space-y-1">
-                <h4 className="font-black text-lg text-primary dark:text-emerald-400">Zero Variables</h4>
-                <p className="text-sm text-emerald-600/70 dark:text-emerald-400/60 font-medium">This template is static. No variable mapping required!</p>
+                <h4 className="font-black text-lg text-primary dark:text-sky-400">Zero Variables</h4>
+                <p className="text-sm text-sky-600/70 dark:text-sky-400/60 font-medium">This template is static. No variable mapping required!</p>
               </div>
             </div>
           )}
@@ -113,7 +113,7 @@ const MappingStep = ({ payloadFields, phoneNumberField, setPhoneNumberField, var
             <FormLivePreview templateType={template.header?.format || "text"} headerText={template.header?.text || ""} messageBody={template.message_body || ""} variables_example={previewVariables} footerText={template.footer_text || ""} buttons={template.buttons || []} headerFile={null} />
           ) : (
             <div className="flex flex-col items-center gap-4">
-              <Loader2 className="animate-spin text-emerald-500 h-10 w-10" />
+              <Loader2 className="animate-spin text-sky-500 h-10 w-10" />
               <p className="text-[10px] uppercase font-black tracking-widest text-slate-400">Loading Preview...</p>
             </div>
           )}

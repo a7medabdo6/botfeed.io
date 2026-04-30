@@ -19,7 +19,7 @@ const WabaSetupGuide = ({ isConnected }: WabaSetupGuideProps) => {
     <Card className="border-gray-100 dark:border-(--card-border-color) dark:bg-(--card-color) shadow-sm overflow-hidden h-full flex flex-col">
       <div className="bg-slate-50 dark:bg-(--page-body-bg) px-6 py-5 border-b border-slate-100 dark:border-(--card-border-color)">
         <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">WhatsApp Business API Setup Guide</h3>
-        <p className="text-xs text-slate-500 dark:text-gray-400 mt-1">Complete these steps in your Meta Developer account to activate WAPI.</p>
+        <p className="text-xs text-slate-500 dark:text-gray-400 mt-1">Complete these steps in your Meta Developer account to activate Botfeed.</p>
       </div>
 
       <CardContent className="sm:p-6 p-4 flex-1 space-y-6">

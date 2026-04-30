@@ -73,7 +73,7 @@ export function ButtonMessageNode({ data, id }: any) {
   };
 
   return (
-    <BaseNode id={id} title="Button Message" icon={<MousePointer2 size={18} />} iconBgColor="bg-emerald-100" iconColor="text-emerald-600" borderColor="border-emerald-200" handleColor="bg-emerald-500!" errors={errors} showOutHandle={false}>
+    <BaseNode id={id} title="Button Message" icon={<MousePointer2 size={18} />} iconBgColor="bg-sky-100" iconColor="text-sky-600" borderColor="border-sky-200" handleColor="bg-sky-500!" errors={errors} showOutHandle={false}>
       <NodeField label="Message Text" required error={(touched || data.forceValidation) && !data.message?.trim() ? "Message text is required" : ""}>
         <Textarea placeholder="Enter message text here..." value={data.message || ""} onFocus={() => setTouched(true)} onChange={(e) => updateNodeData("message", e.target.value)} className="min-h-20 resize-none text-sm dark:bg-(--page-body-bg)" />
         <div className="mt-1 text-right text-[10px] text-gray-400">{data.message?.length || 0}/1024</div>
@@ -87,7 +87,7 @@ export function ButtonMessageNode({ data, id }: any) {
 
         {(data.buttons || []).map((btn: any, index: number) => (
           <div key={index} className="relative rounded-lg border border-gray-100 dark:border-(--card-border-color) dark:bg-(--dark-sidebar) bg-gray-50/50 p-3 pt-7">
-            <Handle type="source" id={`src-btn-${index}`} position={Position.Right} style={{ top: "50%" }} className="w-3! h-3! bg-emerald-500! border-2! border-white! dark:border-(--card-border-color)! shadow-sm" />
+            <Handle type="source" id={`src-btn-${index}`} position={Position.Right} style={{ top: "50%" }} className="w-3! h-3! bg-sky-500! border-2! border-white! dark:border-(--card-border-color)! shadow-sm" />
 
             <Button onClick={() => removeButton(index)} variant="ghost" size="icon" className="absolute right-1 top-1 h-5 w-5 text-gray-400 hover:text-red-500">
               <X size={12} />

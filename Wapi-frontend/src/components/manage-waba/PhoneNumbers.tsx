@@ -101,7 +101,7 @@ const PhoneNumbers = ({ wabaId }: PhoneNumbersProps) => {
       sortable: true,
       sortKey: "quality_rating",
       cell: (row) => (
-        <Badge variant="outline" className={`font-medium ${row.quality_rating === "GREEN" ? "bg-emerald-50 text-primary border-emerald-100" : row.quality_rating === "YELLOW" ? "bg-amber-50 text-amber-700 border-amber-100" : "bg-rose-50 dark:bg-(--page-body-bg) dark:border-(--card-border-color) text-rose-700 border-rose-100"}`}>
+        <Badge variant="outline" className={`font-medium ${row.quality_rating === "GREEN" ? "bg-sky-50 text-primary border-sky-100" : row.quality_rating === "YELLOW" ? "bg-amber-50 text-amber-700 border-amber-100" : "bg-rose-50 dark:bg-(--page-body-bg) dark:border-(--card-border-color) text-rose-700 border-rose-100"}`}>
           {row.quality_rating}
         </Badge>
       ),
@@ -109,7 +109,7 @@ const PhoneNumbers = ({ wabaId }: PhoneNumbersProps) => {
     {
       header: "Status",
       cell: (row) => (
-        <Badge variant="outline" className={`font-medium ${row.is_primary ? "bg-emerald-50 text-primary border-emerald-100" : "bg-slate-50 dark:bg-(--page-body-bg) dark:border-(--card-border-color) dark:text-amber-50 text-slate-700 border-slate-100"}`}>
+        <Badge variant="outline" className={`font-medium ${row.is_primary ? "bg-sky-50 text-primary border-sky-100" : "bg-slate-50 dark:bg-(--page-body-bg) dark:border-(--card-border-color) dark:text-amber-50 text-slate-700 border-slate-100"}`}>
           {`${row.is_primary ? "Active" : "Inactive"}`}
         </Badge>
       ),

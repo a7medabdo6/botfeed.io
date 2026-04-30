@@ -59,7 +59,7 @@ const Platform: React.FC<PlatformProps> = ({ data }) => {
             <div className="flex flex-col gap-[calc(8px+(24-8)*((100vw-320px)/(1920-320)))] lg:pl-8 pb-8 sm:pb-12 lg:pb-16">
               {steps.length > 1 && (
                 <div className="relative flex items-center justify-between py-4">
-                  <div className="absolute left-0 right-0 top-1/2 h-0.75 sm:h-1 -translate-y-1/2 bg-[linear-gradient(90deg,rgba(5,150,105,0)_0%,#059669_50%,rgba(5,150,105,0)_100%)]" />
+                  <div className="absolute left-0 right-0 top-1/2 h-0.75 sm:h-1 -translate-y-1/2 bg-[linear-gradient(90deg,rgba(5,150,105,0)_0%,#00AEEF_50%,rgba(5,150,105,0)_100%)]" />
                   <div ref={progressRef} className="absolute left-0 top-1/2 h-0.75 sm:h-1 w-0 -translate-y-1/2 bg-primary/80 shadow-[0_0_8px_rgba(16,185,129,0.5)] z-0" />
 
                   {steps.map((step, i) => (

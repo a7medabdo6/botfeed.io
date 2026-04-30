@@ -24,7 +24,7 @@ const MATCHING_METHOD_LABELS: Record<string, string> = {
 
 const MATCHING_METHOD_COLORS: Record<string, string> = {
   exact: "bg-blue-50 text-blue-600 border-blue-100 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20",
-  contains: "bg-emerald-50 text-emerald-600 border-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400",
+  contains: "bg-sky-50 text-sky-600 border-sky-100 dark:bg-sky-500/10 dark:text-sky-400",
   partial: "bg-amber-50 text-amber-600 border-amber-100 dark:bg-amber-500/10 dark:text-amber-400",
   starts_with: "bg-purple-50 text-purple-600 border-purple-100 dark:bg-purple-500/10 dark:text-purple-400 dark:border-(--card-border-color)",
   ends_with: "bg-rose-50 text-rose-600 border-rose-100 dark:bg-rose-500/10 dark:text-rose-400",
@@ -90,8 +90,8 @@ const KeywordActionPage: React.FC = () => {
       {
         header: "Status",
         cell: (row: KeywordAction) => (
-          <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold ${row.status === "active" ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400" : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"}`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${row.status === "active" ? "bg-emerald-500" : "bg-slate-400"}`} />
+          <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold ${row.status === "active" ? "bg-sky-50 text-sky-600 dark:bg-sky-500/10 dark:text-sky-400" : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"}`}>
+            <span className={`w-1.5 h-1.5 rounded-full ${row.status === "active" ? "bg-sky-500" : "bg-slate-400"}`} />
             {row.status === "active" ? "Active" : "Inactive"}
           </span>
         ),
@@ -107,7 +107,7 @@ const KeywordActionPage: React.FC = () => {
                 e.stopPropagation();
                 router.push(`/keyword_action/${row._id}/edit`);
               }}
-              className="w-10 h-10 text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all"
+              className="w-10 h-10 text-slate-400 hover:text-primary hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all"
             >
               <Edit2 size={14} />
             </Button>

@@ -75,7 +75,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
               <ImagePreviewModal />
             </ReduxProvider>
             <Toaster position="top-center" theme="dark" richColors closeButton />
-            <NextTopLoader color="#16a34a" />
+            <NextTopLoader color="#00aeef" />
             {/* <div data-id="69aa78266d6db6e00a12ed3a" id="vf_root_" />
             <Script src="http://localhost:5000/uploads/widget.js" strategy="afterInteractive" /> */}
           </TooltipProvider>

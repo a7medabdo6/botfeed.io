@@ -24,7 +24,7 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({ disabled, value, o
           </SelectTrigger>
           <SelectContent className="max-h-60 rounded-lg dark:bg-(--card-color) dark:border-(--card-border-color) border-slate-200 shadow-xl overflow-y-auto z-50">
             {COUNTRIES.map((country) => (
-              <SelectItem key={country?.code} value={country.name} className="cursor-pointer hover:bg-emerald-50 dark:hover:bg-(--table-hover) transition-colors py-2 px-3 rounded-md mx-1 my-0.5">
+              <SelectItem key={country?.code} value={country.name} className="cursor-pointer hover:bg-sky-50 dark:hover:bg-(--table-hover) transition-colors py-2 px-3 rounded-md mx-1 my-0.5">
                 <div className="flex items-center justify-between w-full gap-2">
                   <span className="flex-1 truncate">{country.name}</span>
                   <span className="text-xs text-slate-400 font-mono">{country.dial_code}</span>

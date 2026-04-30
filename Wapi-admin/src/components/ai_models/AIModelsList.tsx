@@ -89,7 +89,7 @@ const AIModelsList = ({ models, isLoading, onDelete, onEdit, onToggleStatus, col
       sortKey: "is_default",
       isVisible: columns.find((c) => c.id === "is_default")?.isVisible ?? true,
       cell: (row: AIModel) => {
-        return row.is_default ? <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border-none text-[10px] h-5 px-1.5 font-bold uppercase tracking-wider">Yes</Badge> : "No";
+        return row.is_default ? <Badge className="bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400 border-none text-[10px] h-5 px-1.5 font-bold uppercase tracking-wider">Yes</Badge> : "No";
       },
     },
     {
@@ -120,7 +120,7 @@ const AIModelsList = ({ models, isLoading, onDelete, onEdit, onToggleStatus, col
         renderActions={(row: AIModel) => (
           <div className="flex items-center gap-2">
             <Can permission="update.ai_models">
-              <Button variant="ghost" size="icon" onClick={() => onEdit(row._id)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" title={t("common.edit")}>
+              <Button variant="ghost" size="icon" onClick={() => onEdit(row._id)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" title={t("common.edit")}>
                 <Edit className="w-5 h-5" />
               </Button>
             </Can>

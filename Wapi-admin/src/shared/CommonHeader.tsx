@@ -33,7 +33,7 @@ const CommonHeader = ({ title, description, onSearch, searchTerm = "", searchPla
           {extraActions}
           {onAddClick && (
             <Can permission={addPermission}>
-              <Button onClick={onAddClick} className="flex items-center cursor-pointer gap-2 justify-center text-white px-4.5 py-5 rounded-lg dark:shadow-none shadow-md shadow-emerald-100 transition-all active:scale-95" disabled={isLoading}>
+              <Button onClick={onAddClick} className="flex items-center cursor-pointer gap-2 justify-center text-white px-4.5 py-5 rounded-lg dark:shadow-none shadow-md shadow-sky-100 transition-all active:scale-95" disabled={isLoading}>
                 <Plus className="w-5 h-5" />
                 {addLabel}
               </Button>

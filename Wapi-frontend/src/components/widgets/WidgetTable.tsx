@@ -140,7 +140,7 @@ const WidgetTable: React.FC = () => {
         className: "[@media(max-width:1870px)]:min-w-[145px] text-right",
         cell: (item) => (
           <div className="flex items-center justify-end gap-2">
-            <Button variant="outline" size="sm" onClick={() => router.push(`/tools/widgets/config/${item._id}`)} className="w-10 h-10 text-slate-400 hover:text-primary border-none hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" title="Edit Widget">
+            <Button variant="outline" size="sm" onClick={() => router.push(`/tools/widgets/config/${item._id}`)} className="w-10 h-10 text-slate-400 hover:text-primary border-none hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" title="Edit Widget">
               <Edit size={14} />
             </Button>
             <Button variant="outline" size="sm" onClick={() => setDeleteId(item._id || null)} className="w-10 h-10 text-slate-400 hover:text-red-600 dark:text-red-500 hover:bg-red-50 rounded-lg transition-all border-none dark:hover:bg-red-900/20" title="Delete Widget">

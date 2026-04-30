@@ -27,9 +27,9 @@ const WeeklyMessagesChart = ({ data, isLoading }: WeeklyMessagesChartData) => {
       toolbar: { show: false },
       background: "transparent",
       fontFamily: "Inter, sans-serif",
-      dropShadow: { enabled: true, top: 10, left: 0, blur: 15, color: "#16a34a", opacity: 0.1 },
+      dropShadow: { enabled: true, top: 10, left: 0, blur: 15, color: "#00aeef", opacity: 0.1 },
     },
-    colors: ["#16a34a", "rgba(22,163,74,0.15)", "#f59e0b"],
+    colors: ["#00aeef", "rgba(0,174,239,0.15)", "#f59e0b"],
     fill: {
       type: ["gradient", "solid", "gradient"],
       gradient: {
@@ -91,9 +91,9 @@ const WeeklyMessagesChart = ({ data, isLoading }: WeeklyMessagesChartData) => {
             <p className="text-sm text-slate-400 font-bold">Analysis of incoming & outgoing traffic</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 dark:bg-emerald-950/30 rounded-full">
-          <Zap size={14} className="text-emerald-500" />
-          <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Live Tracking</span>
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-sky-50 dark:bg-sky-950/30 rounded-full">
+          <Zap size={14} className="text-sky-500" />
+          <span className="text-[10px] font-black text-sky-600 dark:text-sky-400 uppercase tracking-wider">Live Tracking</span>
         </div>
       </div>
 

@@ -100,7 +100,7 @@ const SubscriptionCard = () => {
                     const daysLeft = differenceInDays(new Date(subscription?.current_period_end), new Date());
                     if (daysLeft <= 10) return "bg-red-400";
                     if (daysLeft <= 30) return "bg-amber-500";
-                    return "bg-emerald-500";
+                    return "bg-sky-500";
                   })()
                 )}
                 style={{
@@ -128,7 +128,7 @@ const SubscriptionCard = () => {
 
   if (isFreeTrial) {
     return (
-      <div className="h-full flex flex-col bg-linear-to-br from-primary/5 to-emerald-500/5 dark:from-primary/10 dark:to-emerald-500/10 rounded-lg sm:p-6 p-4 border border-primary/20 dark:border-primary/20 shadow-sm relative overflow-hidden group transition-all duration-300 min-h-full">
+      <div className="h-full flex flex-col bg-linear-to-br from-primary/5 to-sky-500/5 dark:from-primary/10 dark:to-sky-500/10 rounded-lg sm:p-6 p-4 border border-primary/20 dark:border-primary/20 shadow-sm relative overflow-hidden group transition-all duration-300 min-h-full">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-700" />
 
         <div className="relative z-10 flex flex-col h-full">

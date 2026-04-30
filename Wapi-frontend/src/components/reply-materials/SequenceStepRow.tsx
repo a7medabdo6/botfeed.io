@@ -50,7 +50,7 @@ const SequenceStepRow: React.FC<SequenceStepRowProps> = ({ step, index, onEdit, 
       </div>
 
       <div className="flex items-center gap-2">
-        <button onClick={() => onToggleActive(step._id, !step.is_active)} className={cn("p-2 rounded-lg transition-colors", step.is_active ? "text-green-500 hover:bg-green-50 dark:hover:bg-emerald-900/20" : "text-slate-300 hover:bg-slate-50")} title={step.is_active ? "Pause Step" : "Activate Step"}>
+        <button onClick={() => onToggleActive(step._id, !step.is_active)} className={cn("p-2 rounded-lg transition-colors", step.is_active ? "text-sky-500 hover:bg-sky-50 dark:hover:bg-sky-900/20" : "text-slate-300 hover:bg-slate-50")} title={step.is_active ? "Pause Step" : "Activate Step"}>
           {step.is_active ? <CheckCircle2 size={18} /> : <Circle size={18} />}
         </button>
         <button onClick={() => onEdit(step)} className="p-2 rounded-lg text-slate-400 hover:bg-primary/5 hover:text-primary transition-colors" title="Edit">

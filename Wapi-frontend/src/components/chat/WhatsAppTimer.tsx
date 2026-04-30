@@ -34,7 +34,7 @@ const WhatsAppTimer: React.FC<WhatsAppTimerProps> = ({ lastInboundTime, onExpire
   }, [lastInboundTime, onExpire]);
 
   return (
-    <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[11px] font-medium uppercase tracking-widest transition-all duration-500 ${isExpired ? "bg-red-50 text-red-600 dark:bg-rose-500/10 border border-red-400 dark:border-rose-900/20" : "bg-emerald-50 dark:bg-(--page-body-bg) text-primary border border-emerald-400 dark:border-(--card-border-color)"}`}>
+    <div className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[11px] font-medium uppercase tracking-widest transition-all duration-500 ${isExpired ? "bg-red-50 text-red-600 dark:bg-rose-500/10 border border-red-400 dark:border-rose-900/20" : "bg-sky-50 dark:bg-(--page-body-bg) text-primary border border-sky-400 dark:border-(--card-border-color)"}`}>
       <Clock size={13} className={isExpired ? "" : "animate-pulse"} />
       <span className="text-[11px]">{timeLeft}</span>
     </div>

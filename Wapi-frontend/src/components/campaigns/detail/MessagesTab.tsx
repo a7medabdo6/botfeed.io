@@ -74,7 +74,7 @@ export const MessagesTab = ({ recipients, active }: { recipients: Recipient[]; a
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <Badge variant="outline" className={cn("uppercase text-[10px] font-black py-0.5 px-2 border-2", rec.status === "sent" ? "bg-blue-50 text-blue-600 border-blue-100 dark:bg-blue-950/30 dark:border-blue-900/50" : rec.status === "delivered" ? "bg-emerald-50 text-emerald-600 border-emerald-100 dark:bg-emerald-950/30 dark:border-emerald-900/50" : rec.status === "read" ? "bg-purple-50 text-purple-600 border-purple-100 dark:bg-purple-950/30 dark:border-purple-900/50" : rec.status === "failed" ? "bg-red-50 text-red-600 border-red-100 dark:bg-red-950/30 dark:border-red-900/50" : "bg-slate-50 text-slate-600 dark:text-gray-400 border-slate-100 dark:bg-(--page-body-bg) dark:border-(--card-border-color)")}>
+                    <Badge variant="outline" className={cn("uppercase text-[10px] font-black py-0.5 px-2 border-2", rec.status === "sent" ? "bg-blue-50 text-blue-600 border-blue-100 dark:bg-blue-950/30 dark:border-blue-900/50" : rec.status === "delivered" ? "bg-sky-50 text-sky-600 border-sky-100 dark:bg-sky-950/30 dark:border-sky-900/50" : rec.status === "read" ? "bg-purple-50 text-purple-600 border-purple-100 dark:bg-purple-950/30 dark:border-purple-900/50" : rec.status === "failed" ? "bg-red-50 text-red-600 border-red-100 dark:bg-red-950/30 dark:border-red-900/50" : "bg-slate-50 text-slate-600 dark:text-gray-400 border-slate-100 dark:bg-(--page-body-bg) dark:border-(--card-border-color)")}>
                       {rec.status}
                     </Badge>
                   </td>

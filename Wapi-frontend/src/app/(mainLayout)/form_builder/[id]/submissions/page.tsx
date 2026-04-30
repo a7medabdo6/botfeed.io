@@ -103,7 +103,7 @@ const SubmissionsPage = () => {
       viewed: { variant: "secondary", color: "bg-indigo-500/10 text-indigo-600 border-indigo-200" },
       in_progress: { variant: "outline", color: "bg-amber-500/10 text-amber-600 border-amber-200" },
       contacted: { variant: "outline", color: "bg-cyan-500/10 text-cyan-600 border-cyan-200" },
-      qualified: { variant: "default", color: "bg-emerald-500/10 text-emerald-600 border-emerald-200" },
+      qualified: { variant: "default", color: "bg-sky-500/10 text-sky-600 border-sky-200" },
       closed: { variant: "secondary", color: "bg-slate-500/10 text-slate-600 border-slate-200" },
       failed: { variant: "destructive", color: "bg-red-500/10 text-red-600 border-red-200" },
     };
@@ -156,7 +156,7 @@ const SubmissionsPage = () => {
           <Button variant="outline" size="icon" title="View Details" className="h-8 w-8 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 border-none" onClick={() => handleViewDetails(row._id)}>
             <Eye size={14} />
           </Button>
-          <Button variant="outline" size="icon" title="Update Status" className="h-8 w-8 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 border-none" onClick={() => handleOpenStatusModal(row._id, row.status)}>
+          <Button variant="outline" size="icon" title="Update Status" className="h-8 w-8 text-slate-500 hover:text-sky-600 hover:bg-sky-50 border-none" onClick={() => handleOpenStatusModal(row._id, row.status)}>
             <Clock size={14} />
           </Button>
           <Button variant="outline" size="icon" title="Delete" className="h-8 w-8 text-slate-500 hover:text-red-600 hover:bg-red-50 border-none" onClick={() => handleDeleteClick(row._id)}>
@@ -173,7 +173,7 @@ const SubmissionsPage = () => {
     { label: "Total Leads", value: stats?.total || 0, icon: Users, color: "text-blue-500", bg: "bg-blue-50 dark:bg-blue-500/10" },
     { label: "New", value: stats?.new || 0, icon: UserPlus, color: "text-indigo-500", bg: "bg-indigo-50 dark:bg-indigo-500/10" },
     { label: "In Progress", value: stats?.in_progress || 0, icon: CircleDashed, color: "text-amber-500", bg: "bg-amber-50 dark:bg-amber-500/10" },
-    { label: "Qualified", value: stats?.qualified || 0, icon: CheckCircle2, color: "text-emerald-500", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
+    { label: "Qualified", value: stats?.qualified || 0, icon: CheckCircle2, color: "text-sky-500", bg: "bg-sky-50 dark:bg-sky-500/10" },
     { label: "Contacted", value: stats?.contacted || 0, icon: MessageSquare, color: "text-cyan-500", bg: "bg-cyan-50 dark:bg-cyan-500/10" },
   ];
 

@@ -105,7 +105,7 @@ const CampaignsPage = () => {
           draft: { icon: Clock, className: "bg-gray-100 text-gray-600 border-gray-200 dark:border-(--card-border-color) dark:bg-(--dark-sidebar) dark:hover:bg-(--table-hover)", label: "Draft" },
           scheduled: { icon: Calendar, className: "bg-amber-50 text-amber-600 border-amber-100 dark:border-(--card-border-color) dark:bg-(--dark-sidebar) dark:hover:bg-(--table-hover)", label: "Scheduled" },
           sending: { icon: Loader2, className: "bg-blue-50 text-blue-600 dark:text-primary border-blue-100 dark:border-(--card-border-color) dark:bg-(--dark-sidebar) dark:hover:bg-(--table-hover) animate-pulse", label: "Sending" },
-          completed: { icon: CheckCircle2, className: "bg-emerald-50 text-emerald-600 border-emerald-100 dark:border-(--card-border-color) dark:bg-(--dark-sidebar) dark:hover:bg-(--table-hover)", label: "Completed" },
+          completed: { icon: CheckCircle2, className: "bg-sky-50 text-sky-600 border-sky-100 dark:border-(--card-border-color) dark:bg-(--dark-sidebar) dark:hover:bg-(--table-hover)", label: "Completed" },
           failed: { icon: AlertCircle, className: "bg-red-50 text-red-600 border-red-100 dark:border-(--card-border-color) dark:bg-(--dark-sidebar) dark:hover:bg-(--table-hover)", label: "Failed" },
           completed_with_errors: { icon: AlertCircle, className: "bg-red-50 text-red-600 border-red-100 dark:border-(--card-border-color) dark:bg-(--dark-sidebar) dark:hover:bg-(--table-hover)", label: "Failed" },
           cancelled: { icon: AlertCircle, className: "bg-slate-100 text-slate-600 border-slate-200 dark:border-(--card-border-color) dark:bg-(--dark-sidebar) dark:hover:bg-(--table-hover)", label: "Cancelled" },
@@ -134,7 +134,7 @@ const CampaignsPage = () => {
       header: "Delivered",
       cell: (row) => (
         <div className="flex items-center gap-1 text-xs">
-          <span className="text-emerald-600 font-bold" title="Delivered">
+          <span className="text-sky-600 font-bold" title="Delivered">
             {row.stats?.delivered_count || 0}
           </span>
         </div>

@@ -179,7 +179,7 @@ const AgentPage = () => {
       cell: (row) => (
         <div className="flex items-center gap-3">
           <Switch checked={row.status} onCheckedChange={() => handleStatusToggle(row._id, row.status)} disabled={isStatusUpdating} className="data-[state=checked]:bg-primary shadow-xs" />
-          <Badge variant="outline" className={`font-bold text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-lg border-2 transition-colors ${row.status ? "bg-emerald-50 text-emerald-600 border-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-500 dark:border-emerald-500/20" : "bg-slate-100 text-slate-500 border-slate-200 dark:bg-(--page-body-bg) dark:text-gray-500 dark:border-(--card-border-color)"}`}>
+          <Badge variant="outline" className={`font-bold text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-lg border-2 transition-colors ${row.status ? "bg-sky-50 text-sky-600 border-sky-100 dark:bg-sky-500/10 dark:text-sky-500 dark:border-sky-500/20" : "bg-slate-100 text-slate-500 border-slate-200 dark:bg-(--page-body-bg) dark:text-gray-500 dark:border-(--card-border-color)"}`}>
             {row.status ? "Active" : "InActive"}
           </Badge>
         </div>
@@ -206,7 +206,7 @@ const AgentPage = () => {
             </Button>
           </Can>
           <Can permission="update.agents">
-            <Button variant="outline" size="icon" disabled={is_demo_mode} className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" onClick={() => router.push(`/agents/${row._id}/edit`)}>
+            <Button variant="outline" size="icon" disabled={is_demo_mode} className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" onClick={() => router.push(`/agents/${row._id}/edit`)}>
               <Edit2 size={16} />
             </Button>
           </Can>

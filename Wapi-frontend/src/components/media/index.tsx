@@ -160,7 +160,7 @@ const MediaPage = () => {
             <Button
               variant="outline"
               size="icon"
-              className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all"
+              className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all"
               onClick={(e) => {
                 e.stopPropagation();
                 setSelectedAttachment(item);
@@ -208,7 +208,7 @@ const MediaPage = () => {
         selectedCount={selectedItems.length}
       >
         <div className="flex items-center gap-2 border-gray-200 dark:border-(--card-border-color) flex-wrap">
-          <Button variant={"outline"} size="icon" onClick={() => setViewMode("table")} className={`h-11 w-11 rounded-lg ${viewMode === "table" ? "text-primary hover:text-primary border-(--light-primary) hover:bg-green-50 bg-green-50  dark:bg-(--page-body-bg) dark:border-none" : "bg-white text-gray-500 border-gray-200"}`}>
+          <Button variant={"outline"} size="icon" onClick={() => setViewMode("table")} className={`h-11 w-11 rounded-lg ${viewMode === "table" ? "text-primary hover:text-primary border-(--light-primary) hover:bg-sky-50 bg-sky-50  dark:bg-(--page-body-bg) dark:border-none" : "bg-white text-gray-500 border-gray-200"}`}>
             <LayoutList className="h-5 w-5 text-primary" />
           </Button>
           <Button
@@ -218,7 +218,7 @@ const MediaPage = () => {
               setViewMode("grid");
               if (selectedItems.length > 0) setIsSelectionEnabled(true);
             }}
-            className={`h-11 w-11 rounded-lg ${viewMode === "grid" ? "text-primary border-green-200 dark:bg-(--dark-sidebar) bg-green-50" : "bg-white text-gray-500 border-gray-200"}`}
+            className={`h-11 w-11 rounded-lg ${viewMode === "grid" ? "text-primary border-sky-200 dark:bg-(--dark-sidebar) bg-sky-50" : "bg-white text-gray-500 border-gray-200"}`}
           >
             <Grid className="h-5 w-5" />
           </Button>
@@ -235,7 +235,7 @@ const MediaPage = () => {
                     setIsSelectionEnabled(true);
                   }
                 }}
-                className={`h-11 w-11 rounded-lg transition-all ${isSelectionEnabled ? "text-green-600 border-green-200 bg-green-50" : "bg-white text-gray-500 border-gray-200"}`}
+                className={`h-11 w-11 rounded-lg transition-all ${isSelectionEnabled ? "text-sky-600 border-sky-200 bg-sky-50" : "bg-white text-gray-500 border-gray-200"}`}
                 title="Select Media"
               >
                 <SquareCheckBig className="h-5 w-5 text-primary" />
@@ -256,7 +256,7 @@ const MediaPage = () => {
       {isLoading ? (
         <div className="flex justify-center p-12">
           <div className="flex flex-col items-center justify-center gap-3 text-slate-400">
-            <div className="p-3 bg-emerald-50 dark:bg-emerald-500/10 rounded-full">
+            <div className="p-3 bg-sky-50 dark:bg-sky-500/10 rounded-full">
               <Loader2 className="h-6 w-6 animate-spin text-primary" />
             </div>
             <span className="text-sm font-medium animate-pulse">Fetching records...</span>

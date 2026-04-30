@@ -1,6 +1,6 @@
 "use client";
 
-import Logo1 from "@/public/assets/logos/logo1.png";
+import Logo1 from "@/public/branding/botfeed-logo.png";
 import { ROUTES } from "@/src/constants";
 import { Button } from "@/src/elements/ui/button";
 import { useAppSelector } from "@/src/redux/hooks";
@@ -101,7 +101,7 @@ const Header = ({ isColor = false }: { isColor?: boolean }) => {
         `}
       >
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <Images src={logo_dark_url || Logo1} alt={`${app_name || "wapi"} logo`} width={100} height={40} unoptimized className="h-7.75 object-contain" />
+          <Images src={logo_dark_url || Logo1} alt={`${app_name || "Botfeed"} logo`} width={100} height={40} unoptimized className="h-7.75 object-contain" />
         </Link>
 
         <nav className="hidden min-[1100px]:flex items-center gap-8 flex-1 justify-center">
@@ -180,7 +180,7 @@ const Header = ({ isColor = false }: { isColor?: boolean }) => {
           {/* Drawer header */}
           <div className="flex items-center justify-between px-5 pt-5 pb-6 border-b border-white/10">
             <Link href="/" onClick={() => setIsMenuOpen(false)}>
-              <Images src={logo_dark_url || Logo1} alt={`${app_name || "wapi"} logo`} width={90} height={34} unoptimized className="h-7.75 object-contain" />
+              <Images src={logo_dark_url || Logo1} alt={`${app_name || "Botfeed"} logo`} width={90} height={34} unoptimized className="h-7.75 object-contain" />
             </Link>
             <button aria-label="Close menu" className="text-white p-2 hover:bg-[#ffffff10] rounded-lg transition-colors" onClick={() => setIsMenuOpen(false)}>
               <X size={22} />

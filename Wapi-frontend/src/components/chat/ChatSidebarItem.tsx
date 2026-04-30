@@ -33,7 +33,7 @@ const ChatSidebarItem: React.FC<ChatSidebarItemProps> = ({ chat, isSelected, isS
   const lastMessage = chat.lastMessage;
   const { userSetting } = useAppSelector((state) => state.setting);
   const userSettingData = userSetting?.data;
-  const finalColor = userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)";
+  const finalColor = userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)";
 
   let parsedLocation;
   if (lastMessage.messageType === "location" && lastMessage.content) {
@@ -47,7 +47,7 @@ const ChatSidebarItem: React.FC<ChatSidebarItemProps> = ({ chat, isSelected, isS
   return (
     <div
       onClick={() => (isSelectionMode ? onToggleSelection(contact.id) : onSelect(chat))}
-      className={cn("group p-2 cursor-pointer rounded-lg transition-all border-l hover:bg-slate-50 dark:hover:bg-(--table-hover) dark:bg-(--page-body-bg)! dark:[@media(max-width:991px)]:bg-(--card-color) relative", selectedChatId === contact.id ? (userSettingData?.theme_color !== "null" ? "border-primary" : "bg-(--light-primary) dark:bg-(--dark-body) border-primary") : "border-transparent bg-gray-50", isSelectionMode && isSelected ? "ring-1 ring-primary ring-inset bg-emerald-50 dark:bg-emerald-500/10" : "")}
+      className={cn("group p-2 cursor-pointer rounded-lg transition-all border-l hover:bg-slate-50 dark:hover:bg-(--table-hover) dark:bg-(--page-body-bg)! dark:[@media(max-width:991px)]:bg-(--card-color) relative", selectedChatId === contact.id ? (userSettingData?.theme_color !== "null" ? "border-primary" : "bg-(--light-primary) dark:bg-(--dark-body) border-primary") : "border-transparent bg-gray-50", isSelectionMode && isSelected ? "ring-1 ring-primary ring-inset bg-sky-50 dark:bg-sky-500/10" : "")}
       style={
         isCustom
           ? {
@@ -83,12 +83,12 @@ const ChatSidebarItem: React.FC<ChatSidebarItemProps> = ({ chat, isSelected, isS
               <h3 className={cn("font-semibold truncate text-sm", selectedChatId === contact.id ? "" : "text-slate-900 dark:text-white")} style={selectedChatId === contact.id ? { color: finalColor } : {}}>
                 {isAgent && user?.is_phoneno_hide ? "Customer" : maskSensitiveData(contact.number, "phone", is_demo_mode)}
               </h3>
-              {contact.chat_status === "resolved" && <Badge className="h-4 px-1.5 text-[8px] bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 font-bold uppercase tracking-tighter">Resolved</Badge>}
+              {contact.chat_status === "resolved" && <Badge className="h-4 px-1.5 text-[8px] bg-sky-100 text-sky-700 border-sky-200 dark:bg-sky-500/10 dark:text-sky-400 dark:border-sky-500/20 font-bold uppercase tracking-tighter">Resolved</Badge>}
             </div>
             <div className="flex items-center gap-1">
               {!isSelectionMode && (
                 <>
-                  <span className={cn("text-[11px] whitespace-nowrap", lastMessage.unreadCount ? "text-emerald-600 font-bold" : "text-slate-500 dark:text-gray-400")}>{lastMessage.createdAt ? new Date(lastMessage.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "Now"}</span>
+                  <span className={cn("text-[11px] whitespace-nowrap", lastMessage.unreadCount ? "text-sky-600 font-bold" : "text-slate-500 dark:text-gray-400")}>{lastMessage.createdAt ? new Date(lastMessage.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "Now"}</span>
                   <ChatListItemDropdown contactId={contact.id} contactName={contact.name} contactNumber={contact.number} phoneNumberId={selectedPhoneNumberId} />
                 </>
               )}

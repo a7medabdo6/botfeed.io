@@ -81,9 +81,9 @@ export const NotificationSettingsModal: React.FC<NotificationSettingsModalProps>
         <div className="sm:p-6 p-4 max-h-102.5 overflow-auto custom-scrollbar pt-3 space-y-5">
           <div className="space-y-2">
             <Label className="text-xs font-medium text-slate-400">Browser Notifications</Label>
-            <div className={cn("p-4 rounded-lg border flex items-center justify-between transition-all flex-wrap gap-3", permission === "granted" ? "bg-emerald-50/50 border-emerald-100 dark:bg-emerald-500/5 dark:border-emerald-500/20" : "bg-amber-50/50 border-amber-100 dark:bg-amber-500/5 dark:border-amber-500/20")}>
+            <div className={cn("p-4 rounded-lg border flex items-center justify-between transition-all flex-wrap gap-3", permission === "granted" ? "bg-sky-50/50 border-sky-100 dark:bg-sky-500/5 dark:border-sky-500/20" : "bg-amber-50/50 border-amber-100 dark:bg-amber-500/5 dark:border-amber-500/20")}>
               <div className="flex items-center gap-3">
-                {permission === "granted" ? <ShieldCheck className="w-5 h-5 text-emerald-500" /> : <ShieldAlert className="w-5 h-5 text-amber-500" />}
+                {permission === "granted" ? <ShieldCheck className="w-5 h-5 text-sky-500" /> : <ShieldAlert className="w-5 h-5 text-amber-500" />}
                 <div>
                   <p className="text-sm font-semibold dark:text-white">{permission === "granted" ? "Notifications Enabled" : "Permission Required"}</p>
                   <p className="text-xs text-slate-500 dark:text-slate-400">{permission === "granted" ? "Ready to receive alerts" : "Allow in your browser to get alerts"}</p>
@@ -119,7 +119,7 @@ export const NotificationSettingsModal: React.FC<NotificationSettingsModalProps>
                     <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center transition-all", selectedTone === tone.id ? "bg-primary text-white" : "bg-slate-100 dark:bg-(--dark-body) text-slate-400")}>
                       <Volume2 size={16} />
                     </div>
-                    <span className={cn("text-sm font-medium", selectedTone === tone.id ? "text-primary dark:text-emerald-400" : "text-slate-600 dark:text-slate-400")}>{tone.name}</span>
+                    <span className={cn("text-sm font-medium", selectedTone === tone.id ? "text-primary dark:text-sky-400" : "text-slate-600 dark:text-slate-400")}>{tone.name}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button

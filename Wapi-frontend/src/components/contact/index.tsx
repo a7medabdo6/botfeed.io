@@ -346,7 +346,7 @@ const ContactPage = () => {
         <div className="flex justify-end gap-2">
           {!isBaileys && (
             <Can permission="create.campaigns">
-              <Button variant="outline" size="sm" className="h-10 w-10 p-0 rounded-lg bg-white border-none text-slate-500 hover:text-primary hover:border-emerald-200 hover:bg-emerald-50 dark:hover:bg-(--card-color) dark:bg-transparent dark:hover:text-amber-50 shadow-xs transition-all" onClick={() => router.push(`/campaigns/create?contact_id=${row._id}&redirect_to=/contacts`)} title="Send Template">
+              <Button variant="outline" size="sm" className="h-10 w-10 p-0 rounded-lg bg-white border-none text-slate-500 hover:text-primary hover:border-sky-200 hover:bg-sky-50 dark:hover:bg-(--card-color) dark:bg-transparent dark:hover:text-amber-50 shadow-xs transition-all" onClick={() => router.push(`/campaigns/create?contact_id=${row._id}&redirect_to=/contacts`)} title="Send Template">
                 <LayoutTemplate size={14} />
               </Button>
             </Can>
@@ -355,7 +355,7 @@ const ContactPage = () => {
             <Button
               variant="outline"
               size="sm"
-              className="w-10 h-10 text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all border-none"
+              className="w-10 h-10 text-slate-400 hover:text-primary hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all border-none"
               onClick={() => {
                 setEditingContact(row);
                 setModalOpen(true);

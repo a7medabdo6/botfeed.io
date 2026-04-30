@@ -137,14 +137,14 @@ const CataloguesSection: React.FC<CataloguesSectionProps> = ({ wabaId, onToggleS
             {filteredCatalogs.map((catalog: AvailableCatalogue) => {
               const isLinked = linkedCatalogIds.has(catalog._id);
               return (
-                <Card key={catalog._id} className={`group relative overflow-hidden transition-all duration-300 border shadow-sm hover:shadow-xl hover:border-emerald-500/50 hover:-translate-y-1 rounded-lg ${isLinked ? "border-primary/20 bg-primary/2 dark:bg-primary/5" : "border-slate-100 dark:border-(--card-border-color) bg-white dark:bg-(--card-color) hover:border-primary/30"}`}>
+                <Card key={catalog._id} className={`group relative overflow-hidden transition-all duration-300 border shadow-sm hover:shadow-xl hover:border-sky-500/50 hover:-translate-y-1 rounded-lg ${isLinked ? "border-primary/20 bg-primary/2 dark:bg-primary/5" : "border-slate-100 dark:border-(--card-border-color) bg-white dark:bg-(--card-color) hover:border-primary/30"}`}>
                   <CardHeader className="p-5 pb-0">
                     <div className="flex justify-between items-start mb-4">
                       <div className={`p-3 rounded-lg transition-colors duration-300 ${isLinked ? "bg-primary text-white shadow-lg shadow-primary/20" : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white"}`}>
                         <ShoppingBag size={22} className="transition-transform group-hover:scale-110" />
                       </div>
                       {isLinked && (
-                        <Badge className="bg-emerald-50 text-primary border-none px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider dark:bg-emerald-900/20 dark:text-emerald-400">
+                        <Badge className="bg-sky-50 text-primary border-none px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider dark:bg-sky-900/20 dark:text-sky-400">
                           <CheckCircle2 size={12} className="ltr:mr-1.5 rtl:ml-1.5" /> Linked
                         </Badge>
                       )}

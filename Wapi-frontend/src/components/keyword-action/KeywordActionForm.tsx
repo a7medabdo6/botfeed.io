@@ -35,7 +35,7 @@ const MATCHING_METHODS: { value: MatchingMethod; label: string; description: str
 const REPLY_TYPES: ReplyTypeConfig[] = [
   { value: "text", label: "Text", icon: <Type size={18} />, color: "text-blue-500", source: "reply_material", materialType: "text" },
   // eslint-disable-next-line jsx-a11y/alt-text
-  { value: "media", label: "Image", icon: <Image size={18} />, color: "text-emerald-500", source: "reply_material", materialType: "image" },
+  { value: "media", label: "Image", icon: <Image size={18} />, color: "text-sky-500", source: "reply_material", materialType: "image" },
   { value: "media", label: "Video", icon: <Video size={18} />, color: "text-purple-500", source: "reply_material", materialType: "video" },
   { value: "media", label: "Document", icon: <FileText size={18} />, color: "text-amber-500", source: "reply_material", materialType: "document" },
   { value: "media", label: "Sticker", icon: <Sticker size={18} />, color: "text-pink-500", source: "reply_material", materialType: "sticker" },

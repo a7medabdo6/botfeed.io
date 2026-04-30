@@ -61,7 +61,7 @@ const SuggestReplyModal: React.FC<SuggestReplyModalProps> = ({ isOpen, onClose, 
           <DialogHeader className="mb-6">
             <div className="flex items-center gap-4">
               <div className="relative">
-                <div className="w-14 h-14 rounded-lg bg-emerald-100 dark:bg-(--table-hover) flex items-center justify-center text-primary">
+                <div className="w-14 h-14 rounded-lg bg-sky-100 dark:bg-(--table-hover) flex items-center justify-center text-primary">
                   <BotMessageSquare size={32} />
                 </div>
                 <div className="absolute -top-1 -right-1">
@@ -83,14 +83,14 @@ const SuggestReplyModal: React.FC<SuggestReplyModalProps> = ({ isOpen, onClose, 
           <div className="space-y-6">
             <div className="space-y-3">
               <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                <BrainCircuit size={16} className="text-emerald-500" /> Choose Tone
+                <BrainCircuit size={16} className="text-sky-500" /> Choose Tone
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                 {REPLY_TONES.map((t) => {
                   const Icon = t.icon;
                   const isSelected = tone === t.value;
                   return (
-                    <button key={t.value} onClick={() => setTone(t.value)} className={cn("flex flex-col items-center justify-center gap-2 p-3 rounded-lg border transition-colors duration-300 group relative overflow-hidden", isSelected ? "border-primary bg-emerald-50/50 dark:bg-emerald-500/10" : "border-slate-100 dark:border-(--card-border-color) hover:border-slate-200 dark:hover:border-(--card-border-color) bg-slate-50/30 dark:bg-(--table-hover)")}>
+                    <button key={t.value} onClick={() => setTone(t.value)} className={cn("flex flex-col items-center justify-center gap-2 p-3 rounded-lg border transition-colors duration-300 group relative overflow-hidden", isSelected ? "border-primary bg-sky-50/50 dark:bg-sky-500/10" : "border-slate-100 dark:border-(--card-border-color) hover:border-slate-200 dark:hover:border-(--card-border-color) bg-slate-50/30 dark:bg-(--table-hover)")}>
                       <div className={cn("w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300", isSelected ? "bg-primary text-white shadow-lg" : "bg-white dark:bg-(--card-color) text-slate-500")}>
                         <Icon size={20} />
                       </div>
@@ -101,7 +101,7 @@ const SuggestReplyModal: React.FC<SuggestReplyModalProps> = ({ isOpen, onClose, 
               </div>
             </div>
 
-            <Button onClick={handleSuggest} disabled={isLoading} className="w-full px-4.5 py-5 bg-primary text-white font-bold h-12 rounded-lg shadow-md shadow-emerald-600/20 transition-colors group overflow-hidden relative">
+            <Button onClick={handleSuggest} disabled={isLoading} className="w-full px-4.5 py-5 bg-primary text-white font-bold h-12 rounded-lg shadow-md shadow-sky-600/20 transition-colors group overflow-hidden relative">
               {isLoading ? (
                 <>
                   <Loader2 size={20} className="mr-2 animate-spin" />
@@ -125,7 +125,7 @@ const SuggestReplyModal: React.FC<SuggestReplyModalProps> = ({ isOpen, onClose, 
 
                   <div className="max-h-85 overflow-y-auto pr-2 space-y-3 custom-scrollbar">
                     {suggestions.map((suggestion, index) => (
-                      <div key={index} className="relative p-4 rounded-lg border border-slate-100 dark:border-(--card-border-color) bg-white dark:bg-(--dark-sidebar) hover:border-emerald-200 dark:hover:border-(--card-border-color) transition-colors duration-300">
+                      <div key={index} className="relative p-4 rounded-lg border border-slate-100 dark:border-(--card-border-color) bg-white dark:bg-(--dark-sidebar) hover:border-sky-200 dark:hover:border-(--card-border-color) transition-colors duration-300">
                         <p className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-medium">{suggestion}</p>
                         <div className="flex items-center justify-end gap-3 transition-opacity">
                           <Button variant="ghost" size="sm" onClick={() => handleCopy(suggestion, index)} className="h-9 px-3 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-(--table-hover) hover:text-primary">
@@ -145,7 +145,7 @@ const SuggestReplyModal: React.FC<SuggestReplyModalProps> = ({ isOpen, onClose, 
                               onUseReply(suggestion);
                               handleClose();
                             }}
-                            className="h-9 text-[12px] flex items-center rounded-lg bg-primary hover:bg-primary text-white font-bold px-4 shadow-lg shadow-emerald-600/10 transition-transform active:scale-95"
+                            className="h-9 text-[12px] flex items-center rounded-lg bg-primary hover:bg-primary text-white font-bold px-4 shadow-lg shadow-sky-600/10 transition-transform active:scale-95"
                           >
                             <MessageSquare size={14} /> Use Reply
                           </Button>

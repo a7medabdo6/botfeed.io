@@ -226,7 +226,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                 <div className="flex items-center gap-6 flex-col sm:flex-row">
                   <div className="shrink-0">
                     {flagPreview ? (
-                      <div className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-emerald-100 dark:border-emerald-900/30 group shadow-sm transition-all hover:border-emerald-500">
+                      <div className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-sky-100 dark:border-sky-900/30 group shadow-sm transition-all hover:border-sky-500">
                         <Image src={flagPreview} alt="Flag" className="w-full h-full object-cover" width={100} height={100} unoptimized />
                         <button
                           type="button"
@@ -240,7 +240,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                         </button>
                       </div>
                     ) : (
-                      <div className="w-20 h-20 rounded-lg border-2 border-dashed border-gray-200 dark:border-(--card-border-color) bg-gray-50 dark:bg-(--card-color) flex flex-col items-center justify-center transition-all hover:border-emerald-500">
+                      <div className="w-20 h-20 rounded-lg border-2 border-dashed border-gray-200 dark:border-(--card-border-color) bg-gray-50 dark:bg-(--card-color) flex flex-col items-center justify-center transition-all hover:border-sky-500">
                         <Upload className="w-6 h-6 text-gray-400" />
                       </div>
                     )}
@@ -271,7 +271,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     {jsonFileName ? (
                       <div className="space-y-2">
                         <p className="text-base font-semibold text-gray-900 dark:text-gray-100">{jsonFileName}</p>
-                        <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-3 py-1 rounded-full">File Selected</p>
+                        <p className="text-xs font-medium text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/20 px-3 py-1 rounded-full">File Selected</p>
                       </div>
                     ) : (
                       <div className="space-y-2">
@@ -298,7 +298,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
             <Button type="button" variant="outline" onClick={() => router.back()} className="px-4.5 py-5 h-12 dark:border-none border-gray-200 dark:bg-page-body dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-(--table-hover) rounded-lg font-medium transition-all" disabled={isLoading}>
               Cancel
             </Button>
-            <Button type="submit" className="px-4.5 py-5 h-12 bg-primary hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 dark:shadow-none transition-all active:scale-95 disabled:opacity-50 min-w-40" disabled={isLoading || !name || !locale}>
+            <Button type="submit" className="px-4.5 py-5 h-12 bg-primary hover:bg-sky-700 text-white font-bold rounded-xl shadow-lg shadow-sky-200 dark:shadow-none transition-all active:scale-95 disabled:opacity-50 min-w-40" disabled={isLoading || !name || !locale}>
               {isLoading ? (
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />

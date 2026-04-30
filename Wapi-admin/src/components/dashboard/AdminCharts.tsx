@@ -132,11 +132,11 @@ export const RevenueTimelineChart = ({ revenueGraph }: { revenueGraph: AdminChar
         top: 10,
         left: 0,
         blur: 15,
-        color: "#059669",
+        color: "#00AEEF",
         opacity: 0.15,
       },
     },
-    colors: ["#059669"],
+    colors: ["#00AEEF"],
     dataLabels: { enabled: false },
     stroke: { curve: "smooth", width: 4 },
     fill: {
@@ -170,7 +170,7 @@ export const RevenueTimelineChart = ({ revenueGraph }: { revenueGraph: AdminChar
     },
     markers: {
       size: 5,
-      colors: ["#059669"],
+      colors: ["#00AEEF"],
       strokeColors: "#fff",
       strokeWidth: 3,
       hover: { size: 7 },

@@ -90,7 +90,7 @@ const PageList = ({ pages, isLoading, onDelete, onBulkDelete, onToggleStatus, to
   const renderActions = (row: Page) => (
     <div className="flex items-center gap-2">
       <Can permission="update.pages">
-        <Button variant="ghost" size="icon" onClick={() => handleEdit(row)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" title={t("common.edit")} disabled={isLoading}>
+        <Button variant="ghost" size="icon" onClick={() => handleEdit(row)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" title={t("common.edit")} disabled={isLoading}>
           <Edit className="w-4 h-4" />
         </Button>
       </Can>

@@ -14,7 +14,7 @@ export const CarouselProductSection = ({ cards, onAddCard, onRemoveCard, onUpdat
           <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 tracking-tight">Carousel Products</h3>
           <p className="text-xs text-slate-500 font-medium dark:text-gray-400">Add up to 10 product cards to your carousel.</p>
         </div>
-        <button type="button" onClick={onAddCard} disabled={cards.length >= 10} className="w-full sm:w-auto h-11 flex items-center justify-center gap-2 px-6 rounded-lg bg-emerald-50 dark:bg-primary/10 text-primary dark:text-primary font-bold hover:bg-emerald-100 transition-all text-xs uppercase tracking-widest border border-emerald-200/50 dark:border-primary/20 disabled:opacity-50">
+        <button type="button" onClick={onAddCard} disabled={cards.length >= 10} className="w-full sm:w-auto h-11 flex items-center justify-center gap-2 px-6 rounded-lg bg-sky-50 dark:bg-primary/10 text-primary dark:text-primary font-bold hover:bg-sky-100 transition-all text-xs uppercase tracking-widest border border-sky-200/50 dark:border-primary/20 disabled:opacity-50">
           <Plus size={16} /> Add Product Card
         </button>
       </div>

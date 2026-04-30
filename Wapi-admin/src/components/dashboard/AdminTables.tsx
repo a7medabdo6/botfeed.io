@@ -111,7 +111,7 @@ export const SubscriptionsTable = ({ data, title, type }: { data: DashboardTable
     {
       header: "Status",
       className: "[@media(max-width:762px)]:min-w-[110px]",
-      cell: (row) => <Badge className={`text-[9px] font-black uppercase px-2.5 py-1 rounded-md border-0 hover:bg-(--light-primary) hover:text-primary dark:hover:bg-(--card-color) ring-1 ring-inset ${row.status === "active" ? "bg-emerald-500/10 text-primary ring-emerald-500/30" : "bg-red-500/10 dark:hover:border-(--card-border-color) dark:hover:text-red-500 text-red-500 ring-red-500/30"}`}>{row.status}</Badge>,
+      cell: (row) => <Badge className={`text-[9px] font-black uppercase px-2.5 py-1 rounded-md border-0 hover:bg-(--light-primary) hover:text-primary dark:hover:bg-(--card-color) ring-1 ring-inset ${row.status === "active" ? "bg-sky-500/10 text-primary ring-sky-500/30" : "bg-red-500/10 dark:hover:border-(--card-border-color) dark:hover:text-red-500 text-red-500 ring-red-500/30"}`}>{row.status}</Badge>,
     },
     {
       header: "Payment",

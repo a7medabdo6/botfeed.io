@@ -54,7 +54,7 @@ export const TEMPLATEGUIDEDATA: GuideTopic[] = [
         text: "When drafting your body text, insert double curly braces with a number. For example: 'Hi {{1}}, your order {{2}} is ready!'",
       },
       {
-        example: "Hi {{1}}, Welcome to WAPI! We have a special offer for you. Use code {{2}} at checkout.",
+        example: "Hi {{1}}, Welcome to Botfeed! We have a special offer for you. Use code {{2}} at checkout.",
       },
     ],
   },

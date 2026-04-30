@@ -14,8 +14,8 @@ const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose, onExport, ti
       title: "Excel",
       description: "Download data as .xlsx format",
       icon: FileSpreadsheet,
-      color: "text-emerald-600",
-      bgColor: "bg-emerald-50 dark:bg-emerald-500/10",
+      color: "text-sky-600",
+      bgColor: "bg-sky-50 dark:bg-sky-500/10",
     },
     {
       id: "csv",

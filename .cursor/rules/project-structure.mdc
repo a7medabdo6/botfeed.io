@@ -1,11 +1,11 @@
 ---
-description: Wapi project layout so the agent skips exploratory reads
+description: Botfeed (botfeed.io) monorepo layout so the agent skips exploratory reads
 alwaysApply: true
 ---
 
-# Wapi Project Structure
+# Botfeed project structure
 
-Monorepo with four apps:
+Monorepo with four apps (directory names are historical):
 
 | Directory | Stack | Purpose |
 |-----------|-------|---------|

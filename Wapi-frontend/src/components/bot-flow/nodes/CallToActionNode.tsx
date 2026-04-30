@@ -31,8 +31,8 @@ export function CallToActionNode({ data, id }: any) {
       id={id}
       title="Call to Action"
       icon={<Zap size={18} />}
-      borderColor="border-emerald-200"
-      handleColor="bg-emerald-500!"
+      borderColor="border-sky-200"
+      handleColor="bg-sky-500!"
       errors={errors}
       filledHeader
       filledHeaderTone="emerald"
@@ -82,7 +82,7 @@ export function CallToActionNode({ data, id }: any) {
         <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Preview</p>
         <div className="rounded-lg border border-dashed border-gray-200 bg-gray-50/80 p-3 text-center dark:border-(--card-border-color) dark:bg-(--dark-sidebar)">
           <p className="mb-2 text-xs text-gray-600 dark:text-gray-400">{data.valueText?.trim() || "Compose your message…"}</p>
-          <Button type="button" size="sm" className="h-8 w-full bg-emerald-600 text-xs font-semibold text-white hover:bg-emerald-700">
+          <Button type="button" size="sm" className="h-8 w-full bg-sky-600 text-xs font-semibold text-white hover:bg-sky-700">
             {data.buttonText?.trim() || "Visit our site"}
           </Button>
         </div>

@@ -1,6 +1,6 @@
 {
   "common": {
-    "app_name": "Wapi",
+    "app_name": "Botfeed",
     "app_description": "Solución de Negocio de WhatsApp",
     "title": "Título",
     "description": "Descripción",
@@ -82,8 +82,8 @@
   "auth": {
     "login": "Iniciar Sesión",
     "logout": "Cerrar Sesión",
-    "welcome": "Bienvenido a Wapi",
-    "welcome_message": "Bienvenido al Portal de Administración de Wapi",
+    "welcome": "Bienvenido a Botfeed",
+    "welcome_message": "Bienvenido al Portal de Administración de Botfeed",
     "admin_portal": "Portal de Administración",
     "enter_credentials": "Ingrese sus credenciales para acceder al panel de control",
     "email": "Correo Electrónico",

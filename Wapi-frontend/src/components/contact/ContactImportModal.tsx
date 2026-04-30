@@ -97,14 +97,14 @@ const ContactImportModal = ({ isOpen, onClose, onImport, isLoading }: ContactImp
             onClick={() => !isLoading && fileInputRef.current?.click()}
             className={`relative flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed p-8 cursor-pointer transition-all duration-200
               ${dragOver ? "border-primary bg-primary/5 scale-[1.01]" : "border-slate-200 dark:border-(--card-border-color) hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-(--table-hover)"}
-              ${selectedFile ? "border-emerald-400 bg-emerald-50 dark:bg-emerald-950/20" : ""}
+              ${selectedFile ? "border-sky-400 bg-sky-50 dark:bg-sky-950/20" : ""}
             `}
           >
             {selectedFile ? (
               <>
-                <CheckCircle2 size={36} className="text-emerald-500" />
+                <CheckCircle2 size={36} className="text-sky-500" />
                 <div className="text-center">
-                  <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{selectedFile.name}</p>
+                  <p className="text-sm font-bold text-sky-700 dark:text-sky-400">{selectedFile.name}</p>
                   <p className="text-xs text-slate-400 mt-0.5">{(selectedFile.size / 1024).toFixed(1)} KB — Click to change</p>
                 </div>
               </>

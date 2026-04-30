@@ -46,12 +46,12 @@ export function Pagination({ totalCount, page, limit, onPageChange, onLimitChang
         <div className="flex items-center gap-3">
           <span className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-gray-200 whitespace-nowrap">Rows per page</span>
           <Select value={limit.toString()} onValueChange={(value) => onLimitChange(Number(value))} disabled={isLoading}>
-            <SelectTrigger size="sm" className="w-18 h-8 rounded-lg bg-white dark:bg-(--page-body-bg) border-slate-200 dark:border-none shadow-xs focus:ring-emerald-500/10">
+            <SelectTrigger size="sm" className="w-18 h-8 rounded-lg bg-white dark:bg-(--page-body-bg) border-slate-200 dark:border-none shadow-xs focus:ring-sky-500/10">
               <SelectValue placeholder={limit.toString()} />
             </SelectTrigger>
             <SelectContent align="start" className="min-w-20 rounded-lg shadow-xl dark:bg-(--card-color)">
               {limitOptions.map((option) => (
-                <SelectItem key={option} value={option.toString()} className="rounded-lg cursor-pointer focus:bg-emerald-50 focus:text-emerald-700 dark:bg-(--card-color) dark:hover:bg-(--table-hover)">
+                <SelectItem key={option} value={option.toString()} className="rounded-lg cursor-pointer focus:bg-sky-50 focus:text-sky-700 dark:bg-(--card-color) dark:hover:bg-(--table-hover)">
                   {option}
                 </SelectItem>
               ))}
@@ -76,7 +76,7 @@ export function Pagination({ totalCount, page, limit, onPageChange, onLimitChang
                 ...
               </div>
             ) : (
-              <Button key={index} variant={page === p ? "outline" : "ghost"} size="sm" onClick={() => onPageChange(Number(p))} disabled={isLoading} className={cn("h-9 w-9 p-0 rounded-lg text-sm font-medium transition-all", page === p ? "bg-green-50 dark:bg-(--page-body-bg) dark:border-none text-primary border-primary dark:border-(--card-border-color) hover:bg-green-100 dark:hover:bg-(--table-hover) disabled:opacity-100" : "bg-gray-50 dark:bg-(--page-body-bg) text-slate-500 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-(--table-hover) hover:text-slate-900")}>
+              <Button key={index} variant={page === p ? "outline" : "ghost"} size="sm" onClick={() => onPageChange(Number(p))} disabled={isLoading} className={cn("h-9 w-9 p-0 rounded-lg text-sm font-medium transition-all", page === p ? "bg-sky-50 dark:bg-(--page-body-bg) dark:border-none text-primary border-primary dark:border-(--card-border-color) hover:bg-sky-100 dark:hover:bg-(--table-hover) disabled:opacity-100" : "bg-gray-50 dark:bg-(--page-body-bg) text-slate-500 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-(--table-hover) hover:text-slate-900")}>
                 {p}
               </Button>
             )

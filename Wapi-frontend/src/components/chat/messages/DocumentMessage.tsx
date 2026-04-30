@@ -10,7 +10,7 @@ const DocumentMessage: React.FC<DocumentMessageProps> = ({ message, isWindowExpi
     <BaseMessage message={message} isWindowExpired={isWindowExpired}>
       <div className="flex flex-col gap-2 min-w-57.5">
         <div className="flex items-center gap-3 p-2 rounded-lg bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5">
-          <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600">
+          <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-sky-100 dark:bg-sky-900/30 text-sky-600">
             <FileText size={20} />
           </div>
           <div className="flex-1 min-w-0">

@@ -16,7 +16,7 @@ const ProfileAssignAgent = ({ agents, selectedAgentId, onAssign, onUnassign, isL
   return (
     <div className="dark:border-none border dark:bg-(--table-hover)! border-gray-100 dark:border-(--card-border-color) rounded-lg p-4 space-y-4" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 95%)" } : {}}>
       <div className="flex items-center gap-2 text-slate-900 dark:text-white font-semibold">
-        <div className="p-1.5 rounded-lg" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 90%)", color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}}>
+        <div className="p-1.5 rounded-lg" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 90%)", color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}>
           <Home size={18} />
         </div>
         <span>Assign agent</span>
@@ -50,7 +50,7 @@ const ProfileAssignAgent = ({ agents, selectedAgentId, onAssign, onUnassign, isL
       {selectedAgentId && agents.find((a) => a.id === selectedAgentId) && (
         <div className="flex items-center justify-between px-1">
           <p className="text-[11px] text-slate-500 dark:text-gray-400">
-            <span className="font-semibold" style={isCustom ? { color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}}>
+            <span className="font-semibold" style={isCustom ? { color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}>
               Assigned:
             </span>{" "}
             {agents.find((a) => a.id === selectedAgentId)?.name}

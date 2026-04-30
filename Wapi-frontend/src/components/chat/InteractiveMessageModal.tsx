@@ -42,7 +42,7 @@ const InteractiveMessageModal = ({ isOpen, onClose, type, onSend }: InteractiveM
         <DialogHeader className="px-6 pt-6 pb-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className={cn("p-2 rounded-lg", type === "button" ? "bg-emerald-50 dark:bg-emerald-500/10 text-primary" : "bg-blue-50 dark:bg-emerald-500/10 text-primary")}>{type === "button" ? <MessageSquare size={24} /> : <List size={24} />}</div>
+              <div className={cn("p-2 rounded-lg", type === "button" ? "bg-sky-50 dark:bg-sky-500/10 text-primary" : "bg-blue-50 dark:bg-sky-500/10 text-primary")}>{type === "button" ? <MessageSquare size={24} /> : <List size={24} />}</div>
               <div>
                 <DialogTitle className="text-xl text-left font-bold tracking-tight text-slate-900 dark:text-white">{type === "button" ? "Button Message" : "List Message"}</DialogTitle>
                 <p className="sm:text-sm text-xs text-left text-slate-500 dark:text-gray-500">Create an interactive {type} message for WhatsApp</p>
@@ -65,7 +65,7 @@ const InteractiveMessageModal = ({ isOpen, onClose, type, onSend }: InteractiveM
             <Button variant="ghost" onClick={onClose} disabled={isSending} className="text-slate-600 dark:text-gray-500 hover:bg-slate-200 dark:hover:bg-(--table-hover)">
               Cancel
             </Button>
-            <Button onClick={handleSendTrigger} disabled={isSending} className={cn("min-w-30 rounded-lg gap-2 font-bold shadow-lg transition-all active:scale-95", type === "button" ? "bg-primary text-white shadow-emerald-500/20" : "bg-primary hover:bg-primary text-white shadow-emerald-500/20")}>
+            <Button onClick={handleSendTrigger} disabled={isSending} className={cn("min-w-30 rounded-lg gap-2 font-bold shadow-lg transition-all active:scale-95", type === "button" ? "bg-primary text-white shadow-sky-500/20" : "bg-primary hover:bg-primary text-white shadow-sky-500/20")}>
               {isSending ? <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Send size={16} />}
               Send {type === "button" ? "Buttons" : "List"}
             </Button>

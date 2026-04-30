@@ -26,7 +26,7 @@ const DashboardStatCard = ({ label, value, icon, color, isLoading, chartData, pr
       },
     },
     tooltip: { enabled: false },
-    colors: [color.includes("primary") ? "#16a34a" : color.includes("orange") ? "#f97316" : color.includes("emerald") ? "#10b981" : color.includes("violet") ? "#8b5cf6" : color.includes("amber") ? "#f59e0b" : "#16a34a"],
+    colors: [color.includes("primary") ? "#00aeef" : color.includes("orange") ? "#f97316" : color.includes("emerald") ? "#00aeef" : color.includes("violet") ? "#8b5cf6" : color.includes("amber") ? "#f59e0b" : "#00aeef"],
   };
 
   return (

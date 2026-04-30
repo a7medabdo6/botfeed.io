@@ -31,8 +31,8 @@ const ShortLinkSuccess: React.FC<ShortLinkSuccessProps> = ({ data, onReset }) =>
   return (
     <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700">
       <div className="text-center space-y-2">
-        <div className="mx-auto w-16 h-16 bg-emerald-100 dark:bg-emerald-500/20 rounded-full flex items-center justify-center mb-4">
-          <Check className="w-8 h-8 text-emerald-600 dark:text-emerald-400" strokeWidth={3} />
+        <div className="mx-auto w-16 h-16 bg-sky-100 dark:bg-sky-500/20 rounded-full flex items-center justify-center mb-4">
+          <Check className="w-8 h-8 text-sky-600 dark:text-sky-400" strokeWidth={3} />
         </div>
         <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Link Generated Successfully!</h2>
         <p className="text-slate-500 dark:text-slate-400">Your WhatsApp direct chat link is ready to use.</p>

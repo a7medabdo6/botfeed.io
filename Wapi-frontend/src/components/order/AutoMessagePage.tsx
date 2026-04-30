@@ -31,8 +31,8 @@ const STATUS_CONFIG = [
     key: "confirmed",
     label: "Confirmed",
     description: "Order has been confirmed and is being processed",
-    icon: <CheckCircle2 size={18} className="text-emerald-500" />,
-    color: "bg-emerald-500/10",
+    icon: <CheckCircle2 size={18} className="text-sky-500" />,
+    color: "bg-sky-500/10",
   },
   {
     key: "ready_to_ship",

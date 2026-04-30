@@ -68,7 +68,7 @@ const TestModelModal = ({ isOpen, onClose, modelId }: TestModelModalProps) => {
       <DialogContent className="sm:max-w-150 bg-white dark:bg-(--card-color) border-none rounded-lg p-0 overflow-hidden shadow-2xl">
         <DialogHeader className="p-4 pb-0">
           <DialogTitle className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
-            <div className="p-2 bg-(--light-primary) dark:bg-emerald-900/30 rounded-lg">
+            <div className="p-2 bg-(--light-primary) dark:bg-sky-900/30 rounded-lg">
               <Sparkles className="w-6 h-6 text-(--text-green-primary)" />
             </div>
             Test AI Model
@@ -97,7 +97,7 @@ const TestModelModal = ({ isOpen, onClose, modelId }: TestModelModalProps) => {
             <div className="relative group">
               <Textarea id="test-response" readOnly placeholder="Model response will appear here..." value={response} className="min-h-37.5 p-4 pr-12 rounded-lg bg-(--input-color) dark:bg-page-body border-none text-slate-600 dark:text-gray-300 font-mono text-sm resize-none cursor-default" />
               {response && (
-                <Button type="button" size="icon" variant="ghost" onClick={copyToClipboard} className="absolute right-3 top-3 h-8 w-8 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all opacity-0 group-hover:opacity-100">
+                <Button type="button" size="icon" variant="ghost" onClick={copyToClipboard} className="absolute right-3 top-3 h-8 w-8 text-slate-400 hover:text-(--text-green-primary) hover:bg-sky-50 dark:hover:bg-sky-900/20 transition-all opacity-0 group-hover:opacity-100">
                   <Copy className="w-4 h-4" />
                 </Button>
               )}
@@ -109,7 +109,7 @@ const TestModelModal = ({ isOpen, onClose, modelId }: TestModelModalProps) => {
           <Button type="button" variant="ghost" onClick={handleClose} className="flex-1 h-12 rounded-lg dark:bg-(--dark-sidebar) dark:text-amber-50 text-slate-600 bg-gray-100 font-bold hover:bg-slate-100 dark:hover:bg-(--dark-sidebar) transition-all">
             Cancel
           </Button>
-          <Button type="button" disabled={isLoading || !apiKey || !prompt} onClick={handleTest} className="flex-1 h-12 bg-(--text-green-primary) hover:bg-(--text-green-primary) text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-200 dark:shadow-none active:scale-95 disabled:opacity-50 disabled:active:scale-100">
+          <Button type="button" disabled={isLoading || !apiKey || !prompt} onClick={handleTest} className="flex-1 h-12 bg-(--text-green-primary) hover:bg-(--text-green-primary) text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-sky-200 dark:shadow-none active:scale-95 disabled:opacity-50 disabled:active:scale-100">
             {isLoading ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />

@@ -150,7 +150,7 @@ const CataloguePage = () => {
                       <ShoppingBag size={22} className="transition-transform group-hover:scale-110" />
                     </div>
                     {isLinked && (
-                      <Badge className="bg-emerald-50 text-primary border-none px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider dark:bg-emerald-900/20 dark:text-emerald-400">
+                      <Badge className="bg-sky-50 text-primary border-none px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider dark:bg-sky-900/20 dark:text-sky-400">
                         <CheckCircle2 size={12} className="mr-1.5" /> Linked
                       </Badge>
                     )}

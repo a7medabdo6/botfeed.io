@@ -1,6 +1,6 @@
 {
   "common": {
-    "app_name": "Wapi",
+    "app_name": "Botfeed",
     "app_tagline": "Business CRM",
     "loading": "Loading...",
     "save": "Save",
@@ -67,7 +67,7 @@
     "testimonial_role": "CEO, TechStart Inc",
     "testimonial_quote": "This CRM has transformed how we handle customer communications. Response time improved by 60%!",
     "register_title": "Create Your Account",
-    "register_description": "Join thousands of businesses using Wapi",
+    "register_description": "Join thousands of businesses using Botfeed",
     "full_name": "Full Name",
     "full_name_placeholder": "John Doe",
     "company_name": "Company Name",
@@ -80,7 +80,7 @@
     "privacy_policy": "Privacy Policy",
     "create_account_button": "Sign up",
     "creating_account": "Creating account...",
-    "already_have_account": "Already using Wapi?",
+    "already_have_account": "Already using Botfeed?",
     "sign_in_here": "Sign in here",
     "forgot_password_title": "Forgot Password?",
     "forgot_password_description": "Enter your email to receive a reset link",
@@ -472,7 +472,7 @@
   },
   "api_keys": {
     "title": "API Keys",
-    "subtitle": "Create and manage keys to access the WAPI REST API",
+    "subtitle": "Create and manage keys to access the Botfeed REST API",
     "create_key": "Create API Key",
     "refresh": "Refresh",
     "search_placeholder": "Search keys...",

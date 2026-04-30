@@ -104,11 +104,11 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, onClose, 
         </div>
 
         <div className="sm:p-5 p-4 overflow-y-auto custom-scrollbar max-h-106.25">
-          <div className="mb-5 p-6 pt-2 bg-emerald-50/30 dark:bg-(--page-body-bg) rounded-lg border border-emerald-100 dark:border-none shadow-sm relative overflow-hidden">
+          <div className="mb-5 p-6 pt-2 bg-sky-50/30 dark:bg-(--page-body-bg) rounded-lg border border-sky-100 dark:border-none shadow-sm relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10">
               <ShieldCheck className="h-20 w-20 text-primary" />
             </div>
-            <div className="relative z-10 flex justify-between flex-wrap gap-2 sm:gap-0 items-start mb-6 border-b border-emerald-100/50 dark:border-(--card-border-color)">
+            <div className="relative z-10 flex justify-between flex-wrap gap-2 sm:gap-0 items-start mb-6 border-b border-sky-100/50 dark:border-(--card-border-color)">
               <div>
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-1">Selected Plan</p>
                 <h4 className="text-xl font-black text-slate-900 dark:text-white capitalize">{selectedPlan?.name}</h4>
@@ -123,13 +123,13 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, onClose, 
 
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center gap-3 text-xs font-bold text-slate-600 dark:text-gray-500">
-                <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center text-primary">
+                <div className="w-5 h-5 rounded-full bg-sky-500/10 flex items-center justify-center text-primary">
                   <CheckCircle2 className="h-3 w-3" />
                 </div>
                 <span className="dark:text-gray-400">Unlimited monthly messages</span>
               </div>
               <div className="flex items-center gap-3 text-xs font-bold text-slate-600 dark:text-gray-500">
-                <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+                <div className="w-5 h-5 rounded-full bg-sky-500/10 flex items-center justify-center text-sky-600">
                   <CheckCircle2 className="h-3 w-3" />
                 </div>
                 <span className="dark:text-gray-400">Infrastructure priority</span>
@@ -146,8 +146,8 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, onClose, 
                 { id: "paypal", name: "PayPal", icon: CircleDollarSign, description: "PayPal, Credit Card" },
                 { id: "pending", name: "Cash", icon: Clock, description: "Transfer/Invoice" },
               ].map((method) => (
-                <button key={method.id} onClick={() => setPaymentMethod(method.id as string)} className={cn("flex flex-col items-center text-center p-6 border rounded-lg transition-all duration-300 group relative", paymentMethod === method.id ? "border-primary bg-emerald-500/5" : "border-slate-100 dark:border-(--card-border-color) bg-white dark:bg-(--table-hover) dark:hover:border-(--card-border-color) hover:border-slate-200")}>
-                  <div className={cn("w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-all duration-300", paymentMethod === method.id ? "bg-primary text-white shadow-lg shadow-emerald-500/20 scale-110" : "bg-slate-50 dark:bg-(--dark-body) text-slate-400 group-hover:bg-(--card-color)")}>
+                <button key={method.id} onClick={() => setPaymentMethod(method.id as string)} className={cn("flex flex-col items-center text-center p-6 border rounded-lg transition-all duration-300 group relative", paymentMethod === method.id ? "border-primary bg-sky-500/5" : "border-slate-100 dark:border-(--card-border-color) bg-white dark:bg-(--table-hover) dark:hover:border-(--card-border-color) hover:border-slate-200")}>
+                  <div className={cn("w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-all duration-300", paymentMethod === method.id ? "bg-primary text-white shadow-lg shadow-sky-500/20 scale-110" : "bg-slate-50 dark:bg-(--dark-body) text-slate-400 group-hover:bg-(--card-color)")}>
                     <method.icon className="h-6 w-6" />
                   </div>
                   <span className={cn("text-sm font-black mb-1", paymentMethod === method.id ? "text-slate-900 dark:text-white" : "text-slate-500")}>{method.name}</span>
@@ -155,7 +155,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, onClose, 
 
                   {paymentMethod === method.id && (
                     <div className="absolute top-3 right-3">
-                      <div className="bg-emerald-600 text-white p-1 rounded-full animate-in zoom-in-50">
+                      <div className="bg-sky-600 text-white p-1 rounded-full animate-in zoom-in-50">
                         <CheckCircle2 className="h-3 w-3" />
                       </div>
                     </div>

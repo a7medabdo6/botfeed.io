@@ -11,7 +11,7 @@ const StepHeader = ({ step, router, setStep }: StepHeaderProps) => (
         variant="ghost"
         size="icon"
         onClick={() => (step === 1 ? router.push("/webhooks") : setStep(1))}
-        className="rounded-full hover:bg-emerald-50 dark:hover:bg-emerald-500/10 h-10 w-10 transition-colors"
+        className="rounded-full hover:bg-sky-50 dark:hover:bg-sky-500/10 h-10 w-10 transition-colors"
       >
         <ArrowLeft size={20} />
       </Button>
@@ -19,7 +19,7 @@ const StepHeader = ({ step, router, setStep }: StepHeaderProps) => (
         <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
           Webhook Configuration
         </h1>
-          <span className="ml-3 text-sm font-medium text-emerald-500 bg-emerald-50 dark:bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-100 dark:border-emerald-500/20">
+          <span className="ml-3 text-sm font-medium text-sky-500 bg-sky-50 dark:bg-sky-500/10 px-3 py-1 rounded-full border border-sky-100 dark:border-sky-500/20">
             Step {step} of 2
           </span>
       </div>

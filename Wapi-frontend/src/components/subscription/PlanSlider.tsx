@@ -53,10 +53,10 @@ const getPlanTheme = (planName: string) => {
 
   return {
     color: "emerald",
-    border: "border-emerald-200 ring-emerald-500/20",
-    bg: "bg-emerald-50/40",
-    badge: "bg-emerald-500/20",
-    button: "bg-primary shadow-emerald-500/20",
+    border: "border-sky-200 ring-sky-500/20",
+    bg: "bg-sky-50/40",
+    badge: "bg-sky-500/20",
+    button: "bg-primary shadow-sky-500/20",
     text: "text-primary",
     icon: <Target className="h-5 w-5" />,
   };

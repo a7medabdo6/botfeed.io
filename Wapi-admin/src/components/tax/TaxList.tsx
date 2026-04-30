@@ -72,7 +72,7 @@ const TaxList = ({ taxes, isLoading, total, page, totalPages, onPageChange, limi
       header: t("tax.column.status") || "Status",
       sortable: true,
       sortKey: "is_active",
-      cell: (row) => <Badge className={row.is_active ? "bg-emerald-100 text-(--text-green-primary) dark:bg-emerald-900/20 hover:bg-emerald-100" : "bg-gray-100 text-gray-700 dark:bg-page-body dark:text-gray-500 "}>{row.is_active ? t("common.active") : t("common.inactive")}</Badge>,
+      cell: (row) => <Badge className={row.is_active ? "bg-sky-100 text-(--text-green-primary) dark:bg-sky-900/20 hover:bg-sky-100" : "bg-gray-100 text-gray-700 dark:bg-page-body dark:text-gray-500 "}>{row.is_active ? t("common.active") : t("common.inactive")}</Badge>,
     },
   ];
 
@@ -81,7 +81,7 @@ const TaxList = ({ taxes, isLoading, total, page, totalPages, onPageChange, limi
   const renderActions = (tax: Tax) => (
     <div className="flex items-center gap-2">
       <Can permission="update.taxes">
-        <Button variant="ghost" size="icon" className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" onClick={() => router.push(`/taxes/edit/${tax._id}`)} title={t("common.edit")}>
+        <Button variant="ghost" size="icon" className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" onClick={() => router.push(`/taxes/edit/${tax._id}`)} title={t("common.edit")}>
           <Edit className="w-4 h-4" />
         </Button>
       </Can>

@@ -14,7 +14,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
     <section id="home" className="home-section relative min-h-screen flex flex-col items-center pt-40 [@media(max-width:1333px)]:pt-31.25 pb-0 overflow-hidden [@media(max-width:660px)]:rounded-0">
       <div className="relative z-30 justify-center flex flex-col items-center text-center sm:px-6 px-0 mb-[calc(15px+(50-15)*((100vw-320px)/(1920-320)))] scale-95 lg:scale-100 transition-transform duration-500 [@media(max-width:1333px)]:mb-3.75">
         {data.badge && (
-          <div className="inline-flex items-center justify-center max-w-[calc(220px+(500-220)*((100vw-320px)/(1920-320)))] px-4 py-1.5 mb-8 rounded-full bg-[#05966915] border border-[#05966930]">
+          <div className="inline-flex items-center justify-center max-w-[calc(220px+(500-220)*((100vw-320px)/(1920-320)))] px-4 py-1.5 mb-8 rounded-full bg-[#00AEEF15] border border-[#00AEEF30]">
             <span className="text-[12px] md:text-[13px] line-clamp-2 font-semibold text-primary tracking-wider uppercase break-all">{data.badge}</span>
           </div>
         )}

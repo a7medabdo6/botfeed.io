@@ -145,7 +145,7 @@ const TeamList = () => {
       cell: (row) => (
         <div className="flex justify-end gap-3">
           <Can permission="update.teams">
-            <Button variant="outline" size="icon" className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" onClick={() => router.push(`/teams/${row._id}/edit`)}>
+            <Button variant="outline" size="icon" className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" onClick={() => router.push(`/teams/${row._id}/edit`)}>
               <Edit2 size={16} />
             </Button>
           </Can>

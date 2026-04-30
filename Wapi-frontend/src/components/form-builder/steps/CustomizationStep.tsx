@@ -34,7 +34,7 @@ const CustomizationStep = () => {
             <div className="p-5 flex items-center justify-between bg-slate-50/80 dark:bg-(--page-body-bg) rounded-lg border border-slate-100 dark:border-(--card-border-color) ">
               <div className="space-y-1">
                 <Label className="text-[13px] font-semibold">Show Branding</Label>
-                <div className="text-[11px] text-slate-500">{'Display "Powered by WAPI"'}</div>
+                <div className="text-[11px] text-slate-500">{'Display "Powered by Botfeed"'}</div>
               </div>
               <Switch checked={values.appearance.show_branding} onCheckedChange={(checked) => setFieldValue("appearance.show_branding", checked)} />
             </div>

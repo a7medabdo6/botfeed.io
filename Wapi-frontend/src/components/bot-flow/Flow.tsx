@@ -829,7 +829,7 @@ const FlowCanvas = () => {
         {!isDrawerCollapsed && (
           <>
             <div className="p-2 md:p-3">
-              <Input type="text" placeholder="Search components..." className="h-9 text-sm focus-visible:ring-emerald-500" />
+              <Input type="text" placeholder="Search components..." className="h-9 text-sm focus-visible:ring-sky-500" />
             </div>
           </>
         )}

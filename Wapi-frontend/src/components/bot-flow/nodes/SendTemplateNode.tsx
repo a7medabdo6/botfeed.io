@@ -42,8 +42,8 @@ export function SendTemplateNode({ data, id }: any) {
       id={id}
       title="Send Template"
       icon={<LayoutTemplate size={18} />}
-      borderColor="border-emerald-200"
-      handleColor="bg-emerald-500!"
+      borderColor="border-sky-200"
+      handleColor="bg-sky-500!"
       errors={errors}
       filledHeader
       filledHeaderTone="emerald"

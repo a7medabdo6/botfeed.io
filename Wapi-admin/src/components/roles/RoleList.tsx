@@ -65,7 +65,7 @@ const RoleList = ({ roles, onDelete, onBulkDelete, onToggleStatus, isLoading, to
   const renderActions = (row: Role) => (
     <div className="flex items-center gap-2">
       <Can permission="update.roles">
-        <Button variant="ghost" size="icon" onClick={() => router.push(`/roles/edit/${row._id}`)} className="w-9 h-9 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/10 transition-all border border-transparent " title="Edit Role">
+        <Button variant="ghost" size="icon" onClick={() => router.push(`/roles/edit/${row._id}`)} className="w-9 h-9 text-slate-400 hover:text-(--text-green-primary) hover:bg-sky-50 rounded-lg dark:hover:bg-primary/10 transition-all border border-transparent " title="Edit Role">
           <Edit size={16} />
         </Button>
       </Can>

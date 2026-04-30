@@ -13,7 +13,7 @@ export const FooterSection = ({ footerText, setFooterText }: FooterSectionProps)
       </div>
       <div className="space-y-4">
         <CharacterCountWrapper current={footerText?.length || 0} max={60}>
-          <Input placeholder="Enter footer text..." value={footerText || ""} onChange={(e) => setFooterText(e.target.value.slice(0, 60))} className="h-12 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) focus:bg-white dark:focus:bg-(--page-body-bg) focus:border-emerald-500/50 transition-all font-medium" />
+          <Input placeholder="Enter footer text..." value={footerText || ""} onChange={(e) => setFooterText(e.target.value.slice(0, 60))} className="h-12 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) focus:bg-white dark:focus:bg-(--page-body-bg) focus:border-sky-500/50 transition-all font-medium" />
         </CharacterCountWrapper>
         <p className="text-[12px] text-slate-400 dark:text-gray-400">Footer text is limited to 60 characters.</p>
       </div>

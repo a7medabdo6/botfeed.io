@@ -25,7 +25,7 @@ const QuickReplyModal: React.FC<QuickReplyModalProps> = ({ isOpen, onClose, onSe
         <div className="p-4 flex flex-col flex-1 overflow-hidden">
           <DialogHeader className="shrink-0 mb-6">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-lg bg-emerald-100 dark:bg-(--table-hover) flex items-center justify-center text-primary">
+              <div className="w-14 h-14 rounded-lg bg-sky-100 dark:bg-(--table-hover) flex items-center justify-center text-primary">
                 <MessageSquareQuote size={32} />
               </div>
               <div className="text-left">
@@ -62,7 +62,7 @@ const QuickReplyModal: React.FC<QuickReplyModalProps> = ({ isOpen, onClose, onSe
                           onDirectSend(message);
                           onClose();
                         }}
-                        className="h-9 text-[12px] flex items-center gap-2 rounded-lg bg-primary hover:bg-emerald-600 text-white font-bold px-4 shadow-lg shadow-emerald-600/10 transition-all active:scale-95"
+                        className="h-9 text-[12px] flex items-center gap-2 rounded-lg bg-primary hover:bg-sky-600 text-white font-bold px-4 shadow-lg shadow-sky-600/10 transition-all active:scale-95"
                       >
                         <Send size={14} /> Send Directly
                       </Button>

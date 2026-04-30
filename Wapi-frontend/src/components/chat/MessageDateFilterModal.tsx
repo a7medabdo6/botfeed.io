@@ -64,7 +64,7 @@ const MessageDateFilterModal = ({ isOpen, onClose, onApply, initialFilters }: Me
             <X className="w-4 h-4 mr-2" />
             Reset
           </Button>
-          <Button onClick={handleApply} className="flex-1 h-10 rounded-lg bg-primary   text-white shadow-lg shadow-emerald-500/20">
+          <Button onClick={handleApply} className="flex-1 h-10 rounded-lg bg-primary   text-white shadow-lg shadow-sky-500/20">
             Apply Filters
           </Button>
         </div>

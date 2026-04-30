@@ -83,7 +83,7 @@ const MediaDetailModal: React.FC<MediaDetailModalData> = ({ isOpen, onClose, att
                 <Label>File URL:</Label>
                 <div className="flex gap-2">
                   <Input value={attachment.fileUrl} readOnly className="bg-gray-50 rounded-lg text-gray-500" />
-                  <Button variant="outline" size="icon" onClick={handleCopyUrl} className="shrink-0 text-primary border-green-200 bg-green-50 hover:bg-green-100 rounded-lg">
+                  <Button variant="outline" size="icon" onClick={handleCopyUrl} className="shrink-0 text-primary border-sky-200 bg-sky-50 hover:bg-sky-100 rounded-lg">
                     <Copy size={20} />
                   </Button>
                 </div>

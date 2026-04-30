@@ -26,12 +26,12 @@ export const AppearanceStep = ({ data, onChange, isStandalone }: StepProps) => {
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
       {isStandalone && (
-        <div className="space-y-4 p-5 bg-emerald-50/50 dark:bg-emerald-500/5 rounded-2xl border border-emerald-100 dark:border-emerald-500/10">
+        <div className="space-y-4 p-5 bg-sky-50/50 dark:bg-sky-500/5 rounded-2xl border border-sky-100 dark:border-sky-500/10">
           <div className="flex items-center gap-2 mb-2">
-            <div className="p-1.5 bg-emerald-500/10 rounded-lg">
-              <Phone size={16} className="text-emerald-600" />
+            <div className="p-1.5 bg-sky-500/10 rounded-lg">
+              <Phone size={16} className="text-sky-600" />
             </div>
-            <Label className="text-sm font-bold text-slate-700 dark:text-emerald-400">Target WhatsApp Number</Label>
+            <Label className="text-sm font-bold text-slate-700 dark:text-sky-400">Target WhatsApp Number</Label>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="sm:col-span-1">

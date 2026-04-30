@@ -100,7 +100,7 @@ const ChangePasswordForm = () => {
           </div>
 
           <div className="flex justify-end pt-4">
-            <Button type="submit" disabled={isLoading || !formik.dirty} className="bg-primary hover:bg-emerald-600 text-white px-8 h-11 flex items-center gap-2">
+            <Button type="submit" disabled={isLoading || !formik.dirty} className="bg-primary hover:bg-sky-600 text-white px-8 h-11 flex items-center gap-2">
               {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />}
               {t("profile.update_password")}
             </Button>

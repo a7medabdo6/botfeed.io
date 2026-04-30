@@ -39,7 +39,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
           spread: 120,
           origin: { y: 0.6 },
           zIndex: 9999,
-          colors: ["#6366f1", "#8b5cf6", "#ec4899", "#f59e0b", "#059669"],
+          colors: ["#6366f1", "#8b5cf6", "#ec4899", "#f59e0b", "#00AEEF"],
         });
         onClose();
         setSelectedPlanId("");
@@ -59,7 +59,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
       <DialogContent className="sm:max-w-125 bg-white dark:bg-(--card-color) border-none rounded-xl p-0! overflow-hidden shadow-2xl">
         <DialogHeader className="p-6 pb-0">
           <DialogTitle className="font-bold text-slate-900 dark:text-white flex items-center gap-3">
-            <div className="p-2 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg">
+            <div className="p-2 bg-sky-50 dark:bg-sky-900/30 rounded-lg">
               <Package className="w-6 h-6 text-(--text-green-primary)" />
             </div>
             <div className="flex flex-col gap-1">
@@ -74,7 +74,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
         <div className="px-6 pt-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <Input placeholder="Search plans by name..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-9 h-10 bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-800 rounded-lg focus:ring-emerald-500/20 focus:border-(--text-green-primary) transition-all" />
+            <Input placeholder="Search plans by name..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-9 h-10 bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-800 rounded-lg focus:ring-sky-500/20 focus:border-(--text-green-primary) transition-all" />
           </div>
         </div>
 
@@ -91,11 +91,11 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
           ) : (
             <div className="grid gap-3">
               {filteredPlans.map((plan: Plan) => (
-                <div key={plan._id} onClick={() => setSelectedPlanId(plan._id)} className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedPlanId === plan._id ? "border-(--text-green-primary) bg-emerald-50/50 dark:bg-emerald-900/10" : "border-slate-100 dark:border-(--card-border-color) hover:border-emerald-200 dark:hover:border-emerald-800"}`}>
+                <div key={plan._id} onClick={() => setSelectedPlanId(plan._id)} className={`relative flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedPlanId === plan._id ? "border-(--text-green-primary) bg-sky-50/50 dark:bg-sky-900/10" : "border-slate-100 dark:border-(--card-border-color) hover:border-sky-200 dark:hover:border-sky-800"}`}>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <h4 className="font-bold text-slate-900 dark:text-white truncate">{plan.name}</h4>
-                      {user?.current_plan?._id === plan._id && <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400 font-medium">Current</span>}
+                      {user?.current_plan?._id === plan._id && <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-400 font-medium">Current</span>}
                     </div>
                     <div className="flex items-center gap-2 mt-1">
                       <span className="text-lg font-bold text-(--text-green-primary)">
@@ -120,7 +120,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
           <Button type="button" variant="ghost" onClick={onClose} className="flex-1 h-11 rounded-lg text-slate-600 dark:text-slate-400 bg-slate-100 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">
             Cancel
           </Button>
-          <Button type="button" disabled={isAssigning || !selectedPlanId || user?.current_plan?._id === selectedPlanId} onClick={handleAssign} className="flex-1 h-11 bg-(--text-green-primary) hover:bg-emerald-600 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50">
+          <Button type="button" disabled={isAssigning || !selectedPlanId || user?.current_plan?._id === selectedPlanId} onClick={handleAssign} className="flex-1 h-11 bg-(--text-green-primary) hover:bg-sky-600 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50">
             {isAssigning ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />

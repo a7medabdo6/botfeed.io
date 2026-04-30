@@ -99,7 +99,7 @@ const AITemplateModal = ({ isOpen, onClose, onSuccess }: AITemplateModalProps) =
         <DialogHeader className="p-3 sm:p-5 pb-3 sm:pb-4 bg-slate-50/80 dark:bg-(--daerk-sidebar) backdrop-blur-sm border-b border-slate-100 dark:border-(--card-border-color)">
           <div className="flex items-start justify-between gap-2 sm:gap-3">
             <div className="flex items-start sm:items-center gap-2 sm:gap-3 min-w-0">
-              <div className="p-1.5 sm:p-2 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 shrink-0 mt-0.5 sm:mt-0">
+              <div className="p-1.5 sm:p-2 rounded-lg bg-sky-100 dark:bg-sky-500/20 text-sky-600 shrink-0 mt-0.5 sm:mt-0">
                 <Sparkles size={18} className="sm:w-6 sm:h-6" />
               </div>
               <div className="min-w-0 flex flex-col pt-0.5 sm:pt-0">

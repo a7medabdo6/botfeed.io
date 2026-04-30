@@ -16,7 +16,7 @@ const WidgetSuccess: React.FC<WidgetSuccessProps> = ({ script, onBack }) => {
     <div className="bg-white dark:bg-(--card-color) rounded-lg border border-slate-200 dark:border-(--card-border-color) shadow-xl overflow-hidden animate-in fade-in zoom-in duration-500">
       <div className="sm:p-8 p-4 space-y-8">
         <div className="flex flex-col items-center text-center space-y-3">
-          <div className="w-16 h-16 bg-emerald-100 dark:bg-(--dark-body) text-primary rounded-full flex items-center justify-center animate-bounce">
+          <div className="w-16 h-16 bg-sky-100 dark:bg-(--dark-body) text-primary rounded-full flex items-center justify-center animate-bounce">
             <CheckCircle2 size={40} />
           </div>
           <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Widget Generated Successfully!</h2>
@@ -54,7 +54,7 @@ const WidgetSuccess: React.FC<WidgetSuccessProps> = ({ script, onBack }) => {
           <Button variant="ghost" onClick={onBack} className="gap-2 text-slate-500">
             <ArrowLeft size={16} /> Edit Widget
           </Button>
-          <Button className="gap-2 bg-primary hover:bg-emerald-600 text-white px-4.5! py-5 border-none shadow-lg shadow-emerald-500/20">
+          <Button className="gap-2 bg-primary hover:bg-sky-600 text-white px-4.5! py-5 border-none shadow-lg shadow-sky-500/20">
             View Live Demo <ExternalLink size={16} />
           </Button>
         </div>

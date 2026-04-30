@@ -35,9 +35,9 @@ const ContactYearlyChart = ({ data, isLoading }: ContactYearlyChartProps) => {
       zoom: { enabled: false },
       background: "transparent",
       fontFamily: "inherit",
-      dropShadow: { enabled: !useBar, top: 4, left: 0, blur: 6, color: "#16a34a", opacity: 0.15 },
+      dropShadow: { enabled: !useBar, top: 4, left: 0, blur: 6, color: "#00aeef", opacity: 0.15 },
     },
-    colors: ["#16a34a", "#3b82f6", "#f59e0b", "#8b5cf6", "#94a3b8"],
+    colors: ["#00aeef", "#3b82f6", "#f59e0b", "#8b5cf6", "#94a3b8"],
     dataLabels: { enabled: false },
     xaxis: {
       categories,

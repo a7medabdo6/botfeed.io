@@ -34,7 +34,7 @@ const PaymentsTable = ({ payments, isLoading, pagination, onPageChange, onLimitC
     switch (status.toLowerCase()) {
       case "paid":
       case "success":
-        return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
+        return "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400";
       case "pending":
         return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400";
       case "failed":
@@ -134,7 +134,7 @@ const PaymentsTable = ({ payments, isLoading, pagination, onPageChange, onLimitC
       className: "text-right",
       accessor: (payment) => (
         <div className="flex justify-end pr-2">
-          <Button variant="ghost" size="icon" title="Download Invoice" onClick={() => handleDownloadInvoice(payment._id)} className="w-10 h-10 hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 text-gray-500 hover:text-(--text-green-primary) transition-colors">
+          <Button variant="ghost" size="icon" title="Download Invoice" onClick={() => handleDownloadInvoice(payment._id)} className="w-10 h-10 hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 text-gray-500 hover:text-(--text-green-primary) transition-colors">
             <Download className="h-4 w-4" />
           </Button>
         </div>

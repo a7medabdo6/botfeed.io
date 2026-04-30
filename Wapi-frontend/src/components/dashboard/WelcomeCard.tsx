@@ -26,7 +26,7 @@ const WelcomeCard = () => {
   return (
     <div className="relative overflow-hidden rounded-lg bg-linear-to-br from-primary via-primary/95 to-primary sm:p-5 p-3 text-white shadow-2xl shadow-primary/30 flex flex-col justify-between transition-all duration-500 hover:shadow-primary/40 group">
       <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl group-hover:bg-white/15 transition-colors" />
-      <div className="absolute bottom-0 left-0 w-48 h-48 bg-emerald-400/20 rounded-full -ml-16 -mb-16 blur-2xl group-hover:bg-emerald-400/30 transition-colors" />
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-sky-400/20 rounded-full -ml-16 -mb-16 blur-2xl group-hover:bg-sky-400/30 transition-colors" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-10 pointer-events-none">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>

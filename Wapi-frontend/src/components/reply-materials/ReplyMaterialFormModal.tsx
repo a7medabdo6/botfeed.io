@@ -34,7 +34,7 @@ const TYPE_ICON: Record<ReplyMaterialType, React.ReactNode> = {
   sticker: <Smile size={18} className="text-pink-400" />,
   sequence: <Zap size={18} className="text-yellow-400" />,
   template: <Layout size={18} className="text-indigo-400" />,
-  catalog: <ShoppingBag size={18} className="text-emerald-400" />,
+  catalog: <ShoppingBag size={18} className="text-sky-400" />,
   chatbot: <Bot size={18} className="text-cyan-400" />,
   flow: <GitBranch size={18} className="text-orange-400" />,
 };

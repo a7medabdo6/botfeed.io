@@ -4,14 +4,14 @@
 
 ## Summary
 
-Allow agencies and resellers to offer Wapi under their own brand with custom domain, logo, colors, and email sender identity.
+Allow agencies and resellers to offer Botfeed under their own brand with custom domain, logo, colors, and email sender identity.
 
 ## Key Features
 
 - Custom domain mapping (CNAME-based)
 - Per-workspace branding: logo (light/dark), favicon, primary color, app name
 - Custom email sender (SMTP or SendGrid subuser)
-- Remove "Powered by Wapi" branding
+- Remove "Powered by Botfeed" branding
 - Reseller dashboard: manage client workspaces, billing, usage
 - Custom pricing: resellers set their own plan prices
 - Sub-account provisioning API

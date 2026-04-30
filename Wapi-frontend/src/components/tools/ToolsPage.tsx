@@ -22,14 +22,14 @@ const ToolCard = ({
   accentColor?: "emerald" | "indigo" | "purple" | "blue";
 }) => {
   const colors = {
-    emerald: "from-emerald-500/10 to-teal-500/5 text-emerald-600 border-emerald-100 dark:border-emerald-500/20",
+    emerald: "from-sky-500/10 to-teal-500/5 text-sky-600 border-sky-100 dark:border-sky-500/20",
     indigo: "from-indigo-500/10 to-blue-500/5 text-indigo-600 border-indigo-100 dark:border-indigo-500/20",
     purple: "from-purple-500/10 to-violet-500/5 text-purple-600 border-purple-100 dark:border-purple-500/20",
     blue: "from-blue-500/10 to-sky-500/5 text-blue-600 border-blue-100 dark:border-blue-500/20",
   }[accentColor];
 
   const buttonColors = {
-    emerald: "bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20",
+    emerald: "bg-sky-600 hover:bg-sky-700 shadow-sky-500/20",
     indigo: "bg-indigo-600 hover:bg-indigo-700 shadow-indigo-500/20",
     purple: "bg-purple-600 hover:bg-purple-700 shadow-purple-500/20",
     blue: "bg-blue-600 hover:bg-blue-700 shadow-blue-500/20",

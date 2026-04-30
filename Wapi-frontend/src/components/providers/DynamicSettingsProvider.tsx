@@ -15,7 +15,7 @@ const resolveUrl = (url?: string): string => {
   return url.startsWith("http") ? url : `${API_URL}${url}`;
 };
 
-const DEFAULT_FAVICON = "/assets/logos/sidebarLogo.png";
+const DEFAULT_FAVICON = "/branding/botfeed-logo.png";
 
 function applyFavicon(href: string) {
   if (typeof window === "undefined") return;
@@ -81,7 +81,7 @@ const DynamicSettingsProvider = ({ children }: DynamicSettingsProviderProps) => 
     const faviconHref = isSuccess ? resolveUrl(favicon_url) || DEFAULT_FAVICON : null;
 
     const applyAll = () => {
-      const baseTitle = app_name || "Wapi";
+      const baseTitle = app_name || "Botfeed";
       const fullTitle = pageTitle 
         ? `${pageTitle} | ${baseTitle}`
         : `${baseTitle} | All-in-One WhatsApp Marketing & Automation Platform`;

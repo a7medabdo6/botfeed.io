@@ -27,7 +27,7 @@ const LocationMessage: React.FC<LocationMessageProps> = ({ message, isWindowExpi
     <BaseMessage message={message} isWindowExpired={isWindowExpired}>
       <div className="flex flex-col gap-2 min-w-50 max-w-70">
         {/* Map Preview Placeholder/Static Image */}
-        <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="relative group overflow-hidden rounded-lg border border-slate-100 dark:border-none transition-all hover:ring-2 hover:ring-emerald-500/20">
+        <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="relative group overflow-hidden rounded-lg border border-slate-100 dark:border-none transition-all hover:ring-2 hover:ring-sky-500/20">
           <div className="h-32 bg-slate-100 dark:bg-(--card-color) flex items-center justify-center relative">
             <div className="absolute inset-0 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=${locationData.latitude},${locationData.longitude}&zoom=14&size=400x400&markers=color:red%7C${locationData.latitude},${locationData.longitude}&key=YOUR_API_KEY')] bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-500" />
             <div className="z-10 bg-white/90 dark:bg-(--dark-body) p-3 rounded-lg shadow-xl flex items-center gap-2 border border-slate-100 dark:border-none group-hover:scale-110 transition-transform">

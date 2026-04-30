@@ -140,7 +140,7 @@ const SearchBar = () => {
         ) : (
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={20} />
-            <input type="text" placeholder={t("layout.search_menus")} className="w-full pl-11 [@media(max-width:1024px)]:hidden pr-4 py-3 rounded-lg bg-(--input-color) focus:bg-(--input-color) dark:bg-(--page-body-bg) border border-(--input-border-color) focus:border-green-600 dark:focus:border-green-600 focus:ring-2 focus:ring-green-500/20 outline-none transition-all duration-300 text-gray-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-gray-500" onClick={handleOpen} readOnly />
+            <input type="text" placeholder={t("layout.search_menus")} className="w-full pl-11 [@media(max-width:1024px)]:hidden pr-4 py-3 rounded-lg bg-(--input-color) focus:bg-(--input-color) dark:bg-(--page-body-bg) border border-(--input-border-color) focus:border-sky-600 dark:focus:border-sky-600 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all duration-300 text-gray-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-gray-500" onClick={handleOpen} readOnly />
           </div>
         )}
       </div>

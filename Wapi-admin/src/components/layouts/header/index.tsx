@@ -34,7 +34,7 @@ const Header = () => {
             className={`
               p-2.5 rounded-lg transition-all duration-200
               dark:bg-page-body dark:focus-visible:outline-none dark:text-slate-400 dark:hover:text-white dark:hover:bg-(--dark-sidebar)
-              bg-white text-slate-500 hover:text-(--text-green-primary) hover:bg-green-50 shadow-sm border border-slate-100 dark:border-none
+              bg-white text-slate-500 hover:text-(--text-green-primary) hover:bg-sky-50 shadow-sm border border-slate-100 dark:border-none
             `}
           >
             <Menu className="w-5 h-5" />

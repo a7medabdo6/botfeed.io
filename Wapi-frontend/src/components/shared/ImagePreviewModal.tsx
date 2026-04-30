@@ -112,7 +112,7 @@ const ImagePreviewModal = () => {
         {images.length > 1 && (
           <div className="absolute bottom-6 inset-x-0 flex justify-center gap-2 z-[1001]">
             {images.map((_, idx) => (
-              <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? "w-8 bg-emerald-500" : "w-2 bg-white/30"}`} />
+              <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? "w-8 bg-sky-500" : "w-2 bg-white/30"}`} />
             ))}
           </div>
         )}

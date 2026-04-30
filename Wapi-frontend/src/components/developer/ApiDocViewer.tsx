@@ -40,7 +40,7 @@ const ApiDocViewer: React.FC<ApiDocViewerData> = ({ sectionId }) => {
     <div className="p-4 md:p-8 pb-20 overflow-y-auto h-full space-y-8 md:space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500 custom-scrollbar">
       <div className="space-y-4">
         <div className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight flex items-start gap-3 flex-wrap">
-          <Terminal className="text-primary h-10 w-10 p-2 bg-emerald-50 dark:bg-emerald-500/10 rounded-lg shrink-0" />
+          <Terminal className="text-primary h-10 w-10 p-2 bg-sky-50 dark:bg-sky-500/10 rounded-lg shrink-0" />
           <div className="flex flex-col min-w-0">
             {section.title}
             <div className="text-sm text-slate-600 dark:text-gray-400 max-w-2xl font-normal">{section.description}</div>
@@ -59,15 +59,15 @@ const ApiDocViewer: React.FC<ApiDocViewerData> = ({ sectionId }) => {
 
             <div className="bg-white dark:bg-(--card-color) border border-slate-200 dark:border-(--card-border-color) rounded-xl md:rounded-2xl overflow-hidden">
               <div className="px-6 py-4 border-b border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-black/10 flex items-center gap-4 flex-wrap">
-                <span className={cn("px-3 py-1 rounded-lg text-xs font-medium tracking-widest text-white shadow-sm", endpoint.method === "POST" ? "bg-primary shadow-emerald-500/20" : endpoint.method === "GET" ? "bg-blue-500 shadow-blue-500/20" : "bg-orange-500 shadow-orange-500/20")}>{endpoint.method}</span>
+                <span className={cn("px-3 py-1 rounded-lg text-xs font-medium tracking-widest text-white shadow-sm", endpoint.method === "POST" ? "bg-primary shadow-sky-500/20" : endpoint.method === "GET" ? "bg-blue-500 shadow-blue-500/20" : "bg-orange-500 shadow-orange-500/20")}>{endpoint.method}</span>
                 <div className="flex-1 flex items-center gap-4">
                   <code className="text-sm font-bold text-slate-700 dark:text-gray-300 font-mono truncate">{endpoint.path}</code>
-                  <button onClick={(e) => handleCopy(e, endpoint.path)} className="p-2 hover:bg-emerald-50 dark:hover:bg-(--table-hover) rounded-lg transition-all text-slate-400 hover:text-primary shrink-0" title="Copy api">
+                  <button onClick={(e) => handleCopy(e, endpoint.path)} className="p-2 hover:bg-sky-50 dark:hover:bg-(--table-hover) rounded-lg transition-all text-slate-400 hover:text-primary shrink-0" title="Copy api">
                     <Copy size={15} />
                   </button>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider">
-                  <BadgeCheck size={14} className="text-emerald-500" />
+                  <BadgeCheck size={14} className="text-sky-500" />
                   Auth Required
                 </div>
               </div>
@@ -85,7 +85,7 @@ const ApiDocViewer: React.FC<ApiDocViewerData> = ({ sectionId }) => {
                 {endpoint.response && (
                   <div className="space-y-3">
                     <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                      <Check size={16} className="text-emerald-500" /> Example Response
+                      <Check size={16} className="text-sky-500" /> Example Response
                     </h4>
                     <CodeBlock code={JSON.stringify(endpoint.response, null, 2)} showCopy={false} />
                   </div>

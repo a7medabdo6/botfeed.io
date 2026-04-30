@@ -92,7 +92,7 @@ const CurrencyList = ({ currencies, onDelete, onBulkDelete, onToggleStatus, onTo
   const renderActions = (row: Currency) => (
     <div className="flex items-center gap-2">
       <Can permission="update.currencies">
-        <Button variant="ghost" size="icon" onClick={() => router.push(`/currencies/edit/${row._id}`)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" title="Edit Currency">
+        <Button variant="ghost" size="icon" onClick={() => router.push(`/currencies/edit/${row._id}`)} className="w-10 h-10 text-slate-400 hover:text-(--text-green-primary) hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" title="Edit Currency">
           <Edit size={16} />
         </Button>
       </Can>

@@ -133,7 +133,7 @@ const FooterForm = ({ data, onChange }: FooterFormProps) => {
 
           <div className="space-y-2.5 flex flex-col">
             <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300 ml-1">Copyright Disclaimer</Label>
-            <Input value={data.copy_rights_text} onChange={(e) => handleChange("copy_rights_text", e.target.value)} placeholder="e.g. © 2024 WAPI Global. All rights reserved." className="bg-white dark:bg-page-body border-gray-200 dark:border-(--card-border-color) h-12 text-[14px] rounded-lg px-5" />
+            <Input value={data.copy_rights_text} onChange={(e) => handleChange("copy_rights_text", e.target.value)} placeholder="e.g. © 2024 Botfeed Global. All rights reserved." className="bg-white dark:bg-page-body border-gray-200 dark:border-(--card-border-color) h-12 text-[14px] rounded-lg px-5" />
           </div>
         </div>
       </div>

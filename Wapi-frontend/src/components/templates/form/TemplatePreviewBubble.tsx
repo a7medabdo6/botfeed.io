@@ -26,7 +26,7 @@ export const TemplatePreviewBubble = ({ templateType, headerText, bodyText, foot
         {isLimitedTimeOffer && (
           <div className="bg-white p-3 border-b border-slate-100">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+              <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-600 shrink-0">
                 <Gift size={20} />
               </div>
               <div className="flex-1 min-w-0">
@@ -41,8 +41,8 @@ export const TemplatePreviewBubble = ({ templateType, headerText, bodyText, foot
         {isCatalog && (
           <div className="border-b border-slate-100">
             <div className="flex items-center gap-2.5 p-3">
-              <div className="w-14 h-14 rounded-lg bg-linear-to-br from-emerald-100 to-teal-100 border border-slate-100 flex items-center justify-center shrink-0 overflow-hidden">
-                <ShoppingBag size={22} className="text-emerald-500" />
+              <div className="w-14 h-14 rounded-lg bg-linear-to-br from-sky-100 to-teal-100 border border-slate-100 flex items-center justify-center shrink-0 overflow-hidden">
+                <ShoppingBag size={22} className="text-sky-500" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-[12px] font-bold text-slate-800 leading-tight truncate">View Green Valley&apos;s</p>
@@ -54,9 +54,9 @@ export const TemplatePreviewBubble = ({ templateType, headerText, bodyText, foot
         )}
 
         {isAuthentication && (
-          <div className="p-3 flex items-center gap-2.5 border-b border-slate-100 bg-green-50">
-            <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center shrink-0">
-              <ShieldCheck size={15} className="text-green-600" />
+          <div className="p-3 flex items-center gap-2.5 border-b border-slate-100 bg-sky-50">
+            <div className="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center shrink-0">
+              <ShieldCheck size={15} className="text-sky-600" />
             </div>
             <div>
               <p className="text-[12px] font-bold text-slate-800 leading-tight">OTP Verification</p>

@@ -51,7 +51,7 @@ const SubscriptionGuard: React.FC<SubscriptionGuardProps> = ({ children }) => {
       <Dialog open={showModal} onOpenChange={() => { }}>
         <DialogContent className="sm:max-w-112.5 p-0! overflow-hidden border-none bg-white dark:bg-(--card-color) shadow-2xl" showCloseButton={false} onPointerDownOutside={(e) => e.preventDefault()} onEscapeKeyDown={(e) => e.preventDefault()}>
           <div className="relative h-32 bg-primary/10 flex items-center justify-center">
-            <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(330deg,#065F46_-30%,#059669_70%)] dark:bg-[linear-gradient(330deg,var(--card-color)_-10%,var(--primary)_90%)]" />
+            <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(330deg,#065F46_-30%,#00AEEF_70%)] dark:bg-[linear-gradient(330deg,var(--card-color)_-10%,var(--primary)_90%)]" />
             <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-800 shadow-xl flex items-center justify-center text-primary relative z-10 border border-primary/10">
               <Rocket className="h-8 w-8 animate-bounce-slow" />
             </div>
@@ -61,13 +61,13 @@ const SubscriptionGuard: React.FC<SubscriptionGuardProps> = ({ children }) => {
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold text-center text-slate-900 dark:text-white pb-2">Free Trial Complete</DialogTitle>
               <DialogDescription className="text-center text-slate-600 dark:text-slate-400 text-base leading-relaxed">
-                Your free trial has ended. To continue using all premium features of <span className="font-bold text-primary">WAPI</span>, please choose a subscription plan.
+                Your free trial has ended. To continue using all premium features of <span className="font-bold text-primary">Botfeed</span>, please choose a subscription plan.
               </DialogDescription>
             </DialogHeader>
 
             <div className="mt-8 space-y-4">
               <div className="flex items-center gap-4 p-4 rounded-lg bg-slate-50 dark:bg-(--page-body-bg) border border-slate-100 dark:border-none transition-colors hover:bg-slate-100/50 dark:hover:bg-(--table-hover)">
-                <div className="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-(--dark-body) flex items-center justify-center text-primary">
+                <div className="w-10 h-10 rounded-lg bg-sky-100 dark:bg-(--dark-body) flex items-center justify-center text-primary">
                   <ShieldAlert className="h-5 w-5" />
                 </div>
                 <div>

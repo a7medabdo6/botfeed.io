@@ -67,7 +67,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-page-body-bg relative overflow-hidden selection:bg-primary/20">
       <div className="absolute top-0 right-0 w-125 h-125 bg-indigo-500/5 rounded-full blur-[120px] -z-10 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-150 h-150 bg-emerald-500/5 rounded-full blur-[150px] -z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-150 h-150 bg-sky-500/5 rounded-full blur-[150px] -z-10 pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-purple-500/2 rounded-full blur-[180px] -z-10 pointer-events-none" />
 
       <div className="space-y-10 relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-1000">

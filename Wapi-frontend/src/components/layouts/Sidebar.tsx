@@ -157,11 +157,11 @@ const Sidebar = ({ onMenuClick }: SidebarProps) => {
 
     if (isVisuallyExpanded) {
       const url = isDark ? logo_dark_url : logo_light_url;
-      return resolveUrl(url) || "/assets/logos/logo1.png";
+      return resolveUrl(url) || "/branding/botfeed-logo.png";
     }
 
     const url = isDark ? sidebar_dark_logo_url : sidebar_light_logo_url;
-    return resolveUrl(url) || "/assets/logos/logo1.png";
+    return resolveUrl(url) || "/branding/botfeed-logo.png";
   }, [mounted, theme, isVisuallyExpanded, logo_light_url, logo_dark_url, sidebar_light_logo_url, sidebar_dark_logo_url]);
 
   const [openSections, setOpenSections] = useState<string[]>(["sidebar.integrations", "sidebar.auto_responses", "sidebar.my_subscription", "sidebar.marketing"]);
@@ -233,7 +233,7 @@ const Sidebar = ({ onMenuClick }: SidebarProps) => {
           <div className="flex items-center gap-3 overflow-hidden">{sidebarLogo === null ? <div className="h-10 w-28 bg-gray-200 dark:bg-white/10 animate-pulse rounded-md" /> : <Image src={sidebarLogo} alt={app_name || "logo"} width={140} height={40} unoptimized className={`max-h-10 object-contain transition-all duration-300 ${isVisuallyExpanded ? "w-auto" : "w-full max-w-10"}`} />}</div>
 
           {isVisuallyExpanded && (
-            <div className="ml-2 rtl:mr-2 rtl:ml-0 text-gray-500 hover:text-green-600 transition-colors hidden min-[1025px]:block" onClick={() => dispatch(setSidebarToggle())}>
+            <div className="ml-2 rtl:mr-2 rtl:ml-0 text-gray-500 hover:text-primary transition-colors hidden min-[1025px]:block" onClick={() => dispatch(setSidebarToggle())}>
               {!sidebarToggle ? <ChevronLeft size={20} className="rtl:rotate-180" /> : <ChevronRight size={20} className="rtl:rotate-180" />}
             </div>
           )}

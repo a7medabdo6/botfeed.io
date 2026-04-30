@@ -1,6 +1,6 @@
 # Future Features Roadmap
 
-Planned features for Wapi, organized by priority and effort.
+Planned features for Botfeed, organized by priority and effort.
 
 ## Quick Wins (1-2 weeks)
 

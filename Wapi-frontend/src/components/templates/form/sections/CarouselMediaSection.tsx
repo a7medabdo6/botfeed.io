@@ -33,7 +33,7 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
               <div className="flex items-center gap-3">
                 <span className="w-5 h-5 flex items-center justify-center rounded-full bg-primary/10 text-primary text-[10px] font-black">{idx + 1}</span>
                 <div className="flex items-center gap-1.5">
-                  {btn.type === "url" ? <Link size={14} className="text-sky-500" /> : <MessageSquareReply size={14} className="text-emerald-500" />}
+                  {btn.type === "url" ? <Link size={14} className="text-sky-500" /> : <MessageSquareReply size={14} className="text-sky-500" />}
                   <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{btn.type === "url" ? "URL Button" : "Quick Reply"}</span>
                 </div>
               </div>
@@ -46,10 +46,10 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
 
         {buttonTemplates.length < 3 && (
           <div className="flex gap-2">
-            <button type="button" onClick={() => onAddButtonTemplate("url")} className="flex-1 h-10 flex items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-slate-200 dark:border-(--card-border-color) text-slate-500 hover:border-primary hover:bg-emerald-50/20 dark:hover:bg-(--table-hover) transition-all text-xs font-bold">
+            <button type="button" onClick={() => onAddButtonTemplate("url")} className="flex-1 h-10 flex items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-slate-200 dark:border-(--card-border-color) text-slate-500 hover:border-primary hover:bg-sky-50/20 dark:hover:bg-(--table-hover) transition-all text-xs font-bold">
               <Link size={13} /> Add URL Button
             </button>
-            <button type="button" onClick={() => onAddButtonTemplate("quick_reply")} className="flex-1 h-10 flex items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-slate-200 dark:border-(--card-border-color) text-slate-500 hover:border-primary hover:bg-emerald-50/20 dark:hover:bg-(--table-hover) transition-all text-xs font-bold">
+            <button type="button" onClick={() => onAddButtonTemplate("quick_reply")} className="flex-1 h-10 flex items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-slate-200 dark:border-(--card-border-color) text-slate-500 hover:border-primary hover:bg-sky-50/20 dark:hover:bg-(--table-hover) transition-all text-xs font-bold">
               <MessageSquareReply size={13} /> Add Quick Reply
             </button>
           </div>
@@ -62,7 +62,7 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
             <h3 className="text-base font-bold text-slate-800 dark:text-slate-200 tracking-tight">Media Cards</h3>
             <p className="text-xs text-slate-500 font-medium dark:text-gray-400 mt-0.5">Add 2–10 cards. Each card has its own image, body text, and button texts.</p>
           </div>
-          <button type="button" onClick={onAddCard} disabled={cards.length >= 10} className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-emerald-700 disabled:opacity-40 text-white rounded-lg text-xs font-bold transition-all">
+          <button type="button" onClick={onAddCard} disabled={cards.length >= 10} className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-sky-700 disabled:opacity-40 text-white rounded-lg text-xs font-bold transition-all">
             <Plus size={14} /> Add Card
           </button>
         </div>
@@ -96,14 +96,14 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
                   onChange={(e) => handleFileChange(card.id, e)}
                 />
                 {card.file ? (
-                  <div className="flex items-center justify-between p-3 bg-emerald-50/50 dark:bg-emerald-500/5 border border-emerald-100 dark:border-emerald-500/20 rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-sky-50/50 dark:bg-sky-500/5 border border-sky-100 dark:border-sky-500/20 rounded-lg">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center">
-                        <ImageIcon size={16} className="text-emerald-600" />
+                      <div className="w-9 h-9 rounded-lg bg-sky-100 dark:bg-sky-500/20 flex items-center justify-center">
+                        <ImageIcon size={16} className="text-sky-600" />
                       </div>
                       <div>
                         <p className="text-xs font-bold text-slate-700 dark:text-slate-300 truncate max-w-40">{card.file.name}</p>
-                        <p className="text-[10px] text-emerald-600 font-bold uppercase">{(card.file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                        <p className="text-[10px] text-sky-600 font-bold uppercase">{(card.file.size / (1024 * 1024)).toFixed(2)} MB</p>
                       </div>
                     </div>
                     <button type="button" onClick={() => onUpdateCard(card.id, { file: null })} className="p-1.5 text-slate-400 hover:text-rose-500 rounded-lg transition-all">
@@ -111,7 +111,7 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
                     </button>
                   </div>
                 ) : (
-                  <div onClick={() => fileRefs.current[card.id]?.click()} className="border-2 border-dashed border-slate-200 dark:border-(--card-border-color) rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-emerald-50/20 dark:hover:bg-(--table-hover) transition-all">
+                  <div onClick={() => fileRefs.current[card.id]?.click()} className="border-2 border-dashed border-slate-200 dark:border-(--card-border-color) rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-sky-50/20 dark:hover:bg-(--table-hover) transition-all">
                     <ImageIcon size={24} className="text-slate-300 mb-2" />
                     <p className="text-xs font-bold text-slate-400">Click to upload image</p>
                     <p className="text-[10px] text-slate-400">JPG, PNG (Max 5MB)</p>
@@ -122,7 +122,7 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
               <div className="space-y-2">
                 <Label className="text-xs font-bold text-slate-600 dark:text-gray-400">Card Body Text</Label>
                 <CharacterCountWrapper current={card.body_text?.length || 0} max={200}>
-                  <Textarea placeholder="Describe this card..." value={card.body_text || ""} onChange={(e) => onUpdateCard(card.id, { body_text: e.target.value.slice(0, 200) })} className="min-h-20 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) focus:border-emerald-500/50 transition-all font-medium resize-none text-sm" />
+                  <Textarea placeholder="Describe this card..." value={card.body_text || ""} onChange={(e) => onUpdateCard(card.id, { body_text: e.target.value.slice(0, 200) })} className="min-h-20 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) focus:border-sky-500/50 transition-all font-medium resize-none text-sm" />
                 </CharacterCountWrapper>
               </div>
 
@@ -135,15 +135,15 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
                       return (
                         <div key={tmpl.id} className="flex items-center gap-3">
                           <div className="shrink-0 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-(--page-body-bg) border border-slate-200 dark:border-(--card-border-color)">
-                            {tmpl.type === "url" ? <Link size={12} className="text-sky-500" /> : <MessageSquareReply size={12} className="text-emerald-500" />}
+                            {tmpl.type === "url" ? <Link size={12} className="text-sky-500" /> : <MessageSquareReply size={12} className="text-sky-500" />}
                             <span className="text-[10px] font-bold text-slate-500 dark:text-gray-400 whitespace-nowrap">Btn {bIdx + 1}</span>
                           </div>
                           <div className="flex-1">
                             <CharacterCountWrapper current={val?.text?.length || 0} max={60}>
-                              <Input placeholder={`Button ${bIdx + 1} text`} value={val?.text || ""} onChange={(e) => onUpdateCardButtonValue(card.id, tmpl.id, { text: e.target.value.slice(0, 60) })} className="h-9 w-full border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) text-xs focus:border-emerald-500/50 transition-all" />
+                              <Input placeholder={`Button ${bIdx + 1} text`} value={val?.text || ""} onChange={(e) => onUpdateCardButtonValue(card.id, tmpl.id, { text: e.target.value.slice(0, 60) })} className="h-9 w-full border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) text-xs focus:border-sky-500/50 transition-all" />
                             </CharacterCountWrapper>
                           </div>
-                          {tmpl.type === "url" && <Input placeholder="https://example.com" value={val?.url || ""} onChange={(e) => onUpdateCardButtonValue(card.id, tmpl.id, { url: e.target.value })} className="h-9 flex-1 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) text-xs focus:border-emerald-500/50 transition-all" />}
+                          {tmpl.type === "url" && <Input placeholder="https://example.com" value={val?.url || ""} onChange={(e) => onUpdateCardButtonValue(card.id, tmpl.id, { url: e.target.value })} className="h-9 flex-1 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-(--page-body-bg) text-xs focus:border-sky-500/50 transition-all" />}
                         </div>
                       );
                     })}

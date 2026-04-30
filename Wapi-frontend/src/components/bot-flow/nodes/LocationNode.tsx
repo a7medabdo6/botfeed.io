@@ -77,7 +77,7 @@ export function LocationNode({ data, id }: any) {
       <NodeField label="Search Location">
         <div className="relative">
           <Input value={data.searchQuery || ""} onFocus={() => setTouched(true)} onChange={(e) => updateNodeData("searchQuery", e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSearch()} placeholder="Search for a location..." className="h-9 pr-10 text-sm bg-(--input-color)" />
-          <Button size="icon" variant="default" onClick={handleSearch} disabled={isSearching} className="absolute right-0 top-0 h-9 w-9 bg-emerald-600 hover:bg-emerald-700 text-white rounded-l-none">
+          <Button size="icon" variant="default" onClick={handleSearch} disabled={isSearching} className="absolute right-0 top-0 h-9 w-9 bg-sky-600 hover:bg-sky-700 text-white rounded-l-none">
             {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search size={16} />}
           </Button>
         </div>

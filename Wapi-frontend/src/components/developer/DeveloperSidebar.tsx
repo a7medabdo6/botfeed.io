@@ -51,7 +51,7 @@ const DeveloperSidebar: React.FC<DeveloperSidebarData> = ({ activeTab, onTabChan
   return (
     <div className="w-72 lg:w-80 border-r border-slate-200 dark:border-(--card-border-color) bg-white dark:bg-(--card-color) flex flex-col h-full overflow-hidden shadow-sm">
       <div className="p-8 pb-2 flex items-center space-x-4">
-        <div className="w-14 h-14 rounded-lg bg-(--light-primary) dark:bg-emerald-500/10 flex items-center justify-center text-primary border border-emerald-100 dark:border-emerald-500/20 shadow-sm">
+        <div className="w-14 h-14 rounded-lg bg-(--light-primary) dark:bg-sky-500/10 flex items-center justify-center text-primary border border-sky-100 dark:border-sky-500/20 shadow-sm">
           <Terminal size={30} className="text-primary" />
         </div>
         <div>
@@ -64,7 +64,7 @@ const DeveloperSidebar: React.FC<DeveloperSidebarData> = ({ activeTab, onTabChan
         <p className="text-[11px] font-bold text-slate-400 dark:text-gray-500 px-4 mb-3 tracking-wider uppercase">{t("developer.api_types")}</p>
 
         {menuItems.map((item) => (
-          <button key={item.id} onClick={() => onTabChange(item.id)} className={cn("w-full text-left p-3 rounded-xl flex items-center gap-4 transition-all duration-200 group relative", activeTab === item.id ? "bg-emerald-50 dark:bg-emerald-500/10 text-primary border border-emerald-100 dark:border-emerald-500/20" : "text-slate-600 dark:text-gray-400 hover:bg-slate-50 dark:hover:bg-(--table-hover)")}>
+          <button key={item.id} onClick={() => onTabChange(item.id)} className={cn("w-full text-left p-3 rounded-xl flex items-center gap-4 transition-all duration-200 group relative", activeTab === item.id ? "bg-sky-50 dark:bg-sky-500/10 text-primary border border-sky-100 dark:border-sky-500/20" : "text-slate-600 dark:text-gray-400 hover:bg-slate-50 dark:hover:bg-(--table-hover)")}>
             <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center transition-colors shadow-xs", activeTab === item.id ? "bg-white dark:bg-primary text-primary dark:text-white" : "bg-slate-100 dark:bg-(--dark-body) text-slate-400 dark:text-gray-500 group-hover:bg-white dark:group-hover:bg-(--card-color)")}>{item.icon}</div>
             <div className="flex-1 min-w-0">
               <p className={cn("font-semibold text-sm truncate", activeTab === item.id ? "text-primary-dark dark:text-primary" : "text-slate-900 dark:text-white")}>{item.title}</p>
@@ -76,7 +76,7 @@ const DeveloperSidebar: React.FC<DeveloperSidebarData> = ({ activeTab, onTabChan
       </div>
 
       <div className="p-3 mt-auto">
-        <button className="w-full h-12 bg-emerald-50 dark:bg-emerald-500/10 text-primary border border-emerald-100 dark:border-emerald-500/20 rounded-lg flex items-center justify-center gap-3 font-semibold text-sm hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-colors shadow-sm">
+        <button className="w-full h-12 bg-sky-50 dark:bg-sky-500/10 text-primary border border-sky-100 dark:border-sky-500/20 rounded-lg flex items-center justify-center gap-3 font-semibold text-sm hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-colors shadow-sm">
           <Code2 size={18} />
           {t("developer.documentation_v1")}
         </button>

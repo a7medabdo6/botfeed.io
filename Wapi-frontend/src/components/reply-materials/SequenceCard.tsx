@@ -14,8 +14,8 @@ const SequenceCard: React.FC<SequenceCardProps> = ({ sequence, onEdit, onDelete,
       <div className="relative z-10 flex flex-col h-full justify-between">
         <div>
           <div className="flex items-start justify-between mb-4">
-            <div className={cn("px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5", sequence.is_active ? "bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400" : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400")}>
-              <span className={cn("inline-block w-1.5 h-1.5 rounded-full", sequence.is_active ? "bg-green-500" : "bg-slate-400")} />
+            <div className={cn("px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5", sequence.is_active ? "bg-sky-50 text-sky-600 dark:bg-sky-500/10 dark:text-sky-400" : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400")}>
+              <span className={cn("inline-block w-1.5 h-1.5 rounded-full", sequence.is_active ? "bg-sky-500" : "bg-slate-400")} />
               {sequence.is_active ? "Active" : "Paused"}
             </div>
 

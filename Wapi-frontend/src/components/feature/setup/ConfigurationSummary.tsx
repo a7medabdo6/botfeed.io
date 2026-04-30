@@ -26,7 +26,7 @@ const ConfigurationSummary: React.FC<ConfigurationSummaryProps> = ({ currentMode
           <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-3">{t("setup.active_model")}</span>
           {currentModel ? (
             <div className="flex items-center gap-4 p-3 rounded-lg bg-white/5 border border-white/10 ring-1 ring-white/5">
-              <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-400">{currentModel.icon ? <Image src={currentModel.icon} alt={currentModel.display_name} width={24} height={24} className="object-contain" /> : <Sparkles size={20} />}</div>
+              <div className="p-2 rounded-lg bg-sky-500/20 text-sky-400">{currentModel.icon ? <Image src={currentModel.icon} alt={currentModel.display_name} width={24} height={24} className="object-contain" /> : <Sparkles size={20} />}</div>
               <div>
                 <h4 className="font-bold text-sm">{currentModel.display_name}</h4>
                 <p className="text-[11px] text-slate-400 truncate max-w-37.5">{currentModel.description}</p>
@@ -40,8 +40,8 @@ const ConfigurationSummary: React.FC<ConfigurationSummaryProps> = ({ currentMode
         <div className="pt-4 border-t border-white/10">
           <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">{t("setup.api_status")}</span>
           <div className="flex items-center gap-2 mt-1">
-            <div className={`h-2.5 w-2.5 rounded-full ${hasApiKey ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" : "bg-slate-700"}`} />
-            <span className={`text-sm font-medium ${hasApiKey ? "text-emerald-400" : "text-slate-500"}`}>{hasApiKey ? t("setup.connected") : t("setup.not_configured")}</span>
+            <div className={`h-2.5 w-2.5 rounded-full ${hasApiKey ? "bg-sky-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" : "bg-slate-700"}`} />
+            <span className={`text-sm font-medium ${hasApiKey ? "text-sky-400" : "text-slate-500"}`}>{hasApiKey ? t("setup.connected") : t("setup.not_configured")}</span>
           </div>
         </div>
       </CardContent>

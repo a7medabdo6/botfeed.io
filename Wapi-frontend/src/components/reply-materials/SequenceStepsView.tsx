@@ -104,7 +104,7 @@ const SequenceStepsView: React.FC<SequenceStepsViewProps> = ({ sequenceId, onBac
           <div className="flex-1">
             <div className="flex items-center gap-3">
               <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight leading-none">{sequence?.name}</h1>
-              <span className={cn("px-2 py-0.5 rounded-full text-[10px] font-bold ", sequence?.is_active ? "bg-green-50 text-green-600 dark:bg-emerald-900/20" : "bg-slate-100  text-slate-500")}>{sequence?.is_active ? "Active" : "Paused"}</span>
+              <span className={cn("px-2 py-0.5 rounded-full text-[10px] font-bold ", sequence?.is_active ? "bg-sky-50 text-sky-600 dark:bg-sky-900/20" : "bg-slate-100  text-slate-500")}>{sequence?.is_active ? "Active" : "Paused"}</span>
             </div>
             <p className="text-slate-500 text-sm font-medium mt-2 dark:text-gray-400">Manage the message flow and timing for this sequence.</p>
           </div>

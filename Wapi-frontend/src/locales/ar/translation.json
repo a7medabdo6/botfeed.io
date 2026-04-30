@@ -451,7 +451,7 @@
   },
   "api_keys": {
     "title": "مفاتيح API",
-    "subtitle": "إنشاء وإدارة المفاتيح للوصول إلى WAPI REST API",
+    "subtitle": "إنشاء وإدارة المفاتيح للوصول إلى Botfeed REST API",
     "create_key": "إنشاء مفتاح API",
     "refresh": "تحديث",
     "search_placeholder": "البحث في المفاتيح...",

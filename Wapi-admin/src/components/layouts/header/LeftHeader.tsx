@@ -176,7 +176,7 @@ const LeftHeader = () => {
         <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-(--card-color) dark:backdrop-blur-xl border border-slate-200 dark:border-(--card-border-color) rounded-lg shadow-2xl z-50 max-h-[70vh] overflow-y-auto custom-scrollbar animate-in fade-in slide-in-from-top-2 duration-200">
           {results.length === 0 ? (
             <div className="px-6 py-8 text-center text-slate-500">
-              <div className="w-12 h-12 bg-slate-100 dark:bg-[#455645]/30 rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 bg-slate-100 dark:bg-[#1e2a36]/30 rounded-full flex items-center justify-center mx-auto mb-3">
                 <Search className="w-5 h-5 text-slate-400" />
               </div>
               <p className="text-sm font-medium">

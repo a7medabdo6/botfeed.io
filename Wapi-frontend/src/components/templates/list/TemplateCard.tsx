@@ -8,7 +8,7 @@ import Can from "@/src/components/shared/Can";
 
 export const TemplateCard = ({ template, onPreview, onEdit, onDelete, getStatusBadge }: { template: Template; onSelect: (template: Template) => void; onPreview: (template: Template) => void; onEdit: (id: string) => void; onDelete: (id: string) => void; getStatusBadge: (status: string) => React.ReactNode }) => {
   return (
-    <div className="group relative bg-white dark:border-none dark:bg-(--card-color) rounded-lg border border-slate-100 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer h-full flex flex-col" onClick={() => onPreview(template)}>
+    <div className="group relative bg-white dark:border-none dark:bg-(--card-color) rounded-lg border border-slate-100 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:border-sky-500/50 hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer h-full flex flex-col" onClick={() => onPreview(template)}>
       <div className="p-5 flex items-center justify-between gap-3 border-b border-slate-50 dark:border-(--card-border-color)">
         <h3 className="font-bold text-slate-800 dark:text-white text-sm truncate uppercase tracking-tight flex-1">{template.template_name}</h3>
         {getStatusBadge(template.status)}
@@ -42,7 +42,7 @@ export const TemplateCard = ({ template, onPreview, onEdit, onDelete, getStatusB
           <Button
             variant="outline"
             size="icon"
-            className="h-10 w-10 rounded-lg border-slate-200 bg-white shadow-lg hover:border-emerald-500 hover:text-emerald-500 hover:bg-emerald-50 hover:scale-110 transition-all"
+            className="h-10 w-10 rounded-lg border-slate-200 bg-white shadow-lg hover:border-sky-500 hover:text-sky-500 hover:bg-sky-50 hover:scale-110 transition-all"
             onClick={(e) => {
               e.stopPropagation();
               onEdit(template._id);

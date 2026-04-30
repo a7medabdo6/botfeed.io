@@ -80,7 +80,7 @@ const MessageTemplates = ({ wabaId, statusFilter: statusFilterProp, onToggleSide
     const s = status?.toUpperCase();
     switch (s) {
       case "APPROVED":
-        return <Badge className="bg-emerald-50 text-primary border-emerald-100 dark:border-primary dark:bg-transparent hover:bg-emerald-50 px-2 py-0.5 text-[10px] font-bold">APPROVED</Badge>;
+        return <Badge className="bg-sky-50 text-primary border-sky-100 dark:border-primary dark:bg-transparent hover:bg-sky-50 px-2 py-0.5 text-[10px] font-bold">APPROVED</Badge>;
       case "PENDING":
         return <Badge className="bg-amber-50 dark:bg-(--card-color) dark:border-(--card-border-color) text-amber-600 border-amber-100 hover:bg-amber-50 px-2 py-0.5 text-[10px] font-bold">PENDING</Badge>;
       case "REJECTED":

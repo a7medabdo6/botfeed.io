@@ -42,7 +42,7 @@ const EmbedCodeButton: React.FC<EmbedCodeButtonProps> = ({ code, iconOnly = fals
             </Button>
           </div>
           <div className="p-4 text-left">
-            <pre className="bg-slate-900 text-emerald-400 text-xs p-4 rounded-lg overflow-x-auto font-mono leading-relaxed whitespace-pre-wrap break-all border border-slate-800">{code}</pre>
+            <pre className="bg-slate-900 text-sky-400 text-xs p-4 rounded-lg overflow-x-auto font-mono leading-relaxed whitespace-pre-wrap break-all border border-slate-800">{code}</pre>
           </div>
         </DialogContent>
       </Dialog>

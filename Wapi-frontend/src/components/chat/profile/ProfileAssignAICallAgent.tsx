@@ -28,7 +28,7 @@ const ProfileAssignAICallAgent = ({ agents, selectedAgentId, assignedAgent, onAs
   return (
     <div className="dark:border-none border border-gray-100 dark:bg-(--table-hover)! dark:border-(--card-border-color) rounded-lg p-4 space-y-4" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 95%)" } : {}}>
       <div className="flex items-center gap-2 text-slate-900 dark:text-white font-semibold">
-        <div className="p-1.5 rounded-lg" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 90%)", color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}}>
+        <div className="p-1.5 rounded-lg" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 90%)", color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}>
           <Bot size={18} />
         </div>
         <span>Assign AI Call Agent</span>

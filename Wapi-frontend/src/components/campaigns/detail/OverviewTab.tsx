@@ -18,7 +18,7 @@ export const OverviewTab = ({ campaign, stats, progress, active }: { campaign: C
           <DetailRow
             label="Status"
             value={
-              <Badge variant="outline" className={cn("uppercase font-black text-[10px] px-2 py-0.5 rounded-full border-2", campaign.status === "completed" ? "bg-emerald-50 text-emerald-600 border-emerald-100 dark:bg-emerald-950/30 dark:border-emerald-900/50" : "bg-blue-50 text-primary border-blue-100 dark:bg-(--page-body-bg) dark:border-(--card-border-color)")}>
+              <Badge variant="outline" className={cn("uppercase font-black text-[10px] px-2 py-0.5 rounded-full border-2", campaign.status === "completed" ? "bg-sky-50 text-sky-600 border-sky-100 dark:bg-sky-950/30 dark:border-sky-900/50" : "bg-blue-50 text-primary border-blue-100 dark:bg-(--page-body-bg) dark:border-(--card-border-color)")}>
                 {campaign.status}
               </Badge>
             }

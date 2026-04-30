@@ -87,7 +87,7 @@ export const AuthenticationSection = ({ authData, setAuthData, isLoading }: Auth
               {OTP_TYPES.map((t) => {
                 const isActive = selectedType === t.value;
                 return (
-                  <button key={t.value} type="button" onClick={() => setOTPType(t.value)} className={`flex flex-col gap-1.5 p-4 rounded-lg border-2 text-left transition-all ${isActive ? "border-primary bg-emerald-50/60 dark:bg-emerald-500/10" : "border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:bg-(--table-hover) hover:border-primary/30"}`}>
+                  <button key={t.value} type="button" onClick={() => setOTPType(t.value)} className={`flex flex-col gap-1.5 p-4 rounded-lg border-2 text-left transition-all ${isActive ? "border-primary bg-sky-50/60 dark:bg-sky-500/10" : "border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:bg-(--table-hover) hover:border-primary/30"}`}>
                     <div className="flex items-center justify-between">
                       <span className={`text-[13px] font-bold tracking-tight ${isActive ? "text-primary" : "text-slate-700 dark:text-gray-300"}`}>{t.label}</span>
                       {isActive && (

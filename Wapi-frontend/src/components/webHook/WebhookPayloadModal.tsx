@@ -25,7 +25,7 @@ const WebhookPayloadModal = ({ isOpen, onClose, webhook }: WebhookPayloadModalPr
               <Zap className="text-primary h-5 w-5" />
               Webhook Payload: <span className="text-primary">{webhook?.webhook_name}</span>
             </DialogTitle>
-            <Button variant="outline" size="sm" onClick={() => refetch()} disabled={isLoading || isFetching} className="h-8 gap-2 border-emerald-100 text-primary hover:bg-emerald-50 dark:border-emerald-500/20 dark:hover:bg-emerald-500/10">
+            <Button variant="outline" size="sm" onClick={() => refetch()} disabled={isLoading || isFetching} className="h-8 gap-2 border-sky-100 text-primary hover:bg-sky-50 dark:border-sky-500/20 dark:hover:bg-sky-500/10">
               <RefreshCw className={`h-4 w-4 ${isLoading || isFetching ? "animate-spin" : ""}`} />
               Sync Payload
             </Button>
@@ -36,13 +36,13 @@ const WebhookPayloadModal = ({ isOpen, onClose, webhook }: WebhookPayloadModalPr
           <div className="md:col-span-3 flex flex-col space-y-3 h-full overflow-hidden">
             <div className="flex items-center justify-between px-1">
               <span className="text-sm font-bold text-slate-700 dark:text-gray-300">Live Payload Output</span>
-              {isFetching && <span className="text-[10px] text-emerald-500 animate-pulse font-medium">Updating...</span>}
+              {isFetching && <span className="text-[10px] text-sky-500 animate-pulse font-medium">Updating...</span>}
             </div>
 
             <div className="flex-1 bg-slate-950 rounded-lg p-5 font-mono text-sm text-primary overflow-auto border border-slate-800 shadow-inner relative group custom-scrollbar">
               {isLoading ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm rounded-lg">
-                  <Loader2 className="h-8 w-8 text-emerald-500 animate-spin" />
+                  <Loader2 className="h-8 w-8 text-sky-500 animate-spin" />
                 </div>
               ) : (
                 <pre>{jsonString}</pre>
@@ -72,7 +72,7 @@ const WebhookPayloadModal = ({ isOpen, onClose, webhook }: WebhookPayloadModalPr
               </ul>
             </div>
 
-            <div className="bg-emerald-50/50 dark:bg-(--page-body-bg) border border-emerald-100 dark:border-none p-5 rounded-lg space-y-3">
+            <div className="bg-sky-50/50 dark:bg-(--page-body-bg) border border-sky-100 dark:border-none p-5 rounded-lg space-y-3">
               <div className="flex items-center gap-2 text-primary font-bold text-sm">
                 <CheckCircle2 className="h-4 w-4" />
                 Best Practices

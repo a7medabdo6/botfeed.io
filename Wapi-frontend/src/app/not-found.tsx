@@ -24,7 +24,7 @@ const NotFound = () => {
 
         <div className="mb-8 flex justify-center">
           <div className="relative">
-            <div className="w-32 h-32 bg-emerald-100 rounded-full flex items-center justify-center">
+            <div className="w-32 h-32 bg-sky-100 rounded-full flex items-center justify-center">
               <Search className="w-16 h-16 text-(--text-green-primary)" />
             </div>
             <div className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center animate-bounce">

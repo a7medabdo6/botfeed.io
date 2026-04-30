@@ -109,7 +109,7 @@ const AgentForm: React.FC<AgentFormdDataProps> = ({ agent, onSave, onCancel, isL
                 </Label>
                 <div className="relative group">
                   <Mail className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 transition-colors" />
-                  <Input id="email" type="email" placeholder="sarah@wapi.ai" className={cn("pl-14 h-11 rounded-lg border border-(--input-border-color) dark:border-(--card-border-color) bg-(--input-color) dark:bg-(--page-body-bg) focus:border-primary focus:ring-8 focus:ring-primary/5 transition-all text-sm ", formik.touched.email && formik.errors.email ? "border-red-400 focus:ring-red-400/5 text-red-600" : "")} {...formik.getFieldProps("email")} />
+                  <Input id="email" type="email" placeholder="sarah@botfeed.io" className={cn("pl-14 h-11 rounded-lg border border-(--input-border-color) dark:border-(--card-border-color) bg-(--input-color) dark:bg-(--page-body-bg) focus:border-primary focus:ring-8 focus:ring-primary/5 transition-all text-sm ", formik.touched.email && formik.errors.email ? "border-red-400 focus:ring-red-400/5 text-red-600" : "")} {...formik.getFieldProps("email")} />
                 </div>
                 {formik.touched.email && formik.errors.email && <p className="text-[11px] text-red-500  ml-4 uppercase tracking-tighter">{formik.errors.email}</p>}
               </div>

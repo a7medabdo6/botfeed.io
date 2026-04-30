@@ -49,8 +49,8 @@ export const BasicInfoSection = ({ language, setLanguage, category, setCategory,
         <Label className="text-sm font-bold text-slate-700 dark:text-slate-300">Template Category</Label>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {categories.map((cat) => (
-            <button key={cat.value} type="button" onClick={() => setCategory(cat.value)} className={`flex items-center gap-3 p-4 rounded-lg border transition-all group ${category === cat.value ? "border-primary bg-emerald-50/50 text-primary dark:bg-emerald-500/10" : "border-slate-100 bg-slate-50/30 dark:bg-(--table-hover) dark:border-(--table-hover) text-slate-500 hover:border-primary dark:hover:border-(--card-border-color)"}`}>
-              <div className={`p-2 rounded-lg transition-colors ${category === cat.value ? "bg-emerald-100 dark:bg-(--dark-sidebar)" : "bg-white dark:bg-(--page-body-bg) dark:text-amber-50 group-hover:bg-emerald-50 dark:group-hover:bg-(--card-color)"}`}>{cat.icon}</div>
+            <button key={cat.value} type="button" onClick={() => setCategory(cat.value)} className={`flex items-center gap-3 p-4 rounded-lg border transition-all group ${category === cat.value ? "border-primary bg-sky-50/50 text-primary dark:bg-sky-500/10" : "border-slate-100 bg-slate-50/30 dark:bg-(--table-hover) dark:border-(--table-hover) text-slate-500 hover:border-primary dark:hover:border-(--card-border-color)"}`}>
+              <div className={`p-2 rounded-lg transition-colors ${category === cat.value ? "bg-sky-100 dark:bg-(--dark-sidebar)" : "bg-white dark:bg-(--page-body-bg) dark:text-amber-50 group-hover:bg-sky-50 dark:group-hover:bg-(--card-color)"}`}>{cat.icon}</div>
               <div className="flex flex-col items-start -translate-y-px">
                 <span className="font-bold text-sm tracking-tight dark:text-gray-300">{cat.label}</span>
                 <span className="text-[10px] opacity-70 font-medium uppercase tracking-wider dark:text-gray-400">Select Category</span>
@@ -73,8 +73,8 @@ export const BasicInfoSection = ({ language, setLanguage, category, setCategory,
             {MARKETING_TYPES.map((type) => {
               const isActive = marketingType === type.value;
               return (
-                <button key={type.value} type="button" onClick={() => setMarketingType(type.value)} className={`flex items-center gap-3 px-4 py-3 rounded-lg border-2 transition-all text-left group ${isActive ? "border-primary bg-emerald-50/60 dark:bg-emerald-500/10" : "border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:bg-(--table-hover) hover:border-primary/30 dark:hover:border-(--card-border-color)"}`}>
-                  <div className={`p-2 rounded-lg shrink-0 transition-colors ${isActive ? "bg-emerald-100 dark:bg-emerald-500/20 text-primary" : "bg-white dark:bg-(--page-body-bg) text-slate-400 group-hover:bg-emerald-50 dark:group-hover:bg-(--card-color)"}`}>{type.icon}</div>
+                <button key={type.value} type="button" onClick={() => setMarketingType(type.value)} className={`flex items-center gap-3 px-4 py-3 rounded-lg border-2 transition-all text-left group ${isActive ? "border-primary bg-sky-50/60 dark:bg-sky-500/10" : "border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:bg-(--table-hover) hover:border-primary/30 dark:hover:border-(--card-border-color)"}`}>
+                  <div className={`p-2 rounded-lg shrink-0 transition-colors ${isActive ? "bg-sky-100 dark:bg-sky-500/20 text-primary" : "bg-white dark:bg-(--page-body-bg) text-slate-400 group-hover:bg-sky-50 dark:group-hover:bg-(--card-color)"}`}>{type.icon}</div>
                   <div className="flex flex-col min-w-0">
                     <span className={`font-bold text-[13px] tracking-tight leading-tight ${isActive ? "text-primary" : "text-slate-700 dark:text-gray-300"}`}>{type.label}</span>
                     <span className="text-[10px] text-slate-400 dark:text-gray-500 leading-tight truncate">{type.description}</span>

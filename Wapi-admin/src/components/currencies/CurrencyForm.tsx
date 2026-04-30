@@ -192,7 +192,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
             <Button type="button" variant="outline" onClick={() => router.back()} className="px-4.5 py-5 h-12 border-gray-200 dark:bg-(--card-color) dark:border-none dark:text-slate-300 hover:bg-gray-50 rounded-lg font-medium dark:hover:bg-(--table-hover) transition-all" disabled={isLoading}>
               Cancel
             </Button>
-            <Button type="submit" className="px-4.5 py-5 h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg dark:shadow-none transition-all active:scale-95 disabled:opacity-50 min-w-40" disabled={isLoading || !name || !code || !symbol}>
+            <Button type="submit" className="px-4.5 py-5 h-12 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-lg dark:shadow-none transition-all active:scale-95 disabled:opacity-50 min-w-40" disabled={isLoading || !name || !code || !symbol}>
               {isLoading ? (
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />

@@ -120,8 +120,8 @@ const Columns = () => {
       sortKey: "required",
       cell: (field) => (
         <div className="flex items-center gap-2">
-          <div className={cn("w-1.5 h-1.5 rounded-full ring-4", field.required ? "bg-emerald-500 ring-emerald-500/10" : "bg-slate-300 ring-slate-100 dark:ring-slate-800/10")} />
-          <span className={cn("text-xs font-bold", field.required ? "text-emerald-600" : "text-slate-500")}>{field.required ? "YES" : "NO"}</span>
+          <div className={cn("w-1.5 h-1.5 rounded-full ring-4", field.required ? "bg-sky-500 ring-sky-500/10" : "bg-slate-300 ring-slate-100 dark:ring-slate-800/10")} />
+          <span className={cn("text-xs font-bold", field.required ? "text-sky-600" : "text-slate-500")}>{field.required ? "YES" : "NO"}</span>
         </div>
       ),
     },
@@ -131,8 +131,8 @@ const Columns = () => {
       sortKey: "is_active",
       cell: (field) => (
         <div className="flex items-center gap-2">
-          <div className={cn("w-1.5 h-1.5 rounded-full ring-4", field.is_active ? "bg-emerald-500 ring-emerald-500/10" : "bg-slate-300 ring-slate-100 dark:ring-slate-800/10")} />
-          <span className={cn("text-xs font-bold", field.is_active ? "text-emerald-600" : "text-slate-500")}>{field.is_active ? "ACTIVE" : "INACTIVE"}</span>
+          <div className={cn("w-1.5 h-1.5 rounded-full ring-4", field.is_active ? "bg-sky-500 ring-sky-500/10" : "bg-slate-300 ring-slate-100 dark:ring-slate-800/10")} />
+          <span className={cn("text-xs font-bold", field.is_active ? "text-sky-600" : "text-slate-500")}>{field.is_active ? "ACTIVE" : "INACTIVE"}</span>
         </div>
       ),
     },
@@ -159,7 +159,7 @@ const Columns = () => {
             <Button
               variant="outline"
               size="icon"
-              className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all"
+              className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all"
               onClick={() => {
                 setEditingColumn(field);
                 setModalOpen(true);

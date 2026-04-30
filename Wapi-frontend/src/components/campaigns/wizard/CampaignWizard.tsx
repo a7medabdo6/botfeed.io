@@ -167,7 +167,7 @@ const CampaignWizard = () => {
             const isCompleted = index < currentStep;
             return (
               <div key={step.id} className={cn("relative flex items-start gap-4 p-4 [@media(max-width:1426px)]:min-w-70 rounded-lg transition-all duration-300 mb-4", isActive ? "bg-white dark:bg-(--card-color) shadow-lg shadow-slate-200/50 dark:shadow-none ring-1 ring-slate-200/50 dark:ring-(--card-border-color)" : "opacity-60")}>
-                <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center shrink-0 font-bold transition-all", isCompleted ? "bg-emerald-500 text-white" : isActive ? "bg-primary text-white scale-110 shadow-lg shadow-primary/20" : "bg-slate-100 dark:bg-(--dark-sidebar) text-slate-400")}>{isCompleted ? <Check size={20} /> : index + 1}</div>
+                <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center shrink-0 font-bold transition-all", isCompleted ? "bg-sky-500 text-white" : isActive ? "bg-primary text-white scale-110 shadow-lg shadow-primary/20" : "bg-slate-100 dark:bg-(--dark-sidebar) text-slate-400")}>{isCompleted ? <Check size={20} /> : index + 1}</div>
                 <div className="min-w-0">
                   <h3 className={cn("font-black text-sm uppercase tracking-wider line-clamp-1", isActive ? "text-primary dark:text-white" : "text-slate-500 dark:text-gray-400")}>{step.title}</h3>
                   <p className="text-[10px] text-slate-400 font-medium truncate">{step.description}</p>

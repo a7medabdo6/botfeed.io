@@ -23,7 +23,7 @@ interface StatBoxProps {
 export const StatBox = ({ label, count, color }: StatBoxProps) => {
   const colors = {
     blue: "bg-blue-50/50 text-blue-600 border-blue-100 dark:bg-(--page-body-bg) dark:text-blue-400 dark:border-none",
-    emerald: "bg-emerald-50/50 text-emerald-600 border-emerald-100 dark:bg-(--page-body-bg) dark:text-emerald-400 dark:border-none",
+    emerald: "bg-sky-50/50 text-sky-600 border-sky-100 dark:bg-(--page-body-bg) dark:text-sky-400 dark:border-none",
     purple: "bg-purple-50/50 text-purple-600 border-purple-100 dark:bg-(--page-body-bg) dark:text-purple-400 dark:border-none",
     red: "bg-red-50/50 text-red-600 border-red-100 dark:bg-(--page-body-bg) dark:text-red-400 dark:border-none",
     orange: "bg-orange-50/50 text-orange-600 border-orange-100 dark:bg-(--page-body-bg) dark:text-orange-400 dark:border-none",

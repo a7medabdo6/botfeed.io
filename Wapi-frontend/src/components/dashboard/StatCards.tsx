@@ -45,7 +45,7 @@ const StatCards = ({ counts, isLoading, section }: StatCardsPropsData) => {
       label: "Contacts",
       ...getStatData("contacts", "contacts_used", counts?.totalContacts || 0),
       icon: <Users size={18} />,
-      color: "text-emerald-500",
+      color: "text-sky-500",
       trend: "5",
       path: "/contacts",
       section: "metrics",

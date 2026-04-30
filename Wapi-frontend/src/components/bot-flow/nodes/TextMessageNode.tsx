@@ -39,8 +39,8 @@ export function TextMessageNode({ data, id }: any) {
       id={id}
       title="Send Message"
       icon={<MessageSquare size={18} />}
-      borderColor="border-emerald-200"
-      handleColor="bg-emerald-500!"
+      borderColor="border-sky-200"
+      handleColor="bg-sky-500!"
       errors={errors}
       filledHeader
       filledHeaderTone="emerald"

@@ -224,7 +224,7 @@ const ManualPaymentModal: React.FC<ManualPaymentModalProps> = ({ isOpen, onClose
                 </div>
 
                 <div className="flex items-center justify-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                  <ShieldCheck className="h-4 w-4 text-emerald-500" />
+                  <ShieldCheck className="h-4 w-4 text-sky-500" />
                   Secure Transaction Layer
                 </div>
               </Form>

@@ -93,9 +93,9 @@ const ResetPasswordContent = () => {
           )}
 
           {success && (
-            <div className="mb-6 p-3 bg-green-50 border border-green-200 rounded-lg flex items-start gap-2">
-              <CheckCircle className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
-              <p className="text-sm text-green-600">{success}</p>
+            <div className="mb-6 p-3 bg-sky-50 border border-sky-200 rounded-lg flex items-start gap-2">
+              <CheckCircle className="w-5 h-5 text-sky-600 shrink-0 mt-0.5" />
+              <p className="text-sm text-sky-600">{success}</p>
             </div>
           )}
 
@@ -125,7 +125,7 @@ const ResetPasswordContent = () => {
                 </Button>
               </div>
             </div>
-            <div className="p-3 bg-(--light-primary) dark:bg-page-body dark:border-(--card-border-color) border dark:border-none border-emerald-100 rounded-lg flex items-start gap-2">
+            <div className="p-3 bg-(--light-primary) dark:bg-page-body dark:border-(--card-border-color) border dark:border-none border-sky-100 rounded-lg flex items-start gap-2">
               <CheckCircle className="w-5 h-5 text-(--text-green-primary) shrink-0 mt-0.5" />
               <p className="text-xs text-(--text-green-primary)">Use at least 8 characters with a mix of letters, numbers & symbols</p>
             </div>

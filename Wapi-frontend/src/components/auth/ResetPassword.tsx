@@ -68,15 +68,15 @@ export const ResetPasswordPage = () => {
   const securityFeatures = [t("auth.sec_bank_level"), t("auth.sec_2fa"), t("auth.sec_session"), t("auth.sec_logs")];
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-emerald-600 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-sky-600 flex items-center justify-center p-4 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-sky-200/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 w-full max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-0 items-stretch">
-          <div className="hidden lg:flex flex-col justify-center p-12 bg-linear-to-br from-emerald-600 via-teal-600 to-emerald-700 rounded-l-3xl relative overflow-hidden min-h-175">
+          <div className="hidden lg:flex flex-col justify-center p-12 bg-linear-to-br from-sky-600 via-teal-600 to-sky-700 rounded-l-3xl relative overflow-hidden min-h-175">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mb-40"></div>
             <div className="absolute top-1/2 right-8 w-1 h-40 bg-white/20 rotate-12"></div>
@@ -95,9 +95,9 @@ export const ResetPasswordPage = () => {
                 <h2 className="text-4xl text-white leading-tight mb-4">
                   {t("auth.create_strong_title")}
                   <br />
-                  <span className="text-emerald-100">{t("auth.new_password_title_part")}</span>
+                  <span className="text-sky-100">{t("auth.new_password_title_part")}</span>
                 </h2>
-                <p className="text-emerald-50 text-lg">{t("auth.secure_password_desc")}</p>
+                <p className="text-sky-50 text-lg">{t("auth.secure_password_desc")}</p>
               </div>
 
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
@@ -105,28 +105,28 @@ export const ResetPasswordPage = () => {
                   <Sparkles className="w-5 h-5 text-yellow-300" />
                   {t("auth.password_best_practices")}
                 </h3>
-                <ul className="space-y-3 text-emerald-50">
+                <ul className="space-y-3 text-sky-50">
                   <li className="flex items-start gap-2 text-sm">
-                    <span className="text-emerald-300 mt-0.5">✓</span>
+                    <span className="text-sky-300 mt-0.5">✓</span>
                     {t("auth.tip_unique")}
                   </li>
                   <li className="flex items-start gap-2 text-sm">
-                    <span className="text-emerald-300 mt-0.5">✓</span>
+                    <span className="text-sky-300 mt-0.5">✓</span>
                     {t("auth.tip_mix")}
                   </li>
                   <li className="flex items-start gap-2 text-sm">
-                    <span className="text-emerald-300 mt-0.5">✓</span>
+                    <span className="text-sky-300 mt-0.5">✓</span>
                     {t("auth.tip_avoid")}
                   </li>
                   <li className="flex items-start gap-2 text-sm">
-                    <span className="text-emerald-300 mt-0.5">✓</span>
+                    <span className="text-sky-300 mt-0.5">✓</span>
                     {t("auth.tip_manager")}
                   </li>
                 </ul>
               </div>
 
               <div>
-                <p className="text-emerald-100 font-semibold mb-4">{t("auth.account_security_title")}</p>
+                <p className="text-sky-100 font-semibold mb-4">{t("auth.account_security_title")}</p>
                 <div className="grid grid-cols-2 gap-3">
                   {securityFeatures.map((feature, index) => (
                     <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-3 text-center">
@@ -139,7 +139,7 @@ export const ResetPasswordPage = () => {
           </div>
 
           <div className="bg-white lg:rounded-r-3xl shadow-2xl p-8 lg:p-12 min-h-175 flex flex-col justify-center relative">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-emerald-100 to-teal-100 opacity-50 rounded-bl-full"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-sky-100 to-teal-100 opacity-50 rounded-bl-full"></div>
 
             <div className="relative z-10 max-w-md mx-auto w-full">
               <div className="lg:hidden flex items-center gap-3 mb-8">
@@ -189,14 +189,14 @@ export const ResetPasswordPage = () => {
                       <div className="grid grid-cols-1 gap-2">
                         {passwordRequirements.map((req, index) => (
                           <div key={index} className="flex items-center gap-2.5 text-sm">
-                            {req.met ? <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> : <div className="w-4 h-4 rounded-full border-2 border-slate-300 shrink-0"></div>}
-                            <span className={req.met ? "text-emerald-700 font-medium" : "text-slate-600"}>{req.label}</span>
+                            {req.met ? <CheckCircle2 className="w-4 h-4 text-sky-600 shrink-0" /> : <div className="w-4 h-4 rounded-full border-2 border-slate-300 shrink-0"></div>}
+                            <span className={req.met ? "text-sky-700 font-medium" : "text-slate-600"}>{req.label}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <Button type="submit" className="w-full h-13 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-lg shadow-lg shadow-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/40 transition-all text-base font-semibold" disabled={isLoading || !allRequirementsMet || !passwordsMatch}>
+                    <Button type="submit" className="w-full h-13 bg-linear-to-r from-sky-600 to-teal-600 hover:from-sky-700 hover:to-teal-700 text-white rounded-lg shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 transition-all text-base font-semibold" disabled={isLoading || !allRequirementsMet || !passwordsMatch}>
                       {isLoading ? (
                         <div className="flex items-center gap-2">
                           <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -210,7 +210,7 @@ export const ResetPasswordPage = () => {
                     <div className="text-center pt-2">
                       <p className="text-slate-600 text-sm">
                         {t("auth.remember_password")}{" "}
-                        <Button onClick={handleLoginRedirect} className="bg-transparent hover:bg-transparent px-0 font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">
+                        <Button onClick={handleLoginRedirect} className="bg-transparent hover:bg-transparent px-0 font-semibold text-sky-600 hover:text-sky-700 transition-colors">
                           {t("auth.sign_in_here")}
                         </Button>
                       </p>
@@ -219,8 +219,8 @@ export const ResetPasswordPage = () => {
                 </>
               ) : (
                 <div className="text-center space-y-6">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-emerald-100 rounded-2xl mb-2 animate-bounce">
-                    <CheckCircle2 className="w-10 h-10 text-emerald-600" />
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-sky-100 rounded-2xl mb-2 animate-bounce">
+                    <CheckCircle2 className="w-10 h-10 text-sky-600" />
                   </div>
 
                   <div>
@@ -228,7 +228,7 @@ export const ResetPasswordPage = () => {
                     <p className="text-slate-600 text-lg">{t("auth.password_reset_success_desc")}</p>
                   </div>
 
-                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-5">
+                  <div className="bg-sky-50 border border-sky-200 rounded-lg p-5">
                     <div className="flex items-center justify-center gap-2 text-primary mb-2">
                       <ShieldCheck className="w-5 h-5" />
                       <p className="font-semibold">{t("auth.account_secure_msg")}</p>
@@ -236,7 +236,7 @@ export const ResetPasswordPage = () => {
                     <p className="text-primary text-sm">{t("auth.redirecting_login")}</p>
                   </div>
 
-                  <Button onClick={handleLoginRedirect} className="w-full h-12 bg-primary text-white rounded-lg shadow-lg shadow-emerald-500/30">
+                  <Button onClick={handleLoginRedirect} className="w-full h-12 bg-primary text-white rounded-lg shadow-lg shadow-sky-500/30">
                     {t("auth.continue_login")}
                   </Button>
                 </div>

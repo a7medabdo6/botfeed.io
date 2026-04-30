@@ -17,11 +17,11 @@ import { DynamicLogo } from "./common/DynamicLogo";
 const API_URL = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
 
 const resolveUrl = (url?: string): string => {
-  if (!url || url.length <= 0) return "/assets/logos/logo3.png";
+  if (!url || url.length <= 0) return "/branding/botfeed-logo.png";
   return url.startsWith("http") ? url : `${API_URL}${url}`;
 };
 
-const DEFAULT_FAVICON = "/assets/logos/sidebarLogo.png";
+const DEFAULT_FAVICON = "/branding/botfeed-logo.png";
 
 function applyFavicon(href: string) {
   if (typeof window === "undefined") return;
@@ -166,23 +166,23 @@ export const LoginPage = () => {
   };
 
   const features = [
-    { icon: Users, label: t("auth.active_users"), color: "bg-emerald-500" },
+    { icon: Users, label: t("auth.active_users"), color: "bg-sky-500" },
     { icon: MessageSquare, label: t("auth.messages_sent"), color: "bg-blue-500" },
     { icon: TrendingUp, label: t("auth.uptime"), color: "bg-purple-500" },
     { icon: Shield, label: t("auth.bank_security"), color: "bg-orange-500" },
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-100 via-white-50 to-emerald-50 flex items-center dark:bg-(--page-body-bg) justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-slate-100 via-white-50 to-sky-50 flex items-center dark:bg-(--page-body-bg) justify-center p-4 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 -left-20 w-72 h-72 bg-emerald-200/30 rounded-full blur-lg"></div>
+        <div className="absolute top-20 -left-20 w-72 h-72 bg-sky-200/30 rounded-full blur-lg"></div>
         <div className="absolute bottom-20 -right-20 w-96 h-96 bg-blue-200/30 rounded-full blur-lg"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-linear-to-r from-emerald-100/20 to-blue-100/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-linear-to-r from-sky-100/20 to-blue-100/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 w-full max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-0 items-center">
-          <div className="hidden lg:flex flex-col justify-center p-12 bg-linear-to-br from-emerald-600 via-emerald-700 to-teal-800 h-full rounded-tr-none rounded-br-none rounded-3xl relative overflow-hidden min-h-175">
+          <div className="hidden lg:flex flex-col justify-center p-12 bg-linear-to-br from-sky-600 via-sky-700 to-teal-800 h-full rounded-tr-none rounded-br-none rounded-3xl relative overflow-hidden min-h-175">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/5 rounded-full -ml-40 -mb-40"></div>
             <div className="absolute top-1/2 right-10 w-2 h-32 bg-white/10 rotate-12"></div>
@@ -196,9 +196,9 @@ export const LoginPage = () => {
                 <h2 className="text-4xl text-white mt-8 leading-tight">
                   {t("auth.streamline_communications")}
                   <br />
-                  <span className="text-emerald-200">{t("auth.business_communications")}</span>
+                  <span className="text-sky-200">{t("auth.business_communications")}</span>
                 </h2>
-                <p className="text-emerald-100 text-lg">{t("auth.powerful_tools_description")}</p>
+                <p className="text-sky-100 text-lg">{t("auth.powerful_tools_description")}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4 pt-8">
@@ -218,7 +218,7 @@ export const LoginPage = () => {
           </div>
 
           <div className="bg-white dark:bg-(--card-color) lg:rounded-br-2xl rounded-tr-2xl shadow-2xl p-8 lg:p-12 min-h-175 flex flex-col justify-center relative">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-emerald-100 to-blue-100 opacity-50 rounded-bl-full"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-sky-100 to-blue-100 opacity-50 rounded-bl-full"></div>
             <div className="relative z-10 max-w-md mx-auto w-full">
               <div className="lg:hidden flex items-center gap-3 mb-8">
                 <DynamicLogo width={140} height={40} className="h-10 w-auto object-contain" skeletonClassName="h-10 w-32" />
@@ -234,7 +234,7 @@ export const LoginPage = () => {
                 <div className="space-y-3 flex flex-col">
                   <Label className="text-sm font-medium text-slate-700">{t("auth.select_role", "Choose your workspace")}</Label>
                   <div className="grid grid-cols-2 gap-3 p-1 bg-slate-100 dark:bg-slate-800/50 rounded-xl relative">
-                    <button type="button" onClick={() => setRoleType("user")} className={`relative z-10 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${roleType === "user" ? "text-emerald-700 dark:text-emerald-400 bg-white dark:bg-slate-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>
+                    <button type="button" onClick={() => setRoleType("user")} className={`relative z-10 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${roleType === "user" ? "text-sky-700 dark:text-sky-400 bg-white dark:bg-slate-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>
                       <User className={`w-4 h-4 transition-transform duration-300 ${roleType === "user" ? "scale-110" : "scale-100"}`} />
                       User
                     </button>
@@ -275,12 +275,12 @@ export const LoginPage = () => {
                       {t("auth.keep_signed_in")}
                     </Label>
                   </div>
-                  <Button type="button" onClick={onNavigateToForgetPass} className="bg-transparent hover:bg-transparent text-sm font-medium text-primary hover:text-emerald-700 transition-colors">
+                  <Button type="button" onClick={onNavigateToForgetPass} className="bg-transparent hover:bg-transparent text-sm font-medium text-primary hover:text-sky-700 transition-colors">
                     {t("auth.forgot_password")}
                   </Button>
                 </div>
 
-                <Button type="submit" className="px-4.5 py-5 h-13 bg-primary hover:to-teal-700 text-white rounded-lg shadow-lg shadow-emerald-500/30 transition-all w-full text-sm font-semibold mb-0!" disabled={isLoading}>
+                <Button type="submit" className="px-4.5 py-5 h-13 bg-primary hover:to-teal-700 text-white rounded-lg shadow-lg shadow-sky-500/30 transition-all w-full text-sm font-semibold mb-0!" disabled={isLoading}>
                   {isLoading ? (
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -302,7 +302,7 @@ export const LoginPage = () => {
                       </div>
                     </div>
                     <div className="flex gap-3">
-                      <div className="flex-1 p-3 bg-(--light-primary) rounded-lg border border-[#16a34a33] justify-center flex cursor-pointer dark:bg-transparent dark:border-(--card-border-color)" onClick={fillDemoCredentials}>
+                      <div className="flex-1 p-3 bg-(--light-primary) rounded-lg border border-[#00aeef33] justify-center flex cursor-pointer dark:bg-transparent dark:border-(--card-border-color)" onClick={fillDemoCredentials}>
                         <p className="text-sm font-semibold text-primary dark:text-gray-400">Demo User</p>
                       </div>
                       <div className="flex-1 p-3 bg-violet-500/10 text-violet-500 rounded-lg border border-violet-200 justify-center flex cursor-pointer dark:bg-transparent dark:border-(--card-border-color)" onClick={fillAgentCredentials}>
@@ -317,7 +317,7 @@ export const LoginPage = () => {
                 <div className="mt-8 text-center">
                   <p className="text-slate-600">
                     {t("auth.new_to_platform")}{" "}
-                    <Button onClick={onNavigateToRegister} className="p-0 bg-transparent hover:bg-transparent font-semibold text-primary hover:text-emerald-700 transition-colors">
+                    <Button onClick={onNavigateToRegister} className="p-0 bg-transparent hover:bg-transparent font-semibold text-primary hover:text-sky-700 transition-colors">
                       {t("auth.create_account")}
                     </Button>
                   </p>

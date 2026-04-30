@@ -707,7 +707,7 @@ export const PayPalService = {
                     plan_id: paypalPlanId,
                     custom_id: userId.toString(),
                     application_context: {
-                        brand_name: 'Wapi',
+                        brand_name: 'Botfeed',
                         locale: 'en-US',
                         shipping_preference: 'NO_SHIPPING',
                         user_action: 'SUBSCRIBE_NOW',

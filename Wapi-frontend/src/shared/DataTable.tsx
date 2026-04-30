@@ -120,7 +120,7 @@ export function DataTable<T>({
             <TableRow>
               <TableCell colSpan={columns.length + (enableSelection ? 1 : 0)} className="h-48 text-center">
                 <div className="flex flex-col items-center justify-center gap-3 text-slate-400">
-                  <div className="p-3 bg-emerald-50 dark:bg-emerald-500/10 rounded-full">
+                  <div className="p-3 bg-sky-50 dark:bg-sky-500/10 rounded-full">
                     <Loader2 className="h-6 w-6 animate-spin text-primary" />
                   </div>
                   <span className="text-sm font-medium animate-pulse">Fetching records...</span>
@@ -142,7 +142,7 @@ export function DataTable<T>({
               const isSelected = selectedIds.includes(rowId);
 
               return (
-                <TableRow key={rowIndex} onClick={() => onRowClick?.(item)} className={cn("hover:bg-slate-50/50 dark:hover:bg-(--table-hover) dark:bg-(--card-color) transition-all group/row", onRowClick && "cursor-pointer", isSelected && "bg-(--input-color) dark:bg-emerald-500/5")}>
+                <TableRow key={rowIndex} onClick={() => onRowClick?.(item)} className={cn("hover:bg-slate-50/50 dark:hover:bg-(--table-hover) dark:bg-(--card-color) transition-all group/row", onRowClick && "cursor-pointer", isSelected && "bg-(--input-color) dark:bg-sky-500/5")}>
                   {enableSelection && (
                     <TableCell className="px-6 py-5">
                       <div className="flex items-center">
@@ -163,7 +163,7 @@ export function DataTable<T>({
                               onClick={(e) => !is_demo_mode && handleCopy(e, copyValue)}
                               disabled={is_demo_mode}
                               className={cn(
-                                "p-2 hover:bg-emerald-50 dark:hover:bg-(--table-hover) rounded-lg transition-all text-slate-400 hover:text-primary opacity-0 group-hover/row:opacity-100 shrink-0",
+                                "p-2 hover:bg-sky-50 dark:hover:bg-(--table-hover) rounded-lg transition-all text-slate-400 hover:text-primary opacity-0 group-hover/row:opacity-100 shrink-0",
                                 is_demo_mode && "cursor-not-allowed opacity-50 group-hover/row:opacity-50"
                               )}
                               title={is_demo_mode ? "Copying restricted in demo mode" : "Copy to clipboard"}

@@ -56,11 +56,11 @@ const ProfileChatNote = ({ initialNote = "", onSave, onDelete, isLoading, notes 
     <div className="dark:border-none dark:bg-(--table-hover)! border border-gray-100 dark:border-(--card-border-color) rounded-lg p-4 space-y-4" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 95%)" } : {}}>
       <div className="flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center gap-2 text-slate-900 dark:text-white font-semibold">
-          <div className="p-1.5 rounded-lg" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 90%)", color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}}>
+          <div className="p-1.5 rounded-lg" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 90%)", color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}>
             <MessageSquare size={18} />
           </div>
           <span>Chat note</span>
-          <span className="flex items-center justify-center min-w-5 h-5 rounded-full text-white text-[10px] font-bold px-1.5" style={isCustom ? { backgroundColor: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : { backgroundColor: userSettingData?.theme_color == "null" ? "#059669" : "var(--primary)" }}>
+          <span className="flex items-center justify-center min-w-5 h-5 rounded-full text-white text-[10px] font-bold px-1.5" style={isCustom ? { backgroundColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : { backgroundColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--primary)" }}>
             {notes.length}
           </span>
         </div>
@@ -73,21 +73,21 @@ const ProfileChatNote = ({ initialNote = "", onSave, onDelete, isLoading, notes 
           <Button variant="outline" size="icon" className="h-8 w-8 rounded-lg border-gray-200" onClick={handleDownload} title="Download notes">
             <Download size={16} className="text-slate-500" />
           </Button>
-          <Button className="h-8 gap-2 text-white rounded-lg px-3 hover:opacity-90 transition-opacity" onClick={handleSave} disabled={isLoading || !note.trim()} style={isCustom ? { backgroundColor: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}}>
+          <Button className="h-8 gap-2 text-white rounded-lg px-3 hover:opacity-90 transition-opacity" onClick={handleSave} disabled={isLoading || !note.trim()} style={isCustom ? { backgroundColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}>
             <Save size={16} />
             <span className="text-xs">Save</span>
           </Button>
         </div>
       </div>
 
-      <Textarea placeholder="Add your notes here..." className="min-h-30 bg-(--input-color) dark:bg-(--page-body-bg) dark:border-(--card-border-color) rounded-lg resize-none focus-visible:ring-1 focus-visible:ring-emerald-500 text-sm" value={note} onChange={(e) => setNote(e.target.value)} />
+      <Textarea placeholder="Add your notes here..." className="min-h-30 bg-(--input-color) dark:bg-(--page-body-bg) dark:border-(--card-border-color) rounded-lg resize-none focus-visible:ring-1 focus-visible:ring-sky-500 text-sm" value={note} onChange={(e) => setNote(e.target.value)} />
 
       {showAll && notes.length > 0 && (
         <div className="pt-2 space-y-3 border-t border-gray-100 dark:border-(--card-border-color)">
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 px-1">Recent Notes</div>
           <div className="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1">
             {notes?.map((item, index) => (
-              <div key={index} className="group relative bg-slate-50/50 dark:bg-(--dark-sidebar) rounded-lg p-3 border border-transparent hover:border-[#16a34a6e] dark:hover:border-emerald-900/30 transition-all">
+              <div key={index} className="group relative bg-slate-50/50 dark:bg-(--dark-sidebar) rounded-lg p-3 border border-transparent hover:border-[#00aeef6e] dark:hover:border-sky-900/30 transition-all">
                 <div className="flex justify-between items-start gap-2 mb-1">
                   <span className="text-[12px] text-slate-400 dark:text-neutral-500 font-medium">{format(new Date(item.created_at), "MMM d, yyyy • h:mm a")}</span>
                   <button onClick={() => handleDeleteClick(item.id)} className="opacity-0 group-hover:opacity-100 p-1 text-slate-400 hover:text-red-500 transition-all" title="Delete note">

@@ -179,19 +179,19 @@ const seedLandingPage = async () => {
         subtitle: "We're Here To Assist You",
         form_enabled: true,
         phone_no: "+91 9879878789",
-        email: "wapi@support.com"
+        email: "hello@botfeed.io"
       },
       footer_section: {
         cta_title: "Launch Smarter WhatsApp Campaigns Today",
         cta_description: "Launch campaigns, automate conversations, and engage customers smarter — all from one powerful WhatsApp platform.",
         cta_buttons: [{ text: "Start Free Trial", link: "/signup" }],
         social_links: [{
-          twitter: "https://twitter.com/wapi",
-          linkedin: "https://linkedin.com/company/wapi",
-          facebook: "https://facebook.com/wapi",
-          instagram: "https://instagram.com/wapi"
+          twitter: "https://twitter.com/botfeedio",
+          linkedin: "https://linkedin.com/company/botfeed",
+          facebook: "https://facebook.com/botfeedio",
+          instagram: "https://instagram.com/botfeedio"
         }],
-        copy_rights_text: "© 2026 WAPI. All rights reserved."
+        copy_rights_text: "© 2026 Botfeed. All rights reserved."
       }
     });
 

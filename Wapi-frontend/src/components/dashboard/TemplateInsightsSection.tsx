@@ -37,7 +37,7 @@ const columns: Column<{ _id: string; template_name: string; sent: string; delive
   {
     header: "WABA Status",
     accessorKey: "status",
-    cell: (row) => <Badge className={`text-[10px] font-black uppercase tracking-wider border-none px-3 py-1 rounded-full ${row.status === "approved" ? "bg-emerald-500/10 text-primary dark:text-emerald-400" : "bg-red-500/10 text-red-500 dark:text-red-400"}`}>{row.status}</Badge>,
+    cell: (row) => <Badge className={`text-[10px] font-black uppercase tracking-wider border-none px-3 py-1 rounded-full ${row.status === "approved" ? "bg-sky-500/10 text-primary dark:text-sky-400" : "bg-red-500/10 text-red-500 dark:text-red-400"}`}>{row.status}</Badge>,
   },
   {
     header: "Usage",
@@ -69,13 +69,13 @@ const TemplateInsightsSection = ({ data, isLoading }: TemplateInsightsSectionDat
 
         <div className="flex gap-4 flex-wrap items-center">
           <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-3 bg-emerald-500/5 dark:bg-emerald-500/10 rounded-lg px-4 py-2 border border-emerald-500/10 transition-transform hover:scale-[1.02] cursor-default">
+            <div className="flex items-center gap-3 bg-sky-500/5 dark:bg-sky-500/10 rounded-lg px-4 py-2 border border-sky-500/10 transition-transform hover:scale-[1.02] cursor-default">
               <div className="flex items-center gap-2 text-primary dark:text-primary">
                 <CheckCircle2 size={16} />
                 <span className="text-[11px] font-black uppercase tracking-widest">Approved</span>
               </div>
               {isLoading ? (
-                <div className="h-6 w-8 bg-emerald-100 dark:bg-(--card-color) rounded animate-pulse" />
+                <div className="h-6 w-8 bg-sky-100 dark:bg-(--card-color) rounded animate-pulse" />
               ) : (
                 <p className="text-[11px] font-black text-primary dark:text-primary leading-none">
                   <CountUp end={data?.totalTemplatesApproved || 0} duration={1.5} />

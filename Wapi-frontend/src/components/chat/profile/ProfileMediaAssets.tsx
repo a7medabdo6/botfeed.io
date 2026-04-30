@@ -49,7 +49,7 @@ const ProfileMediaAssets = ({ media }: ProfileMediaAssetsProps) => {
     <div className="dark:border-none dark:bg-(--table-hover)! border border-gray-100 rounded-lg p-4 space-y-4" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 95%)" } : {}}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-slate-900 dark:text-white font-semibold">
-          <ImageIcon size={18} style={isCustom ? { color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}} />
+          <ImageIcon size={18} style={isCustom ? { color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}} />
           <span>Media Assets</span>
         </div>
         <span className="flex items-center justify-center min-w-5 h-5 rounded-full bg-slate-100 dark:bg-(--card-color) text-slate-500 text-[10px] font-bold px-1.5">{totalCount}</span>
@@ -65,7 +65,7 @@ const ProfileMediaAssets = ({ media }: ProfileMediaAssetsProps) => {
               flex flex-1 items-center justify-center p-2 rounded-lg transition-all
               ${activeTab === tab.id ? (isCustom ? "bg-white dark:bg-(--page-body-bg) shadow-sm" : "bg-white dark:bg-(--page-body-bg) shadow-sm text-primary") : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"}
             `}
-            style={activeTab === tab.id && isCustom ? { color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}}
+            style={activeTab === tab.id && isCustom ? { color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}
           >
             {tab.icon}
           </button>
@@ -73,7 +73,7 @@ const ProfileMediaAssets = ({ media }: ProfileMediaAssetsProps) => {
       </div>
 
       <div className="space-y-6">
-        <div className="flex items-center gap-2 font-semibold text-sm" style={isCustom ? { color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}}>
+        <div className="flex items-center gap-2 font-semibold text-sm" style={isCustom ? { color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}>
           <ImageIcon size={16} />
           <span>
             {tabs.find((t) => t.id === activeTab)?.label} ({totalCount})

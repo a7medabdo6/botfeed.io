@@ -38,7 +38,7 @@ const EmojiPicker = ({ onEmojiSelect }: EmojiPickerProps) => {
           style={
             isCustom
               ? {
-                  color: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)",
+                  color: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)",
                   backgroundColor: "transparent",
                 }
               : {}

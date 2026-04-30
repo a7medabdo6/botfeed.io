@@ -57,7 +57,7 @@ const MessageTranslation: React.FC<MessageTranslationProps> = ({ messageText, on
               <LanguageSelector selectedLanguage={selectedLanguage} onSelect={setSelectedLanguage} isOpen={isLanguageSelectorOpen} onOpenChange={setIsLanguageSelectorOpen} triggerClassName="h-10 px-3 rounded-xl" />
             </div>
 
-            <Button onClick={handleTranslate} disabled={isLoading} className="w-full h-10 rounded-lg bg-primary hover:bg-emerald-600 text-white font-bold transition-all shadow-lg">
+            <Button onClick={handleTranslate} disabled={isLoading} className="w-full h-10 rounded-lg bg-primary hover:bg-sky-600 text-white font-bold transition-all shadow-lg">
               {isLoading ? (
                 <>
                   <Loader2 size={16} className="animate-spin mr-2" />

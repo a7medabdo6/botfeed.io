@@ -35,7 +35,7 @@ const PayloadFieldSelector = ({ fields, value, onChange, placeholder = "Select p
                   }}
                   className="font-medium text-[12px]"
                 >
-                  <Check className={cn("mr-2 h-4 w-4 text-emerald-500", value === field ? "opacity-100" : "opacity-0")} />
+                  <Check className={cn("mr-2 h-4 w-4 text-sky-500", value === field ? "opacity-100" : "opacity-0")} />
                   {field}
                 </CommandItem>
               ))}

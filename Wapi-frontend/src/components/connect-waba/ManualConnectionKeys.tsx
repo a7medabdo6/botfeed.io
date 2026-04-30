@@ -89,7 +89,7 @@ const ManualConnectionKeys = ({ isDisabled }: ManualConnectionKeysProps) => {
         </div>
 
         {successMessage && (
-          <div className="p-4 bg-green-50 border dark:bg-(--dark-sidebar) dark:border-(--card-border-color) border-green-200 rounded-lg">
+          <div className="p-4 bg-sky-50 border dark:bg-(--dark-sidebar) dark:border-(--card-border-color) border-sky-200 rounded-lg">
             <p className="text-sm text-primary font-medium">{successMessage}</p>
           </div>
         )}
@@ -133,7 +133,7 @@ const ManualConnectionKeys = ({ isDisabled }: ManualConnectionKeysProps) => {
                 <Label className="text-sm font-semibold text-gray-700 dark:text-gray-400">
                   Registered Phone Number <span className="text-red-500">*</span>
                 </Label>
-                <Input name="registeredPhoneNumber" placeholder="+1 (555) 000-0000" className={`h-11 border-(--input-border-color) bg-(--input-color) dark:border-(--card-border-color) focus:border-primary focus:ring-green-500/20 ${formik.touched.registeredPhoneNumber && formik.errors.registeredPhoneNumber ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`} value={formik.values.registeredPhoneNumber} onChange={formik.handleChange} onBlur={formik.handleBlur} disabled={isLoading || isDisabled} />
+                <Input name="registeredPhoneNumber" placeholder="+1 (555) 000-0000" className={`h-11 border-(--input-border-color) bg-(--input-color) dark:border-(--card-border-color) focus:border-primary focus:ring-sky-500/20 ${formik.touched.registeredPhoneNumber && formik.errors.registeredPhoneNumber ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`} value={formik.values.registeredPhoneNumber} onChange={formik.handleChange} onBlur={formik.handleBlur} disabled={isLoading || isDisabled} />
                 {formik.touched.registeredPhoneNumber && formik.errors.registeredPhoneNumber && <p className="text-xs text-red-600">{formik.errors.registeredPhoneNumber}</p>}
               </div>
 
@@ -141,7 +141,7 @@ const ManualConnectionKeys = ({ isDisabled }: ManualConnectionKeysProps) => {
                 <Label className="text-sm font-semibold text-gray-700 dark:text-gray-400">
                   Business ID <span className="text-red-500">*</span>
                 </Label>
-                <Input name="businessId" placeholder="e.g. 123456789" className={`h-11 border-(--input-border-color) bg-(--input-color) dark:border-(--card-border-color) focus:border-primary focus:ring-green-500/20 ${formik.touched.businessId && formik.errors.businessId ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`} value={formik.values.businessId} onChange={formik.handleChange} onBlur={formik.handleBlur} disabled={isLoading || isDisabled} />
+                <Input name="businessId" placeholder="e.g. 123456789" className={`h-11 border-(--input-border-color) bg-(--input-color) dark:border-(--card-border-color) focus:border-primary focus:ring-sky-500/20 ${formik.touched.businessId && formik.errors.businessId ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`} value={formik.values.businessId} onChange={formik.handleChange} onBlur={formik.handleBlur} disabled={isLoading || isDisabled} />
                 {formik.touched.businessId && formik.errors.businessId && <p className="text-xs text-red-600">{formik.errors.businessId}</p>}
               </div>
 
@@ -149,7 +149,7 @@ const ManualConnectionKeys = ({ isDisabled }: ManualConnectionKeysProps) => {
                 <Label className="text-sm font-semibold text-gray-700 dark:text-gray-400">
                   Access Token <span className="text-red-500">*</span>
                 </Label>
-                <Textarea name="accessToken" placeholder="Paste your permanent access token here..." className={`min-h-11 bg-(--input-color) dark:border-(--card-border-color) dark:bg-(--page-body-bg) border-(--input-border-color) focus:border-primary focus:ring-green-500/20 resize-none ${formik.touched.accessToken && formik.errors.accessToken ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`} value={formik.values.accessToken} onChange={formik.handleChange} onBlur={formik.handleBlur} disabled={isLoading || isDisabled} />
+                <Textarea name="accessToken" placeholder="Paste your permanent access token here..." className={`min-h-11 bg-(--input-color) dark:border-(--card-border-color) dark:bg-(--page-body-bg) border-(--input-border-color) focus:border-primary focus:ring-sky-500/20 resize-none ${formik.touched.accessToken && formik.errors.accessToken ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`} value={formik.values.accessToken} onChange={formik.handleChange} onBlur={formik.handleBlur} disabled={isLoading || isDisabled} />
                 {formik.touched.accessToken && formik.errors.accessToken && <p className="text-xs text-red-600">{formik.errors.accessToken}</p>}
               </div>
             </div>

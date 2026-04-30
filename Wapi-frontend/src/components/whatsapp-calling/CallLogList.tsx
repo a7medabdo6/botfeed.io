@@ -73,7 +73,7 @@ const CallLogList = () => {
     {
       header: "Status",
       cell: (row) => (
-        <Badge variant="outline" className={cn("capitalize", row.status === "completed" ? "bg-emerald-50 text-primary border-primary/50" : "bg-amber-50 text-amber-600 border-amber-100")}>
+        <Badge variant="outline" className={cn("capitalize", row.status === "completed" ? "bg-sky-50 text-primary border-primary/50" : "bg-amber-50 text-amber-600 border-amber-100")}>
           {row.status}
         </Badge>
       ),

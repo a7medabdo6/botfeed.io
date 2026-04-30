@@ -43,7 +43,7 @@ const SubscriptionPlansSummary = ({ totalSubscriptions, activeSubscriptions, exp
       id: "active",
       label: t("subscription.active"),
       value: activeSubscriptions,
-      icon: <CheckCircle className="w-5 h-5 text-emerald-500" />,
+      icon: <CheckCircle className="w-5 h-5 text-sky-500" />,
       color: "emerald",
     },
     {
@@ -65,7 +65,7 @@ const SubscriptionPlansSummary = ({ totalSubscriptions, activeSubscriptions, exp
   const colorMap: Record<string, string> = {
     blue: "bg-blue-100/50 dark:bg-blue-900/20",
     purple: "bg-purple-100/50 dark:bg-purple-900/20",
-    emerald: "bg-emerald-100/50 dark:bg-emerald-900/20",
+    emerald: "bg-sky-100/50 dark:bg-sky-900/20",
     rose: "bg-rose-100/50 dark:bg-rose-900/20",
     amber: "bg-amber-100/50 dark:bg-amber-900/20",
   };

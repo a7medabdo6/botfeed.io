@@ -26,7 +26,7 @@ const CollapsibleSystemMessages: React.FC<CollapsibleSystemMessagesProps> = ({ m
         <SystemMessage key={msg.id} message={msg} />
       ))}
 
-      <button onClick={() => setIsExpanded(!isExpanded)} className={cn("mt-1 flex items-center gap-1.5 text-[11px] font-bold py-1 px-3 rounded-full transition-all duration-200", "bg-slate-50 dark:bg-(--page-body-bg) text-primary hover:bg-emerald-50 dark:hover:bg-(--table-hover) border border-emerald-100/50 dark:border-emerald-500/10", "hover:shadow-sm transform hover:-translate-y-0.5")}>
+      <button onClick={() => setIsExpanded(!isExpanded)} className={cn("mt-1 flex items-center gap-1.5 text-[11px] font-bold py-1 px-3 rounded-full transition-all duration-200", "bg-slate-50 dark:bg-(--page-body-bg) text-primary hover:bg-sky-50 dark:hover:bg-(--table-hover) border border-sky-100/50 dark:border-sky-500/10", "hover:shadow-sm transform hover:-translate-y-0.5")}>
         {isExpanded ? (
           <>
             Show less <ChevronUp size={12} />

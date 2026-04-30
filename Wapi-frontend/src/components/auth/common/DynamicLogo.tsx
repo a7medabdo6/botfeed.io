@@ -8,7 +8,7 @@ import Image from "next/image";
 const API_URL = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
 
 const resolveUrl = (url?: string): string => {
-  if (!url || url.length <= 0) return "/assets/logos/logo3.png";
+  if (!url || url.length <= 0) return "/branding/botfeed-logo.png";
   return url.startsWith("http") ? url : `${API_URL}${url}`;
 };
 

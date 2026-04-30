@@ -16,9 +16,9 @@ const Page = () => {
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-100 via-white to-emerald-50">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-100 via-white to-sky-50">
         <div className="flex flex-col items-center gap-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-600"></div>
           <p className="text-slate-600">Loading...</p>
         </div>
       </div>

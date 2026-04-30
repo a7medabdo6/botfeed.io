@@ -1,6 +1,6 @@
 {
   "common": {
-    "app_name": "Wapi",
+    "app_name": "Botfeed",
     "app_tagline": "CRM de Negocios",
     "loading": "Cargando...",
     "save": "Guardar",
@@ -62,7 +62,7 @@
     "testimonial_role": "CEO, TechStart Inc",
     "testimonial_quote": "Este CRM ha transformado cómo manejamos las comunicaciones con clientes. ¡El tiempo de respuesta mejoró un 60%!",
     "register_title": "Cree Su Cuenta",
-    "register_description": "Únase a miles de empresas que usan Wapi",
+    "register_description": "Únase a miles de empresas que usan Botfeed",
     "full_name": "Nombre Completo",
     "full_name_placeholder": "Juan Pérez",
     "company_name": "Nombre de la Empresa",

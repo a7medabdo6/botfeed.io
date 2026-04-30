@@ -125,7 +125,7 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
               </Button>
             </Can>
             <Can permission="update.languages">
-              <Button onClick={handleSave} className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg shadow-emerald-100 dark:shadow-none min-w-35" disabled={isUpdating}>
+              <Button onClick={handleSave} className="bg-sky-600 hover:bg-sky-700 text-white rounded-xl shadow-lg shadow-sky-100 dark:shadow-none min-w-35" disabled={isUpdating}>
                 {isUpdating ? (
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -146,14 +146,14 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
         <div className="bg-white dark:bg-(--card-color) rounded-xl p-4 border border-gray-200 dark:border-(--card-border-color) mb-6 flex flex-col sm:flex-row gap-4 justify-between items-center shadow-sm">
           <div className="relative w-full sm:w-80">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <Input placeholder="Search keys or values..." className="pl-10 h-10 bg-gray-50 dark:bg-slate-900/50 border-none rounded-lg focus-visible:ring-emerald-500" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+            <Input placeholder="Search keys or values..." className="pl-10 h-10 bg-gray-50 dark:bg-slate-900/50 border-none rounded-lg focus-visible:ring-sky-500" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
           </div>
 
           <div className="flex items-center bg-gray-100 dark:bg-slate-900 rounded-lg p-1">
-            <button onClick={() => setViewMode("list")} className={`p-1.5 rounded-md transition-all ${viewMode === "list" ? "bg-white dark:bg-slate-800 text-emerald-600 shadow-sm" : "text-gray-500"}`}>
+            <button onClick={() => setViewMode("list")} className={`p-1.5 rounded-md transition-all ${viewMode === "list" ? "bg-white dark:bg-slate-800 text-sky-600 shadow-sm" : "text-gray-500"}`}>
               <List size={18} />
             </button>
-            <button onClick={() => setViewMode("grid")} className={`p-1.5 rounded-md transition-all ${viewMode === "grid" ? "bg-white dark:bg-slate-800 text-emerald-600 shadow-sm" : "text-gray-500"}`}>
+            <button onClick={() => setViewMode("grid")} className={`p-1.5 rounded-md transition-all ${viewMode === "grid" ? "bg-white dark:bg-slate-800 text-sky-600 shadow-sm" : "text-gray-500"}`}>
               <LayoutGrid size={18} />
             </button>
           </div>
@@ -168,12 +168,12 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
               const isCatMatch = searchQuery && key.toLowerCase().includes(searchQuery.toLowerCase());
 
               return (
-                <div key={key} className={`bg-white dark:bg-(--card-color) p-6 rounded-2xl border transition-all shadow-sm group ${isCatMatch ? "border-emerald-500 ring-2 ring-emerald-500/10" : "border-gray-100 dark:border-slate-800/50 hover:border-emerald-200 dark:hover:border-emerald-900/30"}`}>
+                <div key={key} className={`bg-white dark:bg-(--card-color) p-6 rounded-2xl border transition-all shadow-sm group ${isCatMatch ? "border-sky-500 ring-2 ring-sky-500/10" : "border-gray-100 dark:border-slate-800/50 hover:border-sky-200 dark:hover:border-sky-900/30"}`}>
                   <div className="flex flex-col gap-5">
                     <div className="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-3">
-                      <Label className={`text-sm font-bold uppercase tracking-widest ${isCatMatch ? "text-emerald-600" : "text-gray-400 dark:text-gray-500"}`}>{key}</Label>
+                      <Label className={`text-sm font-bold uppercase tracking-widest ${isCatMatch ? "text-sky-600" : "text-gray-400 dark:text-gray-500"}`}>{key}</Label>
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Check className="w-4 h-4 text-emerald-500" />
+                        <Check className="w-4 h-4 text-sky-500" />
                       </div>
                     </div>
 
@@ -186,14 +186,14 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
 
                           return (
                             <div key={subKey} className="space-y-1.5">
-                              <Label className={`text-[12px] font-semibold uppercase tracking-tight ml-1 mb-1 transition-colors ${isSubKeyMatch ? "text-emerald-600 font-bold" : "text-gray-500"}`}>{subKey}</Label>
-                              <Input value={subValue as string} onChange={(e) => handleValueChange(key, e.target.value, subKey)} className={`bg-gray-50 dark:bg-slate-900/30 border-gray-100 dark:border-slate-800 focus:border-emerald-500 focus:ring-emerald-500/10 rounded-lg h-10 transition-all text-sm ${isMatch ? "ring-2 ring-emerald-500/20 border-emerald-400 bg-emerald-50/30 dark:bg-emerald-900/10" : ""}`} />
+                              <Label className={`text-[12px] font-semibold uppercase tracking-tight ml-1 mb-1 transition-colors ${isSubKeyMatch ? "text-sky-600 font-bold" : "text-gray-500"}`}>{subKey}</Label>
+                              <Input value={subValue as string} onChange={(e) => handleValueChange(key, e.target.value, subKey)} className={`bg-gray-50 dark:bg-slate-900/30 border-gray-100 dark:border-slate-800 focus:border-sky-500 focus:ring-sky-500/10 rounded-lg h-10 transition-all text-sm ${isMatch ? "ring-2 ring-sky-500/20 border-sky-400 bg-sky-50/30 dark:bg-sky-900/10" : ""}`} />
                             </div>
                           );
                         })}
                       </div>
                     ) : (
-                      <Input value={value} onChange={(e) => handleValueChange(key, e.target.value)} className={`bg-gray-50 dark:bg-slate-900/30 border-gray-100 dark:border-slate-800 focus:border-emerald-500 focus:ring-emerald-500/10 rounded-lg h-10 transition-all ${searchQuery && value.toLowerCase().includes(searchQuery.toLowerCase()) ? "ring-2 ring-emerald-500/20 border-emerald-400 bg-emerald-50/30 dark:bg-emerald-900/10" : ""}`} />
+                      <Input value={value} onChange={(e) => handleValueChange(key, e.target.value)} className={`bg-gray-50 dark:bg-slate-900/30 border-gray-100 dark:border-slate-800 focus:border-sky-500 focus:ring-sky-500/10 rounded-lg h-10 transition-all ${searchQuery && value.toLowerCase().includes(searchQuery.toLowerCase()) ? "ring-2 ring-sky-500/20 border-sky-400 bg-sky-50/30 dark:bg-sky-900/10" : ""}`} />
                     )}
                   </div>
                 </div>
@@ -213,7 +213,7 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
         {/* Floating Save Button for Mobile */}
         <div className="md:hidden fixed bottom-6 right-6">
           <Can permission="update.languages">
-            <Button onClick={handleSave} className="w-14 h-14 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-200" disabled={isUpdating}>
+            <Button onClick={handleSave} className="w-14 h-14 rounded-full bg-sky-600 hover:bg-sky-700 text-white shadow-xl shadow-sky-200" disabled={isUpdating}>
               {isUpdating ? <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Save size={24} />}
             </Button>
           </Can>

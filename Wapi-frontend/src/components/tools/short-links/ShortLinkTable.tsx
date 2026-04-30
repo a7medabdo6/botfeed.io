@@ -140,7 +140,7 @@ const ShortLinkTable: React.FC = () => {
                 navigator.clipboard.writeText(item.short_link);
                 toast.success("Link copied!");
               }}
-              className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all"
+              className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all"
               title="Copy Link"
             >
               <Link2 size={14} />
@@ -149,7 +149,7 @@ const ShortLinkTable: React.FC = () => {
               <QrCode size={14} />
             </Button>
             <Can permission="update.links">
-              <Button variant="outline" size="sm" onClick={() => router.push(`/tools/links/config/${item._id}`)} className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-emerald-50 rounded-lg dark:hover:bg-primary/20 transition-all" title="Edit">
+              <Button variant="outline" size="sm" onClick={() => router.push(`/tools/links/config/${item._id}`)} className="w-10 h-10 border-none text-slate-400 hover:text-primary hover:bg-sky-50 rounded-lg dark:hover:bg-primary/20 transition-all" title="Edit">
                 <Edit size={14} />
               </Button>
             </Can>

@@ -52,7 +52,7 @@ const LocationPickerModal = ({ isOpen, onClose, onSend }: LocationPickerModalPro
   const fetchAddress = useCallback(async (lat: number, lng: number) => {
     setIsReverseGeocoding(true);
     try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`, { headers: { "User-Agent": "Wapi-Chat-App" } });
+      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`, { headers: { "User-Agent": "Botfeed-Chat-App" } });
       const data = await response.json();
       setAddress(data.display_name || `${lat.toFixed(6)}, ${lng.toFixed(6)}`);
     } catch (error) {
@@ -79,7 +79,7 @@ const LocationPickerModal = ({ isOpen, onClose, onSend }: LocationPickerModalPro
 
     setIsSearching(true);
     try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}&limit=1`, { headers: { "User-Agent": "Wapi-Chat-App" } });
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}&limit=1`, { headers: { "User-Agent": "Botfeed-Chat-App" } });
       const data = await response.json();
       if (data && data.length > 0) {
         const lat = parseFloat(data[0].lat);
@@ -152,8 +152,8 @@ const LocationPickerModal = ({ isOpen, onClose, onSend }: LocationPickerModalPro
         <div className="p-4 sm:p-6 pt-2 sm:pt-4 space-y-3 sm:space-y-4 overflow-y-auto flex-1 custom-scrollbar">
           <form onSubmit={handleSearch} className="relative group">
             <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search for a place or address..." className="pl-10 sm:pl-12 pr-10 h-10 sm:h-12 text-sm sm:text-base bg-(--input-color) dark:bg-(--page-body-bg) border-slate-100 dark:border-(--card-border-color) rounded-lg focus-visible:ring-primary transition-all font-medium" />
-            <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 sm:w-5 sm:h-5 group-focus-within:text-emerald-500 transition-colors" />
-            {isSearching && <Loader2 className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-emerald-500 w-4 h-4 sm:w-5 sm:h-5 animate-spin" />}
+            <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 sm:w-5 sm:h-5 group-focus-within:text-sky-500 transition-colors" />
+            {isSearching && <Loader2 className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-sky-500 w-4 h-4 sm:w-5 sm:h-5 animate-spin" />}
           </form>
 
           {/* Map Container */}
@@ -176,8 +176,8 @@ const LocationPickerModal = ({ isOpen, onClose, onSend }: LocationPickerModalPro
           {/* Location Info */}
           <div className="p-3 sm:p-4 bg-slate-50 dark:bg-(--table-hover) rounded-lg border border-slate-100 dark:border-(--card-border-color) transition-all">
             <div className="flex items-start gap-2 sm:gap-3">
-              <div className="mt-0.5 sm:mt-1 p-1.5 sm:p-2 bg-emerald-100 dark:bg-(--table-hover) rounded-lg shrink-0">
-                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary dark:text-emerald-400" />
+              <div className="mt-0.5 sm:mt-1 p-1.5 sm:p-2 bg-sky-100 dark:bg-(--table-hover) rounded-lg shrink-0">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary dark:text-sky-400" />
               </div>
               <div className="flex-1 space-y-1 min-w-0">
                 <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Selected Location</p>
@@ -203,7 +203,7 @@ const LocationPickerModal = ({ isOpen, onClose, onSend }: LocationPickerModalPro
             <Button variant="ghost" onClick={onClose} className="flex-1 h-10 sm:h-12 text-sm sm:text-base rounded-lg px-3 sm:px-4 py-4 sm:py-5 font-bold dark:hover:bg-(--table-hover) hover:bg-slate-100 transition-all">
               Cancel
             </Button>
-            <Button onClick={handleSendLocation} disabled={!position || isSearching || isReverseGeocoding} className="flex-1 sm:flex-2 h-10 sm:h-12 text-sm sm:text-base rounded-lg bg-primary text-white font-bold shadow-md px-3 sm:px-4 py-4 sm:py-5 shadow-emerald-500/20 flex items-center justify-center gap-2">
+            <Button onClick={handleSendLocation} disabled={!position || isSearching || isReverseGeocoding} className="flex-1 sm:flex-2 h-10 sm:h-12 text-sm sm:text-base rounded-lg bg-primary text-white font-bold shadow-md px-3 sm:px-4 py-4 sm:py-5 shadow-sky-500/20 flex items-center justify-center gap-2">
               <SendIcon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
               <span className="hidden xs:inline">Share Location</span>
               <span className="xs:hidden">Send</span>

@@ -101,7 +101,7 @@ export default function WorkspacePage() {
     if (!mounted) return null;
     const isDark = theme === "dark";
     const url = isDark ? logo_dark_url : logo_light_url;
-    if (!url) return "/assets/logos/logo1.png";
+    if (!url) return "/branding/botfeed-logo.png";
 
     const API_URL = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
     return url.startsWith("http") ? url : `${API_URL}${url}`;

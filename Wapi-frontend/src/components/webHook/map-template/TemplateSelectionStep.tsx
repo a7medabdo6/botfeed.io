@@ -15,7 +15,7 @@ const TemplateSelectionStep = ({ webhookData, connectionsData, selectedWabaId, t
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 animate-in fade-in slide-in-from-left-4 duration-500">
       <div className="lg:col-span-1 space-y-6">
         <Card className="rounded-lg border-none shadow-sm overflow-hidden bg-white dark:bg-(--card-color)">
-          <CardHeader className="bg-emerald-50/50 dark:bg-emerald-500/5 pb-4 border-b dark:border-white/5">
+          <CardHeader className="bg-sky-50/50 dark:bg-sky-500/5 pb-4 border-b dark:border-white/5">
             <CardTitle className="text-sm font-bold flex items-center gap-2  tracking-wider text-primary">
               <Database className="h-4 w-4" /> Webhook Context
             </CardTitle>
@@ -27,7 +27,7 @@ const TemplateSelectionStep = ({ webhookData, connectionsData, selectedWabaId, t
             </div>
             <div className="space-y-1">
               <Label className="text-[10px] text-slate-400 font-black tracking-widest">Platform</Label>
-              <Badge className="bg-emerald-50 text-primary dark:bg-emerald-500/10 dark:text-primary border-none hover:bg-(--light-primary) font-bold text-[10px] px-2 py-0.5">{webhookData?.webhook?.platform?.toUpperCase() || "CUSTOM"}</Badge>
+              <Badge className="bg-sky-50 text-primary dark:bg-sky-500/10 dark:text-primary border-none hover:bg-(--light-primary) font-bold text-[10px] px-2 py-0.5">{webhookData?.webhook?.platform?.toUpperCase() || "CUSTOM"}</Badge>
             </div>
           </CardContent>
         </Card>
@@ -53,7 +53,7 @@ const TemplateSelectionStep = ({ webhookData, connectionsData, selectedWabaId, t
       <div className="lg:col-span-3 space-y-4">
         <div className="flex items-center justify-between px-2 flex-wrap">
           <h3 className="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-            <LayoutTemplate className="h-5 w-5 text-emerald-500" /> Choose Message Template
+            <LayoutTemplate className="h-5 w-5 text-sky-500" /> Choose Message Template
           </h3>
           {approveTemplete && <Badge className="bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-gray-500 border-none px-2.5 py-1 text-[11px] font-bold">{approveTemplete.length} Templates Found</Badge>}
         </div>
@@ -83,10 +83,10 @@ const TemplateSelectionStep = ({ webhookData, connectionsData, selectedWabaId, t
                   setSelectedTemplateId(template._id);
                   setVariableMappings({});
                 }}
-                className={cn("p-5 rounded-lg border transition-all cursor-pointer relative group flex flex-col h-full", selectedTemplateId === template._id ? "border-primary bg-(--light-primary) dark:bg-primary/10 shadow-xl shadow-emerald-500/5 ring-1 ring-emerald-500/20" : "border-gray-50 dark:border-white/5 bg-white dark:bg-(--card-color) hover:border-emerald-200 dark:hover:border-emerald-500/30 hover:shadow-lg")}
+                className={cn("p-5 rounded-lg border transition-all cursor-pointer relative group flex flex-col h-full", selectedTemplateId === template._id ? "border-primary bg-(--light-primary) dark:bg-primary/10 shadow-xl shadow-sky-500/5 ring-1 ring-sky-500/20" : "border-gray-50 dark:border-white/5 bg-white dark:bg-(--card-color) hover:border-sky-200 dark:hover:border-sky-500/30 hover:shadow-lg")}
               >
                 <div className="flex items-center justify-between mb-4">
-                  <Badge className="bg-emerald-50 text-primary dark:bg-emerald-500/10 dark:text-primary border-none font-black text-[10px] uppercase tracking-tighter px-2">{template.category}</Badge>
+                  <Badge className="bg-sky-50 text-primary dark:bg-sky-500/10 dark:text-primary border-none font-black text-[10px] uppercase tracking-tighter px-2">{template.category}</Badge>
                   {selectedTemplateId === template._id && (
                     <div className="h-6 w-6 bg-primary rounded-full flex items-center justify-center shadow-lg animate-in zoom-in duration-300">
                       <CheckCircle2 className="h-3.5 w-3.5 text-white" />

@@ -242,12 +242,12 @@ const ChatSidebar = () => {
         <div className="flex gap-2">
           <div className="relative group flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 transition-colors" size={16} />
-            <Input placeholder="Search interactions" className="pl-10 bg-(--input-color) border dark:bg-(--page-body-bg) h-9 rounded-lg focus-visible:ring-1 focus-visible:ring-emerald-500 transition-all font-medium dark:[@media(max-width:991px)]:bg-(--table-hover) focus:dark:[@media(max-width:991px)]:bg-(--table-hover) dark:hover:[@media(max-width:991px)]:bg-(--card-color)" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+            <Input placeholder="Search interactions" className="pl-10 bg-(--input-color) border dark:bg-(--page-body-bg) h-9 rounded-lg focus-visible:ring-1 focus-visible:ring-sky-500 transition-all font-medium dark:[@media(max-width:991px)]:bg-(--table-hover) focus:dark:[@media(max-width:991px)]:bg-(--table-hover) dark:hover:[@media(max-width:991px)]:bg-(--card-color)" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
           </div>
-          <Button variant="ghost" size="icon" onClick={() => setIsFilterModalOpen(true)} className={`h-9 w-9 rounded-lg border border-transparent ${activeFilterCount > 0 ? "bg-emerald-100 text-(--chat-theme-color) dark:bg-emerald-900/30 dark:text-(--chat-theme-color)" : "bg-slate-50 text-slate-500 dark:bg-(--page-body-bg) dark:text-gray-500 hover:bg-slate-100 dark:hover:bg-(--table-hover)"}`} style={activeFilterCount > 0 ? { color: "var(--chat-theme-color)", backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 90%)" } : {}}>
+          <Button variant="ghost" size="icon" onClick={() => setIsFilterModalOpen(true)} className={`h-9 w-9 rounded-lg border border-transparent ${activeFilterCount > 0 ? "bg-sky-100 text-(--chat-theme-color) dark:bg-sky-900/30 dark:text-(--chat-theme-color)" : "bg-slate-50 text-slate-500 dark:bg-(--page-body-bg) dark:text-gray-500 hover:bg-slate-100 dark:hover:bg-(--table-hover)"}`} style={activeFilterCount > 0 ? { color: "var(--chat-theme-color)", backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 90%)" } : {}}>
             <div className="relative">
               <Filter size={16} />
-              {activeFilterCount > 0 && <span className="absolute -top-1.5 -right-1.5 h-3 w-3 bg-emerald-500 rounded-full border border-white dark:border-neutral-900" />}
+              {activeFilterCount > 0 && <span className="absolute -top-1.5 -right-1.5 h-3 w-3 bg-sky-500 rounded-full border border-white dark:border-neutral-900" />}
             </div>
           </Button>
         </div>
@@ -267,7 +267,7 @@ const ChatSidebar = () => {
                 px-4 py-0! h-8! rounded-full text-xs font-bold transition-all whitespace-nowrap
                 ${activeTab === tab.id ? "text-white shadow-sm" : "bg-slate-100 text-slate-500 dark:bg-(--page-body-bg) dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-(--table-hover)"}
               `}
-              style={activeTab === tab.id ? { backgroundColor: userSettingData?.theme_color == "null" ? "#059669" : "var(--chat-theme-color)" } : {}}
+              style={activeTab === tab.id ? { backgroundColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}
             >
               {tab.label}
             </Button>

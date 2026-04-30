@@ -103,7 +103,7 @@ const CommonHeader = ({ backBtn, title, description, onSearch, searchTerm = "", 
                   <DropdownMenuSeparator className="bg-slate-100 dark:bg-(--card-color)" />
                   <div className="py-1">
                     {columns.map((column) => (
-                      <DropdownMenuCheckboxItem key={column.id} checked={column.isVisible} onCheckedChange={() => onColumnToggle(column.id)} className="rounded-lg mx-1 cursor-pointer focus:bg-emerald-50 focus:text-emerald-700 transition-colors">
+                      <DropdownMenuCheckboxItem key={column.id} checked={column.isVisible} onCheckedChange={() => onColumnToggle(column.id)} className="rounded-lg mx-1 cursor-pointer focus:bg-sky-50 focus:text-sky-700 transition-colors">
                         {column.label}
                       </DropdownMenuCheckboxItem>
                     ))}
@@ -119,7 +119,7 @@ const CommonHeader = ({ backBtn, title, description, onSearch, searchTerm = "", 
             )}
             {onSync && (
               <Can permission={syncPermission}>
-                <Button variant="outline" size="sm" onClick={onSync} className="h-12 px-4.5 rounded-lg border-primary/20 bg-emerald-50/50 hover:bg-emerald-100 dark:bg-primary/10 dark:hover:bg-primary/20 text-primary transition-all active:scale-95 group shadow-sm" title="Sync">
+                <Button variant="outline" size="sm" onClick={onSync} className="h-12 px-4.5 rounded-lg border-primary/20 bg-sky-50/50 hover:bg-sky-100 dark:bg-primary/10 dark:hover:bg-primary/20 text-primary transition-all active:scale-95 group shadow-sm" title="Sync">
                   <RotateCw size={18} className={`group-hover:rotate-180 transition-transform duration-500`} />
                   <span className="hidden sm:inline font-bold">Sync</span>
                 </Button>
