@@ -9,7 +9,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
 ARG NEXT_PUBLIC_API_URL=https://api.botfeed.io/api
-ARG NEXT_PUBLIC_API_BASE_URL=https://api.botfeed.io/api
+ARG NEXT_PUBLIC_API_BASE_URL=/api
 ARG NEXT_PUBLIC_STORAGE_URL=https://api.botfeed.io
 ARG NEXT_PUBLIC_SOCKET_URL=https://api.botfeed.io
 

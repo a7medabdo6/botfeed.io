@@ -63,8 +63,9 @@ services:
       context: ./Wapi-frontend
       dockerfile: Dockerfile
       args:
+        # Browser RTK uses same-origin /api/* → Next route handlers → real API (see baseApi.ts client branch).
         NEXT_PUBLIC_API_URL: https://api.botfeed.io/api
-        NEXT_PUBLIC_API_BASE_URL: https://api.botfeed.io/api
+        NEXT_PUBLIC_API_BASE_URL: /api
         NEXT_PUBLIC_STORAGE_URL: https://api.botfeed.io
         NEXT_PUBLIC_SOCKET_URL: https://api.botfeed.io
     restart: unless-stopped
