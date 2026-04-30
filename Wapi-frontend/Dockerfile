@@ -32,8 +32,7 @@ ENV HOSTNAME=0.0.0.0
 RUN groupadd --system --gid 1001 nodejs && useradd --system --uid 1001 --gid nodejs nextjs
 
 COPY --from=builder /app/public ./public
-# Monorepo standalone output lives under the app folder name (see next.config outputFileTracingRoot).
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone/Wapi-frontend ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs

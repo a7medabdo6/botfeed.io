@@ -2,11 +2,11 @@ import type { NextConfig } from "next";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-/** Monorepo root (`wapi/`) so `output: "standalone"` emits a flat `.next/standalone` for Docker. */
-const monorepoRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
+/** App root (folder containing this file). Keeps standalone output at `.next/standalone/` for Docker (context = Wapi-frontend only). */
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: monorepoRoot,
+  outputFileTracingRoot: projectRoot,
   output: "standalone",
   reactStrictMode: false,
   // Use real env at build/deploy time (e.g. botfeed.io + your API host). Falls back to local API.
