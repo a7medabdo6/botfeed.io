@@ -3,7 +3,7 @@
 # Edit CHANGE_ME values on the server before going live (see deploy/DIGITALOCEAN.md).
 # Optional: copy these to wapi-api/.env.production etc. and change env_file paths for gitignored secrets.
 # Usage on Droplet:
-#   1. Point DNS: botfeed.io, www.botfeed.io, api.botfeed.io → server IP.
+#   1. Point DNS: botfeed.io, www, api.botfeed.io, dashboard.botfeed.io → server IP.
 #   2. Edit deploy/env/*.example secrets on the server (or use copies + env_file override).
 #   3. docker compose up -d --build
 #
@@ -78,6 +78,25 @@ services:
     depends_on:
       - api
 
+  admin:
+    build:
+      context: ./Wapi-admin
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: https://api.botfeed.io/api
+        NEXT_PUBLIC_API_BASE_URL: https://api.botfeed.io/api
+        NEXT_PUBLIC_STORAGE_URL: https://api.botfeed.io
+    restart: unless-stopped
+    env_file:
+      - ./deploy/env/wapi-admin.env.production.example
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+    expose:
+      - "3000"
+    depends_on:
+      - api
+
   caddy:
     image: caddy:2-alpine
     restart: unless-stopped
@@ -90,6 +109,7 @@ services:
       - caddy_config:/config
     depends_on:
       - web
+      - admin
       - api
 
 volumes:

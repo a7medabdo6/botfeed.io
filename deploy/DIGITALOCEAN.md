@@ -7,6 +7,7 @@
   - `botfeed.io` → Droplet IP  
   - `www.botfeed.io` → Droplet IP (optional but included in Caddyfile)  
   - `api.botfeed.io` → Droplet IP  
+  - `dashboard.botfeed.io` → Droplet IP (Wapi-admin)  
 
 ## Secrets
 
