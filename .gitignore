@@ -1,0 +1,43 @@
+# Dependencies (all packages in this monorepo)
+**/node_modules/
+
+# Docs folder — excluded from this remote
+wapi-documentation/
+
+# Environment & secrets (keep **/.env.example tracked)
+**/.env
+**/.env.*
+!**/.env.example
+
+# Builds & caches
+**/.next/
+**/out/
+**/dist/
+**/build/
+*.tsbuildinfo
+.npm
+.cache
+
+# OS & editors
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Uploads / local runtime (API)
+wapi-api/uploads/
+wapi-api/auth_info_baileys/
+wapi-api/auth/
+wapi-api/storage/
+
+# Vercel / Turbo
+.vercel
+.turbo

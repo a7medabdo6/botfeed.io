@@ -1,0 +1,31 @@
+---
+description: Frontend conventions to avoid unnecessary exploration
+globs: Wapi-frontend/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Frontend Patterns
+
+## State & Data Fetching
+
+- All API calls go through RTK Query in `src/redux/api/`. Never use raw `fetch` or `axios` in components.
+- State slices live in `src/redux/reducers/`.
+- Use existing hooks (`useAppSelector`, `useAppDispatch`, `usePermissions`).
+
+## Components
+
+- Functional components only. No class components.
+- UI primitives are in `src/elements/ui/` (shadcn-style). Use them instead of raw HTML.
+- Layouts and shared chrome are in `src/components/layouts/`.
+
+## i18n
+
+- All user-facing strings must use `t("key")` from `useTranslation()`.
+- Keys are flat dot-notation: `sidebar.dashboard`, `auth.login_title`, `common.save`.
+- Translations live in `src/locales/{en,ar,es}/translation.json`.
+- Arabic is RTL — handled by `I18nProvider` and `layoutSlice.isRTL`.
+
+## Routing
+
+- App Router in `src/app/`. Authenticated pages under `(mainLayout)/`.
+- Guards: `RoleGuard` (RBAC), `FeatureGuard` (Baileys restrictions), `SubscriptionGuard`.

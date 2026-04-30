@@ -1,0 +1,38 @@
+---
+description: Backend conventions to avoid unnecessary exploration
+globs: wapi-api/**/*.js
+alwaysApply: false
+---
+
+# Backend Patterns
+
+## Architecture
+
+- Express app in `app.js`, HTTP server in `server.js`.
+- Route → Controller → Model. Keep controllers thin; extract helpers to `utils/`.
+- Mongoose models in `models/`, exported via `models/index.js`.
+
+## Auth & Middleware
+
+- JWT auth via `middlewares/auth.js` (`authenticate` middleware).
+- Role/permission checks in `middlewares/permission.js`.
+- Demo mode guard in `middlewares/demo-mode.js`.
+
+## Response Format
+
+All API responses follow:
+
+```json
+{ "success": true|false, "message": "...", "data": {} }
+```
+
+## Database
+
+- MongoDB via Mongoose. Connection in `models/index.js`.
+- Soft deletes use `deleted_at: null` filter.
+- Prefer `.lean()` for read-only queries.
+
+## Error Handling
+
+- Every controller must have try/catch with `console.error` and a 500 response.
+- Never expose raw error stacks to the client.

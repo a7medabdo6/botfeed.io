@@ -1,0 +1,30 @@
+---
+description: Reduce token usage and maximize caching across all conversations
+alwaysApply: true
+---
+
+# Token Efficiency
+
+## Read Less, Search More
+
+- Use `Grep` or `Glob` before reading full files. Only read the specific line ranges you need.
+- Never re-read a file already shown in context or open in the IDE.
+- For large files (>200 lines), read with `offset` and `limit` — never the whole file.
+
+## Write Less
+
+- Use `StrReplace` with minimal context (just enough to be unique). Never rewrite entire files.
+- Never repeat unchanged code in edits. Only show the delta.
+- Batch independent tool calls in a single message.
+
+## Avoid Redundant Output
+
+- Do not echo back code you just wrote. The user sees it in the diff.
+- Keep explanations to 2-3 sentences unless the user asks for detail.
+- Do not narrate each step ("First I'll read…", "Now I'll edit…"). Just do it.
+
+## Leverage Cached Context
+
+- Assume open/recently viewed files from IDE state are already in context — don't re-read them.
+- Assume previous conversation turns are still in context — don't re-summarize prior work.
+- When the user references a file with `@`, treat it as already loaded.

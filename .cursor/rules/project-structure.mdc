@@ -1,0 +1,38 @@
+---
+description: Wapi project layout so the agent skips exploratory reads
+alwaysApply: true
+---
+
+# Wapi Project Structure
+
+Monorepo with four apps:
+
+| Directory | Stack | Purpose |
+|-----------|-------|---------|
+| `Wapi-frontend/` | Next.js 14 (App Router), RTK Query, Tailwind, i18n | User-facing SaaS dashboard |
+| `Wapi-admin/` | Next.js, Tailwind | Admin panel |
+| `wapi-api/` | Express, Mongoose, Socket.IO | REST API + WebSocket server |
+| `wapi-documentation/` | Static HTML | API documentation site |
+
+## Frontend key paths
+
+- Pages: `Wapi-frontend/src/app/(mainLayout)/`
+- Components: `Wapi-frontend/src/components/`
+- API layer: `Wapi-frontend/src/redux/api/` (RTK Query)
+- Locales: `Wapi-frontend/src/locales/{en,ar,es}/translation.json`
+- Guards: `Wapi-frontend/src/shared/` (RoleGuard, FeatureGuard, SubscriptionGuard)
+
+## Backend key paths
+
+- Routes: `wapi-api/routes/`
+- Controllers: `wapi-api/controllers/`
+- Models: `wapi-api/models/`
+- Middleware: `wapi-api/middlewares/`
+- Config: `wapi-api/.env`
+
+## Conventions
+
+- Backend runs on port 5001 (`wapi-api/server.js`)
+- Frontend dev server on port 3000
+- MongoDB via Mongoose; Redis for queues
+- i18n: `useTranslation()` + flat key structure (`sidebar.dashboard`, `common.save`)

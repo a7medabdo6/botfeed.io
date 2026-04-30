@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.env
+.env.*
+!.env.example
+uploads
+auth_info_baileys
+auth
+storage
+.git
+*.md

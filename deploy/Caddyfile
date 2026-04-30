@@ -1,0 +1,12 @@
+# TLS + routing on a single DigitalOcean Droplet.
+# DNS: A/AAAA for botfeed.io, www.botfeed.io, api.botfeed.io → this host.
+
+botfeed.io, www.botfeed.io {
+	encode gzip zstd
+	reverse_proxy web:3000
+}
+
+api.botfeed.io {
+	encode gzip zstd
+	reverse_proxy api:5000
+}
