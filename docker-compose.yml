@@ -83,8 +83,9 @@ services:
       context: ./Wapi-admin
       dockerfile: Dockerfile
       args:
+        # Browser RTK must use same-origin /api/* so Next route handlers proxy (e.g. /api/setting → backend /settings).
         NEXT_PUBLIC_API_URL: https://api.botfeed.io/api
-        NEXT_PUBLIC_API_BASE_URL: https://api.botfeed.io/api
+        NEXT_PUBLIC_API_BASE_URL: /api
         NEXT_PUBLIC_STORAGE_URL: https://api.botfeed.io
     restart: unless-stopped
     env_file:
