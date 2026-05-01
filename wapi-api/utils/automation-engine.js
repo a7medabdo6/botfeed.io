@@ -34,6 +34,7 @@ class AutomationEngine {
     this.eventListeners.set('contact_joined', this.handleContactJoined.bind(this));
     this.eventListeners.set('status_update', this.handleStatusUpdate.bind(this));
     this.eventListeners.set('order_received', this.handleOrderReceived.bind(this));
+    this.eventListeners.set('widget_message_received', this.handleWidgetMessageReceived.bind(this));
 
     console.log('Automation engine event listeners initialized:', Array.from(this.eventListeners.keys()));
   }
@@ -206,6 +207,66 @@ class AutomationEngine {
   }
 
 
+  /**
+   * @returns {Promise<boolean|string>} AI reply text if flow ran, false otherwise
+   */
+  async handleWidgetMessageReceived(eventData) {
+    try {
+      const { message, userId, conversationId, visitorId, widgetConfigId } = eventData;
+
+      const triggers = await automationCache.getUserActiveFlows(userId);
+      const widgetTriggers = triggers.filter((t, i, arr) =>
+        t.event_type === 'widget_message_received' &&
+        arr.findIndex(tt => String(tt.flow_id) === String(t.flow_id) && tt.event_type === 'widget_message_received') === i
+      );
+
+      for (const trigger of widgetTriggers) {
+        let flow = automationCache.getFlow(trigger.flow_id.toString());
+        if (!flow) {
+          flow = await AutomationFlow.findById(trigger.flow_id).populate('user_id');
+          if (flow) automationCache.setFlow(trigger.flow_id.toString(), flow);
+        }
+
+        if (!flow || !flow.is_active || flow.deleted_at) continue;
+
+        const matched = this.checkWidgetTriggerConditions(flow, message);
+        if (!matched) continue;
+
+        try {
+          await this.executeFlow(flow, {
+            event_type: 'widget_message_received',
+            message,
+            userId,
+            conversationId,
+            visitorId,
+            widgetConfigId,
+            channel: 'chatbot_widget',
+            timestamp: new Date(),
+          });
+          return true;
+        } catch (runErr) {
+          console.error(`Widget flow run failed (${flow.name}):`, runErr);
+          return false;
+        }
+      }
+      return false;
+    } catch (error) {
+      console.error('Error handling widget message received:', error);
+      return false;
+    }
+  }
+
+  checkWidgetTriggerConditions(flow, message) {
+    const triggers = flow.triggers.filter(t => t.event_type === 'widget_message_received');
+    for (const trigger of triggers) {
+      const conditions = trigger.conditions || {};
+      if (Object.keys(conditions).length === 0) return true;
+      const dataObject = { message, eventType: 'widgetMessageReceived' };
+      if (this.evaluateCondition(conditions, dataObject)) return true;
+    }
+    return false;
+  }
+
   checkMessageTriggerConditions(flow, message, senderNumber, recipientNumber, messageType, messageId, eventData = null) {
     console.log(`Checking conditions for flow: ${flow.name}`, { message, senderNumber, recipientNumber, messageType });
     const triggers = flow.triggers.filter(t => t.event_type === 'message_received');
@@ -375,7 +436,7 @@ class AutomationEngine {
       'agent_memory'
     ]);
 
-    const connectedIds = flow.connections
+    const connectedIds = [...new Set(flow.connections
       .filter((conn) => {
         if (conn.source !== nodeId) return false;
         const th = conn.targetHandle;
@@ -384,7 +445,7 @@ class AutomationEngine {
         if (targetNode && skipTargetTypes.has(targetNode.type)) return false;
         return true;
       })
-      .map((conn) => conn.target);
+      .map((conn) => conn.target))];
 
     return flow.nodes.filter((node) => connectedIds.includes(node.id));
   }
@@ -709,6 +770,7 @@ class AutomationEngine {
 
   async executeAssignChatbotNode(node, inputData) {
     const { chatbot_id, session_duration_hours } = node.parameters || {};
+    const isWidgetChannel = inputData.channel === 'chatbot_widget';
 
     if (!chatbot_id) {
       return { success: false, output: inputData, error: 'chatbot_id is required' };
@@ -716,8 +778,8 @@ class AutomationEngine {
 
     const userId = inputData.userId || inputData.user_id;
     const senderNumber = inputData.senderNumber;
-    if (!userId || !senderNumber) {
-      return { success: false, output: inputData, error: 'userId and senderNumber are required' };
+    if (!userId || (!senderNumber && !isWidgetChannel)) {
+      return { success: false, output: inputData, error: 'userId and senderNumber (or widget channel) are required' };
     }
 
     const chatbot = await Chatbot.findOne({
@@ -746,46 +808,59 @@ class AutomationEngine {
       return { success: false, output: inputData, error: e.message };
     }
 
-    const messageParams = {
-      recipientNumber: senderNumber,
-      providerType: PROVIDER_TYPES.BUSINESS_API,
-      messageType: 'text',
-      messageText: String(replyText || '').trim() || 'Sorry, I could not generate a reply.'
-    };
+    const finalReply = String(replyText || '').trim() || 'Sorry, I could not generate a reply.';
 
-    if (inputData.whatsappPhoneNumberId) {
-      const whatsappPhoneNumber = await WhatsappPhoneNumber.findById(inputData.whatsappPhoneNumberId)
-        .populate('waba_id')
-        .lean();
-
-      if (whatsappPhoneNumber && whatsappPhoneNumber.waba_id) {
-        messageParams.whatsappPhoneNumber = whatsappPhoneNumber;
+    if (isWidgetChannel) {
+      try {
+        const { emitBotReply } = await import('./widget-chat-engine.js');
+        const io = global.__botfeedIo;
+        const room = `widget:${inputData.conversationId}`;
+        await emitBotReply(inputData.conversationId, finalReply, room, io);
+      } catch (err) {
+        return { success: false, output: inputData, error: err.message };
       }
-    } else if (inputData.whatsappConnectionId) {
-      messageParams.connectionId = inputData.whatsappConnectionId;
-    }
+    } else {
+      const messageParams = {
+        recipientNumber: senderNumber,
+        providerType: PROVIDER_TYPES.BUSINESS_API,
+        messageType: 'text',
+        messageText: finalReply
+      };
 
-    try {
-      await unifiedWhatsAppService.sendMessage(userId, messageParams);
-    } catch (error) {
-      return { success: false, output: inputData, error: error.message };
-    }
+      if (inputData.whatsappPhoneNumberId) {
+        const whatsappPhoneNumber = await WhatsappPhoneNumber.findById(inputData.whatsappPhoneNumberId)
+          .populate('waba_id')
+          .lean();
 
-    const hours = Number(session_duration_hours) || 0;
-    const contactId = inputData.contactId || inputData.contact?._id;
-    if (hours > 0 && contactId) {
-      const expiresAt = new Date(Date.now() + hours * 3600000);
-      await Contact.updateOne(
-        { _id: contactId, created_by: userId },
-        {
-          $set: {
-            'custom_fields.automation_chatbot_session': {
-              chatbot_id: String(chatbot._id),
-              expires_at: expiresAt.toISOString()
+        if (whatsappPhoneNumber && whatsappPhoneNumber.waba_id) {
+          messageParams.whatsappPhoneNumber = whatsappPhoneNumber;
+        }
+      } else if (inputData.whatsappConnectionId) {
+        messageParams.connectionId = inputData.whatsappConnectionId;
+      }
+
+      try {
+        await unifiedWhatsAppService.sendMessage(userId, messageParams);
+      } catch (error) {
+        return { success: false, output: inputData, error: error.message };
+      }
+
+      const hours = Number(session_duration_hours) || 0;
+      const contactId = inputData.contactId || inputData.contact?._id;
+      if (hours > 0 && contactId) {
+        const expiresAt = new Date(Date.now() + hours * 3600000);
+        await Contact.updateOne(
+          { _id: contactId, created_by: userId },
+          {
+            $set: {
+              'custom_fields.automation_chatbot_session': {
+                chatbot_id: String(chatbot._id),
+                expires_at: expiresAt.toISOString()
+              }
             }
           }
-        }
-      ).catch(() => {});
+        ).catch(() => {});
+      }
     }
 
     return {
@@ -803,9 +878,10 @@ class AutomationEngine {
     const p = node.parameters || {};
 
     const userId = inputData.userId || inputData.user_id;
+    const isWidgetChannel = inputData.channel === 'chatbot_widget';
     const senderNumber = inputData.senderNumber;
-    if (!userId || !senderNumber) {
-      return { success: false, output: inputData, error: 'userId and senderNumber are required' };
+    if (!userId || (!senderNumber && !isWidgetChannel)) {
+      return { success: false, output: inputData, error: 'userId and senderNumber (or widget channel) are required' };
     }
 
     const resolved = await resolveAiAgentFromFlow(flow, node, userId);
@@ -814,13 +890,6 @@ class AutomationEngine {
         success: false,
         output: inputData,
         error: 'Connect a Chat Model node to this AI Agent (port “Chat model”), or set chatbot on the agent (legacy).'
-      };
-    }
-    if (!resolved.tools.length) {
-      return {
-        success: false,
-        output: inputData,
-        error: 'Connect at least one Tool node to this AI Agent (port “Tools”), or enable tools on the agent (legacy).'
       };
     }
 
@@ -864,46 +933,61 @@ class AutomationEngine {
       return { success: false, output: inputData, error: e.message };
     }
 
-    const messageParams = {
-      recipientNumber: senderNumber,
-      providerType: PROVIDER_TYPES.BUSINESS_API,
-      messageType: 'text',
-      messageText: String(replyText || '').trim() || 'Sorry, I could not complete that request.'
-    };
+    const finalReply = String(replyText || '').trim() || 'Sorry, I could not complete that request.';
 
-    if (inputData.whatsappPhoneNumberId) {
-      const whatsappPhoneNumber = await WhatsappPhoneNumber.findById(inputData.whatsappPhoneNumberId)
-        .populate('waba_id')
-        .lean();
-
-      if (whatsappPhoneNumber && whatsappPhoneNumber.waba_id) {
-        messageParams.whatsappPhoneNumber = whatsappPhoneNumber;
+    if (isWidgetChannel) {
+      // Send reply through widget socket
+      try {
+        const { emitBotReply } = await import('./widget-chat-engine.js');
+        const io = global.__botfeedIo;
+        const room = `widget:${inputData.conversationId}`;
+        await emitBotReply(inputData.conversationId, finalReply, room, io);
+      } catch (err) {
+        console.error('Widget reply error:', err);
+        return { success: false, output: inputData, error: err.message };
       }
-    } else if (inputData.whatsappConnectionId) {
-      messageParams.connectionId = inputData.whatsappConnectionId;
-    }
+    } else {
+      const messageParams = {
+        recipientNumber: senderNumber,
+        providerType: PROVIDER_TYPES.BUSINESS_API,
+        messageType: 'text',
+        messageText: finalReply
+      };
 
-    try {
-      await unifiedWhatsAppService.sendMessage(userId, messageParams);
-    } catch (error) {
-      return { success: false, output: inputData, error: error.message };
-    }
+      if (inputData.whatsappPhoneNumberId) {
+        const whatsappPhoneNumber = await WhatsappPhoneNumber.findById(inputData.whatsappPhoneNumberId)
+          .populate('waba_id')
+          .lean();
 
-    const hours = Number(p.session_duration_hours) || 0;
-    const contactId = inputData.contactId || inputData.contact?._id;
-    if (hours > 0 && contactId) {
-      const expiresAt = new Date(Date.now() + hours * 3600000);
-      await Contact.updateOne(
-        { _id: contactId, created_by: userId },
-        {
-          $set: {
-            'custom_fields.automation_chatbot_session': {
-              chatbot_id: String(chatbot._id),
-              expires_at: expiresAt.toISOString()
+        if (whatsappPhoneNumber && whatsappPhoneNumber.waba_id) {
+          messageParams.whatsappPhoneNumber = whatsappPhoneNumber;
+        }
+      } else if (inputData.whatsappConnectionId) {
+        messageParams.connectionId = inputData.whatsappConnectionId;
+      }
+
+      try {
+        await unifiedWhatsAppService.sendMessage(userId, messageParams);
+      } catch (error) {
+        return { success: false, output: inputData, error: error.message };
+      }
+
+      const hours = Number(p.session_duration_hours) || 0;
+      const contactId = inputData.contactId || inputData.contact?._id;
+      if (hours > 0 && contactId) {
+        const expiresAt = new Date(Date.now() + hours * 3600000);
+        await Contact.updateOne(
+          { _id: contactId, created_by: userId },
+          {
+            $set: {
+              'custom_fields.automation_chatbot_session': {
+                chatbot_id: String(chatbot._id),
+                expires_at: expiresAt.toISOString()
+              }
             }
           }
-        }
-      ).catch(() => {});
+        ).catch(() => {});
+      }
     }
 
     return {
@@ -1043,6 +1127,24 @@ class AutomationEngine {
 
 
   async executeSendMessageNode(node, inputData) {
+    const isWidgetChannel = inputData.channel === 'chatbot_widget';
+
+    // For widget channel, send text reply via socket and skip WhatsApp logic
+    if (isWidgetChannel) {
+      const text = this.processTemplateString(node.parameters?.message_template || '', inputData);
+      if (text && inputData.conversationId) {
+        try {
+          const { emitBotReply } = await import('./widget-chat-engine.js');
+          const io = global.__botfeedIo;
+          const room = `widget:${inputData.conversationId}`;
+          await emitBotReply(inputData.conversationId, text, room, io);
+        } catch (err) {
+          return { success: false, output: inputData, error: err.message };
+        }
+      }
+      return { success: true, output: { ...inputData, message_sent: true } };
+    }
+
     const {
       recipient,
       message_template,

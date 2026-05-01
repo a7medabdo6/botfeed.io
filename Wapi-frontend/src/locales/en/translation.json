@@ -301,7 +301,9 @@
     "chat_theme": "Chat Theme",
     "teams": "Teams",
     "ai_calling": "AI Call Agent",
-    "form_builder": "Form Builder"
+    "form_builder": "Form Builder",
+    "widget_settings": "Chat Widget",
+    "web_chat": "Web Chat"
   },
   "dashboard": {
     "title": "Dashboard",

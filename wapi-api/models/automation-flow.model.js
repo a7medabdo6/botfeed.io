@@ -83,7 +83,8 @@ const automationFlowSchema = new mongoose.Schema({
           enum: [
             'message_received', 'message_sent', 'contact_joined',
             'contact_left', 'status_update', 'webhook_received',
-            'time_based', 'custom_event', 'order_received'
+            'time_based', 'custom_event', 'order_received',
+            'widget_message_received'
           ]
         },
         conditions: {

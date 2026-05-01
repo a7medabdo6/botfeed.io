@@ -297,7 +297,9 @@
     "reply_material": "مواد الرد",
     "chatbots": "روبوتات الدردشة",
     "keyword_action": "إجراء الكلمات المفتاحية",
-    "default_action": "الإجراء الافتراضي"
+    "default_action": "الإجراء الافتراضي",
+    "widget_settings": "أداة الدردشة",
+    "web_chat": "دردشة الويب"
   },
   "dashboard": {
     "title": "لوحة التحكم",

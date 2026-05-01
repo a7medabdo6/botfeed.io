@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Widget Test Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f7fa;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    nav h1 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    nav span {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .hero {
+      max-width: 720px;
+      margin: 80px auto;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .hero h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .instructions {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 24px;
+      font-size: 13px;
+      color: #92400e;
+      line-height: 1.6;
+    }
+
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <h1>Botfeed</h1>
+    <span>Widget Test Page</span>
+  </nav>
+
+  <div class="hero">
+    <span class="badge">Live Preview</span>
+    <h2>Chat Widget Test</h2>
+    <p>This page loads the Botfeed chat widget for testing purposes. Look for the chat bubble in the bottom-right
+      corner.</p>
+
+    <div class="card">
+      <h3>How it works</h3>
+      <p>The widget script is loaded at the bottom of this page. It connects to your local API server at
+        <code>localhost:5001</code>, fetches the widget configuration, and renders the chat bubble.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Testing steps</h3>
+      <p>1. Make sure you have a flow with a <strong>Chatbot Widget</strong> trigger saved in the Flow Builder.<br>
+        2. After saving, the trigger node will show an embed code with your widget API key.<br>
+        3. Replace <code>YOUR_WIDGET_API_KEY</code> in this page's script tag with that key.<br>
+        4. Refresh this page and click the chat bubble to test.</p>
+    </div>
+
+    <div class="instructions">
+      <strong>Note:</strong> Open your browser console (F12) to see widget logs. If the widget doesn't appear, check
+      that the API key is correct and the server is running on port 5001.
+    </div>
+  </div>
+
+  <script src="/public/widget.js" data-widget-id="wk_6cbb51b9d3bce0c5fe0fd8a6e5dbee524496cc01682102d7"></script>
+</body>
+
+</html>

@@ -278,7 +278,9 @@
     "my_subscription": "MI SUSCRIPCIÓN",
     "templates_section": "PLANTILLAS",
     "marketing": "MARKETING",
-    "chatbots": "Chatbots"
+    "chatbots": "Chatbots",
+    "widget_settings": "Widget de Chat",
+    "web_chat": "Chat Web"
   },
   "dashboard": {
     "title": "Panel de Control",

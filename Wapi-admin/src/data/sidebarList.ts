@@ -1,4 +1,4 @@
-import { Award, ShieldCheck, CreditCard, Currency, Diamond, DiamondPlus, FileText, Form, Globe, HandCoins, HelpCircle, Home, Languages, LayoutDashboard, LayoutTemplate, Link, MailWarning, Receipt, Settings, ShoppingCart, Sparkles, ThumbsUp, Users } from "lucide-react";
+import { Award, Code, ShieldCheck, CreditCard, Currency, Diamond, DiamondPlus, FileText, Form, Globe, HandCoins, HelpCircle, Home, Languages, LayoutDashboard, LayoutTemplate, Link, MailWarning, Receipt, Settings, ShoppingCart, Sparkles, ThumbsUp, Users } from "lucide-react";
 
 export interface MenuItem {
   icon: string;
@@ -153,6 +153,12 @@ export const sidebarMenuData: MenuSection[] = [
         path: "/contact_inquiries",
         permission: "view.contact_inquiries",
       },
+      {
+        icon: "Code",
+        label: "nav.widget_configs",
+        path: "/widget_configs",
+        permission: "view.settings",
+      },
     ],
   },
 ];
@@ -182,4 +188,5 @@ export const iconMap = {
   Form,
   DiamondPlus,
   ShieldCheck,
+  Code,
 };

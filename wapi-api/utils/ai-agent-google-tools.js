@@ -83,9 +83,7 @@ export async function runGoogleToolsChatAgent({
     throw err;
   }
 
-  if (!Array.isArray(tools) || !tools.length) {
-    throw new Error('No tools configured for this AI Agent.');
-  }
+  const hasTools = Array.isArray(tools) && tools.length > 0;
 
   const cfg = { ...(model.config && typeof model.config === 'object' ? model.config : {}) };
   const temperature = typeof cfg.temperature === 'number' ? cfg.temperature : 0.4;
@@ -117,11 +115,13 @@ export async function runGoogleToolsChatAgent({
     const body = {
       model: model.model_id,
       messages,
-      tools,
-      tool_choice: 'auto',
       temperature,
       max_tokens
     };
+    if (hasTools) {
+      body.tools = tools;
+      body.tool_choice = 'auto';
+    }
 
     const response = await fetch(apiEndpoint, {
       method: 'POST',

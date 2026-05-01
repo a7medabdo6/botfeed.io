@@ -1,6 +1,53 @@
-import { AutomationFlow, AutomationExecution } from '../models/index.js';
+import { AutomationFlow, AutomationExecution, WidgetConfig } from '../models/index.js';
 import automationEngine from '../utils/automation-engine.js';
 import automationCache from '../utils/automation-cache.js';
+
+async function syncWidgetConfigForFlow(flow) {
+  const triggerNodes = (flow.nodes || []).filter(n => n.type === 'trigger');
+  for (const tNode of triggerNodes) {
+    const p = tNode.parameters || {};
+    const hasWidgetChannel =
+      (Array.isArray(p.channels) && p.channels.includes('chatbot_widget')) ||
+      p.channel === 'chatbot_widget';
+    if (!hasWidgetChannel) continue;
+
+    const domains = (p.widget_allowed_domains || '')
+      .split(',')
+      .map(d => d.trim())
+      .filter(Boolean);
+
+    const update = {
+      user_id: flow.user_id,
+      name: flow.name || 'Widget',
+      mode: 'chatbot',
+      chatbot_id: null,
+      welcome_message: p.widget_welcome_message || 'Hello! How can we help you today?',
+      title: p.widget_title || 'Chat with us',
+      primary_color: p.widget_primary_color || '#0ea5e9',
+      position: p.widget_position || 'right',
+      allowed_domains: domains,
+      escalate_to_human: p.widget_escalate_to_human ?? true,
+      is_active: flow.is_active !== false,
+    };
+
+    const existing = await WidgetConfig.findOne({ user_id: flow.user_id, _id: p.widget_config_id }).catch(() => null);
+    if (existing) {
+      Object.assign(existing, update);
+      await existing.save();
+      p.widget_config_id = existing._id.toString();
+      p.widgetApiKey = existing.api_key;
+    } else {
+      const created = await WidgetConfig.create(update);
+      p.widget_config_id = created._id.toString();
+      p.widgetApiKey = created.api_key;
+      // persist the config id + api key back to the flow node
+      await AutomationFlow.updateOne(
+        { _id: flow._id, 'nodes.id': tNode.id },
+        { $set: { 'nodes.$.parameters.widget_config_id': created._id.toString(), 'nodes.$.parameters.widgetApiKey': created.api_key } }
+      );
+    }
+  }
+}
 
 
 export const getAutomationFlows = async (req, res) => {
@@ -104,12 +151,16 @@ export const createAutomationFlow = async (req, res) => {
       settings: settings || {}
     });
 
+    await syncWidgetConfigForFlow(flow).catch(err => console.error('Widget config sync error:', err));
+
     automationCache.clearUserCache(userId);
+
+    const freshFlow = await AutomationFlow.findById(flow._id).lean();
 
     res.status(201).json({
       success: true,
       message: 'Automation flow created successfully',
-      data: flow
+      data: freshFlow
     });
   } catch (error) {
     console.error('Error creating automation flow:', error);
@@ -151,12 +202,16 @@ export const updateAutomationFlow = async (req, res) => {
 
     await flow.save();
 
+    await syncWidgetConfigForFlow(flow).catch(err => console.error('Widget config sync error:', err));
+
     automationCache.invalidateFlowCache(flowId, userId);
+
+    const freshFlow = await AutomationFlow.findById(flow._id).lean();
 
     res.json({
       success: true,
       message: 'Automation flow updated successfully',
-      data: flow
+      data: freshFlow
     });
   } catch (error) {
     console.error('Error updating automation flow:', error);

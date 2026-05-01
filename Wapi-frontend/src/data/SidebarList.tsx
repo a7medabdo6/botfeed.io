@@ -1,5 +1,5 @@
 import { MenuItem } from "@/src/types/components";
-import { BookImage, BookKey, Bot, BotMessageSquare, Cable, CalendarDays, CheckSquare, Clock, Columns, Contact, FileSpreadsheet, Form, HatGlasses, Image, Import, LayoutDashboard, LayoutTemplate, List, ListOrdered, MailCheck, MapPin, Megaphone, MessageCircle, MessageSquare, MousePointer2, Phone, PhoneCall, Plug, Plus, PlusCircle, Receipt, RefreshCw, Settings, Sparkles, Table2, Tags, Timer, Trash2, Users, Webhook, Workflow, Wrench, Zap } from "lucide-react";
+import { BookImage, BookKey, Bot, BotMessageSquare, Cable, CalendarDays, CheckSquare, Clock, Code, Columns, Contact, FileSpreadsheet, Form, HatGlasses, Image, Import, LayoutDashboard, LayoutTemplate, List, ListOrdered, MailCheck, MapPin, Megaphone, MessageCircle, MessageSquare, MousePointer2, Phone, PhoneCall, Plug, Plus, PlusCircle, Receipt, RefreshCw, Settings, Sparkles, Table2, Tags, Timer, Trash2, Users, Webhook, Workflow, Wrench, Zap } from "lucide-react";
 
 export const MENUITEMS: MenuItem[] = [
   {
@@ -158,6 +158,21 @@ export const MENUITEMS: MenuItem[] = [
     section: "sidebar.auto_responses",
     order: 8,
     permission: "view.form_builder",
+  },
+  {
+    icon: <Code size={20} />,
+    label: "sidebar.widget_settings",
+    path: "/widget_settings",
+    section: "sidebar.integrations",
+    order: 8,
+    permission: "view.widget",
+  },
+  {
+    icon: <MessageSquare size={20} />,
+    label: "sidebar.web_chat",
+    path: "/web_chat",
+    order: 3,
+    permission: "manage.conversations",
   },
   {
     icon: <Receipt size={20} />,

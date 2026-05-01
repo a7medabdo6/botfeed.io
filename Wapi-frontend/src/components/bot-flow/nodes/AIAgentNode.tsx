@@ -23,13 +23,12 @@ export function AIAgentNode({ data, id }: any) {
   const errors: string[] = [];
   if (touched || data.forceValidation) {
     if (!wiring.hasModel) errors.push('Connect a “Chat model” node to the Chat model port (below)');
-    if (wiring.toolCount === 0) errors.push('Connect at least one “Tool” node to the Tools port (below)');
   }
 
   const slotAfterContent = (
     <div className="relative mx-0 border-t border-sky-100 px-4 pb-1 pt-3 dark:border-white/10">
       <p className="mb-3 text-center text-[10px] text-sky-800/80 dark:text-sky-100/90">
-        Like n8n: connect <strong>Chat model</strong> and one or more <strong>Tool</strong> nodes to the ports below. The main flow still uses the <strong>left</strong> port.
+        Connect a <strong>Chat model</strong> (required) and optionally <strong>Tool</strong> nodes to the ports below. The main flow still uses the <strong>left</strong> port.
       </p>
       <div className="relative flex h-10 w-full items-end justify-center pb-0.5">
         <div className="absolute bottom-0 left-[18%] flex -translate-x-1/2 flex-col items-center gap-1">

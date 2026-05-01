@@ -25,6 +25,21 @@ const nodeTypes = {
   custom: CustomNode,
 };
 
+const CHANNEL_WHATSAPP = "whatsapp";
+const CHANNEL_WIDGET = "chatbot_widget";
+
+/** Trigger node: which channels this entry point listens on */
+function normalizeTriggerChannels(data: Record<string, unknown>): string[] {
+  const ch = data.channels;
+  if (Array.isArray(ch) && ch.length > 0) {
+    const allowed = new Set([CHANNEL_WHATSAPP, CHANNEL_WIDGET]);
+    const filtered = ch.filter((c) => typeof c === "string" && allowed.has(c)) as string[];
+    if (filtered.length > 0) return filtered;
+  }
+  if (data.channel === CHANNEL_WIDGET) return [CHANNEL_WIDGET];
+  return [CHANNEL_WHATSAPP];
+}
+
 const FlowCanvas = () => {
   const router = useRouter();
   const params = useParams();
@@ -212,6 +227,17 @@ const FlowCanvas = () => {
     if (template.id === "text_message") {
       return { ...base, stepName: "" };
     }
+    if (template.id === "trigger") {
+      return {
+        ...base,
+        messageType: undefined,
+        message: undefined,
+        channels: [CHANNEL_WHATSAPP],
+        contactType: "",
+        triggerType: "",
+        keywords: [],
+      };
+    }
     return base;
   }, []);
 
@@ -222,7 +248,16 @@ const FlowCanvas = () => {
 
     const allNodesValid = nodes.every((node) => {
       if (node.data.nodeType === "trigger") {
-        return node.data.contactType && node.data.triggerType && (node.data.triggerType === "any message" || node.data.triggerType === "order received" || (node.data.keywords && node.data.keywords.length > 0));
+        const chans = normalizeTriggerChannels(node.data);
+        const needsContact = chans.includes(CHANNEL_WHATSAPP);
+        const hasContactType = !needsContact || !!node.data.contactType;
+        const orderOk = node.data.triggerType !== "order received" || chans.includes(CHANNEL_WHATSAPP);
+        return (
+          orderOk &&
+          hasContactType &&
+          node.data.triggerType &&
+          (node.data.triggerType === "any message" || node.data.triggerType === "order received" || (node.data.keywords && node.data.keywords.length > 0))
+        );
       }
       if (node.data.nodeType === "text_message" || node.data.nodeType === "send-message") {
         return node.data.message && node.data.message.trim();
@@ -254,8 +289,7 @@ const FlowCanvas = () => {
       }
       if (node.data.nodeType === "ai_agent") {
         const hasModel = edges.some((e) => e.target === node.id && e.targetHandle === "model-in");
-        const toolCount = edges.filter((e) => e.target === node.id && e.targetHandle === "tool-in").length;
-        if (!hasModel || toolCount === 0) return false;
+        if (!hasModel) return false;
         return true;
       }
       if (node.data.nodeType === "agent_chat_model") {
@@ -476,6 +510,24 @@ const FlowCanvas = () => {
                     eventDescription: params.description ?? params.eventDescription ?? "",
                   }
                 : {}),
+              ...(resolvedNodeType === "trigger"
+                ? {
+                    channels: (() => {
+                      const raw = params.channels;
+                      if (Array.isArray(raw) && raw.length > 0) return raw;
+                      if (params.channel === CHANNEL_WIDGET) return [CHANNEL_WIDGET];
+                      return [CHANNEL_WHATSAPP];
+                    })(),
+                    widgetTitle: params.widget_title ?? params.widgetTitle ?? "",
+                    widgetWelcomeMessage: params.widget_welcome_message ?? params.widgetWelcomeMessage ?? "",
+                    widgetPrimaryColor: params.widget_primary_color ?? params.widgetPrimaryColor ?? "#0ea5e9",
+                    widgetPosition: params.widget_position ?? params.widgetPosition ?? "right",
+                    widgetAllowedDomains: params.widget_allowed_domains ?? params.widgetAllowedDomains ?? "",
+                    widgetEscalateToHuman: params.widget_escalate_to_human ?? params.widgetEscalateToHuman ?? true,
+                    widgetApiKey: params.widgetApiKey ?? params.widget_api_key ?? "",
+                    widgetConfigId: params.widget_config_id ?? params.widgetConfigId ?? "",
+                  }
+                : {}),
             },
           };
         });
@@ -602,12 +654,30 @@ const FlowCanvas = () => {
 
       // Add all trigger nodes to the payload
       triggerNodes.forEach((tNode) => {
+        const channels = normalizeTriggerChannels(tNode.data);
+        const params: any = { ...tNode.data };
+        params.channels = channels;
+        delete params.channel;
+        if (channels.includes(CHANNEL_WIDGET)) {
+          params.widget_title = tNode.data.widgetTitle || "Chat with us";
+          params.widget_welcome_message = tNode.data.widgetWelcomeMessage || "";
+          params.widget_primary_color = tNode.data.widgetPrimaryColor || "#0ea5e9";
+          params.widget_position = tNode.data.widgetPosition || "right";
+          params.widget_allowed_domains = tNode.data.widgetAllowedDomains || "";
+          params.widget_escalate_to_human = tNode.data.widgetEscalateToHuman ?? true;
+        }
+        const triggerName =
+          channels.includes(CHANNEL_WIDGET) && channels.includes(CHANNEL_WHATSAPP)
+            ? "Multi-channel"
+            : channels.includes(CHANNEL_WIDGET)
+              ? "Widget Message"
+              : "Incoming Message";
         formattedNodes.push({
           id: getBackendId(tNode),
           type: "trigger",
           position: tNode.position,
-          parameters: { ...tNode.data },
-          name: "Incoming Message",
+          parameters: params,
+          name: triggerName,
         });
       });
 
@@ -1016,35 +1086,36 @@ const FlowCanvas = () => {
 
       const triggers: any[] = [];
 
-      // 1. Add Primary Triggers
-      triggerNodes.forEach((tNode) => {
+      const pushTriggersForEventType = (eventType: "message_received" | "widget_message_received", tNode: any) => {
         if (tNode.data.triggerType === "any message") {
           triggers.push({
-            event_type: "message_received",
+            event_type: eventType,
             conditions: {},
           });
         } else if (tNode.data.triggerType === "order received") {
-          triggers.push({
-            event_type: "order_received",
-            conditions: {},
-          });
+          if (eventType === "message_received") {
+            triggers.push({
+              event_type: "order_received",
+              conditions: {},
+            });
+          }
         } else {
           const userKeywords = Array.isArray(tNode.data.keywords) ? tNode.data.keywords : [];
           const op = operatorMap[tNode.data.triggerType] || "contains_any";
 
           if (op === "contains_any") {
             triggers.push({
-              event_type: "message_received",
+              event_type: eventType,
               conditions: {
                 field: "message",
                 operator: "contains_any",
-                value: [...userKeywords], // CLONE IT to avoid pollution when merging button keywords later
+                value: [...userKeywords],
               },
             });
           } else {
             userKeywords.forEach((kw: string) => {
               triggers.push({
-                event_type: "message_received",
+                event_type: eventType,
                 conditions: {
                   field: "message",
                   operator: op,
@@ -1054,13 +1125,27 @@ const FlowCanvas = () => {
             });
           }
         }
+      };
+
+      // 1. Add Primary Triggers (one block per selected channel)
+      triggerNodes.forEach((tNode) => {
+        const chans = normalizeTriggerChannels(tNode.data);
+        if (chans.includes(CHANNEL_WHATSAPP)) {
+          pushTriggersForEventType("message_received", tNode);
+        }
+        if (chans.includes(CHANNEL_WIDGET)) {
+          pushTriggersForEventType("widget_message_received", tNode);
+        }
       });
 
       if (buttonKeywords.length > 0) {
-        const hasAnyMessageTrigger = triggers.some((t) => t.event_type === "message_received" && Object.keys(t.conditions).length === 0);
+        const flowUsesWhatsapp = triggerNodes.some((t) => normalizeTriggerChannels(t.data).includes(CHANNEL_WHATSAPP));
+        const flowUsesWidget = triggerNodes.some((t) => normalizeTriggerChannels(t.data).includes(CHANNEL_WIDGET));
 
-        if (!hasAnyMessageTrigger) {
-          const existingContainsAny = triggers.find((t) => t.event_type === "message_received" && t.conditions?.operator === "contains_any");
+        const mergeButtonKeywordsInto = (eventType: "message_received" | "widget_message_received") => {
+          const hasAnyMessageTrigger = triggers.some((t) => t.event_type === eventType && Object.keys(t.conditions || {}).length === 0);
+          if (hasAnyMessageTrigger) return;
+          const existingContainsAny = triggers.find((t) => t.event_type === eventType && t.conditions?.operator === "contains_any");
 
           if (existingContainsAny) {
             const currentVals = Array.isArray(existingContainsAny.conditions.value) ? [...existingContainsAny.conditions.value] : [existingContainsAny.conditions.value];
@@ -1071,7 +1156,7 @@ const FlowCanvas = () => {
             existingContainsAny.conditions.value = currentVals;
           } else {
             triggers.push({
-              event_type: "message_received",
+              event_type: eventType,
               conditions: {
                 field: "message",
                 operator: "contains_any",
@@ -1079,7 +1164,10 @@ const FlowCanvas = () => {
               },
             });
           }
-        }
+        };
+
+        if (flowUsesWhatsapp) mergeButtonKeywordsInto("message_received");
+        if (flowUsesWidget) mergeButtonKeywordsInto("widget_message_received");
       }
 
       const mergeAgentGraphIntoPayload = () => {
@@ -1128,6 +1216,9 @@ const FlowCanvas = () => {
           const sNode = nodes.find((x: any) => x.id === e.source);
           const tNode = nodes.find((x: any) => x.id === e.target);
           if (!sNode || !tNode) continue;
+          const srcIsSupplier = AGENT_SUPPLIER_NODE_TYPE_SET.has(sNode.data?.nodeType);
+          const tgtIsSupplier = AGENT_SUPPLIER_NODE_TYPE_SET.has(tNode.data?.nodeType);
+          if (!srcIsSupplier && !tgtIsSupplier) continue;
           const sh = !e.sourceHandle || e.sourceHandle === "default" ? "src" : e.sourceHandle;
           const th = !e.targetHandle || e.targetHandle === "default" ? "tgt" : e.targetHandle;
           const c = {

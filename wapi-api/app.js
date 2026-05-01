@@ -86,6 +86,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use('/install', express.static(path.join(__dirname, 'public/install')));
+app.use('/public', express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.js')) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+    }
+  }
+}));
+
+import publicWidgetRoutes from "./routes/public-widget.routes.js";
+app.use("/api/public/widget", publicWidgetRoutes);
 
 app.use('/api', denyMutationInDemo);
 
@@ -145,6 +156,8 @@ import formBuilderRoutes from "./routes/formBuilder.route.js";
 import submissionRoutes from "./routes/submission.route.js";
 
 
+import widgetConfigRoutes from "./routes/widget-config.routes.js";
+import adminWidgetConfigRoutes from "./routes/admin-widget-config.routes.js";
 import wabaConfigurationRoutes from "./routes/waba-configuration.routes.js";
 import messageBotRoutes from "./routes/message-bot.routes.js";
 import whatsappCallingRoutes from "./routes/whatsapp-calling.routes.js";
@@ -243,6 +256,8 @@ app.use("/api/forms", formBuilderRoutes);
 app.use("/api/submissions", submissionRoutes);
 
 
+app.use("/api/widget-configs", widgetConfigRoutes);
+app.use("/api/admin/widget-configs", adminWidgetConfigRoutes);
 app.use("/api/waba-configurations", wabaConfigurationRoutes);
 app.use("/api/message-bots", messageBotRoutes);
 app.use("/api/whatsapp/calling", whatsappCallingRoutes);

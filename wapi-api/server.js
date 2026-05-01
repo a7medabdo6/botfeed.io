@@ -56,13 +56,17 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 
 const io = new Server(httpServer, {
   cors: {
-    origin: allowedOrigins,
+    origin: (origin, cb) => {
+      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+      cb(null, true); // widget embeds need open CORS; auth is per-namespace
+    },
     credentials: true,
   },
   path: '/socket.io',
 });
 
 app.set('io', io);
+global.__botfeedIo = io;
 setContactImportSocketIo(io);
 
 import('./services/whatsapp/unified-whatsapp.service.js').then(module => {
@@ -71,9 +75,73 @@ import('./services/whatsapp/unified-whatsapp.service.js').then(module => {
 
 io.on('connection', (socket) => {
   console.log('WebSocket client connected:', socket.id);
+
+  socket.on('web-inbox:join', (userId) => {
+    if (userId) socket.join(`web-inbox:${userId}`);
+  });
+
+  socket.on('web-inbox:join-conversation', (conversationId) => {
+    if (conversationId) socket.join(`widget:${conversationId}`);
+  });
+
   socket.on('disconnect', () => {
     console.log('WebSocket client disconnected:', socket.id);
   });
+});
+
+// ---------- /widget namespace for embeddable chat widget ----------
+import WidgetConfig from './models/widget-config.model.js';
+import WebConversation from './models/web-conversation.model.js';
+import { handleVisitorMessage, handleAgentReply } from './utils/widget-chat-engine.js';
+
+const widgetNs = io.of('/widget');
+
+widgetNs.use(async (socket, next) => {
+  try {
+    const { apiKey, visitorId, conversationId } = socket.handshake.auth;
+    if (!apiKey || !visitorId) return next(new Error('Missing auth'));
+    const widget = await WidgetConfig.findOne({ api_key: apiKey, is_active: true }).lean();
+    if (!widget) return next(new Error('Invalid widget key'));
+    socket.widgetConfig = widget;
+    socket.visitorId = visitorId;
+    socket.conversationId = conversationId;
+    next();
+  } catch (err) {
+    next(new Error('Auth error'));
+  }
+});
+
+widgetNs.on('connection', (socket) => {
+  const room = `widget:${socket.conversationId}`;
+  socket.join(room);
+
+  socket.on('widget:message', async (data) => {
+    try {
+      await handleVisitorMessage({
+        conversationId: socket.conversationId,
+        content: data.content,
+        io,
+      });
+    } catch (err) {
+      console.error('widget:message error', err);
+      socket.emit('widget:error', { message: 'Failed to process message' });
+    }
+  });
+
+  socket.on('widget:typing', () => {
+    socket.to(room).emit('widget:typing', { visitor: true });
+  });
+
+  socket.on('widget:close', async () => {
+    try {
+      await WebConversation.findByIdAndUpdate(socket.conversationId, { status: 'closed' });
+      io.of('/widget').to(room).emit('widget:close', { conversation_id: socket.conversationId });
+    } catch (err) {
+      console.error('widget:close error', err);
+    }
+  });
+
+  socket.on('disconnect', () => {});
 });
 
 (async () => {
