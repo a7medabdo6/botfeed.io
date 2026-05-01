@@ -4,10 +4,10 @@ import { Input } from "@/src/elements/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/src/elements/ui/tooltip";
 import { cn } from "@/src/lib/utils";
-import { useGetRecentChatsQuery, useTogglePinChatMutation } from "@/src/redux/api/chatApi";
+import { useGetRecentChatsQuery, useGetUnifiedChatsQuery, useTogglePinChatMutation, useToggleWebPinMutation } from "@/src/redux/api/chatApi";
 import { useGetWabaPhoneNumbersQuery } from "@/src/redux/api/whatsappApi";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { rehydrateChat, selectChat, selSelectPhoneNumber, setLeftSidebartoggle } from "@/src/redux/reducers/messenger/chatSlice";
+import { ChatChannel, rehydrateChat, selectChat, selSelectPhoneNumber, setLeftSidebartoggle } from "@/src/redux/reducers/messenger/chatSlice";
 import { RootState } from "@/src/redux/store";
 import ConfirmModal from "@/src/shared/ConfirmModal";
 import { RecentChatResponseItem } from "@/src/types/components/chat";
@@ -15,8 +15,8 @@ import { useChatSelection } from "@/src/utils/hooks/useChatSelection";
 import useDebounce from "@/src/utils/hooks/useDebounce";
 import { useNotifications } from "@/src/utils/hooks/useNotifications";
 import { maskSensitiveData } from "@/src/utils/masking";
-import { BellRing, CheckSquare, Filter, ListChecks, Search, Trash2, X } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { BellRing, CheckSquare, Filter, Globe, ListChecks, MessageSquare, Search, Trash2, X } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import ChatFilterModal from "./ChatFilterModal";
 import ChatSidebarItem from "./ChatSidebarItem";
@@ -24,7 +24,9 @@ import { ChatSidebarSkeleton } from "./ChatSkeleton";
 import { NotificationSettingsModal } from "./NotificationSettingsModal";
 const ChatSidebar = () => {
   const dispatch = useAppDispatch();
-  const { selectedPhoneNumberId, selectedChat, isRehydrated, isMobileScreen } = useAppSelector((state: RootState) => state.chat);
+  const router = useRouter();
+  const pathname = usePathname();
+  const { selectedPhoneNumberId, selectedChat, isRehydrated, isMobileScreen, selectedChannel } = useAppSelector((state: RootState) => state.chat);
   const { app_name } = useAppSelector((state: RootState) => state.setting);
   const { user } = useAppSelector((state) => state.auth);
   const { is_demo_mode } = useAppSelector((state) => state.setting);
@@ -38,6 +40,13 @@ const ChatSidebar = () => {
   const { permission } = useNotifications();
   const searchParams = useSearchParams();
   const contactIdFromQuery = searchParams.get("contact_id");
+
+  const goChannel = (ch: ChatChannel) => {
+    const p = new URLSearchParams(searchParams.toString());
+    p.set("channel", ch);
+    const qs = p.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  };
   const { userSetting } = useAppSelector((state) => state.setting);
   const userSettingData = userSetting?.data;
 
@@ -66,7 +75,10 @@ const ChatSidebar = () => {
     }
   }, [phoneNumbers, selectedPhoneNumberId, dispatch, isRehydrated]);
 
-  const { data: chatsData, isLoading } = useGetRecentChatsQuery(
+  const isWhatsappOnly = selectedChannel === "whatsapp";
+  const useUnified = selectedChannel === "all" || selectedChannel === "web";
+
+  const { data: waChatsData, isLoading: waLoading } = useGetRecentChatsQuery(
     {
       search: debouncedSearch || undefined,
       whatsapp_phone_number_id: selectedPhoneNumberId || undefined,
@@ -78,12 +90,30 @@ const ChatSidebar = () => {
       last_message_read: activeTab === "unread" ? false : undefined,
       is_assigned: activeTab === "assigned" ? true : activeTab === "unassigned" ? false : undefined,
     },
-    {
-      skip: !selectedPhoneNumberId,
-    }
+    { skip: !selectedPhoneNumberId || !isWhatsappOnly }
   );
 
+  const { data: unifiedChatsData, isLoading: unifiedLoading } = useGetUnifiedChatsQuery(
+    {
+      channel: selectedChannel,
+      search: debouncedSearch || undefined,
+      whatsapp_phone_number_id: isWhatsappOnly ? selectedPhoneNumberId || undefined : undefined,
+      start_date: filters.startDate,
+      end_date: filters.endDate,
+      tags: filters.tagLabel,
+      has_notes: filters.hasNotes,
+      agent_id: filters.agentId,
+      last_message_read: activeTab === "unread" ? false : undefined,
+      is_assigned: activeTab === "assigned" ? true : activeTab === "unassigned" ? false : undefined,
+    },
+    { skip: !useUnified }
+  );
+
+  const chatsData = isWhatsappOnly ? waChatsData : unifiedChatsData;
+  const isLoading = isWhatsappOnly ? waLoading : unifiedLoading;
+
   const [togglePinChat] = useTogglePinChatMutation();
+  const [toggleWebPin] = useToggleWebPinMutation();
 
   const sortedChats = useMemo(() => {
     if (!chatsData?.data) return [];
@@ -111,10 +141,11 @@ const ChatSidebar = () => {
   const handleTogglePin = async (e: React.MouseEvent, chat: RecentChatResponseItem) => {
     e.stopPropagation();
     try {
-      await togglePinChat({
-        contact_id: chat.contact.id,
-        phone_number: chat.contact.number,
-      }).unwrap();
+      if (chat.channel === "web") {
+        await toggleWebPin({ conversation_id: chat.contact.id }).unwrap();
+      } else {
+        await togglePinChat({ contact_id: chat.contact.id, phone_number: chat.contact.number }).unwrap();
+      }
     } catch (error) {
       console.error("Failed to toggle pin chat:", error);
     }
@@ -222,21 +253,45 @@ const ChatSidebar = () => {
           </div>
         </div>
 
-        {!isRehydrated ? (
-          <div className="w-full h-10 bg-slate-50 dark:bg-(--page-body-bg) rounded-lg" />
-        ) : (
-          <Select value={selectedPhoneNumberId?.toString() || ""} onValueChange={handlePhoneNumberChange}>
-            <SelectTrigger className="w-full h-8 bg-(--input-color) dark:border-none dark:bg-(--page-body-bg) dark:hover:bg-(--page-body-bg) border dark:border-(--card-border-color) rounded-lg focus:ring-0 dark:[@media(max-width:991px)]:bg-(--table-hover) dark:hover:[@media(max-width:991px)]:bg-(--table-hover)">
-              <SelectValue>{selectedPhoneNumberId ? maskSensitiveData(phoneNumbers.find((p: any) => String(p.id) === String(selectedPhoneNumberId))?.display_phone_number || phoneNumbers.find((p: any) => String(p.id) === String(selectedPhoneNumberId))?.phone_number || "", "phone", is_demo_mode) : isLoadingPhones ? "Loading numbers..." : "Select Phone Number"}</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {phoneNumbers.map((phone: any, index: number) => (
-                <SelectItem className="dark:bg-(--page-body-bg)" key={index} value={String(phone.id)}>
-                  {maskSensitiveData(phone.display_phone_number, "phone", is_demo_mode) || maskSensitiveData(phone.phone_number, "phone", is_demo_mode) || "Unknown Number"}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="flex gap-1 rounded-lg bg-slate-100 dark:bg-(--page-body-bg) p-0.5">
+          {([
+            { id: "all" as ChatChannel, label: "All", icon: <MessageSquare size={13} /> },
+            { id: "whatsapp" as ChatChannel, label: "WhatsApp", icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 01-5.39-1.587l-.376-.227-2.645.887.887-2.645-.227-.376A9.94 9.94 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg> },
+            { id: "web" as ChatChannel, label: "Web", icon: <Globe size={13} /> },
+          ]).map((ch) => (
+            <button
+              key={ch.id}
+              onClick={() => goChannel(ch.id)}
+              className={cn(
+                "flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-semibold transition-all",
+                selectedChannel === ch.id
+                  ? "bg-white dark:bg-(--card-color) text-slate-900 dark:text-white shadow-sm"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+              )}
+            >
+              {ch.icon}
+              {ch.label}
+            </button>
+          ))}
+        </div>
+
+        {selectedChannel === "whatsapp" && (
+          !isRehydrated ? (
+            <div className="w-full h-10 bg-slate-50 dark:bg-(--page-body-bg) rounded-lg" />
+          ) : (
+            <Select value={selectedPhoneNumberId?.toString() || ""} onValueChange={handlePhoneNumberChange}>
+              <SelectTrigger className="w-full h-8 bg-(--input-color) dark:border-none dark:bg-(--page-body-bg) dark:hover:bg-(--page-body-bg) border dark:border-(--card-border-color) rounded-lg focus:ring-0 dark:[@media(max-width:991px)]:bg-(--table-hover) dark:hover:[@media(max-width:991px)]:bg-(--table-hover)">
+                <SelectValue>{selectedPhoneNumberId ? maskSensitiveData(phoneNumbers.find((p: any) => String(p.id) === String(selectedPhoneNumberId))?.display_phone_number || phoneNumbers.find((p: any) => String(p.id) === String(selectedPhoneNumberId))?.phone_number || "", "phone", is_demo_mode) : isLoadingPhones ? "Loading numbers..." : "Select Phone Number"}</SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {phoneNumbers.map((phone: any, index: number) => (
+                  <SelectItem className="dark:bg-(--page-body-bg)" key={index} value={String(phone.id)}>
+                    {maskSensitiveData(phone.display_phone_number, "phone", is_demo_mode) || maskSensitiveData(phone.phone_number, "phone", is_demo_mode) || "Unknown Number"}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )
         )}
 
         <div className="flex gap-2">

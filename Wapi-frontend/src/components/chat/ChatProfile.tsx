@@ -3,7 +3,7 @@
 
 import { Button } from "@/src/elements/ui/button";
 import { useGetAgentDataQuery } from "@/src/redux/api/agentApi";
-import { useAddChatNoteMutation, useAddChatTagMutation, useAssignAgentMutation, useDeleteChatNoteMutation, useDeleteChatTagMutation, useGetContactProfileQuery, useUnassignAgentMutation } from "@/src/redux/api/chatApi";
+import { useAddChatNoteMutation, useAddChatTagMutation, useAddWebNoteMutation, useAddWebTagMutation, useAssignAgentMutation, useAssignWebChatMutation, useDeleteChatNoteMutation, useDeleteChatTagMutation, useDeleteWebNoteMutation, useDeleteWebTagMutation, useGetContactProfileQuery, useGetWebChatProfileQuery, useUnassignAgentMutation, useUnassignWebChatMutation } from "@/src/redux/api/chatApi";
 import { useAssignAgentToContactMutation, useGetCallAgentsQuery, useRemoveAgentFromContactMutation } from "@/src/redux/api/whatsappCallingApi";
 import { useDeleteContactMutation } from "@/src/redux/api/contactApi";
 import { useCreateTagMutation } from "@/src/redux/api/tagsApi";
@@ -26,7 +26,21 @@ const ChatProfile = () => {
   const dispatch = useAppDispatch();
   const { selectedChat, selectedPhoneNumberId } = useSelector((state: RootState) => state.chat);
   const contactId = selectedChat?.contact?.id;
-  const { data: profileData, isLoading: isLoadingProfile } = useGetContactProfileQuery({ contact_id: contactId as string, whatsapp_phone_number_id: selectedPhoneNumberId as string }, { skip: !contactId });
+  const isWebChat = selectedChat?.channel === "web";
+
+  const { data: waProfileData, isLoading: waProfileLoading } = useGetContactProfileQuery(
+    { contact_id: contactId as string, whatsapp_phone_number_id: selectedPhoneNumberId as string },
+    { skip: !contactId || isWebChat }
+  );
+  const { data: webProfileRes, isLoading: webProfileLoading } = useGetWebChatProfileQuery(
+    { conversationId: contactId as string },
+    { skip: !contactId || !isWebChat }
+  );
+
+  const webProfileData = webProfileRes?.data;
+  const profileData = isWebChat ? (webProfileData ? { contact: webProfileData, notes: webProfileData.notes || [], media: {}, assigned_agent: webProfileData.assigned_to } : undefined) : waProfileData;
+  const isLoadingProfile = isWebChat ? webProfileLoading : waProfileLoading;
+
   const { data: agentsData } = useGetAgentDataQuery({ status: "active" });
   const { data: aiAgentsData } = useGetCallAgentsQuery({ limit: 100 });
   const agents = agentsData?.data?.agents || [];
@@ -35,13 +49,19 @@ const ChatProfile = () => {
   const isAgent = user?.role === "agent";
 
   const [addChatNote, { isLoading: isAddingNote }] = useAddChatNoteMutation();
+  const [addWebNote, { isLoading: isAddingWebNote }] = useAddWebNoteMutation();
   const [deleteChatNote] = useDeleteChatNoteMutation();
+  const [deleteWebNote] = useDeleteWebNoteMutation();
   const [assignAgent, { isLoading: isAssigningAgent }] = useAssignAgentMutation();
+  const [assignWebAgent, { isLoading: isAssigningWebAgent }] = useAssignWebChatMutation();
   const [unassignAgent, { isLoading: isUnassigningAgent }] = useUnassignAgentMutation();
+  const [unassignWebAgent, { isLoading: isUnassigningWebAgent }] = useUnassignWebChatMutation();
   const [deleteContact] = useDeleteContactMutation();
   const [createTag, { isLoading: isCreatingTag }] = useCreateTagMutation();
   const [addChatTag, { isLoading: isAddingChatTag }] = useAddChatTagMutation();
+  const [addWebTag, { isLoading: isAddingWebTag }] = useAddWebTagMutation();
   const [deleteChatTag] = useDeleteChatTagMutation();
+  const [deleteWebTag] = useDeleteWebTagMutation();
 
   const [assignAIAgent, { isLoading: isAssigningAIAgent }] = useAssignAgentToContactMutation();
   const [removeAIAgent, { isLoading: isRemovingAIAgent }] = useRemoveAgentFromContactMutation();
@@ -60,11 +80,11 @@ const ChatProfile = () => {
 
   const handleSaveNote = async (note: string) => {
     try {
-      await addChatNote({
-        contact_id: contactId as string,
-        whatsapp_phone_number_id: selectedPhoneNumberId as string,
-        note,
-      }).unwrap();
+      if (isWebChat) {
+        await addWebNote({ conversation_id: contactId as string, note }).unwrap();
+      } else {
+        await addChatNote({ contact_id: contactId as string, whatsapp_phone_number_id: selectedPhoneNumberId as string, note }).unwrap();
+      }
       toast.success("Note saved successfully");
     } catch {
       toast.error("Failed to save note");
@@ -73,7 +93,11 @@ const ChatProfile = () => {
 
   const handleDeleteNote = async (noteId: string) => {
     try {
-      await deleteChatNote({ ids: [noteId], contact_id: contactId as string }).unwrap();
+      if (isWebChat) {
+        await deleteWebNote({ ids: [noteId] }).unwrap();
+      } else {
+        await deleteChatNote({ ids: [noteId], contact_id: contactId as string }).unwrap();
+      }
       toast.success("Note deleted successfully");
     } catch {
       toast.error("Failed to delete note");
@@ -82,11 +106,11 @@ const ChatProfile = () => {
 
   const handleAssignAgent = async (agentId: string) => {
     try {
-      await assignAgent({
-        contact_id: contactId as string,
-        agent_id: agentId,
-        whatsapp_phone_number_id: selectedPhoneNumberId as string,
-      }).unwrap();
+      if (isWebChat) {
+        await assignWebAgent({ conversation_id: contactId as string, agent_id: agentId }).unwrap();
+      } else {
+        await assignAgent({ contact_id: contactId as string, agent_id: agentId, whatsapp_phone_number_id: selectedPhoneNumberId as string }).unwrap();
+      }
       toast.success("Agent assigned successfully");
     } catch {
       toast.error("Failed to assign agent");
@@ -95,10 +119,11 @@ const ChatProfile = () => {
 
   const handleUnassignAgent = async () => {
     try {
-      await unassignAgent({
-        contact_id: contactId as string,
-        whatsapp_phone_number_id: selectedPhoneNumberId as string,
-      }).unwrap();
+      if (isWebChat) {
+        await unassignWebAgent({ conversation_id: contactId as string }).unwrap();
+      } else {
+        await unassignAgent({ contact_id: contactId as string, whatsapp_phone_number_id: selectedPhoneNumberId as string }).unwrap();
+      }
       toast.success("Agent unassigned successfully");
     } catch {
       toast.error("Failed to unassign agent");
@@ -159,11 +184,11 @@ const ChatProfile = () => {
     let lastResponse: any = null;
     for (const tagId of tagIds) {
       try {
-        lastResponse = await addChatTag({
-          contact_id: contactId as string,
-          tag_id: tagId,
-          whatsapp_phone_number_id: selectedPhoneNumberId as string,
-        }).unwrap();
+        if (isWebChat) {
+          lastResponse = await addWebTag({ conversation_id: contactId as string, tag_id: tagId }).unwrap();
+        } else {
+          lastResponse = await addChatTag({ contact_id: contactId as string, tag_id: tagId, whatsapp_phone_number_id: selectedPhoneNumberId as string }).unwrap();
+        }
         successCount++;
       } catch (error: any) {
         toast.error(error?.data?.message || "Failed to add label");
@@ -177,11 +202,11 @@ const ChatProfile = () => {
 
   const handleRemoveLabel = async (tagId: string) => {
     try {
-      await deleteChatTag({
-        contactId: contactId as string,
-        tagId: tagId,
-        whatsapp_phone_number_id: selectedPhoneNumberId as string,
-      }).unwrap();
+      if (isWebChat) {
+        await deleteWebTag({ conversation_id: contactId as string, tag_id: tagId }).unwrap();
+      } else {
+        await deleteChatTag({ contactId: contactId as string, tagId: tagId, whatsapp_phone_number_id: selectedPhoneNumberId as string }).unwrap();
+      }
       toast.success("Label removed successfully");
     } catch {
       toast.error("Failed to remove label");
@@ -205,11 +230,11 @@ const ChatProfile = () => {
         <div className="sm:p-4 p-2 space-y-4 overflow-y-auto custom-scrollbar">
           <ProfileContactSummary profileData={profileData} onDelete={handleDeleteContact} onOpenTagModal={() => setIsTagModalOpen(true)} onRemoveLabel={handleRemoveLabel} />
 
-          <ProfileChatNote notes={profileData?.notes || []} onSave={handleSaveNote} onDelete={handleDeleteNote} isLoading={isAddingNote} />
+          <ProfileChatNote notes={profileData?.notes || []} onSave={handleSaveNote} onDelete={handleDeleteNote} isLoading={isAddingNote || isAddingWebNote} />
 
-          {!isAgent && <ProfileAssignAgent agents={agents?.map((a: any) => ({ id: a?._id, name: a?.name, email: a?.email })) || []} selectedAgentId={profileData?.assigned_agent?._id || profileData?.contact?.assigned_agent} onAssign={handleAssignAgent} onUnassign={handleUnassignAgent} isLoading={isAssigningAgent} isUnassigning={isUnassigningAgent} />}
+          {!isAgent && <ProfileAssignAgent agents={agents?.map((a: any) => ({ id: a?._id, name: a?.name, email: a?.email })) || []} selectedAgentId={isWebChat ? profileData?.assigned_agent?.id : (profileData?.assigned_agent?._id || profileData?.contact?.assigned_agent)} onAssign={handleAssignAgent} onUnassign={handleUnassignAgent} isLoading={isAssigningAgent || isAssigningWebAgent} isUnassigning={isUnassigningAgent || isUnassigningWebAgent} />}
 
-          {!isAgent && <ProfileAssignAICallAgent agents={aiAgents} selectedAgentId={profileData?.contact?.assigned_call_agent_id || profileData?.assigned_call_agent_id || profileData?.assigned_call_agent?._id} assignedAgent={profileData?.assigned_call_agent} onAssign={handleAssignAIAgent} onUnassign={handleRemoveAIAgent} isLoading={isAssigningAIAgent} isUnassigning={isRemovingAIAgent} />}
+          {!isAgent && !isWebChat && <ProfileAssignAICallAgent agents={aiAgents} selectedAgentId={profileData?.contact?.assigned_call_agent_id || profileData?.assigned_call_agent_id || profileData?.assigned_call_agent?._id} assignedAgent={profileData?.assigned_call_agent} onAssign={handleAssignAIAgent} onUnassign={handleRemoveAIAgent} isLoading={isAssigningAIAgent} isUnassigning={isRemovingAIAgent} />}
 
           <ProfileMediaAssets media={profileData?.media || {}} />
         </div>

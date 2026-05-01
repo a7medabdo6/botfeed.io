@@ -167,13 +167,7 @@ export const MENUITEMS: MenuItem[] = [
     order: 8,
     permission: "view.widget",
   },
-  {
-    icon: <MessageSquare size={20} />,
-    label: "sidebar.web_chat",
-    path: "/web_chat",
-    order: 3,
-    permission: "manage.conversations",
-  },
+  
   {
     icon: <Receipt size={20} />,
     label: "sidebar.subscription",

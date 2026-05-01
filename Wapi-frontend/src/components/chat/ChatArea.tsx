@@ -3,7 +3,7 @@ import { Button } from "@/src/elements/ui/button";
 import { Textarea } from "@/src/elements/ui/textarea";
 import { useChatTheme } from "@/src/hooks/useChatTheme";
 import { cn } from "@/src/lib/utils";
-import { useGetMessagesQuery, useSendMessageMutation, useUpdateChatStatusMutation } from "@/src/redux/api/chatApi";
+import { useGetMessagesQuery, useGetWebMessagesQuery, useSendMessageMutation, useSendWebMessageMutation, useUpdateChatStatusMutation, useUpdateWebChatStatusMutation } from "@/src/redux/api/chatApi";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
 import { clearReplyToMessage, selSelectPhoneNumber, setIsMobileScreen, setLeftSidebartoggle, setProfileToggle, updateSelectedChatStatus } from "@/src/redux/reducers/messenger/chatSlice";
 import { openPreview } from "@/src/redux/reducers/previewSlice";
@@ -54,6 +54,7 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
   const currentContactName = contactName || selectedChat?.contact.name;
   const currentContactNumber = contactNumber || selectedChat?.contact.number;
   const currentContactAvatar = contactAvatar || selectedChat?.contact.avatar;
+  const isWebChat = selectedChat?.channel === "web";
 
   const { allow_media_send, app_name } = useAppSelector((state: RootState) => state.setting);
 
@@ -77,15 +78,23 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
   const { userSetting } = useAppSelector((state) => state.setting);
   const userSettingData = userSetting?.data;
 
-  const { data: messagesData, isLoading } = useGetMessagesQuery(
+  const { data: waMessagesData, isLoading: waLoading } = useGetMessagesQuery(
     {
       contact_id: currentContactId,
       whatsapp_phone_number_id: currentPhoneNumberId || undefined,
       start_date: dateFilters.startDate,
       end_date: dateFilters.endDate,
     },
-    { skip: !currentContactId || !currentPhoneNumberId }
+    { skip: !currentContactId || !currentPhoneNumberId || isWebChat }
   );
+
+  const { data: webMessagesData, isLoading: webLoading } = useGetWebMessagesQuery(
+    { conversationId: currentContactId! },
+    { skip: !currentContactId || !isWebChat, pollingInterval: 5000 }
+  );
+
+  const messagesData = isWebChat ? webMessagesData : waMessagesData;
+  const isLoading = isWebChat ? webLoading : waLoading;
 
   const lastInboundTime = (() => {
     if (!messagesData?.messages) return null;
@@ -99,17 +108,20 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
   })();
 
   const [sendMessage, { isLoading: isSending }] = useSendMessageMutation();
+  const [sendWebMsg, { isLoading: isWebSending }] = useSendWebMessageMutation();
   const [updateStatus, { isLoading: isStatusUpdating }] = useUpdateChatStatusMutation();
+  const [updateWebStatus, { isLoading: isWebStatusUpdating }] = useUpdateWebChatStatusMutation();
 
   const handleToggleStatus = async () => {
-    if (!selectedChat || !selectedPhoneNumberId) return;
+    if (!selectedChat) return;
     const newStatus = selectedChat.contact.chat_status === "open" ? "resolved" : "open";
     try {
-      await updateStatus({
-        contact_id: currentContactId!,
-        whatsapp_phone_number_id: currentPhoneNumberId!,
-        status: newStatus,
-      }).unwrap();
+      if (isWebChat) {
+        await updateWebStatus({ conversation_id: currentContactId!, status: newStatus }).unwrap();
+      } else {
+        if (!selectedPhoneNumberId) return;
+        await updateStatus({ contact_id: currentContactId!, whatsapp_phone_number_id: currentPhoneNumberId!, status: newStatus }).unwrap();
+      }
       dispatch(updateSelectedChatStatus(newStatus));
       toast.success(`Chat marked as ${newStatus}`);
     } catch (error: any) {
@@ -131,7 +143,29 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
   };
 
   const handleSend = async () => {
-    if ((!messageText.trim() && selectedMedia.length === 0) || !selectedChat || !selectedPhoneNumberId) return;
+    if ((!messageText.trim() && selectedMedia.length === 0) || !selectedChat) return;
+
+    if (isWebChat) {
+      if (!messageText.trim()) return;
+      try {
+        const webPayload: any = { conversation_id: currentContactId!, message: messageText, type: "text" };
+        if (selectedMedia.length > 0) {
+          webPayload.file_url = selectedMedia[0].fileUrl;
+          const mt = selectedMedia[0].mimeType;
+          webPayload.type = mt.startsWith("image/") ? "image" : mt.startsWith("video/") ? "video" : mt.startsWith("audio/") ? "audio" : "document";
+        }
+        if (replyToMessage?.wa_message_id) webPayload.reply_message_id = replyToMessage.wa_message_id;
+        await sendWebMsg(webPayload).unwrap();
+        setMessageText("");
+        setSelectedMedia([]);
+        dispatch(clearReplyToMessage());
+      } catch (error: any) {
+        toast.error(error?.message || "Failed to send message");
+      }
+      return;
+    }
+
+    if (!selectedPhoneNumberId) return;
     try {
       const payload: SendMessagePayload = {
         whatsapp_phone_number_id: currentPhoneNumberId!,
@@ -165,7 +199,19 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
   };
 
   const handleDirectSend = async (text: string) => {
-    if (!text.trim() || !selectedChat || !selectedPhoneNumberId) return;
+    if (!text.trim() || !selectedChat) return;
+
+    if (isWebChat) {
+      try {
+        await sendWebMsg({ conversation_id: currentContactId!, message: text, type: "text" }).unwrap();
+        dispatch(clearReplyToMessage());
+      } catch (error: any) {
+        toast.error(error?.message || "Failed to send message");
+      }
+      return;
+    }
+
+    if (!selectedPhoneNumberId) return;
     try {
       const payload: SendMessagePayload = {
         whatsapp_phone_number_id: currentPhoneNumberId!,
@@ -368,11 +414,11 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
             {currentContactAvatar ? <Image src={currentContactAvatar} alt={currentContactName || ""} width={40} height={40} className="object-cover" unoptimized /> : getInitials(app_name || "W")}
           </div>
           <div>
-            <h3 className="font-semibold text-sm truncate  [@media(max-width:390px)]:max-w-16.5">{isAgent && user?.is_phoneno_hide ? "Customer" : maskSensitiveData(currentContactNumber, "phone", is_demo_mode)}</h3>
+            <h3 className="font-semibold text-sm truncate  [@media(max-width:390px)]:max-w-16.5">{isWebChat ? currentContactName : isAgent && user?.is_phoneno_hide ? "Customer" : maskSensitiveData(currentContactNumber, "phone", is_demo_mode)}</h3>
           </div>
         </div>
         <div className="flex items-center sm:gap-1 gap-0 [@media(max-width:430px)]:ml-auto rtl:[@media(max-width:430px)]:ml-0 rtl:[@media(max-width:430px)]:mr-auto [@media(max-width:430px)]:flex-wrap">
-          {lastInboundTime && !isBaileys && (
+          {lastInboundTime && !isBaileys && !isWebChat && (
             <div className="mr-2">
               <WhatsAppTimer key={currentContactId} lastInboundTime={lastInboundTime} onExpire={() => setIsWindowExpired(true)} />
             </div>
@@ -479,9 +525,9 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
         </div>
       )}
 
-      {selectedChat?.contact?.chat_status === "resolved" ? (
+      {selectedChat?.contact?.chat_status === "resolved" && !isWebChat ? (
         <ResolvedChatBanner contactId={currentContactId!} phoneNumberId={currentPhoneNumberId!} />
-      ) : (!isWindowExpired || isBaileys) && (lastInboundTime || isBaileys) ? (
+      ) : (isWebChat || ((!isWindowExpired || isBaileys) && (lastInboundTime || isBaileys))) ? (
         <div className="relative border-t border-gray-200 dark:border-(--card-border-color) rounded-b-lg overflow-hidden" style={isCustom ? { backgroundColor: "color-mix(in srgb, var(--chat-theme-color), transparent 97%)" } : {}}>
           {replyToMessage && (
             <div className="mx-2 mt-2 p-2 bg-slate-100 dark:bg-(--page-body-bg) border-l-4 border-primary rounded-r-lg flex justify-between items-start animate-in slide-in-from-bottom-1 duration-200">
@@ -500,7 +546,7 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
               </button>
             </div>
           )}
-          {isAudioRecording ? (
+          {!isWebChat && isAudioRecording ? (
             <div className="w-full bg-transparent">
               <AudioRecorder onSend={handleAudioSend} onCancel={() => setIsAudioRecording(false)} />
             </div>
@@ -526,7 +572,7 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
                   <BotMessageSquare size={22} />
                 </Button>
 
-                {allow_media_send && <ChatAttachmentMenu isBaileys={isBaileys} onFileSelect={handleFileSelect} onMediaLibraryOpen={() => setIsMediaModalOpen(true)} onLocationClick={() => setIsLocationModalOpen(true)} onInteractiveClick={handleInteractiveClick} onAudioClick={() => setIsAudioRecording(true)} />}
+                {!isWebChat && allow_media_send && <ChatAttachmentMenu isBaileys={isBaileys} onFileSelect={handleFileSelect} onMediaLibraryOpen={() => setIsMediaModalOpen(true)} onLocationClick={() => setIsLocationModalOpen(true)} onInteractiveClick={handleInteractiveClick} onAudioClick={() => setIsAudioRecording(true)} />}
 
                 <Button
                   variant="ghost"
@@ -570,8 +616,8 @@ const ChatArea: React.FC<ChatAreaProps> = ({ contactId, phoneNumberId, contactNa
               </div>
 
               <div className="pr-1 [@media(max-width:535px)]:absolute [@media(max-width:535px)]:right-2.5 [@media(max-width:535px)]:bottom-2">
-                <Button onClick={handleSend} disabled={(!messageText.trim() && selectedMedia.length === 0) || isSending || isLoading} className={cn("h-10 w-10 rounded-lg flex items-center justify-center transition-all duration-300", messageText.trim() || selectedMedia.length > 0 ? "text-white shadow-sky-500/20" : "bg-slate-100 dark:bg-primary dark:text-gray-300 text-slate-400")} style={messageText.trim() || selectedMedia.length > 0 ? { backgroundColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}>
-                  {isSending || isLoading ? <Loader2 className="animate-spin" size={20} /> : <Send size={20} />}
+                <Button onClick={handleSend} disabled={(!messageText.trim() && selectedMedia.length === 0) || isSending || isWebSending || isLoading} className={cn("h-10 w-10 rounded-lg flex items-center justify-center transition-all duration-300", messageText.trim() || selectedMedia.length > 0 ? "text-white shadow-sky-500/20" : "bg-slate-100 dark:bg-primary dark:text-gray-300 text-slate-400")} style={messageText.trim() || selectedMedia.length > 0 ? { backgroundColor: userSettingData?.theme_color == "null" ? "#00AEEF" : "var(--chat-theme-color)" } : {}}>
+                  {isSending || isWebSending || isLoading ? <Loader2 className="animate-spin" size={20} /> : <Send size={20} />}
                 </Button>
               </div>
             </div>

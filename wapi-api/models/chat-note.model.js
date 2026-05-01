@@ -14,9 +14,19 @@ const chatNoteSchema = new mongoose.Schema({
     ref: 'Contact',
     default: null
   },
+  web_conversation_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'WebConversation',
+    default: null
+  },
   whatsapp_phone_number_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'WhatsappPhoneNumber',
+    default: null
+  },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     default: null
   },
   note: {

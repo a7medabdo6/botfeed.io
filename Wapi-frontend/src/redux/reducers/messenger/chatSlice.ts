@@ -4,9 +4,12 @@ import { getStorage } from "@/src/utils";
 
 const storage = getStorage();
 
+export type ChatChannel = "all" | "whatsapp" | "web";
+
 interface ChatState {
   selectedChat: RecentChatResponseItem | null;
   selectedPhoneNumberId: string | null;
+  selectedChannel: ChatChannel;
   profileToggle: boolean;
   isRehydrated: boolean;
   leftSidebartoggle: boolean;
@@ -17,6 +20,7 @@ interface ChatState {
 const initialState: ChatState = {
   selectedChat: null,
   selectedPhoneNumberId: null,
+  selectedChannel: "all",
   profileToggle: true,
   isRehydrated: false,
   leftSidebartoggle: true,
@@ -32,6 +36,7 @@ const chatSlice = createSlice({
       state.selectedChat = storage.getItem("selectedChat");
       const savedPhoneId = storage.getItem("selectedPhoneNumberId");
       state.selectedPhoneNumberId = savedPhoneId === "undefined" || !savedPhoneId ? null : savedPhoneId;
+      storage.removeItem("selectedChannel");
       state.isRehydrated = true;
     },
     selectChat: (state, action: PayloadAction<RecentChatResponseItem | null>) => {
@@ -89,6 +94,12 @@ const chatSlice = createSlice({
     clearReplyToMessage: (state) => {
       state.replyToMessage = null;
     },
+    setSelectedChannel: (state, action: PayloadAction<ChatChannel>) => {
+      state.selectedChannel = action.payload;
+      state.selectedChat = null;
+      state.replyToMessage = null;
+      storage.removeItem("selectedChat");
+    },
     resetChatState: (state) => {
       state.selectedChat = null;
       state.selectedPhoneNumberId = null;
@@ -100,5 +111,5 @@ const chatSlice = createSlice({
   },
 });
 
-export const { selectChat, selSelectPhoneNumber, setProfileToggle, setProfileToggleStatus, rehydrateChat, setLeftSidebartoggle, setIsMobileScreen, resetChatState, updateSelectedChatStatus, setReplyToMessage, clearReplyToMessage } = chatSlice.actions;
+export const { selectChat, selSelectPhoneNumber, setProfileToggle, setProfileToggleStatus, rehydrateChat, setLeftSidebartoggle, setIsMobileScreen, resetChatState, updateSelectedChatStatus, setReplyToMessage, clearReplyToMessage, setSelectedChannel } = chatSlice.actions;
 export default chatSlice.reducer;

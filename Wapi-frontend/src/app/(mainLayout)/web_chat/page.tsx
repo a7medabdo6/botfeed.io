@@ -1,7 +1,14 @@
 "use client";
 
-import WebChatInbox from "@/src/components/web-chat/WebChatInbox";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function WebChatPage() {
-  return <WebChatInbox />;
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/chat?channel=web");
+  }, [router]);
+
+  return null;
 }

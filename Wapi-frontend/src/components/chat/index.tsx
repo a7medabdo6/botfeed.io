@@ -8,17 +8,24 @@ import ChatProfile from "./ChatProfile";
 import ChatSidebar from "./ChatSidebar";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { setIsMobileScreen, setLeftSidebartoggle, setProfileToggleStatus } from "@/src/redux/reducers/messenger/chatSlice";
+import { ChatChannel, setIsMobileScreen, setLeftSidebartoggle, setProfileToggleStatus, setSelectedChannel } from "@/src/redux/reducers/messenger/chatSlice";
 import { setSidebarToggle } from "@/src/redux/reducers/layoutSlice";
 import { setPageTitle } from "@/src/redux/reducers/settingSlice";
 import { ChevronLeft } from "lucide-react";
 import WabaRequired from "@/src/shared/WabaRequired";
 import { useGetWorkspacesQuery } from "@/src/redux/api/workspaceApi";
 import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+const VALID_CHANNELS: ChatChannel[] = ["all", "whatsapp", "web"];
 
 const Chat = () => {
   const dispatch = useAppDispatch();
-  const { selectedChat, profileToggle, isRehydrated, leftSidebartoggle } = useSelector((state: RootState) => state.chat);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const channelFromUrl = searchParams.get("channel");
+  const { selectedChat, profileToggle, isRehydrated, leftSidebartoggle, selectedChannel } = useSelector((state: RootState) => state.chat);
   const { selectedWorkspace }: any = useAppSelector((state) => state.workspace);
   const { data: workspacesData } = useGetWorkspacesQuery();
 
@@ -29,6 +36,20 @@ const Chat = () => {
 
   const isConnected = isBaileys ? !!currentWabaId && currentStatus === "connected" : !!currentWabaId;
   const { app_name } = useAppSelector((state) => state.setting);
+
+  useEffect(() => {
+    const raw = channelFromUrl;
+    const next: ChatChannel = raw && VALID_CHANNELS.includes(raw as ChatChannel) ? (raw as ChatChannel) : "all";
+    if (next !== selectedChannel) {
+      dispatch(setSelectedChannel(next));
+    }
+    if (!raw || !VALID_CHANNELS.includes(raw as ChatChannel)) {
+      const p = new URLSearchParams(searchParams.toString());
+      p.set("channel", next);
+      const qs = p.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    }
+  }, [channelFromUrl, pathname, searchParams.toString(), dispatch, selectedChannel, router]);
 
   useEffect(() => {
     dispatch(setSidebarToggle(true));
@@ -80,22 +101,21 @@ const Chat = () => {
     );
   };
 
-  if (!isConnected) {
-    return (
-      <div className="h-[calc(100vh-82px)] bg-slate-50 dark:bg-(--dark-body)">
-        <WabaRequired />
-      </div>
-    );
-  }
+  const showWabaRequired = !isConnected && selectedChannel === "whatsapp";
+  const showSidebar = leftSidebartoggle || showWabaRequired;
 
   return (
     <>
       <div className="flex h-[calc(100vh-82px)] bg-[#f4f4f485] dark:bg-(--dark-body)  dark:border-(--card-border-color)">
         <div className="flex sm:m-4 m-3 flex-1 w-auto gap-4 [@media(max-width:335px)]:w-[calc(100%-22px)] relative">
-          {leftSidebartoggle && <ChatSidebar />}
+          {showSidebar && <ChatSidebar />}
           {!isRehydrated ? (
             <div className="flex-1 flex items-center justify-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+          ) : showWabaRequired ? (
+            <div className="flex-1 min-w-0 h-[calc(100vh-82px)] sm:h-auto sm:min-h-[480px] bg-slate-50 dark:bg-(--dark-body) rounded-lg border border-gray-200 dark:border-(--card-border-color) overflow-auto">
+              <WabaRequired />
             </div>
           ) : selectedChat ? (
             <ChatArea />

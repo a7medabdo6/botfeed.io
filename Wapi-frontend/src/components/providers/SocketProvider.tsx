@@ -24,6 +24,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
         socket.emit(SOCKET.Emitters.Join_Room, userId);
         socket.emit(SOCKET.Emitters.Set_Online);
         socket.emit(SOCKET.Emitters.Request_Status_Update);
+        socket.emit("web-inbox:join", { userId });
       };
 
       const handleConnectError = (error: Error) => {

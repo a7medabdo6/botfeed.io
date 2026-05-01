@@ -32,7 +32,17 @@ export async function handleVisitorMessage({ conversationId, content, io }) {
 
   conversation.last_message_at = new Date();
   conversation.unread_count += 1;
+  conversation.last_message_content = content;
+  conversation.last_message_type = 'text';
+  conversation.last_message_direction = 'inbound';
   await conversation.save();
+
+  const globalIo = global.__botfeedIo;
+  if (globalIo) {
+    globalIo.to(`web-inbox:${conversation.user_id}`).emit('web:new_message', {
+      conversationId, direction: 'inbound', content,
+    });
+  }
 
   const room = `widget:${conversationId}`;
 
@@ -119,6 +129,9 @@ export async function handleAgentReply({ conversationId, content, agentId, io })
 
   conversation.last_message_at = new Date();
   conversation.unread_count = 0;
+  conversation.last_message_content = content;
+  conversation.last_message_type = 'text';
+  conversation.last_message_direction = 'outbound';
   if (!conversation.assigned_agent_id && agentId) {
     conversation.assigned_agent_id = agentId;
   }
@@ -146,6 +159,17 @@ export async function emitBotReply(conversationId, content, room, io) {
     content,
     message_type: 'text',
   });
+
+  try {
+    const conv = await WebConversation.findById(conversationId);
+    if (conv) {
+      conv.last_message_at = new Date();
+      conv.last_message_content = content;
+      conv.last_message_type = 'text';
+      conv.last_message_direction = 'outbound';
+      await conv.save();
+    }
+  } catch (_) {}
 
   if (io) {
     io.of('/widget').to(room).emit('widget:reply', {

@@ -16,8 +16,16 @@ const webConversationSchema = new mongoose.Schema({
   },
   last_message_at: { type: Date, default: Date.now },
   unread_count: { type: Number, default: 0 },
+  is_pinned: { type: Boolean, default: false },
+  tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
+  chat_status: { type: String, enum: ['open', 'resolved'], default: 'open', index: true },
+  last_message_content: { type: String, default: '' },
+  last_message_type: { type: String, default: 'text' },
+  last_message_direction: { type: String, enum: ['inbound', 'outbound'], default: 'inbound' },
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 webConversationSchema.index({ widget_config_id: 1, visitor_id: 1 }, { unique: true });
+webConversationSchema.index({ is_pinned: 1 });
+webConversationSchema.index({ tags: 1 });
 
 export default mongoose.model('WebConversation', webConversationSchema);

@@ -353,7 +353,75 @@ export const chatApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Chats"],
     }),
+
+    // ── Unified Inbox ──
+    getUnifiedChats: builder.query<RecentChatData, { channel?: string; search?: string; whatsapp_phone_number_id?: string; start_date?: string; end_date?: string; tags?: string; has_notes?: boolean; last_message_read?: boolean; is_assigned?: boolean; agent_id?: string }>({
+      query: (params) => ({ url: "/chat/unified", method: "GET", params }),
+      providesTags: ["Chats"],
+    }),
+    getWebMessages: builder.query<GetMessagesResponse, { conversationId: string; page?: number; limit?: number }>({
+      query: ({ conversationId, ...params }) => ({ url: `/chat/web/messages/${conversationId}`, method: "GET", params }),
+      providesTags: ["Messages"],
+    }),
+    sendWebMessage: builder.mutation<any, { conversation_id: string; message?: string; type?: string; file_url?: string; file_type?: string; reply_message_id?: string }>({
+      query: (body) => ({ url: "/chat/web/send", method: "POST", body }),
+      invalidatesTags: ["Chats", "Messages"],
+    }),
+    getWebChatProfile: builder.query<any, { conversationId: string }>({
+      query: ({ conversationId }) => ({ url: `/chat/web/profile/${conversationId}`, method: "GET" }),
+      providesTags: ["ContactProfile"],
+    }),
+    getWebNotes: builder.query<any, { conversationId: string }>({
+      query: ({ conversationId }) => ({ url: `/chat/web/notes/${conversationId}`, method: "GET" }),
+    }),
+    toggleWebPin: builder.mutation<any, { conversation_id: string }>({
+      query: (body) => ({ url: "/chat/web/pin", method: "POST", body }),
+      invalidatesTags: ["Chats"],
+    }),
+    addWebTag: builder.mutation<any, { conversation_id: string; tag_id: string }>({
+      query: (body) => ({ url: "/chat/web/tag", method: "POST", body }),
+      invalidatesTags: ["Chats", "ContactProfile"],
+    }),
+    deleteWebTag: builder.mutation<any, { conversation_id: string; tag_id: string }>({
+      query: (body) => ({ url: "/chat/web/tag", method: "DELETE", body }),
+      invalidatesTags: ["Chats", "ContactProfile"],
+    }),
+    addWebNote: builder.mutation<any, { conversation_id: string; note: string }>({
+      query: (body) => ({ url: "/chat/web/note", method: "POST", body }),
+    }),
+    deleteWebNote: builder.mutation<any, { ids: string[] }>({
+      query: (body) => ({ url: "/chat/web/note", method: "DELETE", body }),
+    }),
+    assignWebChat: builder.mutation<any, { conversation_id: string; agent_id: string }>({
+      query: (body) => ({ url: "/chat/web/assign", method: "POST", body }),
+      invalidatesTags: ["Chats", "ContactProfile"],
+    }),
+    unassignWebChat: builder.mutation<any, { conversation_id: string }>({
+      query: (body) => ({ url: "/chat/web/unassign", method: "POST", body }),
+      invalidatesTags: ["Chats", "ContactProfile"],
+    }),
+    updateWebChatStatus: builder.mutation<any, { conversation_id: string; status: "open" | "resolved" }>({
+      query: (body) => ({ url: "/chat/web/status", method: "POST", body }),
+      invalidatesTags: ["Chats"],
+    }),
+    deleteWebChat: builder.mutation<any, { conversation_ids: string[] }>({
+      query: (body) => ({ url: "/chat/web/delete", method: "POST", body }),
+      invalidatesTags: ["Chats"],
+    }),
   }),
 });
 
-export const { useGetRecentChatsQuery, useGetMessagesQuery, useLazyGetMessagesQuery, useSendMessageMutation, useGetContactProfileQuery, useAssignAgentMutation, useUnassignAgentMutation, useSuggestReplyMutation, useTransformMessageMutation, useAddChatNoteMutation, useDeleteChatNoteMutation, useAddChatTagMutation, useDeleteChatTagMutation, useTogglePinChatMutation, useUpdateChatStatusMutation, useDeleteChatMutation } = chatApi;
+export const {
+  useGetRecentChatsQuery, useGetMessagesQuery, useLazyGetMessagesQuery, useSendMessageMutation,
+  useGetContactProfileQuery, useAssignAgentMutation, useUnassignAgentMutation,
+  useSuggestReplyMutation, useTransformMessageMutation,
+  useAddChatNoteMutation, useDeleteChatNoteMutation, useAddChatTagMutation, useDeleteChatTagMutation,
+  useTogglePinChatMutation, useUpdateChatStatusMutation, useDeleteChatMutation,
+  // Unified inbox
+  useGetUnifiedChatsQuery, useGetWebMessagesQuery, useSendWebMessageMutation,
+  useGetWebChatProfileQuery, useGetWebNotesQuery,
+  useToggleWebPinMutation, useAddWebTagMutation, useDeleteWebTagMutation,
+  useAddWebNoteMutation, useDeleteWebNoteMutation,
+  useAssignWebChatMutation, useUnassignWebChatMutation,
+  useUpdateWebChatStatusMutation, useDeleteWebChatMutation,
+} = chatApi;

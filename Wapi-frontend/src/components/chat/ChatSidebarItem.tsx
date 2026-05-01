@@ -7,7 +7,7 @@ import { useAppSelector } from "@/src/redux/hooks";
 import { RecentChatResponseItem } from "@/src/types/components/chat";
 import { getInitials } from "@/src/utils";
 import { maskSensitiveData } from "@/src/utils/masking";
-import { CircleCheck, Pin } from "lucide-react";
+import { CircleCheck, Globe, Pin } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import ChatListItemDropdown from "./ChatListItemDropdown";
@@ -71,9 +71,14 @@ const ChatSidebarItem: React.FC<ChatSidebarItemProps> = ({ chat, isSelected, isS
           </div>
         ) : (
           <div className="relative shrink-0">
-            <div className="h-10 w-10 rounded-full flex items-center justify-center text-white font-bold border border-slate-100 dark:border-(--card-border-color) overflow-hidden" style={{ backgroundColor: finalColor }}>
-              {contact.avatar ? <Image src={contact.avatar} alt={contact.name} className="w-full h-full object-cover" width={48} height={48} unoptimized /> : getInitials(app_name || "W")}
+            <div className="h-10 w-10 rounded-full flex items-center justify-center text-white font-bold border border-slate-100 dark:border-(--card-border-color) overflow-hidden" style={{ backgroundColor: chat.channel === "web" ? "#6366f1" : finalColor }}>
+              {chat.channel === "web" ? <Globe size={18} /> : contact.avatar ? <Image src={contact.avatar} alt={contact.name} className="w-full h-full object-cover" width={48} height={48} unoptimized /> : getInitials(app_name || "W")}
             </div>
+            {chat.channel && (
+              <div className={cn("absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center border-2 border-white dark:border-(--card-color)", chat.channel === "web" ? "bg-indigo-500" : "bg-green-500")}>
+                {chat.channel === "web" ? <Globe size={8} className="text-white" /> : <svg viewBox="0 0 24 24" fill="white" className="w-2 h-2"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>}
+              </div>
+            )}
           </div>
         )}
 
@@ -81,7 +86,7 @@ const ChatSidebarItem: React.FC<ChatSidebarItemProps> = ({ chat, isSelected, isS
           <div className="flex justify-between items-center pr-2">
             <div className="flex items-center gap-2 truncate">
               <h3 className={cn("font-semibold truncate text-sm", selectedChatId === contact.id ? "" : "text-slate-900 dark:text-white")} style={selectedChatId === contact.id ? { color: finalColor } : {}}>
-                {isAgent && user?.is_phoneno_hide ? "Customer" : maskSensitiveData(contact.number, "phone", is_demo_mode)}
+                {chat.channel === "web" ? contact.name : isAgent && user?.is_phoneno_hide ? "Customer" : maskSensitiveData(contact.number, "phone", is_demo_mode)}
               </h3>
               {contact.chat_status === "resolved" && <Badge className="h-4 px-1.5 text-[8px] bg-sky-100 text-sky-700 border-sky-200 dark:bg-sky-500/10 dark:text-sky-400 dark:border-sky-500/20 font-bold uppercase tracking-tighter">Resolved</Badge>}
             </div>

@@ -149,6 +149,7 @@ export interface ChatState {
 }
 
 export interface RecentChatResponseItem {
+  channel?: "whatsapp" | "web";
   contact: {
     id: string;
     number: string;
@@ -156,6 +157,7 @@ export interface RecentChatResponseItem {
     avatar: string | null;
     labels: ContactLabel[];
     chat_status?: "open" | "resolved";
+    web_status?: "bot" | "human" | "closed";
   };
   lastMessage: {
     id: string;

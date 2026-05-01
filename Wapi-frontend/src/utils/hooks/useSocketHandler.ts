@@ -416,17 +416,23 @@ export const useSocketHandler = () => {
     [dispatch, refetchWorkspaces, selectedWorkspace]
   );
 
+  const handleWebMessage = useCallback(() => {
+    dispatch(chatApi.util.invalidateTags(["Chats", "Messages"]));
+  }, [dispatch]);
+
   useEffect(() => {
     socket.on(SOCKET.Listeners.Whatsapp_Message, handleMessage);
     socket.on(SOCKET.Listeners.Whatsapp_Status, handleStatusUpdate);
     socket.on(SOCKET.Listeners.Whatsapp_Connection_Update, handleConnectionUpdate);
+    socket.on("web:new_message", handleWebMessage);
 
     return () => {
       socket.off(SOCKET.Listeners.Whatsapp_Message, handleMessage);
       socket.off(SOCKET.Listeners.Whatsapp_Status, handleStatusUpdate);
       socket.off(SOCKET.Listeners.Whatsapp_Connection_Update, handleConnectionUpdate);
+      socket.off("web:new_message", handleWebMessage);
     };
-  }, [handleMessage, handleStatusUpdate, handleConnectionUpdate]);
+  }, [handleMessage, handleStatusUpdate, handleConnectionUpdate, handleWebMessage]);
 
   useEffect(() => {
     return () => {
