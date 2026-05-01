@@ -7,7 +7,16 @@ export type GoogleAccountRow = {
   created_at: string;
 };
 
-export const googleApi = baseApi.enhanceEndpoints({ addTagTypes: ["GoogleAccounts", "GoogleCalendars"] }).injectEndpoints({
+export type GoogleSheetRow = {
+  _id: string;
+  google_account_id: string;
+  sheet_id: string;
+  name: string;
+  is_linked?: boolean;
+  created_at?: string;
+};
+
+export const googleApi = baseApi.enhanceEndpoints({ addTagTypes: ["GoogleAccounts", "GoogleCalendars", "GoogleSheets"] }).injectEndpoints({
   endpoints: (builder) => ({
     getGoogleAuthUrl: builder.query<{ success: boolean; url?: string; message?: string }, void>({
       query: () => "/google/connect",
@@ -21,7 +30,7 @@ export const googleApi = baseApi.enhanceEndpoints({ addTagTypes: ["GoogleAccount
         url: `/google/accounts/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["GoogleAccounts", "GoogleCalendars"],
+      invalidatesTags: ["GoogleAccounts", "GoogleCalendars", "GoogleSheets"],
     }),
     syncGoogleCalendars: builder.mutation<{ success: boolean; calendars?: unknown[]; message?: string }, string>({
       query: (googleAccountId) => ({
@@ -33,6 +42,10 @@ export const googleApi = baseApi.enhanceEndpoints({ addTagTypes: ["GoogleAccount
     getGoogleCalendars: builder.query<{ success: boolean; calendars?: GoogleCalendarRow[]; message?: string }, string>({
       query: (googleAccountId) => `/google/accounts/${googleAccountId}/calendars`,
       providesTags: (_r, _e, googleAccountId) => [{ type: "GoogleCalendars", id: googleAccountId }],
+    }),
+    getGoogleSheets: builder.query<{ success: boolean; sheets?: GoogleSheetRow[]; message?: string }, string>({
+      query: (googleAccountId) => `/google/accounts/${googleAccountId}/sheets`,
+      providesTags: (_r, _e, googleAccountId) => [{ type: "GoogleSheets", id: googleAccountId }],
     }),
     linkGoogleCalendar: builder.mutation<{ success: boolean; calendar?: GoogleCalendarRow; message?: string }, { id: string; is_linked: boolean }>({
       query: ({ id, is_linked }) => ({
@@ -68,6 +81,7 @@ export const {
   useDisconnectGoogleAccountMutation,
   useSyncGoogleCalendarsMutation,
   useGetGoogleCalendarsQuery,
+  useGetGoogleSheetsQuery,
   useLinkGoogleCalendarMutation,
   useDeleteGoogleCalendarMutation,
 } = googleApi;

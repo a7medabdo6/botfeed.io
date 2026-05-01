@@ -14,6 +14,12 @@ import { AssignChatbotNode } from "./AssignChatbotNode";
 import { QuickReplyNode } from "./QuickReplyNode";
 import { SendTemplateNode } from "./SendTemplateNode";
 import { CallToActionNode } from "./CallToActionNode";
+import { GoogleSheetsNode } from "./GoogleSheetsNode";
+import { CalendarEventNode } from "./CalendarEventNode";
+import { AIAgentNode } from "./AIAgentNode";
+import { AgentChatModelNode } from "./AgentChatModelNode";
+import { AgentGoogleCalendarToolNode } from "./AgentGoogleCalendarToolNode";
+import { AgentGoogleSheetsToolNode } from "./AgentGoogleSheetsToolNode";
 
 export function CustomNode(props: any) {
   switch (props.data.nodeType) {
@@ -21,8 +27,26 @@ export function CustomNode(props: any) {
       return <ConditionNode {...props} />;
     case "assign_chatbot":
       return <AssignChatbotNode {...props} />;
+    case "ai_agent":
+      return <AIAgentNode {...props} />;
+    case "agent_chat_model":
+      return <AgentChatModelNode {...props} />;
+    case "agent_tool_google_calendar":
+    case "agent_tool_google_calendar_list":
+    case "agent_tool_google_calendar_create":
+    case "agent_tool_google_calendar_delete":
+      return <AgentGoogleCalendarToolNode {...props} />;
+    case "agent_tool_google_sheets":
+    case "agent_tool_google_sheets_read":
+    case "agent_tool_google_sheets_append":
+    case "agent_tool_google_sheets_update":
+      return <AgentGoogleSheetsToolNode {...props} />;
     case "delay":
       return <DelayNode {...props} />;
+    case "google_sheets":
+      return <GoogleSheetsNode {...props} />;
+    case "calendar_event":
+      return <CalendarEventNode {...props} />;
     case "trigger":
       return <TriggerNode {...props} />;
     case "text_message":

@@ -8,6 +8,8 @@ export interface BaseNodeProps {
   handleColor?: string;
   errors?: string[];
   children: React.ReactNode;
+  /** Rendered after main content, before the right (source) handle — e.g. extra target handles on an AI Agent node */
+  slotAfterContent?: React.ReactNode;
   showInHandle?: boolean;
   showOutHandle?: boolean;
   headerRight?: React.ReactNode;
@@ -15,7 +17,7 @@ export interface BaseNodeProps {
   /** Solid header bar (e.g. flow builder “Assign Chatbot” node) */
   filledHeader?: boolean;
   /** Header color when `filledHeader` is true */
-  filledHeaderTone?: "violet" | "emerald";
+  filledHeaderTone?: "violet" | "emerald" | "sheets" | "calendar" | "sky";
 }
 
 export interface NodeFieldProps {

@@ -13,6 +13,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { NODETEMPLATES } from "@/src/data/SidebarList";
+import { AGENT_SUPPLIER_NODE_TYPE_SET, isAgentGoogleCalendarToolNodeType, isAgentGoogleSheetsToolNodeType } from "./agentSupplierNodeTypes";
 import { CustomEdge } from "./edges/CustomEdge";
 import { CustomNode } from "./nodes/CustomNode";
 
@@ -98,6 +99,98 @@ const FlowCanvas = () => {
         sessionDurationHours: "0",
       };
     }
+    if (template.id === "ai_agent") {
+      return {
+        ...base,
+        messageType: undefined,
+        message: undefined,
+        stepName: "",
+        sessionDurationHours: "0",
+      };
+    }
+    if (template.id === "agent_chat_model") {
+      return { ...base, messageType: undefined, message: undefined, chatbotId: "" };
+    }
+    if (
+      template.id === "agent_tool_google_calendar_list" ||
+      template.id === "agent_tool_google_calendar_create" ||
+      template.id === "agent_tool_google_calendar_delete"
+    ) {
+      return {
+        ...base,
+        messageType: undefined,
+        message: undefined,
+        googleAccountId: "",
+        calendarDbId: "",
+      };
+    }
+    if (template.id === "agent_tool_google_calendar") {
+      return {
+        ...base,
+        messageType: undefined,
+        message: undefined,
+        googleAccountId: "",
+        calendarDbId: "",
+        toolCalendarList: true,
+        toolCalendarCreate: true,
+      };
+    }
+    if (template.id === "agent_tool_google_sheets_read") {
+      return {
+        ...base,
+        messageType: undefined,
+        message: undefined,
+        googleAccountId: "",
+        sheetDbId: "",
+        sheetTabName: "Sheet1",
+        sheetsReadRangeA1: "",
+      };
+    }
+    if (template.id === "agent_tool_google_sheets_append" || template.id === "agent_tool_google_sheets_update") {
+      return {
+        ...base,
+        messageType: undefined,
+        message: undefined,
+        googleAccountId: "",
+        sheetDbId: "",
+        sheetTabName: "Sheet1",
+      };
+    }
+    if (template.id === "agent_tool_google_sheets") {
+      return {
+        ...base,
+        messageType: undefined,
+        message: undefined,
+        googleAccountId: "",
+        sheetDbId: "",
+        sheetTabName: "Sheet1",
+      };
+    }
+    if (template.id === "google_sheets") {
+      return {
+        ...base,
+        messageType: undefined,
+        message: undefined,
+        stepName: "",
+        googleAccountId: "",
+        sheetDbId: "",
+        sheetTabName: "Sheet1",
+        columnMappings: [{ columnName: "Message", value: "{{message}}" }],
+      };
+    }
+    if (template.id === "calendar_event") {
+      return {
+        ...base,
+        messageType: undefined,
+        message: undefined,
+        googleAccountId: "",
+        calendarDbId: "",
+        eventTitle: "",
+        startTime: "",
+        endTime: "",
+        eventDescription: "",
+      };
+    }
     if (template.id === "quick_reply") {
       return { ...base, buttons: [] };
     }
@@ -158,6 +251,46 @@ const FlowCanvas = () => {
       if (node.data.nodeType === "assign_chatbot") {
         return !!(node.data.chatbotId && String(node.data.chatbotId).trim());
       }
+      if (node.data.nodeType === "ai_agent") {
+        const hasModel = edges.some((e) => e.target === node.id && e.targetHandle === "model-in");
+        const toolCount = edges.filter((e) => e.target === node.id && e.targetHandle === "tool-in").length;
+        if (!hasModel || toolCount === 0) return false;
+        return true;
+      }
+      if (node.data.nodeType === "agent_chat_model") {
+        return !!(node.data.chatbotId && String(node.data.chatbotId).trim());
+      }
+      if (isAgentGoogleCalendarToolNodeType(node.data.nodeType)) {
+        const acct = !!(node.data.googleAccountId && String(node.data.googleAccountId).trim());
+        const cal = !!(node.data.calendarDbId && String(node.data.calendarDbId).trim());
+        if (node.data.nodeType === "agent_tool_google_calendar") {
+          return acct && cal && (!!node.data.toolCalendarList || !!node.data.toolCalendarCreate);
+        }
+        return acct && cal;
+      }
+      if (isAgentGoogleSheetsToolNodeType(node.data.nodeType)) {
+        return (
+          !!(node.data.googleAccountId && String(node.data.googleAccountId).trim()) &&
+          !!(node.data.sheetDbId && String(node.data.sheetDbId).trim())
+        );
+      }
+      if (node.data.nodeType === "google_sheets") {
+        const maps = Array.isArray(node.data.columnMappings) ? node.data.columnMappings : [];
+        return (
+          !!(node.data.googleAccountId && String(node.data.googleAccountId).trim()) &&
+          !!(node.data.sheetDbId && String(node.data.sheetDbId).trim()) &&
+          maps.length > 0 &&
+          maps.every((m: any) => m.columnName && String(m.columnName).trim())
+        );
+      }
+      if (node.data.nodeType === "calendar_event") {
+        return (
+          !!(node.data.googleAccountId && String(node.data.googleAccountId).trim()) &&
+          !!(node.data.calendarDbId && String(node.data.calendarDbId).trim()) &&
+          !!(node.data.eventTitle && String(node.data.eventTitle).trim()) &&
+          !!(node.data.startTime && String(node.data.startTime).trim())
+        );
+      }
       if (node.data.nodeType === "contact_card") {
         return node.data.contacts?.length > 0 && node.data.contacts.every((c: any) => c.firstName && c.phone);
       }
@@ -212,21 +345,29 @@ const FlowCanvas = () => {
 
           const resolvedNodeType =
             params.nodeType ||
-            (n.type === "assign_chatbot"
-              ? "assign_chatbot"
-              : n.type === "send_message" && params.template_id
-                ? "send_template"
-                : n.type === "send_message" && params.interactive_type === "cta_url"
-                  ? "call_to_action"
-                    : n.type === "send_message" && params.interactive_type === "button"
-                      ? params.nodeType === "quick_reply"
-                        ? "quick_reply"
-                        : "button_message"
-                      : n.type === "send_message"
-                        ? "text_message"
-                      : n.type === "trigger"
-                        ? "trigger"
-                        : n.type);
+            (AGENT_SUPPLIER_NODE_TYPE_SET.has(n.type)
+              ? n.type
+              : n.type === "ai_agent"
+                  ? "ai_agent"
+                  : n.type === "google_sheets"
+                    ? "google_sheets"
+                    : n.type === "calendar_event"
+                      ? "calendar_event"
+                      : n.type === "assign_chatbot"
+                        ? "assign_chatbot"
+                        : n.type === "send_message" && params.template_id
+                          ? "send_template"
+                          : n.type === "send_message" && params.interactive_type === "cta_url"
+                            ? "call_to_action"
+                            : n.type === "send_message" && params.interactive_type === "button"
+                              ? params.nodeType === "quick_reply"
+                                ? "quick_reply"
+                                : "button_message"
+                              : n.type === "send_message"
+                                ? "text_message"
+                                : n.type === "trigger"
+                                  ? "trigger"
+                                  : n.type);
 
           return {
             id: n.id,
@@ -269,6 +410,68 @@ const FlowCanvas = () => {
                 ? {
                     mediaUrl: params.media_url,
                     caption: params.message_template,
+                  }
+                : {}),
+              ...(resolvedNodeType === "google_sheets"
+                ? {
+                    googleAccountId: params.google_account_id ?? params.googleAccountId ?? "",
+                    sheetDbId: params.sheet_db_id ?? params.sheetDbId ?? "",
+                    sheetTabName: params.sheet_tab_name ?? params.sheetTabName ?? "Sheet1",
+                    columnMappings: Array.isArray(params.columnMappings)
+                      ? params.columnMappings
+                      : (params.column_mappings || []).map((m: any) => ({
+                          columnName: m.column_name ?? m.columnName ?? "",
+                          value: m.value_template ?? m.value ?? "",
+                        })),
+                  }
+                : {}),
+              ...(resolvedNodeType === "ai_agent"
+                ? {
+                    ...(String(params.chatbot_id || params.chatbotId || "").trim()
+                      ? { chatbotId: params.chatbot_id ?? params.chatbotId }
+                      : {}),
+                    ...(params.google_account_id || params.googleAccountId
+                      ? {
+                          googleAccountId: params.google_account_id ?? params.googleAccountId ?? "",
+                          calendarDbId: params.calendar_db_id ?? params.calendarDbId ?? "",
+                          sheetDbId: params.sheet_db_id ?? params.sheetDbId ?? "",
+                          sheetTabName: params.sheet_tab_name ?? params.sheetTabName ?? "Sheet1",
+                          agentToolCalendarList: !!params.tool_calendar_list,
+                          agentToolCalendarCreate: !!params.tool_calendar_create,
+                          agentToolSheetsAppend: !!params.tool_sheets_append,
+                        }
+                      : {}),
+                  }
+                : {}),
+              ...(resolvedNodeType === "agent_chat_model"
+                ? {
+                    chatbotId: params.chatbot_id ?? params.chatbotId ?? "",
+                  }
+                : {}),
+              ...(isAgentGoogleCalendarToolNodeType(resolvedNodeType)
+                ? {
+                    googleAccountId: params.google_account_id ?? params.googleAccountId ?? "",
+                    calendarDbId: params.calendar_db_id ?? params.calendarDbId ?? "",
+                    toolCalendarList: !!params.tool_calendar_list,
+                    toolCalendarCreate: !!params.tool_calendar_create,
+                  }
+                : {}),
+              ...(isAgentGoogleSheetsToolNodeType(resolvedNodeType)
+                ? {
+                    googleAccountId: params.google_account_id ?? params.googleAccountId ?? "",
+                    sheetDbId: params.sheet_db_id ?? params.sheetDbId ?? "",
+                    sheetTabName: params.sheet_tab_name ?? params.sheetTabName ?? "Sheet1",
+                    sheetsReadRangeA1: params.sheets_read_range_a1 ?? params.sheetsReadRangeA1 ?? "",
+                  }
+                : {}),
+              ...(resolvedNodeType === "calendar_event"
+                ? {
+                    googleAccountId: params.google_account_id ?? params.googleAccountId ?? "",
+                    calendarDbId: params.calendar_db_id ?? params.calendarDbId ?? "",
+                    eventTitle: params.event_title ?? params.eventTitle ?? "",
+                    startTime: params.start ?? params.startTime ?? "",
+                    endTime: params.end ?? params.endTime ?? "",
+                    eventDescription: params.description ?? params.eventDescription ?? "",
                   }
                 : {}),
             },
@@ -370,6 +573,26 @@ const FlowCanvas = () => {
           if (node.id.startsWith(p)) return node.id;
           return `${p}${node.id}`;
         }
+        if (nodeType === "ai_agent") {
+          const p = "ai_agent-";
+          if (node.id.startsWith(p)) return node.id;
+          return `${p}${node.id}`;
+        }
+        if (AGENT_SUPPLIER_NODE_TYPE_SET.has(nodeType)) {
+          const p = `${nodeType}-`;
+          if (node.id.startsWith(p)) return node.id;
+          return `${p}${node.id}`;
+        }
+        if (nodeType === "google_sheets") {
+          const p = "google_sheets-";
+          if (node.id.startsWith(p)) return node.id;
+          return `${p}${node.id}`;
+        }
+        if (nodeType === "calendar_event") {
+          const p = "calendar_event-";
+          if (node.id.startsWith(p)) return node.id;
+          return `${p}${node.id}`;
+        }
         const prefix = "send_message-";
         if (node.id.startsWith(prefix)) return node.id;
         return `${prefix}${node.id}`;
@@ -425,12 +648,21 @@ const FlowCanvas = () => {
 
         while (currentNode && !visitedInBranch.has(currentNode.id)) {
           visitedInBranch.add(currentNode.id);
+          const nt = currentNode.data.nodeType;
           const type =
-            currentNode.data.nodeType === "delay"
+            nt === "delay"
               ? "delay"
-              : currentNode.data.nodeType === "assign_chatbot"
+              : nt === "assign_chatbot"
                 ? "assign_chatbot"
-                : "send_message";
+                : nt === "ai_agent"
+                  ? "ai_agent"
+                  : AGENT_SUPPLIER_NODE_TYPE_SET.has(nt)
+                    ? nt
+                    : nt === "google_sheets"
+                      ? "google_sheets"
+                      : nt === "calendar_event"
+                        ? "calendar_event"
+                        : "send_message";
           const payloadNodeId = getBackendId(currentNode);
 
           // Add node if not exists
@@ -446,7 +678,81 @@ const FlowCanvas = () => {
                         ? 0
                         : Number(currentNode.data.sessionDurationHours) || 0,
                   }
-                : { ...currentNode.data };
+                : type === "ai_agent"
+                  ? {
+                      nodeType: "ai_agent",
+                      step_name: (currentNode.data.stepName || "").trim(),
+                      session_duration_hours:
+                        currentNode.data.sessionDurationHours === "" || currentNode.data.sessionDurationHours === undefined
+                          ? 0
+                          : Number(currentNode.data.sessionDurationHours) || 0,
+                      ...(String(currentNode.data.chatbotId || "").trim()
+                        ? { chatbot_id: String(currentNode.data.chatbotId).trim() }
+                        : {}),
+                      ...(String(currentNode.data.googleAccountId || "").trim()
+                        ? {
+                            google_account_id: currentNode.data.googleAccountId,
+                            calendar_db_id: currentNode.data.calendarDbId || "",
+                            sheet_db_id: currentNode.data.sheetDbId || "",
+                            sheet_tab_name: (currentNode.data.sheetTabName || "Sheet1").trim() || "Sheet1",
+                            tool_calendar_list: !!currentNode.data.agentToolCalendarList,
+                            tool_calendar_create: !!currentNode.data.agentToolCalendarCreate,
+                            tool_sheets_append: !!currentNode.data.agentToolSheetsAppend,
+                          }
+                        : {}),
+                    }
+                  : type === "agent_chat_model"
+                    ? {
+                        nodeType: "agent_chat_model",
+                        chatbot_id: currentNode.data.chatbotId || "",
+                      }
+                    : isAgentGoogleCalendarToolNodeType(type)
+                      ? {
+                          nodeType: type,
+                          google_account_id: currentNode.data.googleAccountId || "",
+                          calendar_db_id: currentNode.data.calendarDbId || "",
+                          ...(type === "agent_tool_google_calendar"
+                            ? {
+                                tool_calendar_list: !!currentNode.data.toolCalendarList,
+                                tool_calendar_create: !!currentNode.data.toolCalendarCreate,
+                              }
+                            : {}),
+                        }
+                      : isAgentGoogleSheetsToolNodeType(type)
+                        ? {
+                            nodeType: type,
+                            google_account_id: currentNode.data.googleAccountId || "",
+                            sheet_db_id: currentNode.data.sheetDbId || "",
+                            sheet_tab_name: (currentNode.data.sheetTabName || "Sheet1").trim() || "Sheet1",
+                            ...(type === "agent_tool_google_sheets_read"
+                              ? {
+                                  sheets_read_range_a1: (currentNode.data.sheetsReadRangeA1 || "").trim(),
+                                }
+                              : {}),
+                          }
+                        : type === "google_sheets"
+                          ? {
+                              nodeType: "google_sheets",
+                              step_name: (currentNode.data.stepName || "").trim(),
+                              google_account_id: currentNode.data.googleAccountId || "",
+                              sheet_db_id: currentNode.data.sheetDbId || "",
+                              sheet_tab_name: (currentNode.data.sheetTabName || "Sheet1").trim() || "Sheet1",
+                              column_mappings: (currentNode.data.columnMappings || []).map((m: any) => ({
+                                column_name: (m.columnName || "").trim(),
+                                value_template: (m.value ?? "").trim(),
+                              })),
+                            }
+                          : type === "calendar_event"
+                            ? {
+                                nodeType: "calendar_event",
+                                google_account_id: currentNode.data.googleAccountId || "",
+                                calendar_db_id: currentNode.data.calendarDbId || "",
+                                event_title: (currentNode.data.eventTitle || "").trim(),
+                                start: (currentNode.data.startTime || "").trim(),
+                                end: (currentNode.data.endTime || "").trim(),
+                                description: (currentNode.data.eventDescription || "").trim(),
+                              }
+                            : { ...currentNode.data };
 
             // Map common UI fields to Backend fields
             if (type === "send_message") {
@@ -536,9 +842,19 @@ const FlowCanvas = () => {
               name:
                 type === "assign_chatbot"
                   ? (currentNode.data.stepName || "").trim() || currentNode.data.label || "Assign Chatbot"
-                  : currentNode.data.nodeType === "send_template"
-                    ? (currentNode.data.stepName || "").trim() || currentNode.data.label || "Send Template"
-                    : currentNode.data.label || currentNode.data.name || "Response",
+                  : type === "ai_agent"
+                    ? (currentNode.data.stepName || "").trim() || currentNode.data.label || "AI Agent"
+                    : type === "agent_chat_model"
+                      ? currentNode.data.label || "Chat model"
+                      : isAgentGoogleCalendarToolNodeType(type) || isAgentGoogleSheetsToolNodeType(type)
+                        ? currentNode.data.label || "Agent tool"
+                        : type === "google_sheets"
+                            ? (currentNode.data.stepName || "").trim() || currentNode.data.label || "Google Sheets"
+                            : type === "calendar_event"
+                              ? (currentNode.data.eventTitle || "").trim() || currentNode.data.label || "Calendar Event"
+                              : currentNode.data.nodeType === "send_template"
+                                ? (currentNode.data.stepName || "").trim() || currentNode.data.label || "Send Template"
+                                : currentNode.data.label || currentNode.data.name || "Response",
             });
           }
 
@@ -554,7 +870,15 @@ const FlowCanvas = () => {
             });
           }
 
-          const nextEdge = edges.find((e) => e.source === currentNode.id && (e.sourceHandle === "src" || (!e.sourceHandle?.startsWith("src-btn-") && !e.sourceHandle?.startsWith("src-item-"))));
+          const nextEdge = edges.find((e) => {
+            if (e.source !== currentNode.id) return false;
+            const sh = e.sourceHandle || "src";
+            if (sh.startsWith("src-btn-") || sh.startsWith("src-item-")) return false;
+            if (sh !== "src" && sh !== "default" && sh !== "source") return false;
+            const th = e.targetHandle || "tgt";
+            if (th !== "tgt" && th !== "target" && th !== "default") return false;
+            return true;
+          });
           if (nextEdge) {
             prevNodeId = payloadNodeId;
             currentNode = nodes.find((n) => n.id === nextEdge.target);
@@ -752,6 +1076,70 @@ const FlowCanvas = () => {
           }
         }
       }
+
+      const mergeAgentGraphIntoPayload = () => {
+        const connKeyStr = (c: { source: string; target: string; sourceHandle: string; targetHandle: string }) =>
+          `${c.source}|${c.target}|${c.sourceHandle}|${c.targetHandle}`;
+        const seenConn = new Set(formattedConnections.map(connKeyStr));
+
+        for (const n of nodes as any[]) {
+          const nt = n.data?.nodeType;
+          if (!AGENT_SUPPLIER_NODE_TYPE_SET.has(nt)) continue;
+          const bid = getBackendId(n);
+          if (formattedNodes.some((fn) => fn.id === bid)) continue;
+
+          let parameters: Record<string, unknown> = { nodeType: nt };
+          let displayName = (n.data.label as string) || String(nt);
+          if (nt === "agent_chat_model") {
+            parameters.chatbot_id = n.data.chatbotId || "";
+            displayName = "Chat model";
+          } else if (isAgentGoogleCalendarToolNodeType(nt)) {
+            parameters.google_account_id = n.data.googleAccountId || "";
+            parameters.calendar_db_id = n.data.calendarDbId || "";
+            if (nt === "agent_tool_google_calendar") {
+              parameters.tool_calendar_list = !!n.data.toolCalendarList;
+              parameters.tool_calendar_create = !!n.data.toolCalendarCreate;
+            }
+            displayName = (n.data.label as string) || "Calendar tool";
+          } else if (isAgentGoogleSheetsToolNodeType(nt)) {
+            parameters.google_account_id = n.data.googleAccountId || "";
+            parameters.sheet_db_id = n.data.sheetDbId || "";
+            parameters.sheet_tab_name = (n.data.sheetTabName || "Sheet1").trim() || "Sheet1";
+            if (nt === "agent_tool_google_sheets_read") {
+              parameters.sheets_read_range_a1 = (n.data.sheetsReadRangeA1 || "").trim();
+            }
+            displayName = (n.data.label as string) || "Sheets tool";
+          }
+          formattedNodes.push({
+            id: bid,
+            type: nt,
+            position: n.position,
+            parameters,
+            name: displayName,
+          });
+        }
+
+        for (const e of edges as any[]) {
+          const sNode = nodes.find((x: any) => x.id === e.source);
+          const tNode = nodes.find((x: any) => x.id === e.target);
+          if (!sNode || !tNode) continue;
+          const sh = !e.sourceHandle || e.sourceHandle === "default" ? "src" : e.sourceHandle;
+          const th = !e.targetHandle || e.targetHandle === "default" ? "tgt" : e.targetHandle;
+          const c = {
+            id: `conn-x-${getBackendId(sNode)}-${getBackendId(tNode)}-${Math.random().toString(36).slice(2, 8)}`,
+            source: getBackendId(sNode),
+            target: getBackendId(tNode),
+            sourceHandle: sh,
+            targetHandle: th,
+          };
+          const k = connKeyStr(c);
+          if (seenConn.has(k)) continue;
+          seenConn.add(k);
+          formattedConnections.push(c);
+        }
+      };
+
+      mergeAgentGraphIntoPayload();
 
       const body = {
         name: flowName,

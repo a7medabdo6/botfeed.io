@@ -17,6 +17,7 @@ export function BaseNode({
   handleColor = "bg-primary!",
   errors = [],
   children,
+  slotAfterContent,
   showInHandle = true,
   showOutHandle = true,
   headerRight,
@@ -25,7 +26,17 @@ export function BaseNode({
   filledHeaderTone = "violet",
 }: BaseNodeProps) {
   const { deleteElements } = useReactFlow();
-  const headerBarClass = filledHeader ? (filledHeaderTone === "emerald" ? "bg-primary" : "bg-violet-600") : "";
+  const headerBarClass = filledHeader
+    ? filledHeaderTone === "emerald"
+      ? "bg-primary"
+      : filledHeaderTone === "sheets"
+        ? "bg-emerald-600"
+        : filledHeaderTone === "calendar"
+          ? "bg-blue-600"
+          : filledHeaderTone === "sky"
+            ? "bg-sky-600"
+            : "bg-violet-600"
+    : "";
 
   return (
     <div
@@ -87,6 +98,8 @@ export function BaseNode({
       )}
 
       <div className={cn("space-y-4", filledHeader && "px-4 pt-4")}>{children}</div>
+
+      {slotAfterContent}
 
       {showOutHandle && <Handle type="source" id="src" position={Position.Right} className={cn("w-3! h-3! border-2! border-white! dark:border-(--card-border-color)! shadow-sm", handleColor)} />}
     </div>

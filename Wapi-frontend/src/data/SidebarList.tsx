@@ -1,5 +1,5 @@
 import { MenuItem } from "@/src/types/components";
-import { BookImage, BookKey, Bot, BotMessageSquare, Cable, CalendarDays, CheckSquare, Clock, Columns, Contact, Form, HatGlasses, Image, Import, LayoutDashboard, LayoutTemplate, List, ListOrdered, MailCheck, MapPin, Megaphone, MessageCircle, MessageSquare, MousePointer2, Phone, PhoneCall, Plug, Receipt, Settings, Tags, Users, Webhook, Workflow, Wrench, Zap } from "lucide-react";
+import { BookImage, BookKey, Bot, BotMessageSquare, Cable, CalendarDays, CheckSquare, Clock, Columns, Contact, FileSpreadsheet, Form, HatGlasses, Image, Import, LayoutDashboard, LayoutTemplate, List, ListOrdered, MailCheck, MapPin, Megaphone, MessageCircle, MessageSquare, MousePointer2, Phone, PhoneCall, Plug, Plus, PlusCircle, Receipt, RefreshCw, Settings, Sparkles, Table2, Tags, Timer, Trash2, Users, Webhook, Workflow, Wrench, Zap } from "lucide-react";
 
 export const MENUITEMS: MenuItem[] = [
   {
@@ -325,5 +325,90 @@ export const NODETEMPLATES = [
     icon: <Bot />,
     color: "#7c3aed",
     category: "ADVANCED FEATURES",
+  },
+  {
+    id: "ai_agent",
+    label: "AI Agent",
+    description: "Tools agent — connect Chat model + Tool nodes (n8n-style)",
+    icon: <Sparkles />,
+    color: "#0ea5e9",
+    category: "ADVANCED FEATURES",
+  },
+  {
+    id: "agent_chat_model",
+    label: "Chat model",
+    description: "Wire into an AI Agent’s Chat model port (chatbot = model + API key)",
+    icon: <Sparkles />,
+    color: "#06b6d4",
+    category: "ADVANCED FEATURES",
+  },
+  {
+    id: "agent_tool_google_calendar_list",
+    label: "Calendar Read",
+    description: "AI Agent tool — list events (getAll)",
+    icon: <List />,
+    color: "#3b82f6",
+    category: "AI TOOLS — GOOGLE CALENDAR",
+  },
+  {
+    id: "agent_tool_google_calendar_create",
+    label: "Calendar Create",
+    description: "AI Agent tool — create event",
+    icon: <PlusCircle />,
+    color: "#2563eb",
+    category: "AI TOOLS — GOOGLE CALENDAR",
+  },
+  {
+    id: "agent_tool_google_calendar_delete",
+    label: "Calendar Delete",
+    description: "AI Agent tool — delete event by id",
+    icon: <Trash2 />,
+    color: "#1d4ed8",
+    category: "AI TOOLS — GOOGLE CALENDAR",
+  },
+  {
+    id: "agent_tool_google_sheets_read",
+    label: "Sheets Read",
+    description: "AI Agent tool — read cell range",
+    icon: <Table2 />,
+    color: "#16a34a",
+    category: "AI TOOLS — GOOGLE SHEETS",
+  },
+  {
+    id: "agent_tool_google_sheets_append",
+    label: "Sheets Add Row",
+    description: "AI Agent tool — append row",
+    icon: <Plus />,
+    color: "#22c55e",
+    category: "AI TOOLS — GOOGLE SHEETS",
+  },
+  {
+    id: "agent_tool_google_sheets_update",
+    label: "Sheets Update Row",
+    description: "AI Agent tool — overwrite a row by row number",
+    icon: (
+      <span className="relative inline-flex">
+        <FileSpreadsheet />
+        <RefreshCw className="absolute -bottom-0.5 -right-0.5 h-3 w-3 text-red-500" strokeWidth={2.5} />
+      </span>
+    ),
+    color: "#15803d",
+    category: "AI TOOLS — GOOGLE SHEETS",
+  },
+  {
+    id: "google_sheets",
+    label: "Google Sheets",
+    description: "Append a row to a linked spreadsheet with column values",
+    icon: <FileSpreadsheet />,
+    color: "#22c55e",
+    category: "INTEGRATIONS",
+  },
+  {
+    id: "calendar_event",
+    label: "Calendar Event",
+    description: "Create an event on a linked Google Calendar",
+    icon: <Timer />,
+    color: "#3b82f6",
+    category: "INTEGRATIONS",
   },
 ];

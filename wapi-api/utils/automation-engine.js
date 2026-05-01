@@ -1,5 +1,20 @@
-import { AutomationFlow, AutomationExecution, Chatbot, Contact, EcommerceOrder, Message, Template, WhatsappPhoneNumber } from '../models/index.js';
+import {
+  AutomationFlow,
+  AutomationExecution,
+  Chatbot,
+  Contact,
+  EcommerceOrder,
+  GoogleAccount,
+  GoogleCalendar,
+  GoogleSheet,
+  Message,
+  Template,
+  WhatsappPhoneNumber
+} from '../models/index.js';
+import { getCalendarClient, getSheetsClient } from './google-api-helper.js';
 import { callAIModel } from './ai-utils.js';
+import { runGoogleToolsChatAgent } from './ai-agent-google-tools.js';
+import { resolveAiAgentFromFlow } from './ai-agent-resolve-from-flow.js';
 import unifiedWhatsAppService from '../services/whatsapp/unified-whatsapp.service.js';
 import { PROVIDER_TYPES } from '../services/whatsapp/unified-whatsapp.service.js';
 import automationCache from './automation-cache.js';
@@ -337,11 +352,31 @@ class AutomationEngine {
 
 
   getConnectedNodes(flow, nodeId) {
-    const connectedIds = flow.connections
-      .filter(conn => conn.source === nodeId)
-      .map(conn => conn.target);
+    const skipTargetTypes = new Set([
+      'agent_chat_model',
+      'agent_tool_google_calendar',
+      'agent_tool_google_calendar_list',
+      'agent_tool_google_calendar_create',
+      'agent_tool_google_calendar_delete',
+      'agent_tool_google_sheets',
+      'agent_tool_google_sheets_read',
+      'agent_tool_google_sheets_append',
+      'agent_tool_google_sheets_update',
+      'agent_memory'
+    ]);
 
-    return flow.nodes.filter(node => connectedIds.includes(node.id));
+    const connectedIds = flow.connections
+      .filter((conn) => {
+        if (conn.source !== nodeId) return false;
+        const th = conn.targetHandle;
+        if (th && th !== 'tgt' && th !== 'target' && th !== 'default') return false;
+        const targetNode = flow.nodes.find((n) => n.id === conn.target);
+        if (targetNode && skipTargetTypes.has(targetNode.type)) return false;
+        return true;
+      })
+      .map((conn) => conn.target);
+
+    return flow.nodes.filter((node) => connectedIds.includes(node.id));
   }
 
 
@@ -388,6 +423,27 @@ class AutomationEngine {
           break;
         case 'assign_chatbot':
           result = await this.executeAssignChatbotNode(node, inputData);
+          break;
+        case 'ai_agent':
+          result = await this.executeAIAgentNode(node, flow, inputData);
+          break;
+        case 'agent_chat_model':
+        case 'agent_tool_google_calendar':
+        case 'agent_tool_google_calendar_list':
+        case 'agent_tool_google_calendar_create':
+        case 'agent_tool_google_calendar_delete':
+        case 'agent_tool_google_sheets':
+        case 'agent_tool_google_sheets_read':
+        case 'agent_tool_google_sheets_append':
+        case 'agent_tool_google_sheets_update':
+        case 'agent_memory':
+          result = { success: true, output: inputData };
+          break;
+        case 'google_sheets':
+          result = await this.executeGoogleSheetsNode(node, inputData);
+          break;
+        case 'calendar_event':
+          result = await this.executeCalendarEventNode(node, inputData);
           break;
         case 'add_tag':
           result = await this.executeAddTagNode(node, inputData);
@@ -593,7 +649,9 @@ class AutomationEngine {
   processTemplateString(template, data) {
     return template.replace(/\{\{([^{}]+)\}\}/g, (match, path) => {
       const value = this.getNestedValue(data, path.trim());
-      return value !== undefined ? value : match;
+      if (value === undefined || value === null) return match;
+      if (value instanceof Date) return value.toISOString();
+      return String(value);
     });
   }
 
@@ -728,6 +786,246 @@ class AutomationEngine {
         chatbot_id: String(chatbot._id)
       }
     };
+  }
+
+
+  async executeAIAgentNode(node, flow, inputData) {
+    const p = node.parameters || {};
+
+    const userId = inputData.userId || inputData.user_id;
+    const senderNumber = inputData.senderNumber;
+    if (!userId || !senderNumber) {
+      return { success: false, output: inputData, error: 'userId and senderNumber are required' };
+    }
+
+    const resolved = await resolveAiAgentFromFlow(flow, node, userId);
+    if (!resolved.chatbotId) {
+      return {
+        success: false,
+        output: inputData,
+        error: 'Connect a Chat Model node to this AI Agent (port “Chat model”), or set chatbot on the agent (legacy).'
+      };
+    }
+    if (!resolved.tools.length) {
+      return {
+        success: false,
+        output: inputData,
+        error: 'Connect at least one Tool node to this AI Agent (port “Tools”), or enable tools on the agent (legacy).'
+      };
+    }
+
+    const chatbot = await Chatbot.findOne({
+      _id: resolved.chatbotId,
+      user_id: userId,
+      deleted_at: null
+    }).populate('ai_model');
+
+    if (!chatbot) {
+      return { success: false, output: inputData, error: 'Chatbot not found' };
+    }
+
+    const modelDoc = chatbot.ai_model;
+    if (!modelDoc || !modelDoc.provider) {
+      return { success: false, output: inputData, error: 'Chatbot AI model is missing or invalid' };
+    }
+
+    const incomingText = inputData.message || '';
+    const plainModel = typeof modelDoc.toObject === 'function' ? modelDoc.toObject() : modelDoc;
+
+    let replyText;
+    let toolLog = [];
+    try {
+      const out = await runGoogleToolsChatAgent({
+        userId,
+        model: plainModel,
+        apiKey: chatbot.api_key,
+        systemPrompt: chatbot.system_prompt || '',
+        userMessage: incomingText,
+        inputData,
+        tools: resolved.tools,
+        dispatchTool: resolved.dispatchTool
+      });
+      replyText = out.text;
+      toolLog = out.toolLog || [];
+    } catch (e) {
+      return { success: false, output: inputData, error: e.message };
+    }
+
+    const messageParams = {
+      recipientNumber: senderNumber,
+      providerType: PROVIDER_TYPES.BUSINESS_API,
+      messageType: 'text',
+      messageText: String(replyText || '').trim() || 'Sorry, I could not complete that request.'
+    };
+
+    if (inputData.whatsappPhoneNumberId) {
+      const whatsappPhoneNumber = await WhatsappPhoneNumber.findById(inputData.whatsappPhoneNumberId)
+        .populate('waba_id')
+        .lean();
+
+      if (whatsappPhoneNumber && whatsappPhoneNumber.waba_id) {
+        messageParams.whatsappPhoneNumber = whatsappPhoneNumber;
+      }
+    } else if (inputData.whatsappConnectionId) {
+      messageParams.connectionId = inputData.whatsappConnectionId;
+    }
+
+    try {
+      await unifiedWhatsAppService.sendMessage(userId, messageParams);
+    } catch (error) {
+      return { success: false, output: inputData, error: error.message };
+    }
+
+    const hours = Number(p.session_duration_hours) || 0;
+    const contactId = inputData.contactId || inputData.contact?._id;
+    if (hours > 0 && contactId) {
+      const expiresAt = new Date(Date.now() + hours * 3600000);
+      await Contact.updateOne(
+        { _id: contactId, created_by: userId },
+        {
+          $set: {
+            'custom_fields.automation_chatbot_session': {
+              chatbot_id: String(chatbot._id),
+              expires_at: expiresAt.toISOString()
+            }
+          }
+        }
+      ).catch(() => {});
+    }
+
+    return {
+      success: true,
+      output: {
+        ...inputData,
+        ai_agent_reply_sent: true,
+        ai_agent_tool_log: toolLog,
+        chatbot_id: String(chatbot._id)
+      }
+    };
+  }
+
+
+  async executeGoogleSheetsNode(node, inputData) {
+    const p = node.parameters || {};
+    const { google_account_id, sheet_db_id, sheet_tab_name, column_mappings } = p;
+    const userId = inputData.userId || inputData.user_id;
+    if (!userId) {
+      return { success: false, output: inputData, error: 'User ID is required' };
+    }
+    if (!google_account_id || !sheet_db_id) {
+      return { success: false, output: inputData, error: 'Google account and spreadsheet are required' };
+    }
+    const mappings = Array.isArray(column_mappings) ? column_mappings : [];
+    if (!mappings.length) {
+      return { success: false, output: inputData, error: 'At least one column mapping is required' };
+    }
+
+    const account = await GoogleAccount.findOne({
+      _id: google_account_id,
+      user_id: userId,
+      deleted_at: null
+    });
+    if (!account) {
+      return { success: false, output: inputData, error: 'Google account not found' };
+    }
+
+    const sheet = await GoogleSheet.findOne({
+      _id: sheet_db_id,
+      google_account_id,
+      deleted_at: null
+    });
+    if (!sheet) {
+      return { success: false, output: inputData, error: 'Spreadsheet not found' };
+    }
+
+    const tab = String(sheet_tab_name || 'Sheet1').replace(/'/g, '');
+    const rowValues = mappings.map((m) =>
+      this.processTemplateString(String(m.value_template ?? m.value ?? ''), inputData)
+    );
+
+    try {
+      const sheetsClient = await getSheetsClient(google_account_id);
+      await sheetsClient.spreadsheets.values.append({
+        spreadsheetId: sheet.sheet_id,
+        range: `${tab}!A1`,
+        valueInputOption: 'USER_ENTERED',
+        insertDataOption: 'INSERT_ROWS',
+        requestBody: { values: [rowValues] }
+      });
+      return {
+        success: true,
+        output: { ...inputData, google_sheets_row_appended: true }
+      };
+    } catch (error) {
+      return { success: false, output: inputData, error: error.message };
+    }
+  }
+
+
+  async executeCalendarEventNode(node, inputData) {
+    const p = node.parameters || {};
+    const { google_account_id, calendar_db_id, event_title, start, end, description } = p;
+    const userId = inputData.userId || inputData.user_id;
+    if (!userId) {
+      return { success: false, output: inputData, error: 'User ID is required' };
+    }
+    if (!google_account_id || !calendar_db_id) {
+      return { success: false, output: inputData, error: 'Google account and calendar are required' };
+    }
+
+    const account = await GoogleAccount.findOne({
+      _id: google_account_id,
+      user_id: userId,
+      deleted_at: null
+    });
+    if (!account) {
+      return { success: false, output: inputData, error: 'Google account not found' };
+    }
+
+    const cal = await GoogleCalendar.findOne({
+      _id: calendar_db_id,
+      google_account_id,
+      deleted_at: null
+    });
+    if (!cal) {
+      return { success: false, output: inputData, error: 'Calendar not found' };
+    }
+
+    const summary = this.processTemplateString(String(event_title || ''), inputData);
+    const desc = this.processTemplateString(String(description || ''), inputData);
+    const startDt = this.processTemplateString(String(start || ''), inputData);
+    let endDt = this.processTemplateString(String(end || ''), inputData);
+
+    if (!String(startDt || '').trim()) {
+      return { success: false, output: inputData, error: 'Start time is required' };
+    }
+
+    if (!String(endDt || '').trim()) {
+      const d = new Date(startDt);
+      if (Number.isNaN(d.getTime())) {
+        return { success: false, output: inputData, error: 'Invalid start time' };
+      }
+      endDt = new Date(d.getTime() + 30 * 60 * 1000).toISOString();
+    }
+
+    try {
+      const calendarClient = await getCalendarClient(google_account_id);
+      await calendarClient.events.insert({
+        calendarId: cal.calendar_id,
+        requestBody: {
+          summary: summary || 'Event',
+          description: desc || undefined,
+          start: { dateTime: startDt },
+          end: { dateTime: endDt }
+        }
+      });
+      return {
+        success: true,
+        output: { ...inputData, google_calendar_event_created: true }
+      };
+    } catch (error) {
+      return { success: false, output: inputData, error: error.message };
+    }
   }
 
 

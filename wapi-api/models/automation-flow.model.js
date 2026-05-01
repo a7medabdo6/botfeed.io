@@ -33,7 +33,19 @@ const automationFlowSchema = new mongoose.Schema({
           enum: [
             'trigger', 'condition', 'action', 'delay', 'filter',
             'transform', 'webhook', 'ai_response', 'send_message',
-            'assign_chatbot', 'add_tag', 'update_contact', 'custom'
+            'assign_chatbot', 'ai_agent',
+            'agent_chat_model',
+            'agent_tool_google_calendar',
+            'agent_tool_google_calendar_list',
+            'agent_tool_google_calendar_create',
+            'agent_tool_google_calendar_delete',
+            'agent_tool_google_sheets',
+            'agent_tool_google_sheets_read',
+            'agent_tool_google_sheets_append',
+            'agent_tool_google_sheets_update',
+            'agent_memory',
+            'google_sheets', 'calendar_event',
+            'add_tag', 'update_contact', 'custom'
           ]
         },
         position: {
