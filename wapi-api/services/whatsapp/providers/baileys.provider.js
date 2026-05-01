@@ -440,8 +440,9 @@ export default class BaileysProvider extends BaseProvider {
             }
 
             if (!fromMe) {
+                let automationFlowRan = false;
                 try {
-                    await automationEngine.triggerEvent("message_received", {
+                    automationFlowRan = !!(await automationEngine.triggerEvent("message_received", {
                         message: content,
                         senderNumber: senderNumber,
                         recipientNumber: myNumber,
@@ -452,7 +453,7 @@ export default class BaileysProvider extends BaseProvider {
                         waJid: senderJid,
                         contactId: contact._id.toString(),
                         timestamp: new Date(msg.messageTimestamp * 1000),
-                    });
+                    }));
                 } catch (automationError) {
                     console.error('Error triggering automation engine:', automationError);
                 }
@@ -466,7 +467,7 @@ export default class BaileysProvider extends BaseProvider {
                     }
                     await contact.save();
 
-                    let automatedHandled = false;
+                    let automatedHandled = automationFlowRan;
 
                     const open = await isWithinWorkingHours(wabaId);
                     console.log("open0", open, config)

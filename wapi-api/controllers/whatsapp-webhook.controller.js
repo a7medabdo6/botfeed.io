@@ -280,13 +280,14 @@ export const handleIncomingMessage = async (req, res, io = null) => {
       io.emit('whatsapp:message', formattedMessage);
     }
 
+    let automationFlowRan = false;
     try {
       const automationMessage =
         message.type === "interactive" && interactiveId
           ? interactiveId
           : content;
 
-      await automationEngine.triggerEvent("message_received", {
+      automationFlowRan = !!(await automationEngine.triggerEvent("message_received", {
         message: automationMessage,
         interactive_id: interactiveId,
         senderNumber: message.from,
@@ -298,7 +299,7 @@ export const handleIncomingMessage = async (req, res, io = null) => {
         waJid: message.from,
         contactId: contactDoc?._id?.toString(),
         timestamp: new Date(Number(message.timestamp) * 1000),
-      });
+      }));
 
     } catch (automationError) {
       console.error('Error triggering automation:', automationError);
@@ -314,7 +315,7 @@ export const handleIncomingMessage = async (req, res, io = null) => {
       }
       await contactDoc.save();
 
-      let automatedHandled = false;
+      let automatedHandled = automationFlowRan;
 
       const open = await isWithinWorkingHours(wabaId);
       if (!open && config?.out_of_working_hours?.id) {

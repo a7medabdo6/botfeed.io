@@ -122,6 +122,9 @@ class AutomationEngine {
   }
 
 
+  /**
+   * @returns {Promise<boolean>} true if an automation flow ran for this message (suppress keyword bot / fallback for same inbound)
+   */
   async handleMessageReceived(eventData) {
     try {
       console.log("=====================handleMessageReceived called", eventData);
@@ -170,19 +173,24 @@ class AutomationEngine {
           console.log(`Should execute flow: ${shouldExecute}`);
           if (shouldExecute) {
             console.log(`Executing flow: ${flow.name} for message: ${message}`);
-            await this.executeFlow(flow, {
-              event_type: 'message_received',
-              message,
-              senderNumber,
-              recipientNumber,
-              userId,
-              messageType,
-              contactId: eventData.contactId || contact?._id?.toString() || null,
-              contact,
-              whatsappPhoneNumberId: eventData.whatsappPhoneNumberId,
-              timestamp: new Date()
-            });
-            break;
+            try {
+              await this.executeFlow(flow, {
+                event_type: 'message_received',
+                message,
+                senderNumber,
+                recipientNumber,
+                userId,
+                messageType,
+                contactId: eventData.contactId || contact?._id?.toString() || null,
+                contact,
+                whatsappPhoneNumberId: eventData.whatsappPhoneNumberId,
+                timestamp: new Date()
+              });
+            } catch (runErr) {
+              console.error(`Automation flow run failed (${flow.name}):`, runErr);
+              return false;
+            }
+            return true;
           } else {
             console.log(`Flow conditions not met for: ${flow.name}`);
           }
@@ -190,8 +198,10 @@ class AutomationEngine {
           console.log(`Flow not active or deleted:`, flow?.name);
         }
       }
+      return false;
     } catch (error) {
       console.error('Error handling message received event:', error);
+      return false;
     }
   }
 
@@ -835,11 +845,14 @@ class AutomationEngine {
     let replyText;
     let toolLog = [];
     try {
+      const flowAgentInstructions = String(p.agent_instructions || p.extra_system_prompt || '').trim();
+
       const out = await runGoogleToolsChatAgent({
         userId,
         model: plainModel,
         apiKey: chatbot.api_key,
         systemPrompt: chatbot.system_prompt || '',
+        extraSystemPrompt: flowAgentInstructions,
         userMessage: incomingText,
         inputData,
         tools: resolved.tools,
@@ -1328,10 +1341,10 @@ class AutomationEngine {
     const handler = this.eventListeners.get(eventType);
     if (handler) {
       console.log('Found handler for event:', eventType);
-      await handler(eventData);
-    } else {
-      console.log('No handler found for event:', eventType, 'Available handlers:', Array.from(this.eventListeners.keys()));
+      return await handler(eventData);
     }
+    console.log('No handler found for event:', eventType, 'Available handlers:', Array.from(this.eventListeners.keys()));
+    return undefined;
   }
 
 

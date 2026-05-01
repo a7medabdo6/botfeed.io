@@ -106,6 +106,7 @@ const FlowCanvas = () => {
         message: undefined,
         stepName: "",
         sessionDurationHours: "0",
+        agentInstructions: "",
       };
     }
     if (template.id === "agent_chat_model") {
@@ -427,6 +428,7 @@ const FlowCanvas = () => {
                 : {}),
               ...(resolvedNodeType === "ai_agent"
                 ? {
+                    agentInstructions: params.agent_instructions ?? params.agentInstructions ?? "",
                     ...(String(params.chatbot_id || params.chatbotId || "").trim()
                       ? { chatbotId: params.chatbot_id ?? params.chatbotId }
                       : {}),
@@ -686,6 +688,9 @@ const FlowCanvas = () => {
                         currentNode.data.sessionDurationHours === "" || currentNode.data.sessionDurationHours === undefined
                           ? 0
                           : Number(currentNode.data.sessionDurationHours) || 0,
+                      ...(String(currentNode.data.agentInstructions || "").trim()
+                        ? { agent_instructions: String(currentNode.data.agentInstructions).trim() }
+                        : {}),
                       ...(String(currentNode.data.chatbotId || "").trim()
                         ? { chatbot_id: String(currentNode.data.chatbotId).trim() }
                         : {}),

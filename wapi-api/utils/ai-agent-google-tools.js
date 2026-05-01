@@ -1,6 +1,8 @@
 import { buildApiEndpoint, formatRequestHeaders } from './ai-utils.js';
 
-const MAX_TOOL_ROUNDS = 8;
+const MAX_TOOL_ROUNDS = 12;
+/** Max characters per tool message back to the model (avoids context blowups from huge Sheets reads). */
+const MAX_TOOL_MESSAGE_CHARS = 12000;
 
 function extractAssistantText(msg) {
   const c = msg?.content;
@@ -24,10 +26,42 @@ function modelSupportsOpenAiStyleTools(model) {
   return rf === 'openai';
 }
 
+function truncateToolJson(str) {
+  const s = String(str);
+  if (s.length <= MAX_TOOL_MESSAGE_CHARS) return s;
+  const cut = MAX_TOOL_MESSAGE_CHARS - 80;
+  return `${s.slice(0, cut)}\n...[truncated ${s.length - cut} chars]`;
+}
+
+function serializeToolPayload(payload) {
+  try {
+    return truncateToolJson(JSON.stringify(payload));
+  } catch {
+    return '{"error":"Failed to serialize tool result"}';
+  }
+}
+
+function buildContextBlock(inputData) {
+  const contact = inputData?.contact && typeof inputData.contact === 'object' ? inputData.contact : {};
+  const name =
+    [contact.first_name, contact.last_name].filter(Boolean).join(' ').trim() ||
+    String(contact.name || contact.full_name || '').trim();
+  const lines = [
+    `Channel: WhatsApp. Customer phone: ${inputData?.senderNumber || 'unknown'}.`,
+    name ? `Contact name (if known): ${name}.` : null,
+    inputData?.contactId ? `Contact id: ${inputData.contactId}.` : null,
+    `Server time (ISO): ${new Date().toISOString()}.`,
+    'Use tools when you need real calendar or sheet data, or to create/write. If multiple tools are called in one turn, combine insights before replying.',
+    'After tools succeed, answer briefly in the same language as the customer. If a tool returns an error field, explain it simply and suggest what to try next.'
+  ].filter(Boolean);
+  return lines.join('\n');
+}
+
 /**
  * OpenAI-compatible chat completions with tool loop (n8n-style agent).
  * @param {object} params
  * @param {Array} params.tools - OpenAI tool definitions
+ * @param {string} [params.extraSystemPrompt] - Appended after chatbot system prompt (per-flow instructions)
  * @param {(name: string, rawArgs: string) => Promise<{ok:boolean, result?:object, error?:string}>} params.dispatchTool
  */
 export async function runGoogleToolsChatAgent({
@@ -35,6 +69,7 @@ export async function runGoogleToolsChatAgent({
   model,
   apiKey,
   systemPrompt,
+  extraSystemPrompt,
   userMessage,
   inputData,
   tools,
@@ -56,16 +91,20 @@ export async function runGoogleToolsChatAgent({
   const temperature = typeof cfg.temperature === 'number' ? cfg.temperature : 0.4;
   const max_tokens = typeof cfg.max_tokens === 'number' ? cfg.max_tokens : 1200;
 
-  const ctxBlock = [
-    `Channel: WhatsApp. Customer phone: ${inputData.senderNumber || 'unknown'}.`,
-    `Server time (ISO): ${new Date().toISOString()}.`,
-    'Use tools when you need real calendar or sheet data, or to create/write. Then answer briefly in the same language as the customer.'
-  ].join('\n');
+  const ctxBlock = buildContextBlock(inputData || {});
+  const flowExtra = String(extraSystemPrompt || '').trim();
+  const systemContent = [
+    systemPrompt || 'You are a helpful assistant.',
+    flowExtra ? `Flow-specific instructions:\n${flowExtra}` : '',
+    ctxBlock
+  ]
+    .filter(Boolean)
+    .join('\n\n');
 
   const messages = [
     {
       role: 'system',
-      content: `${systemPrompt || 'You are a helpful assistant.'}\n\n${ctxBlock}`
+      content: systemContent
     },
     { role: 'user', content: String(userMessage || '') }
   ];
@@ -117,17 +156,23 @@ export async function runGoogleToolsChatAgent({
       }
       messages.push(assistantMsg);
 
-      for (const tc of toolCalls) {
-        const fn = tc.function;
-        const name = fn?.name;
-        const rawArgs = fn?.arguments || '{}';
-        const dispatched = await dispatchTool(name, rawArgs);
+      const toolResults = await Promise.all(
+        toolCalls.map(async (tc) => {
+          const fn = tc.function;
+          const name = fn?.name;
+          const rawArgs = fn?.arguments || '{}';
+          const dispatched = await dispatchTool(name, rawArgs);
+          const payload = dispatched.ok ? dispatched.result : { error: dispatched.error || 'Tool failed' };
+          return { tc, name, dispatched, payload };
+        })
+      );
+
+      for (const { tc, name, dispatched, payload } of toolResults) {
         toolLog.push({ name, ok: dispatched.ok, error: dispatched.error || null });
-        const payload = dispatched.ok ? dispatched.result : { error: dispatched.error || 'Tool failed' };
         messages.push({
           role: 'tool',
           tool_call_id: tc.id,
-          content: JSON.stringify(payload)
+          content: serializeToolPayload(payload)
         });
       }
       continue;

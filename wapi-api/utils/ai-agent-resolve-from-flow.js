@@ -17,6 +17,9 @@ function toolSuffix(nodeId, index) {
   return (s.slice(-10) || `t${index}`).toLowerCase();
 }
 
+const CAL_CREATE_HINT =
+  ' Put the customer WhatsApp number (and name if known) in the description so you can find the booking later.';
+
 /**
  * Build OpenAI tools + dispatcher from flow graph (n8n-style wiring into ai_agent).
  * Falls back to legacy flat parameters on the agent node if no tool edges exist.
@@ -88,7 +91,7 @@ export async function resolveAiAgentFromFlow(flow, agentNode, userId) {
           type: 'function',
           function: {
             name,
-            description: `Create an event on Google Calendar resource ${suf}.`,
+            description: `Create an event on Google Calendar resource ${suf}.${CAL_CREATE_HINT}`,
             parameters: {
               type: 'object',
               properties: {
@@ -162,7 +165,7 @@ export async function resolveAiAgentFromFlow(flow, agentNode, userId) {
         type: 'function',
         function: {
           name,
-          description: `Create a Google Calendar event (resource ${suf}).`,
+          description: `Create a Google Calendar event (resource ${suf}).${CAL_CREATE_HINT}`,
           parameters: {
             type: 'object',
             properties: {
@@ -411,7 +414,7 @@ export async function resolveAiAgentFromFlow(flow, agentNode, userId) {
         type: 'function',
         function: {
           name,
-          description: "Create a Google Calendar event.",
+          description: `Create a Google Calendar event.${CAL_CREATE_HINT}`,
           parameters: {
             type: 'object',
             properties: {

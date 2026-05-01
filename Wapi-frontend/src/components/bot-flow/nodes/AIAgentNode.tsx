@@ -2,6 +2,7 @@
 "use client";
 
 import { Input } from "@/src/elements/ui/input";
+import { Textarea } from "@/src/elements/ui/textarea";
 import { Handle, Position, useEdges, useReactFlow } from "@xyflow/react";
 import { Sparkles } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -104,6 +105,27 @@ export function AIAgentNode({ data, id }: any) {
             );
           }}
           className="h-9 text-sm bg-(--input-color)"
+        />
+      </NodeField>
+
+      <NodeField
+        label="Flow instructions (optional)"
+        description="Added on top of the chatbot system prompt for this step only — e.g. booking rules, tone, or when to call which tool."
+      >
+        <Textarea
+          placeholder="e.g. Always list free slots before creating an event. Confirm date & time in the user’s timezone before create."
+          value={data.agentInstructions ?? ""}
+          onFocus={() => setTouched(true)}
+          onChange={(e) => {
+            if (!touched) setTouched(true);
+            setNodes((nds) =>
+              nds.map((node) =>
+                node.id === id ? { ...node, data: { ...node.data, agentInstructions: e.target.value } } : node,
+              ),
+            );
+          }}
+          rows={4}
+          className="min-h-[88px] resize-y text-sm bg-(--input-color)"
         />
       </NodeField>
     </BaseNode>
