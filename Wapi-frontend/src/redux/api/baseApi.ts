@@ -52,7 +52,7 @@ const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 
 export const baseApi = createApi({
   reducerPath: "api",
-  tagTypes: ["Chats", "Messages", "WhatsappCallAgent", "WhatsappCallLog"],
+  tagTypes: ["Chats", "Messages", "WhatsappCallAgent", "WhatsappCallLog", "ContactProfile"],
   baseQuery: baseQueryWithLogout,
   endpoints: () => ({}),
 });
