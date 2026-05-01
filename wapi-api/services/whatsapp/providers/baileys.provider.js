@@ -469,20 +469,22 @@ export default class BaileysProvider extends BaseProvider {
 
                     let automatedHandled = automationFlowRan;
 
-                    const open = await isWithinWorkingHours(wabaId);
-                    console.log("open0", open, config)
-                    if (!open && config?.out_of_working_hours?.id) {
-                        await sendAutomatedReply({
-                            wabaId,
-                            contactId: contact._id,
-                            replyType: config.out_of_working_hours.type,
-                            replyId: config.out_of_working_hours.id,
-                            senderNumber: senderNumber,
-                            incomingText: content,
-                            userId: userId,
-                            whatsappPhoneNumberId: phone?._id
-                        });
-                        automatedHandled = true;
+                    if (!automatedHandled) {
+                        const open = await isWithinWorkingHours(wabaId);
+                        console.log("open0", open, config)
+                        if (!open && config?.out_of_working_hours?.id) {
+                            await sendAutomatedReply({
+                                wabaId,
+                                contactId: contact._id,
+                                replyType: config.out_of_working_hours.type,
+                                replyId: config.out_of_working_hours.id,
+                                senderNumber: senderNumber,
+                                incomingText: content,
+                                userId: userId,
+                                whatsappPhoneNumberId: phone?._id
+                            });
+                            automatedHandled = true;
+                        }
                     }
 
                     if (!automatedHandled) {

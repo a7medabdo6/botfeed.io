@@ -317,19 +317,21 @@ export const handleIncomingMessage = async (req, res, io = null) => {
 
       let automatedHandled = automationFlowRan;
 
-      const open = await isWithinWorkingHours(wabaId);
-      if (!open && config?.out_of_working_hours?.id) {
-        await sendAutomatedReply({
-          wabaId,
-          contactId: contactDoc._id,
-          replyType: config.out_of_working_hours.type,
-          replyId: config.out_of_working_hours.id,
-          senderNumber: message.from,
-          incomingText: content,
-          userId: whatsappPhoneNumber.user_id,
-          whatsappPhoneNumberId: whatsappPhoneNumber._id
-        });
-        automatedHandled = true;
+      if (!automatedHandled) {
+        const open = await isWithinWorkingHours(wabaId);
+        if (!open && config?.out_of_working_hours?.id) {
+          await sendAutomatedReply({
+            wabaId,
+            contactId: contactDoc._id,
+            replyType: config.out_of_working_hours.type,
+            replyId: config.out_of_working_hours.id,
+            senderNumber: message.from,
+            incomingText: content,
+            userId: whatsappPhoneNumber.user_id,
+            whatsappPhoneNumberId: whatsappPhoneNumber._id
+          });
+          automatedHandled = true;
+        }
       }
 
       if (!automatedHandled) {
