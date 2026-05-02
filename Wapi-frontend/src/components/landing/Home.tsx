@@ -6,15 +6,17 @@ import { useAppSelector } from "@/src/redux/hooks";
 import { useRouter } from "next/navigation";
 import Images from "../../shared/Image";
 import { HomeProps } from "../../types/landingPage";
+import { STATIC_LANDING_FLOATING, STATIC_LANDING_HERO,HERO } from "@/src/constants/landing-static-media";
 
 const Home: React.FC<HomeProps> = ({ data }) => {
   const router = useRouter();
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   return (
-    <section id="home" className="home-section relative min-h-screen flex flex-col items-center pt-40 [@media(max-width:1333px)]:pt-31.25 pb-0 overflow-hidden [@media(max-width:660px)]:rounded-0">
+    <section id="home" className=" bg-[#0B1929] home-section relative min-h-screen flex flex-col items-center pt-40 [@media(max-width:1333px)]:pt-31.25 pb-0 overflow-hidden [@media(max-width:660px)]:rounded-0"
+   >
       <div className="relative z-30 justify-center flex flex-col items-center text-center sm:px-6 px-0 mb-[calc(15px+(50-15)*((100vw-320px)/(1920-320)))] scale-95 lg:scale-100 transition-transform duration-500 [@media(max-width:1333px)]:mb-3.75">
         {data.badge && (
-          <div className="inline-flex items-center justify-center max-w-[calc(220px+(500-220)*((100vw-320px)/(1920-320)))] px-4 py-1.5 mb-8 rounded-full bg-[#00AEEF15] border border-[#00AEEF30]">
+          <div className="inline-flex items-center justify-center max-w-[calc(220px+(500-220)*((100vw-320px)/(1920-320)))] px-4 py-1.5 mb-8 rounded-full bg-[#00AEEF18] border border-[#00AEEF35]">
             <span className="text-[12px] md:text-[13px] line-clamp-2 font-semibold text-primary tracking-wider uppercase break-all">{data.badge}</span>
           </div>
         )}
@@ -25,7 +27,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
         {data.primary_button?.text && (
           <Button
-            className="bg-primary hover:bg-primary/90 text-white px-10 py-4 h-12 rounded-xl font-semibold text-[16px] transition-all hover:scale-[1.05] active:scale-[0.95] shadow-[0_0_20px_rgba(5,150,105,0.3)]"
+            className="bg-primary hover:bg-[#0090C7] text-white px-10 py-4 h-12 rounded-xl font-semibold text-[16px] transition-all hover:scale-[1.05] active:scale-[0.95] shadow-[0_0_24px_rgba(0,174,239,0.35)]"
             onClick={() => {
               if (isAuthenticated) {
                 router.push("/dashboard");
@@ -41,12 +43,19 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
       <div className="relative w-screen flex justify-center mt-auto [@media(max-width:545px)]:mt-0">
         <div className="w-[90%] max-w-275 p-2 pt-0.5 bg-white bg-opacity-5 rounded-t-[40px] shadow-[0_-30px_60px_rgba(0,0,0,0.5)] backdrop-blur-sm slider-box -bottom-13.75 max-h-138 [@media(max-width:767px)]:-bottom-7.75 relative ">
-          <Images src={data?.hero_image} fallbackSrc="/assets/images/slider-1.png" alt="App Dashboard" width={100} height={100} className="rounded-t-[32px] w-full h-auto shadow-inner max-w-full max-h-138" unoptimized />
+          <Images
+          style={{
+            maxWidth: "100%",
+            color: "transparent",
+            width: "100%",
+            maxHeight: "unset",
+          }}
+          src={HERO} alt="App Dashboard" width={100} height={100} className="rounded-t-[32px] w-full h-auto shadow-inner max-w-full max-h-138" unoptimized />
         </div>
       </div>
 
       <div className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-hidden">
-        {data.floating_images?.map((img, index) => {
+        {STATIC_LANDING_FLOATING.map((img, index) => {
           const positionStyles: Record<string, string> = {
             "left-top": "top-[15%] left-[5%] [@media(max-width:1578px)]:left-[3%] [@media(max-width:1485px)]:hidden animate-up-down max-w-[250px] max-h-[405px]",
             "right-top": "top-[22%] right-[5%] [@media(max-width:1578px)]:right-[2%] [@media(max-width:1485px)]:hidden animate-up-down max-w-[270px] max-h-[297px]",
@@ -55,9 +64,9 @@ const Home: React.FC<HomeProps> = ({ data }) => {
           };
 
           return (
-            <div key={index} className={`absolute w-[320px] hidden lg:block slider-box ${positionStyles[img.position] || ""}`}>
+            <div key={img.position} className={`absolute w-[320px] hidden lg:block slider-box ${positionStyles[img.position] || ""}`}>
               <div className="p-1.5 bg-white bg-opacity-[0.03] rounded-[24px] border border-white border-opacity-10 shadow-2xl backdrop-blur-md">
-                <Images src={img.url} alt={`Floating Image ${index + 1}`} width={400} height={250} className={`rounded-[18px] shadow-lg ${index === 3 ? "max-h-53.75" : ""}`} unoptimized />
+                <Images src={img.url} alt={`Floating ${img.position}`} width={400} height={250} className={`rounded-[18px] shadow-lg ${index === 3 ? "max-h-53.75" : ""}`} unoptimized />
               </div>
             </div>
           );

@@ -127,6 +127,9 @@ const FlowCanvas = () => {
     if (template.id === "agent_chat_model") {
       return { ...base, messageType: undefined, message: undefined, chatbotId: "" };
     }
+    if (template.id === "agent_memory") {
+      return { ...base, messageType: undefined, message: undefined, windowSize: "20", sessionHours: "24" };
+    }
     if (
       template.id === "agent_tool_google_calendar_list" ||
       template.id === "agent_tool_google_calendar_create" ||
@@ -500,6 +503,12 @@ const FlowCanvas = () => {
                     sheetsReadRangeA1: params.sheets_read_range_a1 ?? params.sheetsReadRangeA1 ?? "",
                   }
                 : {}),
+              ...(resolvedNodeType === "agent_memory"
+                ? {
+                    windowSize: String(params.window_size ?? params.windowSize ?? 20),
+                    sessionHours: String(params.session_hours ?? params.sessionHours ?? 24),
+                  }
+                : {}),
               ...(resolvedNodeType === "calendar_event"
                 ? {
                     googleAccountId: params.google_account_id ?? params.googleAccountId ?? "",
@@ -805,7 +814,13 @@ const FlowCanvas = () => {
                                 }
                               : {}),
                           }
-                        : type === "google_sheets"
+                        : type === "agent_memory"
+                          ? {
+                              nodeType: "agent_memory",
+                              window_size: Number(currentNode.data.windowSize) || 20,
+                              session_hours: Number(currentNode.data.sessionHours) || 24,
+                            }
+                          : type === "google_sheets"
                           ? {
                               nodeType: "google_sheets",
                               step_name: (currentNode.data.stepName || "").trim(),
@@ -923,7 +938,9 @@ const FlowCanvas = () => {
                       ? currentNode.data.label || "Chat model"
                       : isAgentGoogleCalendarToolNodeType(type) || isAgentGoogleSheetsToolNodeType(type)
                         ? currentNode.data.label || "Agent tool"
-                        : type === "google_sheets"
+                        : type === "agent_memory"
+                          ? currentNode.data.label || "Memory"
+                          : type === "google_sheets"
                             ? (currentNode.data.stepName || "").trim() || currentNode.data.label || "Google Sheets"
                             : type === "calendar_event"
                               ? (currentNode.data.eventTitle || "").trim() || currentNode.data.label || "Calendar Event"
@@ -1202,6 +1219,10 @@ const FlowCanvas = () => {
               parameters.sheets_read_range_a1 = (n.data.sheetsReadRangeA1 || "").trim();
             }
             displayName = (n.data.label as string) || "Sheets tool";
+          } else if (nt === "agent_memory") {
+            parameters.window_size = Number(n.data.windowSize) || 20;
+            parameters.session_hours = Number(n.data.sessionHours) || 24;
+            displayName = "Memory";
           }
           formattedNodes.push({
             id: bid,

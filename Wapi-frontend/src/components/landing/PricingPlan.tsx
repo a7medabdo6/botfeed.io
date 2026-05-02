@@ -68,7 +68,7 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
   return (
     <section
       id="pricing"
-      className="bg-[#F8FDFA] py-[calc(60px+(140-60)*((100vw-320px)/(1920-320)))] pb-0"
+      className="bg-[#F0F9FF] py-[calc(60px+(140-60)*((100vw-320px)/(1920-320)))] pb-0"
       style={{ overflowX: "clip" }}
     >
       <div className="mx-[calc(16px+(195-16)*((100vw-320px)/(1920-320)))]">
@@ -216,7 +216,7 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
                                 router.push(ROUTES.Login);
                               }
                             }}
-                            className={`w-full rounded-xl py-3 px-3 text-[15px] font-bold transition-all duration-300 ${plan!.is_featured ? "bg-primary text-white shadow-lg shadow-primary/20 hover:bg-[#047857]" : "bg-primary text-white hover:bg-[#047857]"}`}
+                            className={`w-full rounded-xl py-3 px-3 text-[15px] font-bold transition-all duration-300 ${plan!.is_featured ? "bg-primary text-white shadow-lg shadow-primary/20 hover:bg-[#0090C7]" : "bg-primary text-white hover:bg-[#0090C7]"}`}
                           >
                             Choose Plan
                           </button>

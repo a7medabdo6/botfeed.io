@@ -1,6 +1,7 @@
 import db from '../models/index.js';
 import unifiedWhatsAppService from '../services/whatsapp/unified-whatsapp.service.js';
 import { callAIModel } from './ai-utils.js';
+import { buildSessionKey, loadMemory, saveMemory } from './chatbot-memory.js';
 import mongoose from 'mongoose';
 
 const {
@@ -84,8 +85,33 @@ export const sendAutomatedReply = async (params) => {
             const chatbot = await Chatbot.findById(replyId).populate('ai_model');
 
             if (chatbot) {
-                const aiResponse = await callAIModel(userId, chatbot.ai_model, chatbot.api_key, `${chatbot.system_prompt}\n\nCustomer: ${incomingText}`);
-                console.log("airesponse", aiResponse);
+                const sessionKey = buildSessionKey({
+                    senderNumber: params.senderNumber,
+                    chatbotId: String(chatbot._id)
+                });
+                const history = await loadMemory({ userId, sessionKey, windowSize: 20 });
+
+                const historyBlock = history.map(m => {
+                    const role = m.role === 'user' ? 'Customer' : 'Assistant';
+                    return `${role}: ${m.content}`;
+                }).join('\n');
+
+                const systemPrompt = chatbot.system_prompt || '';
+                const prompt = historyBlock
+                    ? `${systemPrompt}\n\nConversation so far:\n${historyBlock}\n\nCustomer: ${incomingText}`
+                    : `${systemPrompt}\n\nCustomer: ${incomingText}`;
+
+                const aiResponse = await callAIModel(userId, chatbot.ai_model, chatbot.api_key, prompt);
+
+                await saveMemory({
+                    userId,
+                    sessionKey,
+                    userMessage: incomingText,
+                    assistantMessage: aiResponse,
+                    windowSize: 20,
+                    sessionHours: 24
+                }).catch(err => console.error('Failed to save keyword bot memory:', err));
+
                 await unifiedWhatsAppService.sendMessage(userId, {
                     recipientNumber: params.senderNumber,
                     messageText: aiResponse,

@@ -19,6 +19,7 @@ import unifiedWhatsAppService from '../services/whatsapp/unified-whatsapp.servic
 import { PROVIDER_TYPES } from '../services/whatsapp/unified-whatsapp.service.js';
 import automationCache from './automation-cache.js';
 import { v4 as uuidv4 } from 'uuid';
+import { buildSessionKey, loadMemory, saveMemory } from './chatbot-memory.js';
 
 class AutomationEngine {
   constructor() {
@@ -798,7 +799,25 @@ class AutomationEngine {
     }
 
     const incomingText = inputData.message || '';
-    const prompt = `${chatbot.system_prompt || ''}\n\nCustomer: ${incomingText}`;
+    const sessionKey = buildSessionKey({
+      senderNumber,
+      conversationId: inputData.conversationId,
+      chatbotId: String(chatbot._id),
+      channel: inputData.channel
+    });
+    const memWindowSize = Number(session_duration_hours) > 0 ? 20 : 10;
+    const memSessionHours = Number(session_duration_hours) || 24;
+    const history = await loadMemory({ userId, sessionKey, windowSize: memWindowSize });
+
+    const historyBlock = history.map(m => {
+      const role = m.role === 'user' ? 'Customer' : 'Assistant';
+      return `${role}: ${m.content}`;
+    }).join('\n');
+
+    const systemPrompt = chatbot.system_prompt || '';
+    const prompt = historyBlock
+      ? `${systemPrompt}\n\nConversation so far:\n${historyBlock}\n\nCustomer: ${incomingText}`
+      : `${systemPrompt}\n\nCustomer: ${incomingText}`;
 
     let replyText;
     try {
@@ -809,6 +828,15 @@ class AutomationEngine {
     }
 
     const finalReply = String(replyText || '').trim() || 'Sorry, I could not generate a reply.';
+
+    await saveMemory({
+      userId,
+      sessionKey,
+      userMessage: incomingText,
+      assistantMessage: finalReply,
+      windowSize: memWindowSize,
+      sessionHours: memSessionHours
+    }).catch(err => console.error('Failed to save chatbot memory:', err));
 
     if (isWidgetChannel) {
       try {
@@ -911,6 +939,24 @@ class AutomationEngine {
     const incomingText = inputData.message || '';
     const plainModel = typeof modelDoc.toObject === 'function' ? modelDoc.toObject() : modelDoc;
 
+    const memCfg = resolved.memoryConfig;
+    let conversationHistory = [];
+    let sessionKey = null;
+
+    if (memCfg) {
+      sessionKey = buildSessionKey({
+        senderNumber,
+        conversationId: inputData.conversationId,
+        chatbotId: String(chatbot._id),
+        channel: inputData.channel
+      });
+      conversationHistory = await loadMemory({
+        userId,
+        sessionKey,
+        windowSize: memCfg.windowSize
+      });
+    }
+
     let replyText;
     let toolLog = [];
     try {
@@ -925,7 +971,8 @@ class AutomationEngine {
         userMessage: incomingText,
         inputData,
         tools: resolved.tools,
-        dispatchTool: resolved.dispatchTool
+        dispatchTool: resolved.dispatchTool,
+        conversationHistory
       });
       replyText = out.text;
       toolLog = out.toolLog || [];
@@ -934,6 +981,17 @@ class AutomationEngine {
     }
 
     const finalReply = String(replyText || '').trim() || 'Sorry, I could not complete that request.';
+
+    if (memCfg && sessionKey) {
+      await saveMemory({
+        userId,
+        sessionKey,
+        userMessage: incomingText,
+        assistantMessage: finalReply,
+        windowSize: memCfg.windowSize,
+        sessionHours: memCfg.sessionHours
+      }).catch(err => console.error('Failed to save chatbot memory:', err));
+    }
 
     if (isWidgetChannel) {
       // Send reply through widget socket

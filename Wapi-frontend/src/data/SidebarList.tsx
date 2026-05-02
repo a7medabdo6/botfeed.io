@@ -352,6 +352,14 @@ export const NODETEMPLATES = [
     category: "ADVANCED FEATURES",
   },
   {
+    id: "agent_memory",
+    label: "Memory",
+    description: "Window buffer memory — lets the AI Agent remember conversation history",
+    icon: <BookKey />,
+    color: "#8b5cf6",
+    category: "ADVANCED FEATURES",
+  },
+  {
     id: "agent_tool_google_calendar_list",
     label: "Calendar Read",
     description: "AI Agent tool — list events (getAll)",

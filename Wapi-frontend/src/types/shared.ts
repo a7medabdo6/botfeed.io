@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { CSSProperties } from "react";
+
 export interface ConfirmModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -62,6 +64,7 @@ export interface ImageProps {
   priority?: boolean;
   unoptimized?: boolean;
   fill?: boolean;
+  style?: CSSProperties;
 }
 
 export interface CountrySelectProps {

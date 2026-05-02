@@ -35,7 +35,7 @@ const Landing = () => {
 
   if (error || !landingData?.data) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#041A1C] text-white">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0B1929] text-white">
         <h2 className="text-2xl font-bold mb-4">Oops! Something went wrong.</h2>
         <p className="text-gray-400">Failed to load the landing page. Please try again later.</p>
       </div>

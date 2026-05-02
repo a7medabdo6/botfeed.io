@@ -7,11 +7,12 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import Images from "../../shared/Image";
 import { FeatureCardProps, FeaturesProps } from "../../types/landingPage";
+import { getStaticFeatureImage } from "@/src/constants/landing-static-media";
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, image }) => {
   return (
     <div className="group feature-box relative rounded-[32px] p-3 ">
-      <div className="mb-5 max-w-117.5 max-h-75 aspect-4/3 w-full overflow-hidden rounded-[24px] border border-[#F0FDF4] bg-white shadow-inner relative z-10">
+      <div className="mb-5 max-w-117.5 max-h-75 aspect-4/3 w-full overflow-hidden rounded-[24px] border border-[#E0F2FE] bg-white shadow-inner relative z-10">
         <Images src={image || "/assets/images/default3.png"} alt={title} className="w-full max-w-117.5 max-h-75 h-full object-cover" width={400} height={300} />
       </div>
 
@@ -31,13 +32,16 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, image }) 
 const Features: React.FC<FeaturesProps> = ({ data }) => {
   const route = useRouter();
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
-  const features = data.features || [];
+  const features = (data.features || []).map((f, i) => ({
+    ...f,
+    image: getStaticFeatureImage(f.title, i),
+  }));
   const col1 = features.slice(0, Math.ceil(features.length / 3));
   const col2 = features.slice(Math.ceil(features.length / 3), Math.ceil((features.length / 3) * 2));
   const col3 = features.slice(Math.ceil((features.length / 3) * 2));
 
   return (
-    <section id="features" className="relative overflow-hidden bg-[linear-gradient(180deg,#F0FDF9_0%,#FFFFFF_100%)] py-[calc(30px+(100-30)*((100vw-320px)/(1920-320)))] pb-0">
+    <section id="features" className="relative overflow-hidden bg-[linear-gradient(180deg,#F0F9FF_0%,#FFFFFF_100%)] py-[calc(30px+(100-30)*((100vw-320px)/(1920-320)))] pb-0">
       <div className="relative z-10 mx-[calc(16px+(195-16)*((100vw-320px)/(1920-320)))]">
         <div className="p-4 text-center">
           <span className="text-[16px] font-bold uppercase tracking-wider text-primary">{data.badge || "Features"}</span>
@@ -45,7 +49,7 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
           <p className="mt-5 text-sm leading-relaxed text-[#64748B] md:mx-0 whitespace-pre-wrap">{data.description}</p>
           {data.cta_button?.text && (
             <button
-              className="mt-6 w-full rounded-xl bg-primary px-10 py-4 text-[16px] font-semibold text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#047857] sm:w-auto"
+              className="mt-6 w-full rounded-xl bg-primary px-10 py-4 text-[16px] font-semibold text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#0090C7] sm:w-auto"
               onClick={() => {
                 if (isAuthenticated) {
                   const isAgent = user?.role === "agent";

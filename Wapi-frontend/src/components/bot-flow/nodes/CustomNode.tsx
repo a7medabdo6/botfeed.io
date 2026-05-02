@@ -20,6 +20,7 @@ import { AIAgentNode } from "./AIAgentNode";
 import { AgentChatModelNode } from "./AgentChatModelNode";
 import { AgentGoogleCalendarToolNode } from "./AgentGoogleCalendarToolNode";
 import { AgentGoogleSheetsToolNode } from "./AgentGoogleSheetsToolNode";
+import { AgentMemoryNode } from "./AgentMemoryNode";
 
 export function CustomNode(props: any) {
   switch (props.data.nodeType) {
@@ -31,6 +32,8 @@ export function CustomNode(props: any) {
       return <AIAgentNode {...props} />;
     case "agent_chat_model":
       return <AgentChatModelNode {...props} />;
+    case "agent_memory":
+      return <AgentMemoryNode {...props} />;
     case "agent_tool_google_calendar":
     case "agent_tool_google_calendar_list":
     case "agent_tool_google_calendar_create":

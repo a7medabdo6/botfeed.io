@@ -30,13 +30,26 @@ export async function resolveAiAgentFromFlow(flow, agentNode, userId) {
   const pAgent = agentNode.parameters || {};
 
   let chatbotId = null;
+  let memoryConfig = null;
+
   for (const c of incoming) {
-    if (normTargetHandle(c.targetHandle) !== 'model-in') continue;
+    const handle = normTargetHandle(c.targetHandle);
     const src = flow.nodes.find((n) => n.id === c.source);
-    if (src?.type === 'agent_chat_model') {
+    if (!src) continue;
+
+    if (handle === 'model-in' && src.type === 'agent_chat_model') {
       chatbotId = src.parameters?.chatbot_id || null;
     }
+
+    if (handle === 'memory-in' && src.type === 'agent_memory') {
+      const mp = src.parameters || {};
+      memoryConfig = {
+        windowSize: Number(mp.window_size) || 20,
+        sessionHours: Number(mp.session_hours) || 24
+      };
+    }
   }
+
   if (!chatbotId && pAgent.chatbot_id) {
     chatbotId = pAgent.chatbot_id;
   }
@@ -489,5 +502,5 @@ export async function resolveAiAgentFromFlow(flow, agentNode, userId) {
     }
   }
 
-  return { chatbotId, tools, dispatchTool };
+  return { chatbotId, tools, dispatchTool, memoryConfig };
 }

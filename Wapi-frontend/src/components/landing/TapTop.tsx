@@ -26,8 +26,8 @@ const TapTop = () => {
       onMouseLeave={() => setHover(false)}
       className={`fixed bottom-8 right-8 z-50 w-[calc(40px+(52-40)*((100vw-320px)/(1920-320)))] h-[calc(40px+(52-40)*((100vw-320px)/(1920-320)))] rounded-xl flex items-center justify-center border-none cursor-pointer animate-bounce transition-all duration-500 ${visible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-5 pointer-events-none"}`}
       style={{
-        background: "linear-gradient(135deg, #00AEEF 0%, #10b981 50%, #34d399 100%)",
-        boxShadow: hover ? "0 8px 32px rgba(5, 150, 105, 0.5), 0 0 60px rgba(5, 150, 105, 0.25)" : "0 4px 24px rgba(5, 150, 105, 0.35), 0 0 40px rgba(5, 150, 105, 0.15)",
+        background: "linear-gradient(135deg, #5ecfff 0%, #00AEEF 50%, #0090C7 100%)",
+        boxShadow: hover ? "0 8px 32px rgba(0, 174, 239, 0.5), 0 0 60px rgba(0, 174, 239, 0.25)" : "0 4px 24px rgba(0, 174, 239, 0.35), 0 0 40px rgba(0, 174, 239, 0.15)",
         transform: hover ? "translateY(-3px) scale(1.08)" : visible ? "translateY(0)" : "translateY(20px)",
       }}
       aria-label="Scroll to top"

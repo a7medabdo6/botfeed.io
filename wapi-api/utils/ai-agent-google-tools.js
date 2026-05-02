@@ -73,7 +73,8 @@ export async function runGoogleToolsChatAgent({
   userMessage,
   inputData,
   tools,
-  dispatchTool
+  dispatchTool,
+  conversationHistory
 }) {
   if (!modelSupportsOpenAiStyleTools(model)) {
     const err = new Error(
@@ -99,11 +100,11 @@ export async function runGoogleToolsChatAgent({
     .filter(Boolean)
     .join('\n\n');
 
+  const history = Array.isArray(conversationHistory) ? conversationHistory : [];
+
   const messages = [
-    {
-      role: 'system',
-      content: systemContent
-    },
+    { role: 'system', content: systemContent },
+    ...history,
     { role: 'user', content: String(userMessage || '') }
   ];
 

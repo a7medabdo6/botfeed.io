@@ -69,7 +69,7 @@ const DynamicPageClient: React.FC<DynamicPageClientProps> = ({ slug }) => {
       <main className="pt-32 pb-20 px-6 md:px-12 lg:px-[calc(20px+(243-20)*((100vw-320px)/(1920-320)))]">
         <div className="max-w-4xl mx-auto">
           <div className="mb-9">
-            <h1 className="text-3xl font-extrabold text-[#0a2a20] mb-4">{page.title}</h1>
+            <h1 className="text-3xl font-extrabold text-[#0B1929] mb-4">{page.title}</h1>
           </div>
 
           <div className="bg-white rounded-lg p-4 md:p-8 shadow-sm border border-gray-100">

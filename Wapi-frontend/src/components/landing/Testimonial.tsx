@@ -17,7 +17,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ data }) => {
   if (testimonialsFinal.length === 0) return null;
 
   return (
-    <section id="testimonials" className="bg-[#fafffd] py-[calc(30px+(100-30)*((100vw-320px)/(1920-320)))] overflow-hidden px-0 pb-0">
+    <section id="testimonials" className="bg-[#F8FCFF] py-[calc(30px+(100-30)*((100vw-320px)/(1920-320)))] overflow-hidden px-0 pb-0">
       <div className="mx-[calc(16px+(195-16)*((100vw-320px)/(1920-320)))] overflow-hidden">
         <div className="text-center mb-[calc(12px+(35-12)*((100vw-320px)/(1920-320)))]">
           <span className="text-[16px] font-bold uppercase tracking-[0.45em] text-primary">{data.badge || "Testimonials"}</span>
@@ -56,9 +56,9 @@ const Testimonial: React.FC<TestimonialProps> = ({ data }) => {
                       ${isActive ? "md:translate-y-4 scale-105 z-10 opacity-100" : "md:-translate-y-4 scale-95 opacity-50"}
                     `}
                   >
-                    <div className="testimonial-card bg-white rounded-4xl p-7 h-full flex flex-col shadow-[0_16px_60px_rgba(15,184,129,0.12)] relative ">
+                    <div className="testimonial-card bg-white rounded-4xl p-7 h-full flex flex-col shadow-[0_16px_60px_rgba(0,174,239,0.10)] relative ">
                       <div className="mb-6">
-                        <div className="bg-primary w-13 h-13 rounded-[14px] flex items-center justify-center shadow-[0_6px_20px_rgba(15,184,129,0.25)]">
+                        <div className="bg-primary w-13 h-13 rounded-[14px] flex items-center justify-center shadow-[0_6px_20px_rgba(0,174,239,0.25)]">
                           <Quote className="text-white fill-white transform scale-x-[-1]" size={24} strokeWidth={0} />
                         </div>
                       </div>

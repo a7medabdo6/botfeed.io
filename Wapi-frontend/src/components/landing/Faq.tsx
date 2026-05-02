@@ -37,7 +37,7 @@ const Faq: React.FC<FaqProps> = ({ data }) => {
                     </linearGradient>
                     <linearGradient id="paint1_linear_132_472" x1="249" y1="3.99998" x2="81.0583" y2="337.554" gradientUnits="userSpaceOnUse">
                       <stop stopColor="#00AEEF" />
-                      <stop offset="1" stopColor="#122727" />
+                      <stop offset="1" stopColor="#0B1929" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -46,14 +46,14 @@ const Faq: React.FC<FaqProps> = ({ data }) => {
 
             <div className="flex-1 w-full space-y-4 z-10 min-[1200px]:col-span-2 max-h-202.5 overflow-auto custom-scrollbar">
               {faqs.map((item, index) => (
-                <div key={index} className={`transition-all duration-300 faq-box overflow-hidden rounded-[10px] ${activeIndex === index ? "bg-primary border-transparent" : "bg-[#122727] border-[#ffffff20] hover:border-[#31F06F40]"}`}>
-                  <button onClick={() => toggleAccordion(index)} className={`w-full flex items-center justify-between p-[calc(8px+(20-8)*((100vw-320px)/(1920-320)))] md:p-6 text-left transition-colors duration-300 rounded-[10px] ${activeIndex === index ? "bg-[#c8f0e0] rounded-tl-[10px] rounded-tr-[10px] rounded-bl-none rounded-br-none" : "bg-[#122727]"} `}>
+                <div key={index} className={`transition-all duration-300 faq-box overflow-hidden rounded-[10px] ${activeIndex === index ? "bg-primary border-transparent" : "bg-[#0F1E30] border-[#ffffff20] hover:border-[#00AEEF40]"}`}>
+                  <button onClick={() => toggleAccordion(index)} className={`w-full flex items-center justify-between p-[calc(8px+(20-8)*((100vw-320px)/(1920-320)))] md:p-6 text-left transition-colors duration-300 rounded-[10px] ${activeIndex === index ? "bg-[#CCF0FF] rounded-tl-[10px] rounded-tr-[10px] rounded-bl-none rounded-br-none" : "bg-[#0F1E30]"} `}>
                     <div className="flex items-center gap-4">
                       <span className={`p-1 rounded-full transition-colors ${activeIndex === index ? "text-primary" : "text-primary"}`}>{activeIndex === index ? <Minus size={20} /> : <Plus size={20} />}</span>
-                      <span className={`font-semibold text-[18px] transition-colors ${activeIndex === index ? "text-[#0A2A22]" : "text-white"}`}>{item.title}</span>
+                      <span className={`font-semibold text-[18px] transition-colors ${activeIndex === index ? "text-[#0B1929]" : "text-white"}`}>{item.title}</span>
                     </div>
                   </button>
-                  <div className={`overflow-hidden transition-colors duration-300 ${activeIndex === index ? "max-h-96 pb-[calc(12px+(24-12)*((100vw-320px)/(1920-320)))] px-[calc(12px+(24-12)*((100vw-320px)/(1920-320)))] sm:px-10 lg:px-14 bg-[#c8f0e0] rounded-tl-none rounded-tr-none rounded-bl-[10px] rounded-br-[10px]" : "max-h-0 bg-primary "}`}>
+                  <div className={`overflow-hidden transition-colors duration-300 ${activeIndex === index ? "max-h-96 pb-[calc(12px+(24-12)*((100vw-320px)/(1920-320)))] px-[calc(12px+(24-12)*((100vw-320px)/(1920-320)))] sm:px-10 lg:px-14 bg-[#CCF0FF] rounded-tl-none rounded-tr-none rounded-bl-[10px] rounded-br-[10px]" : "max-h-0 bg-primary "}`}>
                     <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
                   </div>
                 </div>

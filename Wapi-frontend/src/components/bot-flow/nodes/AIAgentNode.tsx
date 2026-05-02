@@ -40,13 +40,13 @@ export function AIAgentNode({ data, id }: any) {
             className="!relative !left-0 !top-0 h-3 w-3 border-2 border-white bg-sky-500 shadow-sm dark:border-(--card-border-color)"
           />
         </div>
-        <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 opacity-45">
-          <span className="text-[9px] font-bold uppercase tracking-wide text-gray-500">Memory</span>
+        <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1">
+          <span className="text-[9px] font-bold uppercase tracking-wide text-sky-900 dark:text-sky-100">Memory</span>
           <Handle
             type="target"
             position={Position.Bottom}
             id="memory-in"
-            className="!relative !left-0 !top-0 h-3 w-3 border-2 border-dashed border-gray-400 bg-gray-200 dark:bg-gray-600"
+            className="!relative !left-0 !top-0 h-3 w-3 border-2 border-white bg-violet-500 shadow-sm dark:border-(--card-border-color)"
           />
         </div>
         <div className="absolute bottom-0 left-[82%] flex -translate-x-1/2 flex-col items-center gap-1">

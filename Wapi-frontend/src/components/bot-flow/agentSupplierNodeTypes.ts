@@ -9,6 +9,7 @@ export const AGENT_SUPPLIER_NODE_TYPES = [
   "agent_tool_google_sheets_read",
   "agent_tool_google_sheets_append",
   "agent_tool_google_sheets_update",
+  "agent_memory",
 ] as const;
 
 export type AgentSupplierNodeType = (typeof AGENT_SUPPLIER_NODE_TYPES)[number];

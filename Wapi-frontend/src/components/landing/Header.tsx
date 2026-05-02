@@ -97,11 +97,13 @@ const Header = ({ isColor = false }: { isColor?: boolean }) => {
           flex items-center justify-between
           py-3 border-b border-[#ffffff15]
           transition-all duration-300
-          ${scrolled || isColor ? "backdrop-blur-md bg-[#0a2a20]" : ""}
+          ${scrolled || isColor ? "backdrop-blur-md bg-[#0B1929]" : ""}
         `}
       >
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <Images src={logo_dark_url || Logo1} alt={`${app_name || "Botfeed"} logo`} width={100} height={40} unoptimized className="h-7.75 object-contain" />
+          <span className="inline-flex items-center justify-center rounded-lg bg-white/95 p-1">
+            <Images src={  Logo1} alt={`${app_name || "Botfeed"} logo`} width={80} height={80} unoptimized className="w-10 h-10 object-contain" />
+          </span>
         </Link>
 
         <nav className="hidden min-[1100px]:flex items-center gap-8 flex-1 justify-center">
@@ -170,7 +172,7 @@ const Header = ({ isColor = false }: { isColor?: boolean }) => {
       <div
         className={`
           fixed top-0 right-0 h-full w-80 max-w-[85vw]
-          bg-[#0a2a20] z-50 shadow-2xl
+          bg-[#0B1929] z-50 shadow-2xl
           transition-transform duration-300 ease-in-out
           min-[1100px]:hidden
           ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
@@ -180,8 +182,9 @@ const Header = ({ isColor = false }: { isColor?: boolean }) => {
           {/* Drawer header */}
           <div className="flex items-center justify-between px-5 pt-5 pb-6 border-b border-white/10">
             <Link href="/" onClick={() => setIsMenuOpen(false)}>
-              <Images src={logo_dark_url || Logo1} alt={`${app_name || "Botfeed"} logo`} width={90} height={34} unoptimized className="h-7.75 object-contain" />
-            </Link>
+            <span className="inline-flex items-center justify-center rounded-xl bg-white/95 p-1.5">
+                <Images src={logo_dark_url || Logo1} alt={`${app_name || "Botfeed"} logo`} width={80} height={80} unoptimized className="w-20 h-20 object-contain" />
+              </span>            </Link>
             <button aria-label="Close menu" className="text-white p-2 hover:bg-[#ffffff10] rounded-lg transition-colors" onClick={() => setIsMenuOpen(false)}>
               <X size={22} />
             </button>

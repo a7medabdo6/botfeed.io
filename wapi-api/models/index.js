@@ -79,6 +79,7 @@ import GoogleSheet from './google-sheet.model.js';
 import WidgetConfig from './widget-config.model.js';
 import WebConversation from './web-conversation.model.js';
 import WebMessage from './web-message.model.js';
+import ChatbotMemory from './chatbot-memory.model.js';
 
 import Form from './formBuilder.model.js';
 
@@ -157,6 +158,7 @@ const db = {
   WidgetConfig,
   WebConversation,
   WebMessage,
+  ChatbotMemory,
   Form,
   mongoose,
 
@@ -186,6 +188,6 @@ export {
   WhatsappCallLog,
   Form,
   Submission,
-  Plan, Template, Webhook, Subscription, PaymentHistory, AIModel, AgentTask, AutomationFlow, AutomationExecution, ChatAssignment, Contact, CustomField, Tag, Attachment, Campaign, UserSetting, EcommerceCatalog, EcommerceProduct, EcommerceOrder, EcommerceOrderStatusTemplate, LandingPage, ApiKey, Widget, ShortLink, ImportJob, ReplyMaterial, WorkingHours, Workspace, Sequence, SequenceStep, WabaConfiguration, Tax, GoogleAccount, GoogleCalendar, GoogleSheet, WidgetConfig, WebConversation, WebMessage, connectDB
+  Plan, Template, Webhook, Subscription, PaymentHistory, AIModel, AgentTask, AutomationFlow, AutomationExecution, ChatAssignment, Contact, CustomField, Tag, Attachment, Campaign, UserSetting, EcommerceCatalog, EcommerceProduct, EcommerceOrder, EcommerceOrderStatusTemplate, LandingPage, ApiKey, Widget, ShortLink, ImportJob, ReplyMaterial, WorkingHours, Workspace, Sequence, SequenceStep, WabaConfiguration, Tax, GoogleAccount, GoogleCalendar, GoogleSheet, WidgetConfig, WebConversation, WebMessage, ChatbotMemory, connectDB
 
 };

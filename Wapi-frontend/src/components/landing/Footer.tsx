@@ -55,11 +55,14 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
   ].filter((link) => link.href !== "#" || link.label === "Twitter");
 
   return (
-    <footer className="footer rounded-t-lg px-6 md:px-12 lg:px-[calc(20px+(243-20)*((100vw-320px)/(1920-320)))] pt-12 pb-8 text-white bg-[#0a2a20]">
+    <footer className="footer rounded-t-lg px-6 md:px-12 lg:px-[calc(20px+(243-20)*((100vw-320px)/(1920-320)))] pt-12 pb-8 text-white bg-[#0B1929]">
       <div className="flex flex-col md:flex-row justify-between items-center gap-[calc(16px+(32-16)*((100vw-320px)/(1920-320)))] pb-8 border-b border-white/10">
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3">
-            <Images src={logo_dark_url || Logo1} alt={`${app_name || "Botfeed"} logo`} className="h-7.75 object-contain" width={100} height={100} />
+          <span className="inline-flex items-center justify-center rounded-xl bg-white/95 p-1.5">
+
+            <Images src={Logo1} alt={`${app_name || "Botfeed"} logo`} className="w-20 h-20 object-contain" width={80} height={80} />
+          </span>
           </Link>
         </div>
 
