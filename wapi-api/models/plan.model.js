@@ -132,6 +132,10 @@ const planSchema = new mongoose.Schema({
             type: Boolean,
             default: false
         },
+        chatbot_widget: {
+            type: Boolean,
+            default: false
+        },
         custom_fields: {
             type: Number,
             default: 0

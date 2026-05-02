@@ -12,7 +12,11 @@ import {
   Setting,
   AiPromptLog,
   Team,
-  Role
+  Role,
+  Message,
+  Chatbot,
+  MessageBot,
+  ReplyMaterial
 } from '../models/index.js';
 
 
@@ -38,6 +42,7 @@ const BOOLEAN_FEATURES = [
   'auto_replies',
   'analytics',
   'priority_support',
+  'chatbot_widget',
 ];
 
 
@@ -155,6 +160,11 @@ async function getUsageCount(userId, feature, subscription) {
       return CustomField.countDocuments({ ...baseQuery, created_by: uid });
     case 'tags':
       return Tag.countDocuments({ ...baseQuery, created_by: uid });
+    case 'message_bots':
+      return Chatbot.countDocuments({ ...baseQuery, user_id: uid }) +
+             await MessageBot.countDocuments({ ...baseQuery, user_id: uid });
+    case 'canned_replies':
+      return ReplyMaterial.countDocuments({ ...baseQuery, user_id: uid });
     case 'conversations':
       return Message.countDocuments({ ...baseQuery, user_id: uid });
     default:
@@ -192,7 +202,8 @@ export const checkPlanLimit = (feature) => {
 
     if (limit <= 0) return next();
 
-    const userId = getUserId(req.user);
+    const ownerId = req.user.owner_id || req.user._id;
+    const userId = getUserId({ _id: ownerId });
     if (!userId) {
       return res.status(401).json({
         success: false,
@@ -212,6 +223,41 @@ export const checkPlanLimit = (feature) => {
     next();
   };
 };
+
+
+/**
+ * Standalone quota check for AI prompts — usable outside Express middleware
+ * (automation engine, chatbot services, widget bot, call agent, etc.).
+ * Throws with `code: 'PLAN_LIMIT_REACHED'` when the user's plan quota is exhausted.
+ */
+export async function checkAiQuotaForUser(userId) {
+  const uid = mongoose.Types.ObjectId.isValid(userId)
+    ? new mongoose.Types.ObjectId(userId)
+    : null;
+  if (!uid) return;
+
+  const subscription = await Subscription.findOne({
+    user_id: uid,
+    deleted_at: null,
+    status: { $in: ['active', 'trial'] },
+  })
+    .populate('plan_id')
+    .lean();
+
+  if (!subscription?.plan_id?.features) return;
+
+  const limit = subscription.plan_id.features.ai_prompts;
+  if (typeof limit !== 'number' || limit <= 0) return;
+
+  const count = await AiPromptLog.countDocuments({ user_id: uid, deleted_at: null });
+  if (count >= limit) {
+    const err = new Error(
+      `AI prompt limit reached (${limit}). Upgrade your plan to continue using AI features.`
+    );
+    err.code = 'PLAN_LIMIT_REACHED';
+    throw err;
+  }
+}
 
 
 export const attachSubscriptionIfAny = async (req, res, next) => {

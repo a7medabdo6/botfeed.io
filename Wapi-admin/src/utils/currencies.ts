@@ -22,6 +22,7 @@ export const currencies: CurrencyOption[] = [
   { name: "Colombian Peso", code: "COP", symbol: "$" },
   { name: "Czech Koruna", code: "CZK", symbol: "Kč" },
   { name: "Danish Krone", code: "DKK", symbol: "kr" },
+  { name: "Egyptian Pound", code: "EGP", symbol: "ج.م" },
   { name: "Hong Kong Dollar", code: "HKD", symbol: "HK$" },
   { name: "Hungarian Forint", code: "HUF", symbol: "Ft" },
   { name: "Indonesian Rupiah", code: "IDR", symbol: "Rp" },

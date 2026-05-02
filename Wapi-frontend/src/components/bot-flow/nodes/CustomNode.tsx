@@ -51,6 +51,7 @@ export function CustomNode(props: any) {
     case "calendar_event":
       return <CalendarEventNode {...props} />;
     case "trigger":
+    case "widget_trigger":
       return <TriggerNode {...props} />;
     case "text_message":
     case "send-message":

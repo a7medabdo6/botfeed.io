@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { setRTL } from "@/src/redux/reducers/layoutSlice";
 import { languageApi } from "@/src/redux/api/languageApi";
+import { DEFAULT_LOCALE } from "@/src/constants/locale";
 import { loadTranslations } from "@/src/utils/i18nLoader";
 
 const LANGUAGE_STORAGE_KEY = "selected_language";
@@ -20,7 +21,7 @@ export const useLanguageInitializer = (): boolean => {
 
   useEffect(() => {
     const initializeLanguage = async () => {
-      const savedLocale = localStorage.getItem(LANGUAGE_STORAGE_KEY) || "en";
+      const savedLocale = localStorage.getItem(LANGUAGE_STORAGE_KEY) || DEFAULT_LOCALE;
 
       try {
         const languagesResult = await getAllLanguages({ status: true }).unwrap();
@@ -34,11 +35,8 @@ export const useLanguageInitializer = (): boolean => {
               loadTranslations(savedLocale, translationResult.data);
             }
           } catch {
-            if (savedLocale !== "en") {
-              await i18n.changeLanguage("en");
-              dispatch(setRTL(false));
-              return;
-            }
+            await i18n.changeLanguage(savedLocale);
+            dispatch(setRTL(currentLanguage.is_rtl ?? RTL_LANGUAGES.has(savedLocale)));
           }
 
           if (i18n.language !== savedLocale) {

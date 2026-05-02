@@ -43,4 +43,10 @@ export const booleanFeatures = [
     description: "Get priority customer support",
     icon: <span className="text-(--text-green-primary) font-bold text-sm">⭐</span>,
   },
+  {
+    id: "chatbot_widget",
+    label: "Chatbot Widget",
+    description: "Website chatbot widget for visitors",
+    icon: <span className="text-(--text-green-primary) font-bold text-sm">💬</span>,
+  },
 ];

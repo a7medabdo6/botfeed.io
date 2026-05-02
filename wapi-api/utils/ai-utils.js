@@ -1,4 +1,5 @@
-import { AiPromptLog } from '../models/index.js'
+import { AiPromptLog } from '../models/index.js';
+import { checkAiQuotaForUser } from '../middlewares/plan-permission.js';
 
 const getNestedValue = (obj, path) => {
   return path.split('.').reduce((current, key) => current?.[key], obj);
@@ -150,6 +151,10 @@ const buildApiEndpoint = (model, apiKey) => {
 
 
 const callAIModel = async (userId, model, apiKey, prompt) => {
+  if (userId) {
+    await checkAiQuotaForUser(userId);
+  }
+
   const requestBody = formatRequestBody(model, prompt);
   const requestHeaders = formatRequestHeaders(model, apiKey);
 

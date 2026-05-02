@@ -1,13 +1,15 @@
 import express from 'express';
 import messageBotController from '../controllers/message-bot.controller.js';
 import { authenticate } from '../middlewares/auth.js';
+import { requireSubscription, checkPlanLimit } from '../middlewares/plan-permission.js';
 import { checkPermission } from '../middlewares/permission.js';
 
 const router = express.Router();
 
 router.use(authenticate);
+router.use(requireSubscription);
 
-router.post('/', checkPermission('create.message_bots'), messageBotController.createMessageBot);
+router.post('/', checkPlanLimit('message_bots'), checkPermission('create.message_bots'), messageBotController.createMessageBot);
 router.get('/', checkPermission('view.message_bots'), messageBotController.getAllMessageBots);
 router.get('/:id', checkPermission('view.message_bots'), messageBotController.getMessageBotById);
 router.put('/:id', checkPermission('update.message_bots'), messageBotController.updateMessageBot);

@@ -22,20 +22,12 @@ import { NodeField } from "./NodeField";
 const SELECT_INPUT = "h-9 text-sm bg-(--input-color) dark:bg-(--page-body-bg) dark:hover:bg-(--page-body-bg) dark:focus:bg-(--page-body-bg) focus:bg-(--input-color) focus-visible:shadow-none";
 const EMPTY_BORDER = "border-gray-200 dark:border-(--card-border-color)";
 
-const CHANNEL_OPTIONS = [
-  { value: "whatsapp" as const, label: "WhatsApp", icon: <MessageSquare size={14} /> },
-  { value: "chatbot_widget" as const, label: "Chatbot Widget", icon: <Globe size={14} /> },
-];
-
-function normalizeChannels(data: any): ("whatsapp" | "chatbot_widget")[] {
+function resolveChannel(data: any): "whatsapp" | "chatbot_widget" {
+  if (data.nodeType === "widget_trigger") return "chatbot_widget";
   const ch = data.channels;
-  if (Array.isArray(ch) && ch.length > 0) {
-    const allowed = new Set(["whatsapp", "chatbot_widget"]);
-    const filtered = ch.filter((c: string) => allowed.has(c)) as ("whatsapp" | "chatbot_widget")[];
-    if (filtered.length > 0) return filtered;
-  }
-  if (data.channel === "chatbot_widget") return ["chatbot_widget"];
-  return ["whatsapp"];
+  if (Array.isArray(ch) && ch.includes("chatbot_widget") && !ch.includes("whatsapp")) return "chatbot_widget";
+  if (data.channel === "chatbot_widget") return "chatbot_widget";
+  return "whatsapp";
 }
 
 export function TriggerNode({ data, id }: any) {
@@ -44,22 +36,22 @@ export function TriggerNode({ data, id }: any) {
   const [touched, setTouched] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const channels = normalizeChannels(data);
-  const hasWhatsapp = channels.includes("whatsapp");
-  const hasWidget = channels.includes("chatbot_widget");
+  const channel = resolveChannel(data);
+  const isWidget = channel === "chatbot_widget";
+  const hasWhatsapp = !isWidget;
+  const hasWidget = isWidget;
 
   const keywordsArray = Array.isArray(data.keywords) ? data.keywords : [];
 
   const errors: string[] = [];
   if (touched || data.forceValidation) {
-    if (channels.length === 0) errors.push("Select at least one channel");
-    if (hasWhatsapp && !data.contactType) errors.push("Contact type is required when WhatsApp is selected");
+    if (hasWhatsapp && !data.contactType) errors.push("Contact type is required");
     if (!data.triggerType) errors.push("Trigger type is required");
     if (data.triggerType !== "any message" && data.triggerType !== "order received" && (!keywordsArray || keywordsArray.length === 0)) {
       errors.push("Trigger keywords are required");
     }
-    if (data.triggerType === "order received" && !hasWhatsapp) {
-      errors.push("Order received applies to WhatsApp only — enable WhatsApp or change trigger type");
+    if (data.triggerType === "order received" && isWidget) {
+      errors.push("Order received applies to WhatsApp only");
     }
   }
 
@@ -69,25 +61,6 @@ export function TriggerNode({ data, id }: any) {
       nds.map((node) =>
         node.id === id
           ? { ...node, data: { ...node.data, [field]: value } }
-          : node,
-      ),
-    );
-  };
-
-  const toggleChannel = (value: "whatsapp" | "chatbot_widget") => {
-    if (!touched) setTouched(true);
-    const set = new Set(channels);
-    if (set.has(value)) {
-      if (set.size <= 1) return;
-      set.delete(value);
-    } else {
-      set.add(value);
-    }
-    const next = Array.from(set) as ("whatsapp" | "chatbot_widget")[];
-    setNodes((nds) =>
-      nds.map((node) =>
-        node.id === id
-          ? { ...node, data: { ...node.data, channels: next, channel: undefined } }
           : node,
       ),
     );
@@ -128,41 +101,20 @@ export function TriggerNode({ data, id }: any) {
   return (
     <BaseNode
       id={id}
-      title="Start Trigger"
-      icon={<Zap size={18} />}
-      iconBgColor="bg-orange-100"
-      iconColor="text-orange-600"
-      borderColor="border-orange-200"
+      title={isWidget ? "Widget Trigger" : "WhatsApp Trigger"}
+      icon={isWidget ? <Globe size={18} /> : <Zap size={18} />}
+      iconBgColor={isWidget ? "bg-sky-100" : "bg-orange-100"}
+      iconColor={isWidget ? "text-sky-600" : "text-orange-600"}
+      borderColor={isWidget ? "border-sky-200" : "border-orange-200"}
       handleColor="bg-purple-500!"
       errors={errors}
       showInHandle={false}
       headerRight={
-        <Badge variant="secondary" className="bg-purple-100 text-purple-700 dark:bg-(--dark-sidebar) dark:text-white dark:hover:bg-(--table-hover) hover:bg-purple-100 text-[10px] h-4 px-1.5">
-          Entry Point
+        <Badge variant="secondary" className={`${isWidget ? "bg-sky-100 text-sky-700" : "bg-purple-100 text-purple-700"} dark:bg-(--dark-sidebar) dark:text-white dark:hover:bg-(--table-hover) hover:bg-inherit text-[10px] h-4 px-1.5`}>
+          {isWidget ? "Widget" : "WhatsApp"}
         </Badge>
       }
     >
-      <NodeField label="Channels" required description="This flow can start from more than one channel" error={(touched || data.forceValidation) && channels.length === 0 ? "Select at least one channel" : ""}>
-        <div className="flex flex-col gap-2">
-          {CHANNEL_OPTIONS.map((opt) => (
-            <label
-              key={opt.value}
-              className="flex cursor-pointer items-center gap-2 rounded-md border border-gray-200 bg-(--input-color) px-3 py-2 text-sm dark:border-(--card-border-color) dark:bg-(--page-body-bg)"
-            >
-              <input
-                type="checkbox"
-                className="rounded border-gray-300"
-                checked={channels.includes(opt.value)}
-                onChange={() => toggleChannel(opt.value)}
-              />
-              <span className="flex items-center gap-2 text-gray-800 dark:text-gray-100">
-                {opt.icon}
-                {opt.label}
-              </span>
-            </label>
-          ))}
-        </div>
-      </NodeField>
 
       {hasWhatsapp && (
         <NodeField label="Contact Type" required error={(touched || data.forceValidation) && !data.contactType ? "Please select a contact type" : ""}>

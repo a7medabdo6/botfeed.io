@@ -174,6 +174,7 @@ export interface PlanFeatures {
   auto_replies?: boolean;
   analytics?: boolean;
   priority_support?: boolean;
+  chatbot_widget?: boolean;
   custom_fields?: number;
   tags?: number;
   teams?: number;

@@ -198,17 +198,33 @@ const getLandingPage = async (req, res) => {
     const populatedLandingPage = await LandingPage.findById(landingPage._id)
       .populate({
         path: 'pricing_section.plans._id',
-        select: '_id name price features is_featured',
+        select: '_id name price billing_cycle description features is_featured sort_order',
         populate: {
           path: 'currency taxes',
         }
       })
       .populate('testimonials_section.testimonials._id', '_id title description user_name user_post user_image status rating')
-      .populate('faq_section.faqs._id', '_id title description status');``
+      .populate('faq_section.faqs._id', '_id title description status');
+
+    const result = populatedLandingPage.toObject();
+
+    // Auto-fill plans: if none are manually assigned, show all active plans
+    const manualPlans = result.pricing_section?.plans || [];
+    const hasPopulatedPlans = manualPlans.some(p => p._id && typeof p._id === 'object' && p._id.name);
+    if (!hasPopulatedPlans) {
+      const activePlans = await Plan.find({ is_active: true, deleted_at: null })
+        .populate('currency taxes')
+        .sort({ sort_order: 1, price: 1 })
+        .lean();
+      result.pricing_section = {
+        ...(result.pricing_section || {}),
+        plans: activePlans.map(p => ({ _id: p })),
+      };
+    }
 
     res.status(200).json({
       success: true,
-      data: populatedLandingPage
+      data: result
     });
   } catch (error) {
     console.error('Error getting landing page:', error);

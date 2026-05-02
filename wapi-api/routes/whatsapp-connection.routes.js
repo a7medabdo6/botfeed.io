@@ -1,7 +1,7 @@
 import express from 'express';
 import whatsappConnectionController from '../controllers/whatsapp-connection.controller.js';
 import { authenticate } from '../middlewares/auth.js';
-import { checkPlanLimit } from '../middlewares/plan-permission.js';
+import { requireSubscription, checkPlanLimit } from '../middlewares/plan-permission.js';
 import multer from "multer";
 const router = express.Router();
 
@@ -12,10 +12,13 @@ const upload = multer({
   }
 });
 
-router.post('/create', authenticate, whatsappConnectionController.createWhatsappConnection);
-router.get('/show', authenticate, whatsappConnectionController.getWhatsappConnection);
-router.put('/update', authenticate, whatsappConnectionController.updateWhatsappConnection);
-router.post('/send-message', authenticate, checkPlanLimit('conversations'), upload.single('file'), whatsappConnectionController.sendMessage);
+router.use(authenticate);
+router.use(requireSubscription);
+
+router.post('/create', whatsappConnectionController.createWhatsappConnection);
+router.get('/show', whatsappConnectionController.getWhatsappConnection);
+router.put('/update', whatsappConnectionController.updateWhatsappConnection);
+router.post('/send-message', checkPlanLimit('conversations'), upload.single('file'), whatsappConnectionController.sendMessage);
 
 export default router;
 

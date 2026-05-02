@@ -1,5 +1,5 @@
 import { MenuItem } from "@/src/types/components";
-import { BookImage, BookKey, Bot, BotMessageSquare, Cable, CalendarDays, CheckSquare, Clock, Code, Columns, Contact, FileSpreadsheet, Form, HatGlasses, Image, Import, LayoutDashboard, LayoutTemplate, List, ListOrdered, MailCheck, MapPin, Megaphone, MessageCircle, MessageSquare, MousePointer2, Phone, PhoneCall, Plug, Plus, PlusCircle, Receipt, RefreshCw, Settings, Sparkles, Table2, Tags, Timer, Trash2, Users, Webhook, Workflow, Wrench, Zap } from "lucide-react";
+import { BookImage, BookKey, Bot, BotMessageSquare, Cable, CalendarDays, CheckSquare, Clock, Code, Columns, Contact, FileSpreadsheet, Form, Globe, HatGlasses, Image, Import, LayoutDashboard, LayoutTemplate, List, ListOrdered, MailCheck, MapPin, Megaphone, MessageCircle, MessageSquare, MousePointer2, Phone, PhoneCall, Plug, Plus, PlusCircle, Receipt, RefreshCw, Settings, Sparkles, Table2, Tags, Timer, Trash2, Users, Webhook, Workflow, Wrench, Zap } from "lucide-react";
 
 export const MENUITEMS: MenuItem[] = [
   {
@@ -249,10 +249,18 @@ export const MENUITEMS: MenuItem[] = [
 export const NODETEMPLATES = [
   {
     id: "trigger",
-    label: "Start Trigger",
-    description: "Entry point for the automation flow",
-    icon: <Zap />,
+    label: "WhatsApp Trigger",
+    description: "Trigger from incoming WhatsApp messages",
+    icon: <MessageSquare />,
     color: "#f97316",
+    category: "Trigger",
+  },
+  {
+    id: "widget_trigger",
+    label: "Website Widget",
+    description: "Trigger from website chatbot widget visitors",
+    icon: <Globe />,
+    color: "#0ea5e9",
     category: "Trigger",
   },
   {

@@ -16,9 +16,10 @@ async function seedCurrency() {
       { name: 'Singapore Dollar', code: 'SGD', symbol: 'S$', exchange_rate: 1.34, decimal_number: 2, sort_order: 11, is_active: true },
       { name: 'Hong Kong Dollar', code: 'HKD', symbol: 'HK$', exchange_rate: 7.82, decimal_number: 2, sort_order: 12, is_active: true },
       { name: 'United Arab Emirates Dirham', code: 'AED', symbol: 'د.إ', exchange_rate: 3.67, decimal_number: 2, sort_order: 13, is_active: true },
-      { name: 'Saudi Riyal', code: 'SAR', symbol: 'ر.س', exchange_rate: 3.75, decimal_number: 2, sort_order: 14, is_active: true },
-      { name: 'Brazilian Real', code: 'BRL', symbol: 'R$', exchange_rate: 5.0, decimal_number: 2, sort_order: 15, is_active: true },
-      { name: 'South African Rand', code: 'ZAR', symbol: 'R', exchange_rate: 18.8, decimal_number: 2, sort_order: 16, is_active: true }
+      { name: 'Egyptian Pound', code: 'EGP', symbol: 'ج.م', exchange_rate: 49.0, decimal_number: 2, sort_order: 14, is_active: true },
+      { name: 'Saudi Riyal', code: 'SAR', symbol: 'ر.س', exchange_rate: 3.75, decimal_number: 2, sort_order: 15, is_active: true },
+      { name: 'Brazilian Real', code: 'BRL', symbol: 'R$', exchange_rate: 5.0, decimal_number: 2, sort_order: 16, is_active: true },
+      { name: 'South African Rand', code: 'ZAR', symbol: 'R', exchange_rate: 18.8, decimal_number: 2, sort_order: 17, is_active: true }
     ];
 
     for (const currencyData of currencies) {

@@ -1,6 +1,28 @@
-import { AutomationFlow, AutomationExecution, WidgetConfig } from '../models/index.js';
+import { AutomationFlow, AutomationExecution, WidgetConfig, Subscription } from '../models/index.js';
 import automationEngine from '../utils/automation-engine.js';
 import automationCache from '../utils/automation-cache.js';
+
+function flowUsesWidgetTrigger(triggers, nodes) {
+  if (triggers?.some(t => t.event_type === 'widget_message_received')) return true;
+  return (nodes || []).some(n => {
+    const p = n.parameters || {};
+    return (Array.isArray(p.channels) && p.channels.includes('chatbot_widget')) ||
+           p.channel === 'chatbot_widget';
+  });
+}
+
+async function assertWidgetAllowed(req, res) {
+  if (req.user?.role === 'super_admin' || req.isFreeTrial) return true;
+  const plan = req.plan;
+  if (!plan?.features || !plan.features.chatbot_widget) {
+    res.status(403).json({
+      success: false,
+      message: 'Your plan does not include the Chatbot Widget feature. Upgrade to use website widget triggers.',
+    });
+    return false;
+  }
+  return true;
+}
 
 async function syncWidgetConfigForFlow(flow) {
   const triggerNodes = (flow.nodes || []).filter(n => n.type === 'trigger');
@@ -141,6 +163,11 @@ export const createAutomationFlow = async (req, res) => {
       });
     }
 
+    if (flowUsesWidgetTrigger(triggers, nodes)) {
+      const ok = await assertWidgetAllowed(req, res);
+      if (!ok) return;
+    }
+
     const flow = await AutomationFlow.create({
       name,
       description: description || '',
@@ -190,6 +217,11 @@ export const updateAutomationFlow = async (req, res) => {
         success: false,
         message: 'Automation flow not found'
       });
+    }
+
+    if (flowUsesWidgetTrigger(triggers ?? flow.triggers, nodes ?? flow.nodes)) {
+      const ok = await assertWidgetAllowed(req, res);
+      if (!ok) return;
     }
 
     if (name !== undefined) flow.name = name;

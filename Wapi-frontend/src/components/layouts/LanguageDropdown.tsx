@@ -11,6 +11,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { DEFAULT_LOCALE } from "@/src/constants/locale";
 import { Flag } from "../shared/Flag";
 
 const LANGUAGE_STORAGE_KEY = "selected_language";
@@ -19,7 +20,7 @@ const ImageBaseUrl = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
 const LanguageDropdown = ({ onDark = false }: { onDark?: boolean }) => {
   const dispatch = useAppDispatch();
   const { i18n } = useTranslation();
-  const currentLocale = i18n.resolvedLanguage || "en";
+  const currentLocale = i18n.resolvedLanguage || DEFAULT_LOCALE;
   const [isChanging, setIsChanging] = useState(false);
 
   const { data: languagesData, isLoading: isLoadingLanguages } = languageApi.useGetAllLanguagesQuery({ status: true });

@@ -1,8 +1,18 @@
+import { DEFAULT_LOCALE } from "@/src/constants/locale";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+function readInitialIsRTL(): boolean {
+  if (typeof window === "undefined") return false;
+  const rtlStored = localStorage.getItem("isRTL");
+  if (rtlStored === "true") return true;
+  if (rtlStored === "false") return false;
+  const lang = localStorage.getItem("selected_language") || DEFAULT_LOCALE;
+  return lang === "ar";
+}
 
 const initialState = {
   sidebarToggle: false,
-  isRTL: typeof window !== "undefined" ? localStorage.getItem("isRTL") === "true" : false,
+  isRTL: readInitialIsRTL(),
 };
 
 const layoutSlice = createSlice({

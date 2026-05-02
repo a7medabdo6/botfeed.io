@@ -42,7 +42,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const session = await getServerSession(authoption);
 
   return (
-    <html lang="en" className="h-full" suppressHydrationWarning>
+    <html lang="ar" className="h-full" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/assets/logos/app.png" />

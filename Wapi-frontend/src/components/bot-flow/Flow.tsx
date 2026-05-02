@@ -241,6 +241,16 @@ const FlowCanvas = () => {
         keywords: [],
       };
     }
+    if (template.id === "widget_trigger") {
+      return {
+        ...base,
+        messageType: undefined,
+        message: undefined,
+        channels: [CHANNEL_WIDGET],
+        triggerType: "",
+        keywords: [],
+      };
+    }
     return base;
   }, []);
 
@@ -250,7 +260,7 @@ const FlowCanvas = () => {
     if (edges.length === 0) return false;
 
     const allNodesValid = nodes.every((node) => {
-      if (node.data.nodeType === "trigger") {
+      if (node.data.nodeType === "trigger" || node.data.nodeType === "widget_trigger") {
         const chans = normalizeTriggerChannels(node.data);
         const needsContact = chans.includes(CHANNEL_WHATSAPP);
         const hasContactType = !needsContact || !!node.data.contactType;
@@ -404,7 +414,12 @@ const FlowCanvas = () => {
                               : n.type === "send_message"
                                 ? "text_message"
                                 : n.type === "trigger"
-                                  ? "trigger"
+                                  ? (() => {
+                                      const raw = params.channels;
+                                      if (Array.isArray(raw) && raw.length === 1 && raw[0] === CHANNEL_WIDGET) return "widget_trigger";
+                                      if (!Array.isArray(raw) && params.channel === CHANNEL_WIDGET) return "widget_trigger";
+                                      return "trigger";
+                                    })()
                                   : n.type);
 
           return {
@@ -524,9 +539,13 @@ const FlowCanvas = () => {
                     channels: (() => {
                       const raw = params.channels;
                       if (Array.isArray(raw) && raw.length > 0) return raw;
-                      if (params.channel === CHANNEL_WIDGET) return [CHANNEL_WIDGET];
                       return [CHANNEL_WHATSAPP];
                     })(),
+                  }
+                : {}),
+              ...(resolvedNodeType === "widget_trigger"
+                ? {
+                    channels: [CHANNEL_WIDGET],
                     widgetTitle: params.widget_title ?? params.widgetTitle ?? "",
                     widgetWelcomeMessage: params.widget_welcome_message ?? params.widgetWelcomeMessage ?? "",
                     widgetPrimaryColor: params.widget_primary_color ?? params.widgetPrimaryColor ?? "#0ea5e9",
@@ -610,10 +629,9 @@ const FlowCanvas = () => {
       // Force validation to show on all nodes
       setForceValidation(true);
 
-      // Find all trigger nodes (allows multiple entry points)
-      const triggerNodes = nodes.filter((n) => n.data.nodeType === "trigger");
+      const triggerNodes = nodes.filter((n) => n.data.nodeType === "trigger" || n.data.nodeType === "widget_trigger");
       if (triggerNodes.length === 0) {
-        toast.error("Flow must have at least one Start Trigger");
+        toast.error("Flow must have at least one trigger node");
         return;
       }
 
@@ -623,7 +641,7 @@ const FlowCanvas = () => {
       const getBackendId = (node: any) => {
         if (!node) return "";
         const nodeType = node.data?.nodeType || node.type;
-        if (nodeType === "trigger") {
+        if (nodeType === "trigger" || nodeType === "widget_trigger") {
           return node.id.startsWith("trigger-") ? node.id : `trigger-${node.id}`;
         }
         if (nodeType === "delay") {
