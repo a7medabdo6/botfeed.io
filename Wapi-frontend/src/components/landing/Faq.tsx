@@ -3,8 +3,10 @@
 import { Minus, Plus } from "lucide-react";
 import React, { useState } from "react";
 import { FaqProps } from "../../types/landingPage";
+import { useTranslation } from "react-i18next";
 
 const Faq: React.FC<FaqProps> = ({ data }) => {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   const faqs = (data.faqs || []).map((f) => f._id).filter(Boolean);
@@ -21,7 +23,7 @@ const Faq: React.FC<FaqProps> = ({ data }) => {
         <div className="faq-image p-6 sm:p-10 md:p-16 lg:p-20 px-[calc(20px+(145-20)*((100vw-320px)/(1920-320)))] flex flex-col rounded-[32px] sm:rounded-[48px] lg:rounded-[64px] lg:flex-row gap-10 items-start overflow-hidden relative">
           <div className="grid grid-cols-1 min-[1200px]:grid-cols-3 gap-[calc(0px+(40-0)*((100vw-320px)/(1920-320)))] w-full">
             <div className="space-y-6 z-10 min-[1200px]:col-span-1 [@media(max-width:1200px)]:text-center">
-              <span className="text-primary font-semibold tracking-wider text-[16px] uppercase">{data.badge || "Faqs"}</span>
+              <span className="text-primary font-semibold tracking-wider text-[16px] uppercase">{data.badge || t("landing.sections.faq_badge")}</span>
               <h2 className="text-[calc(20px+(46-20)*((100vw-320px)/(1920-320)))] font-bold text-white leading-tight whitespace-pre-wrap">{data.title}</h2>
               <p className="text-gray-400 text-sm md:text-base leading-relaxed whitespace-pre-wrap">{data.description}</p>
 

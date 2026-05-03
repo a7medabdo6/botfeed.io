@@ -6,8 +6,10 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Images from "../../shared/Image";
 import { TestimonialPopulated, TestimonialProps } from "../../types/landingPage";
+import { useTranslation } from "react-i18next";
 
 const Testimonial: React.FC<TestimonialProps> = ({ data }) => {
+  const { t } = useTranslation();
   const testimonials = (data.testimonials || []).map((item) => item._id).filter((item): item is TestimonialPopulated => !!item && typeof item === "object");
 
   const testimonialsFinal = testimonials.length === 4 ? [...testimonials, ...testimonials] : testimonials;
@@ -20,7 +22,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ data }) => {
     <section id="testimonials" className="bg-[#F8FCFF] py-[calc(30px+(100-30)*((100vw-320px)/(1920-320)))] overflow-hidden px-0 pb-0">
       <div className="mx-[calc(16px+(195-16)*((100vw-320px)/(1920-320)))] overflow-hidden">
         <div className="text-center mb-[calc(12px+(35-12)*((100vw-320px)/(1920-320)))]">
-          <span className="text-[16px] font-bold uppercase tracking-[0.45em] text-primary">{data.badge || "Testimonials"}</span>
+          <span className="text-[16px] font-bold uppercase tracking-[0.45em] text-primary">{data.badge || t("landing.sections.testimonials_badge")}</span>
           <h2 className="mt-2.5 text-[clamp(1.5rem,1rem+2.5vw,2.875rem)] max-w-[calc(288px+(830-288)*((100vw-320px)/(1920-320)))] font-extrabold leading-[1.2] tracking-tight text-[#1a2b3b] mx-auto whitespace-pre-wrap">{data.title}</h2>
         </div>
 

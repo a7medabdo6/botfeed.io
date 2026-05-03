@@ -11,8 +11,19 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { PricingPlanProps } from "../../types/landingPage";
 import Image from "next/image";
 import CurrencyValue from "@/src/shared/CurrencyValue";
+import { useTranslation } from "react-i18next";
+
+const billingCycleTKey = (raw?: string) => {
+  const c = (raw || "monthly").toLowerCase();
+  if (c === "monthly") return "per_month" as const;
+  if (c === "yearly") return "per_year" as const;
+  if (c === "lifetime") return "per_lifetime" as const;
+  if (c === "trial") return "per_trial" as const;
+  return "per_user" as const;
+};
 
 const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const swiperRef = useRef<SwiperType | null>(null);
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
@@ -23,32 +34,29 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
       if (!planDoc) return null;
 
       const featureLimits = planDoc.features || {};
+      const yn = (v: boolean | undefined) => (v ? t("landing.pricing.included") : t("landing.pricing.not_included"));
       const formattedFeatures = [
-        { label: "Contacts", value: featureLimits.contacts },
-        { label: "Campaigns", value: featureLimits.campaigns },
-        { label: "Staff", value: featureLimits.staff },
-        { label: "Conversations", value: featureLimits.conversations },
-        { label: "AI Prompts", value: featureLimits.ai_prompts },
-        { label: "Bot Flow", value: featureLimits.bot_flow },
-        {
-          label: "Rest API",
-          value: featureLimits.rest_api ? "Included" : "No",
-        },
-        {
-          label: "Webhook",
-          value: featureLimits.whatsapp_webhook ? "Included" : "No",
-        },
+        { label: t("plan.features.contacts"), value: featureLimits.contacts },
+        { label: t("plan.features.campaigns"), value: featureLimits.campaigns },
+        { label: t("plan.features.staff"), value: featureLimits.staff },
+        { label: t("plan.features.conversations"), value: featureLimits.conversations },
+        { label: t("plan.features.ai_prompts"), value: featureLimits.ai_prompts },
+        { label: t("plan.features.bot_flow"), value: featureLimits.bot_flow },
+        { label: t("plan.features.rest_api"), value: yn(featureLimits.rest_api) },
+        { label: t("plan.features.whatsapp_webhook"), value: yn(featureLimits.whatsapp_webhook) },
       ].filter((f) => f.value !== undefined);
+
+      const cycleLabel = t(`landing.pricing.${billingCycleTKey(planDoc.billing_cycle)}`);
 
       return {
         name: planDoc.name,
         description:
           planDoc.name.toLowerCase() === "pro"
-            ? "Best for growing teams"
-            : "Ideal for small projects",
+            ? t("landing.pricing.plan_pro_desc")
+            : t("landing.pricing.plan_default_desc"),
         price: planDoc.price,
         currencyCode: planDoc?.currency,
-        priceSuffix: `/per ${planDoc.billing_cycle}`,
+        priceSuffix: t("landing.pricing.price_per", { cycle: cycleLabel }),
         features: formattedFeatures,
         isPopular: planDoc.name.toLowerCase() === "pro",
         is_featured: planDoc.is_featured,
@@ -81,14 +89,13 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
     display: "flex",
     flexDirection: "column"}} className="[@media(max-width:1024px)]:text-center">
               <span className="text-[14px] font-bold uppercase tracking-[0.2em] text-primary">
-                {data.badge || "Pricing Plan"}
+                {data.badge || t("landing.pricing.badge_fallback")}
               </span>
               <h2 className="mt-4 text-[calc(28px+(56-28)*((100vw-320px)/(1920-320)))] font-extrabold leading-[1.1] tracking-tight text-[#0F172A] whitespace-pre-wrap">
-                {data.title || "Simple, Transparent Pricing"}
+                {data.title || t("landing.pricing.title_fallback")}
               </h2>
               <p className="mt-6 text-[18px] leading-relaxed text-[#64748B] whitespace-pre-wrap">
-                {data.description ||
-                  "Choose the perfect plan for your business size\nand needs. Upgrade or downgrade anytime."}
+                {data.description || t("landing.pricing.desc_fallback")}
               </p>
             </div>
 
@@ -112,10 +119,10 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
               </div>
               <div className="flex flex-col">
                 <p className="text-sm font-bold text-[#0F172A] leading-tight">
-                  4.9/5 Rated
+                  {t("landing.pricing.rated", { rating: "4.9" })}
                 </p>
                 <p className="text-[12px] text-[#64748B]">
-                  Over {data.subscribed_count || "9.2k"} Customers
+                  {t("landing.pricing.customers", { count: data.subscribed_count || "0" })}
                 </p>
               </div>
             </div>
@@ -159,7 +166,7 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
                       {plan!.is_featured && (
                         <div className="py-3 text-center">
                           <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-white">
-                            Most Popular Plan
+                            {t("landing.pricing.most_popular_plan")}
                           </span>
                         </div>
                       )}
@@ -183,11 +190,7 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
                                 plan!.currencyCode === "INR" ? "₹" : "$"
                               }
                             />
-                            <span className="text-[15px] text-[#64748B] font-medium">
-                              {plan!.priceSuffix === "/per undefined"
-                                ? "/per user"
-                                : plan!.priceSuffix}
-                            </span>
+                            <span className="text-[15px] text-[#64748B] font-medium">{plan!.priceSuffix}</span>
                           </div>
                         </div>
 
@@ -225,16 +228,16 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
                             }}
                             className={`w-full rounded-xl py-3 px-3 text-[15px] font-bold transition-all duration-300 ${plan!.is_featured ? "bg-primary text-white shadow-lg shadow-primary/20 hover:bg-[#0090C7]" : "bg-primary text-white hover:bg-[#0090C7]"}`}
                           >
-                            Choose Plan
+                            {t("landing.pricing.choose_plan")}
                           </button>
                           {plan!.is_featured && (
                             <p className="text-center text-[13px] text-[#64748B] font-medium">
-                              or{" "}
+                              {t("landing.pricing.or_contact_sales")}{" "}
                               <a
                                 href="#"
                                 className="text-[#0F172A] font-bold hover:text-primary transition-colors border-b border-[#0F172A]/20 hover:border-primary"
                               >
-                                contact sales
+                                {t("landing.pricing.contact_sales")}
                               </a>
                             </p>
                           )}

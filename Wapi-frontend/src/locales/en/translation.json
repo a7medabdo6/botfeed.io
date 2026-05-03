@@ -526,6 +526,112 @@
     "system_status": "System Status",
     "operational": "Operational"
   },
+  "landing": {
+    "header": {
+      "home": "Home",
+      "product": "Product",
+      "support": "Support",
+      "pricing": "Pricing",
+      "contact": "Contact",
+      "sign_in": "Sign In",
+      "get_started": "Get Started",
+      "open_menu": "Open menu",
+      "close_menu": "Close menu"
+    },
+    "footer": {
+      "nav": {
+        "home": "Home",
+        "features": "Features",
+        "support": "Support",
+        "pricing": "Pricing",
+        "testimonials": "Testimonials",
+        "faqs": "FAQs"
+      },
+      "social": {
+        "twitter": "Twitter",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn"
+      }
+    },
+    "connect": {
+      "badge": "Connect with us",
+      "placeholder_name": "Full name",
+      "placeholder_email": "Email",
+      "placeholder_subject": "Subject",
+      "placeholder_message": "Tell us more about your needs…",
+      "submit": "Submit",
+      "submitting": "Submitting…",
+      "form_disabled": "The contact form is currently disabled.",
+      "toast_fill": "Please fill in all fields.",
+      "toast_success": "Your message was sent successfully.",
+      "toast_error": "Could not send your message. Please try again."
+    },
+    "pricing": {
+      "badge_fallback": "Plans",
+      "title_fallback": "Simple, transparent pricing",
+      "desc_fallback": "Choose the plan that fits your business. Change anytime.",
+      "rated": "Rated {{rating}}/5",
+      "customers": "Over {{count}} customers",
+      "most_popular_plan": "Most popular plan",
+      "plan_pro_desc": "Best for growing teams",
+      "plan_default_desc": "Ideal for small projects",
+      "per_month": "month",
+      "per_year": "year",
+      "per_lifetime": "lifetime",
+      "per_trial": "trial",
+      "per_user": "user",
+      "included": "Included",
+      "not_included": "No",
+      "choose_plan": "Choose plan",
+      "or_contact_sales": "or",
+      "contact_sales": "contact sales",
+      "price_per": "/per {{cycle}}"
+    },
+    "sections": {
+      "testimonials_badge": "Testimonials",
+      "faq_badge": "FAQs"
+    },
+    "product": {
+      "features_heading": "Features",
+      "integrations_heading": "Integrations",
+      "coming_soon": "Coming soon",
+      "items": {
+        "no_code_chatbot": {
+          "title": "Flow Builder",
+          "desc": "Visual chatbots for every use case"
+        },
+        "broadcast_bulk_messages": {
+          "title": "Campaigns",
+          "desc": "Personalized campaigns with strong delivery"
+        },
+        "ai_support_agent": {
+          "title": "AI support agent",
+          "desc": "Resolve queries faster with smart replies"
+        },
+        "shared_team_inbox": {
+          "title": "Team inbox",
+          "desc": "Sales and support chats in one place"
+        },
+        "instagram_and_facebook_messenger": {
+          "title": "Instagram & Facebook Messenger",
+          "desc": "Stay close to customers around the clock"
+        },
+        "whatsapp_business_calling": {
+          "title": "WhatsApp Business calling",
+          "desc": "Voice conversations on WhatsApp"
+        },
+        "webhooks": {
+          "title": "Overview & webhooks",
+          "desc": "Insights and real-time sync"
+        },
+        "template_library": {
+          "title": "Library",
+          "desc": "High-converting message templates"
+        }
+      }
+    }
+  },
   "plan": {
     "most_popular": "Most Popular",
     "free_trial": "{{days}} days free trial",

@@ -1,6 +1,6 @@
 {
   "common": {
-    "app_name": "وابي",
+    "app_name": "Botfeed.io",
     "app_tagline": "CRM للأعمال",
     "loading": "جاري التحميل...",
     "save": "حفظ",
@@ -67,20 +67,20 @@
     "testimonial_role": "الرئيس التنفيذي، TechStart Inc",
     "testimonial_quote": "هذا CRM غيّر طريقة تعاملنا مع اتصالات العملاء. تحسن وقت الاستجابة بنسبة 60%!",
     "register_title": "إنشاء حسابك",
-    "register_description": "انضم إلى آلاف الشركات التي تستخدم وابي",
+    "register_description": "انضم إلى آلاف الشركات التي تستخدم Botfeed.io",
     "full_name": "الاسم الكامل",
     "full_name_placeholder": "محمد أحمد",
     "company_name": "اسم الشركة",
     "company_name_placeholder": "شركتك",
     "phone_number": "رقم الهاتف",
-    "phone_placeholder": "+٩٦٦ ٥٠٠ ٠٠٠ ٠٠٠",
+    "phone_placeholder": "+966 500 000 000",
     "agree_to": "أوافق على",
     "terms_of_service": "شروط الخدمة",
     "and": "و",
     "privacy_policy": "سياسة الخصوصية",
     "create_account_button": "اشتراك",
     "creating_account": "جاري إنشاء الحساب...",
-    "already_have_account": "تستخدم وابي بالفعل؟",
+    "already_have_account": "تستخدم Botfeed.io بالفعل؟",
     "sign_in_here": "سجل الدخول هنا",
     "forgot_password_title": "نسيت كلمة المرور؟",
     "forgot_password_description": "أدخل بريدك الإلكتروني لاستلام رابط إعادة التعيين",
@@ -504,6 +504,112 @@
     "official_support": "الدعم الرسمي",
     "system_status": "حالة النظام",
     "operational": "يعمل بكفاءة"
+  },
+  "landing": {
+    "header": {
+      "home": "الرئيسية",
+      "product": "المنتج",
+      "support": "الدعم",
+      "pricing": "الأسعار",
+      "contact": "تواصل",
+      "sign_in": "تسجيل الدخول",
+      "get_started": "ابدأ الآن",
+      "open_menu": "فتح القائمة",
+      "close_menu": "إغلاق القائمة"
+    },
+    "footer": {
+      "nav": {
+        "home": "الرئيسية",
+        "features": "المميزات",
+        "support": "الدعم",
+        "pricing": "الأسعار",
+        "testimonials": "آراء العملاء",
+        "faqs": "الأسئلة الشائعة"
+      },
+      "social": {
+        "twitter": "تويتر",
+        "facebook": "فيسبوك",
+        "instagram": "إنستغرام",
+        "linkedin": "لينكدإن"
+      }
+    },
+    "connect": {
+      "badge": "تواصل معنا",
+      "placeholder_name": "الاسم الكامل",
+      "placeholder_email": "البريد الإلكتروني",
+      "placeholder_subject": "الموضوع",
+      "placeholder_message": "صف احتياجك أو استفسارك…",
+      "submit": "إرسال",
+      "submitting": "جاري الإرسال…",
+      "form_disabled": "نموذج التواصل غير مفعّل حالياً.",
+      "toast_fill": "يرجى تعبئة جميع الحقول.",
+      "toast_success": "تم إرسال رسالتك بنجاح.",
+      "toast_error": "تعذّر الإرسال. حاول مرة أخرى."
+    },
+    "pricing": {
+      "badge_fallback": "الباقات",
+      "title_fallback": "أسعار واضحة وبسيطة",
+      "desc_fallback": "اختر الباقة المناسبة لمرحلة عملك. يمكنك التغيير في أي وقت.",
+      "rated": "تقييم {{rating}}/5",
+      "customers": "أكثر من {{count}} عميل",
+      "most_popular_plan": "الأكثر طلباً",
+      "plan_pro_desc": "مثالي للفرق النامية",
+      "plan_default_desc": "مناسب للمشاريع الصغيرة",
+      "per_month": "شهر",
+      "per_year": "سنة",
+      "per_lifetime": "مدى الحياة",
+      "per_trial": "تجربة",
+      "per_user": "مستخدم",
+      "included": "مشمول",
+      "not_included": "لا",
+      "choose_plan": "اختر الباقة",
+      "or_contact_sales": "أو",
+      "contact_sales": "تواصل مع المبيعات",
+      "price_per": "/لكل {{cycle}}"
+    },
+    "sections": {
+      "testimonials_badge": "آراء العملاء",
+      "faq_badge": "الأسئلة الشائعة"
+    },
+    "product": {
+      "features_heading": "المميزات",
+      "integrations_heading": "التكاملات",
+      "coming_soon": "قريباً",
+      "items": {
+        "no_code_chatbot": {
+          "title": "منشئ التدفقات",
+          "desc": "روبوتات محادثة مرئية لكل سيناريو"
+        },
+        "broadcast_bulk_messages": {
+          "title": "الحملات",
+          "desc": "حملات مخصّصة بأفضل وصول للرسائل"
+        },
+        "ai_support_agent": {
+          "title": "وكيل دعم بالذكاء الاصطناعي",
+          "desc": "أجب عن الاستفسارات بسرعة وذكاء"
+        },
+        "shared_team_inbox": {
+          "title": "صندوق الفريق",
+          "desc": "مبيعات ودعم في محادثة واحدة"
+        },
+        "instagram_and_facebook_messenger": {
+          "title": "إنستغرام وماسنجر فيسبوك",
+          "desc": "ابقَ قريباً من عملائك على مدار الساعة"
+        },
+        "whatsapp_business_calling": {
+          "title": "مكالمات واتساب للأعمال",
+          "desc": "محادثات صوتية عبر واتساب"
+        },
+        "webhooks": {
+          "title": "نظرة عامة وويب هوك",
+          "desc": "رؤى ومزامنة لحظية"
+        },
+        "template_library": {
+          "title": "المكتبة",
+          "desc": "قوالب رسائل جاهزة عالية التحويل"
+        }
+      }
+    }
   },
   "plan": {
     "most_popular": "الأكثر شيوعاً",

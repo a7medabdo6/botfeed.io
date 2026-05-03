@@ -8,10 +8,12 @@ import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FooterProps } from "../../types/landingPage";
 import { useGetPublicPagesQuery } from "@/src/redux/api/pageApi";
 
 const Footer: React.FC<FooterProps> = ({ data }) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const { data: publicPagesData } = useGetPublicPagesQuery();
   const allPublicPages = publicPagesData?.data?.pages || [];
@@ -48,11 +50,11 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
   };
 
   const socialLinksArray = [
-    { icon: <Twitter size={16} />, label: "Twitter", href: socialLinks?.twitter || "#" },
-    { icon: <Facebook size={16} />, label: "Facebook", href: socialLinks?.facebook || "#" },
-    { icon: <Instagram size={16} />, label: "Instagram", href: socialLinks?.instagram || "#" },
-    { icon: <Linkedin size={16} />, label: "LinkedIn", href: socialLinks?.linkedin || "#" },
-  ].filter((link) => link.href !== "#" || link.label === "Twitter");
+    { icon: <Twitter size={16} />, label: t("landing.footer.social.twitter"), href: socialLinks?.twitter || "#" },
+    { icon: <Facebook size={16} />, label: t("landing.footer.social.facebook"), href: socialLinks?.facebook || "#" },
+    { icon: <Instagram size={16} />, label: t("landing.footer.social.instagram"), href: socialLinks?.instagram || "#" },
+    { icon: <Linkedin size={16} />, label: t("landing.footer.social.linkedin"), href: socialLinks?.linkedin || "#" },
+  ];
 
   return (
     <footer className="footer rounded-t-lg px-6 md:px-12 lg:px-[calc(20px+(243-20)*((100vw-320px)/(1920-320)))] pt-12 pb-8 text-white bg-[#0B1929]">
@@ -107,10 +109,19 @@ const Footer: React.FC<FooterProps> = ({ data }) => {
         </div>
 
         <div className="lg:gap-y-10 pt-4 lg:pt-10 flex-1 lg:pl-16 sm:columns-3 columns-2">
-          {["Home", "Features", "Support", "Pricing", "Testimonials", "Faqs"].map((col, i) => (
-            <div key={i} className="flex flex-col gap-2 mb-5">
-              <a onClick={() => scrollToSection(col.toLowerCase())} className="text-[16px] text-white hover:text-primary transition-colors cursor-pointer">
-                {col}
+          {(
+            [
+              { id: "home", labelKey: "landing.footer.nav.home" },
+              { id: "features", labelKey: "landing.footer.nav.features" },
+              { id: "support", labelKey: "landing.footer.nav.support" },
+              { id: "pricing", labelKey: "landing.footer.nav.pricing" },
+              { id: "testimonials", labelKey: "landing.footer.nav.testimonials" },
+              { id: "faqs", labelKey: "landing.footer.nav.faqs" },
+            ] as const
+          ).map((item) => (
+            <div key={item.id} className="flex flex-col gap-2 mb-5">
+              <a onClick={() => scrollToSection(item.id)} className="text-[16px] text-white hover:text-primary transition-colors cursor-pointer">
+                {t(item.labelKey)}
               </a>
             </div>
           ))}

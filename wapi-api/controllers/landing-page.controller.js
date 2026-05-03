@@ -22,7 +22,7 @@ const getLandingPage = async (req, res) => {
           ],
         },
         features_section: {
-          badge: 'لماذا بوتفيد؟',
+          badge: 'لماذا Botfeed.io؟',
           title: 'من المحادثة الأولى إلى عميل يثق بك',
           description:
             'أدوات لمن يريد أن يُسمَع عبر شبكات التواصل التي يختارها جمهوره دون ضجيج، وأن يبيع دون إزعاج — مع أتمتة تُنجز عنك التفاصيل المملّة.',
@@ -205,7 +205,7 @@ const getLandingPage = async (req, res) => {
               instagram: 'https://instagram.com/botfeedio',
             },
           ],
-          copy_rights_text: '© 2026 بوتفيد. جميع الحقوق محفوظة.',
+          copy_rights_text: '© 2026 Botfeed.io. جميع الحقوق محفوظة.',
         },
       });
 

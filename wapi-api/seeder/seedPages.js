@@ -4,29 +4,29 @@ async function seedPages() {
   try {
     const pages = [
       {
-        title: 'Privacy Policy',
+        title: 'سياسة الخصوصية',
         slug: 'privacy-policy',
-        content: '<h1>Privacy Policy</h1><p>This is the default Privacy Policy content. Please update it in the admin panel.</p>',
-        meta_title: 'Privacy Policy',
-        meta_description: 'Privacy Policy for Botfeed',
+        content: '<h1>سياسة الخصوصية</h1><p>هذا محتوى افتراضي. يُرجى تحديثه من لوحة الإدارة.</p>',
+        meta_title: 'سياسة الخصوصية',
+        meta_description: 'سياسة الخصوصية — بوتفيد',
         status: true,
         sort_order: 1
       },
       {
-        title: 'Terms and Conditions',
+        title: 'الشروط والأحكام',
         slug: 'terms-and-conditions',
-        content: '<h1>Terms and Conditions</h1><p>This is the default Terms and Conditions content. Please update it in the admin panel.</p>',
-        meta_title: 'Terms and Conditions',
-        meta_description: 'Terms and Conditions for Botfeed',
+        content: '<h1>الشروط والأحكام</h1><p>هذا محتوى افتراضي. يُرجى تحديثه من لوحة الإدارة.</p>',
+        meta_title: 'الشروط والأحكام',
+        meta_description: 'الشروط والأحكام — بوتفيد',
         status: true,
         sort_order: 2
       },
       {
-        title: 'Refund Policy',
+        title: 'سياسة الاسترداد',
         slug: 'refund-policy',
-        content: '<h1>Refund Policy</h1><p>This is the default Refund Policy content. Please update it in the admin panel.</p>',
-        meta_title: 'Refund Policy',
-        meta_description: 'Refund Policy for Botfeed',
+        content: '<h1>سياسة الاسترداد</h1><p>هذا محتوى افتراضي. يُرجى تحديثه من لوحة الإدارة.</p>',
+        meta_title: 'سياسة الاسترداد',
+        meta_description: 'سياسة الاسترداد — بوتفيد',
         status: true,
         sort_order: 3
       }

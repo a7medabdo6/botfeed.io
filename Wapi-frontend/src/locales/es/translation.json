@@ -414,6 +414,112 @@
     "system_status": "Estado del Sistema",
     "operational": "Operacional"
   },
+  "landing": {
+    "header": {
+      "home": "Inicio",
+      "product": "Producto",
+      "support": "Soporte",
+      "pricing": "Precios",
+      "contact": "Contacto",
+      "sign_in": "Iniciar sesión",
+      "get_started": "Empezar",
+      "open_menu": "Abrir menú",
+      "close_menu": "Cerrar menú"
+    },
+    "footer": {
+      "nav": {
+        "home": "Inicio",
+        "features": "Funciones",
+        "support": "Soporte",
+        "pricing": "Precios",
+        "testimonials": "Testimonios",
+        "faqs": "Preguntas frecuentes"
+      },
+      "social": {
+        "twitter": "Twitter",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn"
+      }
+    },
+    "connect": {
+      "badge": "Conecte con nosotros",
+      "placeholder_name": "Nombre completo",
+      "placeholder_email": "Correo electrónico",
+      "placeholder_subject": "Asunto",
+      "placeholder_message": "Cuéntenos qué necesita…",
+      "submit": "Enviar",
+      "submitting": "Enviando…",
+      "form_disabled": "El formulario de contacto está desactivado.",
+      "toast_fill": "Complete todos los campos.",
+      "toast_success": "Su mensaje se envió correctamente.",
+      "toast_error": "No se pudo enviar. Inténtelo de nuevo."
+    },
+    "pricing": {
+      "badge_fallback": "Planes",
+      "title_fallback": "Precios simples y transparentes",
+      "desc_fallback": "Elija el plan adecuado para su negocio. Cambie cuando quiera.",
+      "rated": "Valoración {{rating}}/5",
+      "customers": "Más de {{count}} clientes",
+      "most_popular_plan": "Plan más popular",
+      "plan_pro_desc": "Ideal para equipos en crecimiento",
+      "plan_default_desc": "Ideal para proyectos pequeños",
+      "per_month": "mes",
+      "per_year": "año",
+      "per_lifetime": "de por vida",
+      "per_trial": "prueba",
+      "per_user": "usuario",
+      "included": "Incluido",
+      "not_included": "No",
+      "choose_plan": "Elegir plan",
+      "or_contact_sales": "o",
+      "contact_sales": "contactar ventas",
+      "price_per": "/por {{cycle}}"
+    },
+    "sections": {
+      "testimonials_badge": "Testimonios",
+      "faq_badge": "Preguntas frecuentes"
+    },
+    "product": {
+      "features_heading": "Funciones",
+      "integrations_heading": "Integraciones",
+      "coming_soon": "Próximamente",
+      "items": {
+        "no_code_chatbot": {
+          "title": "Constructor de flujos",
+          "desc": "Chatbots visuales para cada caso de uso"
+        },
+        "broadcast_bulk_messages": {
+          "title": "Campañas",
+          "desc": "Campañas personalizadas con buena entrega"
+        },
+        "ai_support_agent": {
+          "title": "Agente de soporte con IA",
+          "desc": "Resuelva consultas más rápido con respuestas inteligentes"
+        },
+        "shared_team_inbox": {
+          "title": "Bandeja del equipo",
+          "desc": "Ventas y soporte en un solo lugar"
+        },
+        "instagram_and_facebook_messenger": {
+          "title": "Instagram y Messenger de Facebook",
+          "desc": "Cerca de sus clientes las 24 horas"
+        },
+        "whatsapp_business_calling": {
+          "title": "Llamadas de WhatsApp Business",
+          "desc": "Conversaciones de voz por WhatsApp"
+        },
+        "webhooks": {
+          "title": "Resumen y webhooks",
+          "desc": "Información y sincronización en tiempo real"
+        },
+        "template_library": {
+          "title": "Biblioteca",
+          "desc": "Plantillas de mensajes de alto rendimiento"
+        }
+      }
+    }
+  },
   "plan": {
     "most_popular": "Más Popular",
     "free_trial": "Prueba gratuita de {{days}} días",
