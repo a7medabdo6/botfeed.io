@@ -72,9 +72,14 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
       style={{ overflowX: "clip" }}
     >
       <div className="mx-[calc(16px+(195-16)*((100vw-320px)/(1920-320)))]">
-        <div className="grid grid-cols-1 gap-[calc(30px+(60-30)*((100vw-320px)/(1920-320)))] lg:grid-cols-[1.2fr_2.5fr] lg:items-center">
-          <div className="flex flex-col gap-[calc(20px+(40-20)*((100vw-320px)/(1920-320)))]">
-            <div className="[@media(max-width:1024px)]:text-center">
+      <div style={{justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column"}} className="flex flex-col gap-[calc(20px+(40-20)*((100vw-320px)/(1920-320)))]">
+            <div style={{justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column"}} className="[@media(max-width:1024px)]:text-center">
               <span className="text-[14px] font-bold uppercase tracking-[0.2em] text-primary">
                 {data.badge || "Pricing Plan"}
               </span>
@@ -115,6 +120,8 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
               </div>
             </div>
           </div>
+        <div className="w-full max-w-6xl mx-auto px-0 md:px-4  lg:items-center">
+         
 
           <div className="relative w-full py-6 overflow-hidden">
             <Swiper

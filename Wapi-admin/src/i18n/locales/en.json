@@ -289,6 +289,8 @@
       "analytics_desc": "Enable analytics dashboard",
       "priority_support": "Priority Support",
       "priority_support_desc": "Get priority customer support",
+      "chatbot_widget": "Chatbot Widget",
+      "chatbot_widget_desc": "Website embed chat for visitors, tied to your bot flows",
       "free_trial": "Free Trial",
       "free_trial_desc": "Enable free trial",
       "message_bots": "Message Bots",

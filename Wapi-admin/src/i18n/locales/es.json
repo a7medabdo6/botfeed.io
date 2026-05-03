@@ -263,7 +263,9 @@
       "analytics": "Análitica",
       "analytics_desc": "Habilitar panel de análisis",
       "priority_support": "Soporte Prioritario",
-      "priority_support_desc": "Obtenga soporte al cliente prioritario"
+      "priority_support_desc": "Obtenga soporte al cliente prioritario",
+      "chatbot_widget": "Widget de chat",
+      "chatbot_widget_desc": "Chat incrustado en su web para visitantes, conectado a sus flujos de bot"
     }
   },
   "faq": {

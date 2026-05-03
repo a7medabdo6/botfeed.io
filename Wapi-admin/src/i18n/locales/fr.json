@@ -436,7 +436,9 @@
       "analytics": "Analytique",
       "analytics_desc": "Activer le tableau de bord d'analyse",
       "priority_support": "Support Prioritaire",
-      "priority_support_desc": "Obtenez un support client prioritaire"
+      "priority_support_desc": "Obtenez un support client prioritaire",
+      "chatbot_widget": "Widget de chat",
+      "chatbot_widget_desc": "Chat intégré au site pour les visiteurs, relié à vos parcours d’automatisation"
     }
   },
   "dashboard": {
