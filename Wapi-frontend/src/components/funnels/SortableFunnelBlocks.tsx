@@ -76,11 +76,11 @@ export default function SortableFunnelBlocks({
     const oldIndex = curIds.indexOf(String(active.id));
     const newIndex = curIds.indexOf(String(over.id));
     if (oldIndex < 0 || newIndex < 0) return;
-    onChange((prev) => arrayMove(prev, oldIndex, newIndex));
+    onChange(arrayMove(blocks, oldIndex, newIndex));
   };
 
   const patchAt = (idx: number, patch: Partial<FunnelBlock>) => {
-    onChange((prev) => prev.map((b, i) => (i === idx ? { ...b, ...patch } as FunnelBlock : b)));
+    onChange(blocks.map((b, i) => (i === idx ? ({ ...b, ...patch } as FunnelBlock) : b)));
   };
 
   return (
@@ -97,7 +97,7 @@ export default function SortableFunnelBlocks({
         <SortableContext items={blocks.map((_, i) => `blk-${i}`)} strategy={verticalListSortingStrategy}>
           <div className="space-y-3">
             {blocks.map((block, idx) => (
-              <SortableBlockRow key={`blk-${idx}-${block.type}`} id={`blk-${idx}`} onRemove={() => onChange((prev) => prev.filter((_, i) => i !== idx))}>
+              <SortableBlockRow key={`blk-${idx}-${block.type}`} id={`blk-${idx}`} onRemove={() => onChange(blocks.filter((_, i) => i !== idx))}>
                 <p className="text-xs font-bold text-primary uppercase mb-2">{block.type}</p>
                 {renderBlockEditor(block, idx, (p) => patchAt(idx, p))}
               </SortableBlockRow>
