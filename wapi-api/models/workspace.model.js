@@ -19,6 +19,16 @@ const workspaceSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    /** Optional public slug for workspace-scoped funnel URLs: /f/w/{slug}/... */
+    slug: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        maxlength: 64,
+        default: null,
+        sparse: true,
+        unique: true,
+    },
     is_active: {
         type: Boolean,
         default: true

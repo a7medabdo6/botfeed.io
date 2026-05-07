@@ -10,6 +10,7 @@ router.use(authenticate);
 router.use(requireSubscription);
 
 router.get('/', checkPermission('view.chatbots'), chatbotController.getAllChatbots);
+router.post('/preview-system-prompt', checkPermission('view.chatbots'), chatbotController.previewSystemPrompt);
 router.get('/:id', checkPermission('view.chatbots'), chatbotController.getChatbotById);
 router.post('/', checkPlanLimit('message_bots'), checkPermission('create.chatbots'), chatbotController.createChatbot);
 router.put('/:id', checkPermission('update.chatbots'), chatbotController.updateChatbot);

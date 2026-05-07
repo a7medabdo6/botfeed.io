@@ -82,6 +82,9 @@ import WebMessage from './web-message.model.js';
 import ChatbotMemory from './chatbot-memory.model.js';
 
 import Form from './formBuilder.model.js';
+import FunnelPage from './funnel-page.model.js';
+import FunnelPageVersion from './funnel-page-version.model.js';
+import FunnelAnalyticsEvent from './funnel-analytics-event.model.js';
 
 
 import AiPromptLog from './aiPromptLogs.model.js';
@@ -160,6 +163,9 @@ const db = {
   WebMessage,
   ChatbotMemory,
   Form,
+  FunnelPage,
+  FunnelPageVersion,
+  FunnelAnalyticsEvent,
   mongoose,
 
 
@@ -187,7 +193,8 @@ export {
   WhatsappCallSetting,
   WhatsappCallLog,
   Form,
+  FunnelPage,
   Submission,
-  Plan, Template, Webhook, Subscription, PaymentHistory, AIModel, AgentTask, AutomationFlow, AutomationExecution, ChatAssignment, Contact, CustomField, Tag, Attachment, Campaign, UserSetting, EcommerceCatalog, EcommerceProduct, EcommerceOrder, EcommerceOrderStatusTemplate, LandingPage, ApiKey, Widget, ShortLink, ImportJob, ReplyMaterial, WorkingHours, Workspace, Sequence, SequenceStep, WabaConfiguration, Tax, GoogleAccount, GoogleCalendar, GoogleSheet, WidgetConfig, WebConversation, WebMessage, ChatbotMemory, connectDB
+  Plan, Template, Webhook, Subscription, PaymentHistory, AIModel, AgentTask, AutomationFlow, AutomationExecution, ChatAssignment, Contact, CustomField, Tag, Attachment, Campaign, UserSetting, EcommerceCatalog, EcommerceProduct, EcommerceOrder, EcommerceOrderStatusTemplate, LandingPage, ApiKey, Widget, ShortLink, ImportJob, ReplyMaterial, WorkingHours, Workspace, Sequence, SequenceStep, WabaConfiguration, Tax, GoogleAccount, GoogleCalendar, GoogleSheet, WidgetConfig, WebConversation, WebMessage, ChatbotMemory, FunnelPageVersion, FunnelAnalyticsEvent, connectDB
 
 };

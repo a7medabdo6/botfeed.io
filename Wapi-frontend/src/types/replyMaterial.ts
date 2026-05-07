@@ -146,9 +146,8 @@ export interface ChatbotCardProps {
   onTrain: (chatbot: Chatbot) => void;
 }
 
-export interface ChatbotFormModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface ChatbotWizardPageProps {
+  onCancel: () => void;
   onSubmit: (data: any) => Promise<void>;
   isLoading: boolean;
   editItem?: Chatbot | null;
@@ -166,6 +165,8 @@ export interface ChatbotGridProps {
 
 export interface ChatbotSectionProps {
   wabaId: string;
+  /** Path to navigate back after opening create/edit from embedded contexts (e.g. reply materials). */
+  chatbotListReturnHref?: string;
   onToggleSidebar?: () => void;
 }
 

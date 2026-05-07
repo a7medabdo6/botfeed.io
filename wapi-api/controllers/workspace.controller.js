@@ -1,8 +1,10 @@
 import { Workspace, WhatsappWaba } from '../models/index.js';
 
+const WORKSPACE_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
 export const createWorkspace = async (req, res) => {
     try {
-        const { name, description } = req.body;
+        const { name, description, slug } = req.body;
 
         if (!name) {
             return res.status(400).json({
@@ -11,11 +13,31 @@ export const createWorkspace = async (req, res) => {
             });
         }
 
+        let slugVal = null;
+        if (slug !== undefined && slug !== null && String(slug).trim()) {
+            const s = String(slug).trim().toLowerCase();
+            if (!WORKSPACE_SLUG_RE.test(s)) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'slug must be lowercase letters, numbers, and hyphens only',
+                });
+            }
+            const taken = await Workspace.findOne({ slug: s, deleted_at: null }).select('_id').lean();
+            if (taken) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'This workspace slug is already in use',
+                });
+            }
+            slugVal = s;
+        }
+
         const workspace = await Workspace.create({
             user_id: req.user.owner_id,
             created_by: req.user.id,
             name,
-            description
+            description,
+            slug: slugVal,
         });
 
         return res.status(201).json({
@@ -106,11 +128,47 @@ export const getWorkspaceById = async (req, res) => {
 export const updateWorkspace = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, description, is_active } = req.body;
+        const { name, description, is_active, slug } = req.body;
+
+        const update = {};
+        if (name !== undefined) update.name = name;
+        if (description !== undefined) update.description = description;
+        if (is_active !== undefined) update.is_active = is_active;
+        if (slug !== undefined) {
+            const s = slug === null || slug === '' ? null : String(slug).trim().toLowerCase();
+            if (s && !WORKSPACE_SLUG_RE.test(s)) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'slug must be lowercase letters, numbers, and hyphens only',
+                });
+            }
+            if (s) {
+                const taken = await Workspace.findOne({
+                    slug: s,
+                    _id: { $ne: id },
+                    deleted_at: null,
+                }).select('_id').lean();
+                if (taken) {
+                    return res.status(400).json({
+                        success: false,
+                        error: 'This workspace slug is already in use',
+                    });
+                }
+            }
+            update.slug = s;
+        }
+
+        if (Object.keys(update).length === 0) {
+            const current = await Workspace.findOne({ _id: id, user_id: req.user.owner_id, deleted_at: null });
+            if (!current) {
+                return res.status(404).json({ success: false, error: 'Workspace not found' });
+            }
+            return res.json({ success: true, data: current });
+        }
 
         const workspace = await Workspace.findOneAndUpdate(
             { _id: id, user_id: req.user.owner_id, deleted_at: null },
-            { name, description, is_active },
+            { $set: update },
             { new: true, runValidators: true }
         );
 

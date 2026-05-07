@@ -1,6 +1,8 @@
 export interface Workspace {
   _id: string;
   name: string;
+  /** Public slug for funnel URLs: /f/w/{slug}/... */
+  slug?: string | null;
   description?: string;
   waba_id: string | null;
   waba_type: string | null;

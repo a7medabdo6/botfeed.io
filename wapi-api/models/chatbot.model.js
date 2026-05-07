@@ -60,6 +60,10 @@ const chatbotSchema = new mongoose.Schema(
             trim: true,
             default: ''
         },
+        persona_profile: {
+            type: mongoose.Schema.Types.Mixed,
+            default: null
+        },
         status: {
             type: String,
             enum: ['active', 'inactive'],

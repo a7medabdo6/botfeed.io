@@ -63,6 +63,14 @@ export const MENUITEMS: MenuItem[] = [
     order: 6,
     permission: "view.short_links",
   },
+  // {
+  //   icon: <LayoutTemplate size={20} />,
+  //   label: "sidebar.funnel_pages",
+  //   path: "/tools/funnels",
+  //   section: "sidebar.integrations",
+  //   order: 6,
+  //   permission: "view.funnel_pages",
+  // },
   {
     icon: <Tags size={20} />,
     label: "sidebar.tags",

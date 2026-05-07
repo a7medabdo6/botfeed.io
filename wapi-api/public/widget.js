@@ -30,6 +30,8 @@
   var socket = null;
   var isOpen = false;
   var messages = [];
+  var HOST_SUFFIX = String(API_KEY).replace(/[^a-zA-Z0-9]/g, '').slice(-20) || 'widget';
+  var MSG_AREA_ID = 'bf-msg-area-' + HOST_SUFFIX;
 
   /* ---------- Helpers ---------- */
   function el(tag, cls) { var e = document.createElement(tag); if (cls) e.className = cls; return e; }
@@ -45,7 +47,7 @@
 
   /* ============ SHADOW DOM HOST ============ */
   var host = document.createElement('div');
-  host.id = 'bf-widget-host';
+  host.id = 'bf-widget-host-' + HOST_SUFFIX;
   document.body.appendChild(host);
   var shadow = host.attachShadow({ mode: 'open' });
 
@@ -143,7 +145,12 @@
   function applyConfig() {
     if (!config) return;
     var c = config.primary_color || '#0ea5e9';
-    style.textContent = CSS(c, config.position || 'right');
+    var bottomPx = typeof config.bubble_bottom_offset_px === 'number' ? config.bubble_bottom_offset_px : 20;
+    if (bottomPx < 0) bottomPx = 0;
+    if (bottomPx > 480) bottomPx = 480;
+    var panelBottomPx = bottomPx + 70;
+    var zBase = 2147483000 + Math.min(bottomPx, 400);
+    style.textContent = CSS(c, config.position || 'right', bottomPx, panelBottomPx, zBase);
   }
 
   function toggle() {
@@ -204,7 +211,7 @@
   function buildChatView() {
     var wrap = el('div', 'bf-chat-view');
     var msgArea = el('div', 'bf-messages');
-    msgArea.id = 'bf-msg-area';
+    msgArea.id = MSG_AREA_ID;
 
     if (config.welcome_message) {
       var welcome = el('div', 'bf-msg bf-msg-bot');
@@ -259,7 +266,7 @@
   }
 
   function renderMessages() {
-    var area = shadow.getElementById('bf-msg-area');
+    var area = shadow.getElementById(MSG_AREA_ID);
     if (!area) return;
     // keep welcome message node if present
     var nodes = area.querySelectorAll('.bf-msg-dynamic, .bf-msg-system');
@@ -275,7 +282,7 @@
   }
 
   function appendSystemMsg(text) {
-    var area = shadow.getElementById('bf-msg-area');
+    var area = shadow.getElementById(MSG_AREA_ID);
     if (!area) return;
     var d = el('div', 'bf-msg bf-msg-system');
     d.textContent = text;
@@ -285,16 +292,19 @@
 
   /* ---------- Util ---------- */
   /* ---------- CSS factory ---------- */
-  function CSS(primary, position) {
+  function CSS(primary, position, bottomPx, panelBottomPx, zBase) {
     primary = primary || '#0ea5e9';
     position = position || 'right';
+    bottomPx = typeof bottomPx === 'number' ? bottomPx : 20;
+    panelBottomPx = typeof panelBottomPx === 'number' ? panelBottomPx : 90;
+    zBase = typeof zBase === 'number' ? zBase : 2147483647;
     var posRule = position === 'left' ? 'left:20px;right:auto;' : 'right:20px;left:auto;';
     var bubblePos = position === 'left' ? 'left:20px;right:auto;' : 'right:20px;left:auto;';
     return ':host{all:initial;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}'
-      + '.bf-widget{position:fixed;bottom:20px;z-index:2147483647;' + posRule + '}'
-      + '.bf-bubble{position:fixed;bottom:20px;' + bubblePos + 'width:60px;height:60px;border-radius:50%;background:' + primary + ';color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:transform .2s;z-index:2147483647;}'
+      + '.bf-widget{position:fixed;bottom:' + bottomPx + 'px;z-index:' + zBase + ';' + posRule + '}'
+      + '.bf-bubble{position:fixed;bottom:' + bottomPx + 'px;' + bubblePos + 'width:60px;height:60px;border-radius:50%;background:' + primary + ';color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.15);transition:transform .2s;z-index:' + zBase + ';}'
       + '.bf-bubble:hover{transform:scale(1.08);}'
-      + '.bf-panel{position:fixed;bottom:90px;' + posRule + 'width:380px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:#fff;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;z-index:2147483647;}'
+      + '.bf-panel{position:fixed;bottom:' + panelBottomPx + 'px;' + posRule + 'width:380px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:#fff;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;z-index:' + zBase + ';}'
       + '.bf-hidden{display:none!important;}'
       + '.bf-header{background:' + primary + ';color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}'
       + '.bf-header-text{flex:1;}'

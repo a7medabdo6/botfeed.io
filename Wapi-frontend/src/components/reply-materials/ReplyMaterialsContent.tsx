@@ -101,7 +101,7 @@ const ReplyMaterialsContent: React.FC<ReplyMaterialsContentProps> = ({ activeCon
   };
 
   if (activeConfig.type === "chatbot") {
-    return <ChatbotSection wabaId={waba_id || ""} onToggleSidebar={onToggleSidebar} />;
+    return <ChatbotSection wabaId={waba_id || ""} onToggleSidebar={onToggleSidebar} chatbotListReturnHref="/reply_materials" />;
   }
 
   if (activeConfig.type === "catalog") {

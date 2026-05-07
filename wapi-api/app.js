@@ -96,7 +96,9 @@ app.use('/public', express.static(path.join(__dirname, 'public'), {
 }));
 
 import publicWidgetRoutes from "./routes/public-widget.routes.js";
+import publicFunnelRoutes from "./routes/public-funnel.routes.js";
 app.use("/api/public/widget", publicWidgetRoutes);
+app.use("/api/public/funnel", publicFunnelRoutes);
 
 app.use('/api', denyMutationInDemo);
 
@@ -155,6 +157,7 @@ import teamRoutes from "./routes/team.route.js";
 import googleRoutes from "./routes/google.routes.js";
 import formBuilderRoutes from "./routes/formBuilder.route.js";
 import submissionRoutes from "./routes/submission.route.js";
+import funnelPageRoutes from "./routes/funnel-page.routes.js";
 
 
 import widgetConfigRoutes from "./routes/widget-config.routes.js";
@@ -256,7 +259,7 @@ app.use("/api/teams", teamRoutes);
 app.use("/api/google", googleRoutes);
 app.use("/api/forms", formBuilderRoutes);
 app.use("/api/submissions", submissionRoutes);
-
+app.use("/api/funnel-pages", funnelPageRoutes);
 
 app.use("/api/widget-configs", widgetConfigRoutes);
 app.use("/api/admin/widget-configs", adminWidgetConfigRoutes);

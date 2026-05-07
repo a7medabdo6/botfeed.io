@@ -30,6 +30,7 @@ const WidgetConfigForm: React.FC<Props> = ({ initial, isSaving, onSave, onClose 
     escalate_to_human: initial?.escalate_to_human ?? true,
     escalate_after_messages: initial?.escalate_after_messages ?? 10,
     primary_color: initial?.primary_color || "#0ea5e9",
+    bubble_bottom_offset_px: initial?.bubble_bottom_offset_px ?? 20,
     position: initial?.position || "right",
     title: initial?.title || "Chat with us",
     subtitle: initial?.subtitle || "We usually reply within minutes",
@@ -143,6 +144,17 @@ const WidgetConfigForm: React.FC<Props> = ({ initial, isSaving, onSave, onClose 
                   <option value="right">Bottom right</option>
                   <option value="left">Bottom left</option>
                 </select>
+              </Field>
+              <Field label="Bubble offset from bottom (px)">
+                <input
+                  type="number"
+                  className={INPUT_CLS}
+                  value={form.bubble_bottom_offset_px}
+                  onChange={(e) => set("bubble_bottom_offset_px", Math.min(480, Math.max(0, parseInt(e.target.value, 10) || 0)))}
+                  min={0}
+                  max={480}
+                />
+                <p className="text-[10px] text-gray-500 mt-1">Raise this on a second widget so two bubbles do not overlap.</p>
               </Field>
             </div>
           </div>

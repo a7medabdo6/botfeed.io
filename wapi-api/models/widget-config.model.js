@@ -20,6 +20,8 @@ const widgetConfigSchema = new mongoose.Schema({
 
   // Appearance
   primary_color: { type: String, default: '#0ea5e9' },
+  /** Distance from viewport bottom to bubble (px). Use different values when embedding multiple widgets on one page. */
+  bubble_bottom_offset_px: { type: Number, default: 20, min: 0, max: 480 },
   position: { type: String, enum: ['left', 'right'], default: 'right' },
   bubble_icon: { type: String, default: 'chat' },
   title: { type: String, default: 'Chat with us' },

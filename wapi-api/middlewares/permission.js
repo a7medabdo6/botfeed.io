@@ -20,7 +20,10 @@ export const checkPermission = (permissionSlug) => {
         if (!userWithRole || !userWithRole.role_id) {
           return res.status(403).json({
             success: false,
-            message: 'Forbidden: No role assigned to user'
+            code: 'USER_ROLE_MISSING',
+            permission: permissionSlug,
+            message:
+              'Your account has no role assigned, so access to this action is blocked. Ask an administrator to assign a role in wapi-admin → Users.',
           });
         }
         userRole = userWithRole.role_id;
@@ -35,7 +38,9 @@ export const checkPermission = (permissionSlug) => {
       if (!permissionDoc) {
         return res.status(403).json({
           success: false,
-          message: 'Invalid permission requested'
+          code: 'PERMISSION_NOT_IN_DATABASE',
+          permission: permissionSlug,
+          message: `The permission "${permissionSlug}" is not defined in the database yet. Run the API permission seeder (or redeploy seeds) so it appears in wapi-admin → Roles, then assign it to the relevant roles.`,
         });
       }
 
@@ -43,7 +48,9 @@ export const checkPermission = (permissionSlug) => {
         if (!user.team_id) {
           return res.status(403).json({
             success: false,
-            message: 'Agent not assigned to any team'
+            code: 'AGENT_NO_TEAM',
+            permission: permissionSlug,
+            message: 'You are an agent but are not assigned to a team. Ask an administrator to assign you to a team before using this action.',
           });
         }
 
@@ -55,7 +62,9 @@ export const checkPermission = (permissionSlug) => {
         if (!hasPermission) {
           return res.status(403).json({
             success: false,
-            message: 'Access denied: Team permission missing'
+            code: 'TEAM_PERMISSION_MISSING',
+            permission: permissionSlug,
+            message: `Your team does not have "${permissionSlug}". An administrator can grant team permissions in wapi-admin → Teams for your team.`,
           });
         }
 
@@ -70,7 +79,9 @@ export const checkPermission = (permissionSlug) => {
       if (!hasPermission) {
         return res.status(403).json({
           success: false,
-          message: 'Access denied: Role permission missing'
+          code: 'ROLE_PERMISSION_MISSING',
+          permission: permissionSlug,
+          message: `Your role does not include "${permissionSlug}". In wapi-admin → Roles, edit the role assigned to this user, enable that permission under Access permissions, and save.`,
         });
       }
 

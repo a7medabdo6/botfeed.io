@@ -12,6 +12,7 @@ export default function WorkspaceFormModal({ isOpen, onClose, workspace }: Works
   const isEdit = !!workspace;
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [slug, setSlug] = useState("");
 
   const [createWorkspace, { isLoading: isCreating }] = useCreateWorkspaceMutation();
   const [updateWorkspace, { isLoading: isUpdating }] = useUpdateWorkspaceMutation();
@@ -22,6 +23,7 @@ export default function WorkspaceFormModal({ isOpen, onClose, workspace }: Works
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setName(workspace?.name ?? "");
       setDescription(workspace?.description ?? "");
+      setSlug(workspace?.slug ?? "");
     }
   }, [isOpen, workspace]);
 
@@ -31,10 +33,15 @@ export default function WorkspaceFormModal({ isOpen, onClose, workspace }: Works
 
     try {
       if (isEdit && workspace) {
-        await updateWorkspace({ id: workspace._id, name: name.trim(), description: description.trim() || "" }).unwrap();
+        await updateWorkspace({
+          id: workspace._id,
+          name: name.trim(),
+          description: description.trim() || "",
+          slug: slug.trim() || null,
+        }).unwrap();
         toast.success("Workspace updated successfully!");
       } else {
-        await createWorkspace({ name: name.trim(), description: description.trim() || "" }).unwrap();
+        await createWorkspace({ name: name.trim(), description: description.trim() || "", slug: slug.trim() || undefined }).unwrap();
         toast.success("Workspace created successfully!");
       }
       onClose();
@@ -70,6 +77,22 @@ export default function WorkspaceFormModal({ isOpen, onClose, workspace }: Works
               Workspace Name <span className="text-red-500">*</span>
             </label>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Marketing Team" disabled={isLoading} maxLength={80} className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-(--page-body-bg) text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600 text-sm focus:outline-none transition-all" />
+          </div>
+
+          <div>
+            <label className="text-sm font-semibold text-slate-700 dark:text-gray-300 block mb-1.5">
+              URL slug <span className="text-slate-400 font-normal">(optional)</span>
+            </label>
+            <input
+              type="text"
+              value={slug}
+              onChange={(e) => setSlug(e.target.value.toLowerCase())}
+              placeholder="e.g. acme-sales"
+              disabled={isLoading}
+              maxLength={64}
+              className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-(--page-body-bg) text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-600 text-sm focus:outline-none transition-all"
+            />
+            <p className="text-xs text-slate-500 mt-1">Used for funnel links: /f/w/your-slug/page-slug</p>
           </div>
 
           <div>

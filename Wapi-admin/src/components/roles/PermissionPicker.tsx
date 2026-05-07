@@ -6,6 +6,13 @@ import { Permission, PermissionSubmodule } from "@/src/types/store";
 import { Check, Minus, Search, ShieldCheck } from "lucide-react";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 
+/** Human-readable module titles for permission slugs like `create.funnel_pages` → module key `funnel_pages` */
+const MODULE_TITLE: Record<string, string> = {
+  funnel_pages: "Funnel pages",
+};
+
+const moduleTitle = (moduleKey: string) => MODULE_TITLE[moduleKey] ?? moduleKey.replace(/_/g, " ");
+
 const CustomCheckbox = memo(({ checked, indeterminate }: { checked: boolean; indeterminate?: boolean }) => {
   return (
     <div
@@ -54,7 +61,7 @@ const ModuleCard = memo(({ perm, selectedSlugs, onToggleModule, onToggleSlug }: 
       >
         <div className="flex items-center gap-2 flex-1 ml-3">
           <CustomCheckbox checked={isAllSelected} indeterminate={isIndeterminate} />
-          <span className="text-sm font-bold capitalize text-slate-800 dark:text-white select-none transition-colors group-hover:text-primary">{perm.module.replace(/_/g, " ")}</span>
+          <span className="text-sm font-bold text-slate-800 dark:text-white select-none transition-colors group-hover:text-primary capitalize">{moduleTitle(perm.module)}</span>
         </div>
         <ShieldCheck className="h-4 w-4 text-primary shrink-0" />
       </div>

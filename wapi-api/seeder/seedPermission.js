@@ -376,6 +376,18 @@ export const modules = {
             USER: ['view', 'create', 'update', 'delete'],
         }
     },
+    funnelPages: {
+        actions: {
+            view: 'view.funnel_pages',
+            create: 'create.funnel_pages',
+            update: 'update.funnel_pages',
+            delete: 'delete.funnel_pages',
+        },
+        roles: {
+            ADMIN: ['view', 'create', 'update', 'delete'],
+            USER: ['view', 'create', 'update', 'delete'],
+        }
+    },
     subscriptions: {
         actions: {
             view: 'view.subscriptions',

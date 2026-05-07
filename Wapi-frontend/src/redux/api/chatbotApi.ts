@@ -1,4 +1,11 @@
-import { ChatbotResponse, ChatbotsResponse, ChatbotCreatePayload, ChatbotTrainPayload } from "@/src/types/chatbot";
+import {
+  ChatbotResponse,
+  ChatbotsResponse,
+  ChatbotCreatePayload,
+  ChatbotTrainPayload,
+  ChatbotPreviewPromptPayload,
+  ChatbotPreviewPromptResponse,
+} from "@/src/types/chatbot";
 import { baseApi } from "./baseApi";
 
 export const chatbotApi = baseApi.enhanceEndpoints({ addTagTypes: ["Chatbot"] }).injectEndpoints({
@@ -21,6 +28,13 @@ export const chatbotApi = baseApi.enhanceEndpoints({ addTagTypes: ["Chatbot"] })
         body,
       }),
       invalidatesTags: ["Chatbot"],
+    }),
+    previewSystemPrompt: builder.mutation<ChatbotPreviewPromptResponse, ChatbotPreviewPromptPayload>({
+      query: (body) => ({
+        url: "/chatbot/preview-system-prompt",
+        method: "POST",
+        body,
+      }),
     }),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     updateChatbot: builder.mutation<ChatbotResponse, { id: string; data: any }>({
@@ -67,6 +81,7 @@ export const {
   useGetChatbotsQuery,
   useGetChatbotByIdQuery,
   useCreateChatbotMutation,
+  usePreviewSystemPromptMutation,
   useUpdateChatbotMutation,
   useDeleteChatbotMutation,
   useTrainChatbotMutation,

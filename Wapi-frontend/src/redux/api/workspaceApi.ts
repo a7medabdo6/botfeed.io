@@ -9,12 +9,15 @@ interface GetWorkspacesResponse {
 interface CreateWorkspacePayload {
   name: string;
   description?: string;
+  slug?: string | null;
 }
 
 interface UpdateWorkspacePayload {
   id: string;
-  name: string;
+  name?: string;
   description?: string;
+  is_active?: boolean;
+  slug?: string | null;
 }
 
 interface WorkspaceResponse {

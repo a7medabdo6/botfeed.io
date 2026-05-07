@@ -83,6 +83,14 @@ const ToolsPage = () => {
       onIntegrate: () => router.push("/tools/link-generator"),
       onManage: () => router.push("/tools/links"),
     },
+    // {
+    //   title: "Funnel pages",
+    //   description: "Build simple landing pages with separate WhatsApp and AI chatbot widgets.",
+    //   icon: LayoutTemplate,
+    //   accentColor: "indigo" as const,
+    //   onIntegrate: () => router.push("/tools/funnels/new"),
+    //   onManage: () => router.push("/tools/funnels"),
+    // },
   ];
 
   return (

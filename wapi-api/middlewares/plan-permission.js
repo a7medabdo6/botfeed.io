@@ -117,10 +117,17 @@ export const requireSubscription = async (req, res, next) => {
 };
 
 
-export const requirePlanFeature = (feature) => {
+/**
+ * @param {string} feature - key on plan.features (see BOOLEAN_FEATURES)
+ * @param {{ message?: string }} [options] - optional custom 403 body.message (e.g. route-specific copy)
+ */
+export const requirePlanFeature = (feature, options = {}) => {
   if (!BOOLEAN_FEATURES.includes(feature)) {
     throw new Error(`requirePlanFeature: unknown boolean feature "${feature}"`);
   }
+
+  const featureLabel = feature.replace(/_/g, ' ');
+  const defaultMessage = `Your plan does not include "${featureLabel}". Enable this feature on the subscriber's plan in wapi-admin (Subscriber plans), or ask them to upgrade.`;
 
   return (req, res, next) => {
     if (req.user?.role === 'super_admin') return next();
@@ -128,7 +135,9 @@ export const requirePlanFeature = (feature) => {
     if (!req.plan?.features || !req.plan.features[feature]) {
       return res.status(403).json({
         success: false,
-        message: `Your plan does not include this feature: ${feature.replace(/_/g, ' ')}`,
+        code: 'PLAN_FEATURE_MISSING',
+        feature,
+        message: typeof options.message === 'string' && options.message.trim() ? options.message.trim() : defaultMessage,
       });
     }
     next();

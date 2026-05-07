@@ -1,35 +1,58 @@
 import { Chatbot, AIModel } from '../models/index.js';
-import mongoose from 'mongoose';
+import { buildChatbotSystemPrompt } from '../utils/chatbot-system-prompt.js';
 
-const buildSystemPrompt = (data) => {
-    const { business_name, business_description, training_data, raw_training_text } = data;
+function normalizePersonaProfile(raw) {
+    if (raw == null) return null;
+    if (typeof raw !== 'object' || Array.isArray(raw)) return null;
+    return raw;
+}
 
-    let prompt = `You are an AI assistant for ${business_name || 'our business'}.\n`;
+export const previewSystemPrompt = async (req, res) => {
+    try {
+        const {
+            business_name,
+            business_description,
+            persona_profile,
+            training_data,
+            raw_training_text,
+        } = req.body;
 
-    if (business_description) {
-        prompt += `\nBusiness Description:\n${business_description}\n`;
-    }
+        const system_prompt = buildChatbotSystemPrompt({
+            business_name,
+            business_description,
+            persona_profile: normalizePersonaProfile(persona_profile),
+            training_data,
+            raw_training_text,
+        });
 
-    if (training_data && training_data.length > 0) {
-        prompt += `\nHere are some Frequently Asked Questions and their answers to help you guide the customer:\n`;
-        training_data.forEach((item, index) => {
-            prompt += `${index + 1}. Q: ${item.question}\n   A: ${item.answer}\n`;
+        return res.json({
+            success: true,
+            data: { system_prompt },
+        });
+    } catch (error) {
+        console.error('Preview system prompt error:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to build preview',
+            error: error.message,
         });
     }
-
-    if (raw_training_text) {
-        prompt += `\nAdditional Context:\n${raw_training_text}\n`;
-    }
-
-    prompt += `\nRules:\n- Be professional, polite, and helpful.\n- If you don't know the answer, ask the customer to wait while an agent is notified.\n- Keep your responses concise and natural.`;
-
-    return prompt;
 };
 
 export const createChatbot = async (req, res) => {
     try {
         const userId = req.user.owner_id;
-        const { waba_id, name, ai_model, api_key, business_name, business_description } = req.body;
+        const {
+            waba_id,
+            name,
+            ai_model,
+            api_key,
+            business_name,
+            business_description,
+            persona_profile: rawPersona,
+            system_prompt: bodySystemPrompt,
+            use_custom_system_prompt,
+        } = req.body;
 
         if (!waba_id || !name || !ai_model || !api_key) {
             return res.status(400).json({ success: false, message: 'waba_id, name, ai_model, and api_key are required' });
@@ -39,11 +62,22 @@ export const createChatbot = async (req, res) => {
         if (!model) {
             return res.status(404).json({
                 success: false,
-                message: 'AI Model not found or inactive'
+                message: 'AI Model not found or inactive',
             });
         }
 
-        const system_prompt = buildSystemPrompt({ business_name, business_description });
+        const persona_profile = normalizePersonaProfile(rawPersona);
+
+        let system_prompt;
+        if (use_custom_system_prompt === true && typeof bodySystemPrompt === 'string' && bodySystemPrompt.trim()) {
+            system_prompt = bodySystemPrompt.trim();
+        } else {
+            system_prompt = buildChatbotSystemPrompt({
+                business_name,
+                business_description,
+                persona_profile,
+            });
+        }
 
         const chatbot = await Chatbot.create({
             user_id: req.user.owner_id,
@@ -54,20 +88,21 @@ export const createChatbot = async (req, res) => {
             api_key,
             business_name,
             business_description,
-            system_prompt
+            persona_profile,
+            system_prompt,
         });
 
         return res.status(201).json({
             success: true,
             message: 'Chatbot created successfully',
-            data: chatbot
+            data: chatbot,
         });
     } catch (error) {
         console.error('Create chatbot error:', error);
         return res.status(500).json({
             success: false,
             message: 'Failed to create chatbot',
-            error: error.message
+            error: error.message,
         });
     }
 };
@@ -88,14 +123,14 @@ export const getAllChatbots = async (req, res) => {
 
         return res.json({
             success: true,
-            data: chatbots
+            data: chatbots,
         });
     } catch (error) {
         console.error('Get all chatbots error:', error);
         return res.status(500).json({
             success: false,
             message: 'Failed to fetch chatbots',
-            error: error.message
+            error: error.message,
         });
     }
 };
@@ -111,20 +146,20 @@ export const getChatbotById = async (req, res) => {
         if (!chatbot) {
             return res.status(404).json({
                 success: false,
-                message: 'Chatbot not found'
+                message: 'Chatbot not found',
             });
         }
 
         return res.json({
             success: true,
-            data: chatbot
+            data: chatbot,
         });
     } catch (error) {
         console.error('Get chatbot by ID error:', error);
         return res.status(500).json({
             success: false,
             message: 'Failed to fetch chatbot details',
-            error: error.message
+            error: error.message,
         });
     }
 };
@@ -140,30 +175,65 @@ export const updateChatbot = async (req, res) => {
         if (!chatbot) {
             return res.status(404).json({
                 success: false,
-                message: 'Chatbot not found'
+                message: 'Chatbot not found',
             });
         }
 
-        const allowedUpdates = ['name', 'ai_model', 'api_key', 'status'];
-        allowedUpdates.forEach(field => {
+        const prevBusinessName = chatbot.business_name;
+        const prevBusinessDescription = chatbot.business_description;
+        const prevPersonaStr = JSON.stringify(chatbot.persona_profile || null);
+
+        const scalarFields = ['name', 'ai_model', 'api_key', 'status', 'business_name', 'business_description'];
+        scalarFields.forEach((field) => {
             if (updateData[field] !== undefined) {
                 chatbot[field] = updateData[field];
             }
         });
+
+        if (updateData.persona_profile !== undefined) {
+            chatbot.persona_profile = normalizePersonaProfile(updateData.persona_profile);
+        }
+
+        const useCustom =
+            updateData.use_custom_system_prompt === true &&
+            typeof updateData.system_prompt === 'string' &&
+            updateData.system_prompt.trim();
+
+        const businessChanged =
+            (updateData.business_name !== undefined && updateData.business_name !== prevBusinessName) ||
+            (updateData.business_description !== undefined && updateData.business_description !== prevBusinessDescription);
+
+        const personaChanged =
+            updateData.persona_profile !== undefined &&
+            JSON.stringify(chatbot.persona_profile || null) !== prevPersonaStr;
+
+        const forceComposed = updateData.use_custom_system_prompt === false;
+
+        if (useCustom) {
+            chatbot.system_prompt = updateData.system_prompt.trim();
+        } else if (forceComposed || businessChanged || personaChanged) {
+            chatbot.system_prompt = buildChatbotSystemPrompt({
+                business_name: chatbot.business_name,
+                business_description: chatbot.business_description,
+                training_data: chatbot.training_data,
+                raw_training_text: chatbot.raw_training_text,
+                persona_profile: chatbot.persona_profile,
+            });
+        }
 
         await chatbot.save();
 
         return res.json({
             success: true,
             message: 'Chatbot updated successfully',
-            data: chatbot
+            data: chatbot,
         });
     } catch (error) {
         console.error('Update chatbot error:', error);
         return res.status(500).json({
             success: false,
             message: 'Failed to update chatbot',
-            error: error.message
+            error: error.message,
         });
     }
 };
@@ -176,20 +246,20 @@ export const deleteChatbot = async (req, res) => {
         if (result.deletedCount === 0) {
             return res.status(404).json({
                 success: false,
-                message: 'Chatbot not found'
+                message: 'Chatbot not found',
             });
         }
 
         return res.json({
             success: true,
-            message: 'Chatbot deleted successfully'
+            message: 'Chatbot deleted successfully',
         });
     } catch (error) {
         console.error('Delete chatbot error:', error);
         return res.status(500).json({
             success: false,
             message: 'Failed to delete chatbot',
-            error: error.message
+            error: error.message,
         });
     }
 };
@@ -205,7 +275,7 @@ export const trainChatbot = async (req, res) => {
         if (!chatbot) {
             return res.status(404).json({
                 success: false,
-                message: 'Chatbot not found'
+                message: 'Chatbot not found',
             });
         }
 
@@ -218,35 +288,41 @@ export const trainChatbot = async (req, res) => {
         } else if (raw_training_text !== undefined) {
             chatbot.raw_training_text = raw_training_text;
         } else {
-  
             if (training_data !== undefined) chatbot.training_data = training_data;
             if (raw_training_text !== undefined) chatbot.raw_training_text = raw_training_text;
         }
 
-        chatbot.system_prompt = buildSystemPrompt(chatbot);
+        chatbot.system_prompt = buildChatbotSystemPrompt({
+            business_name: chatbot.business_name,
+            business_description: chatbot.business_description,
+            training_data: chatbot.training_data,
+            raw_training_text: chatbot.raw_training_text,
+            persona_profile: chatbot.persona_profile,
+        });
 
         await chatbot.save();
 
         return res.json({
             success: true,
             message: 'Chatbot trained successfully',
-            data: chatbot
+            data: chatbot,
         });
     } catch (error) {
         console.error('Train chatbot error:', error);
         return res.status(500).json({
             success: false,
             message: 'Failed to train chatbot',
-            error: error.message
+            error: error.message,
         });
     }
 };
 
 export default {
+    previewSystemPrompt,
     createChatbot,
     getAllChatbots,
     getChatbotById,
     updateChatbot,
     deleteChatbot,
-    trainChatbot
+    trainChatbot,
 };

@@ -14,6 +14,7 @@ export interface WidgetConfigData {
   escalate_to_human: boolean;
   escalate_after_messages: number;
   primary_color: string;
+  bubble_bottom_offset_px?: number;
   position: "left" | "right";
   bubble_icon: string;
   title: string;
