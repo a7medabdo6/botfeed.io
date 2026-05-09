@@ -234,7 +234,7 @@ class AutomationEngine {
         if (!matched) continue;
 
         try {
-          await this.executeFlow(flow, {
+          const result = await this.executeFlow(flow, {
             event_type: 'widget_message_received',
             message,
             userId,
@@ -244,7 +244,16 @@ class AutomationEngine {
             channel: 'chatbot_widget',
             timestamp: new Date(),
           });
-          return true;
+          const out = result?.output || {};
+          if (out.ai_agent_reply_sent || out.chatbot_reply_sent) {
+            return true;
+          }
+          console.error(`Widget flow "${flow.name}" ran but no reply was sent. Output:`, JSON.stringify({
+            success: result?.success,
+            error: out.error,
+            keys: Object.keys(out)
+          }));
+          return false;
         } catch (runErr) {
           console.error(`Widget flow run failed (${flow.name}):`, runErr);
           return false;
@@ -368,6 +377,7 @@ class AutomationEngine {
     const startTime = Date.now();
     const executionLog = [];
     let currentData = { ...inputData };
+    const accumulator = {};
 
     const startNodes = this.getStartNodes(flow);
     for (const node of startNodes) {
@@ -380,7 +390,7 @@ class AutomationEngine {
           userId: currentData.userId || inputData.userId || inputData.user_id
         };
 
-        await this.processConnectedNodes(flow, node, currentData, executionLog, inputData);
+        await this.processConnectedNodes(flow, node, currentData, executionLog, inputData, accumulator);
       }
     }
 
@@ -388,7 +398,7 @@ class AutomationEngine {
 
     return {
       success: true,
-      output: currentData,
+      output: { ...currentData, ...accumulator },
       executionTime,
       executionLog
     };
@@ -405,7 +415,7 @@ class AutomationEngine {
   }
 
 
-  async processConnectedNodes(flow, currentNode, currentData, executionLog, originalInputData = {}) {
+  async processConnectedNodes(flow, currentNode, currentData, executionLog, originalInputData = {}, accumulator = {}) {
     const connectedNodes = this.getConnectedNodes(flow, currentNode.id);
 
     for (const node of connectedNodes) {
@@ -416,8 +426,11 @@ class AutomationEngine {
           ...nodeResult.output,
           userId: currentData.userId || originalInputData.userId || originalInputData.user_id
         };
+        Object.assign(accumulator, nodeResult.output);
 
-        await this.processConnectedNodes(flow, node, updatedData, executionLog, originalInputData);
+        await this.processConnectedNodes(flow, node, updatedData, executionLog, originalInputData, accumulator);
+      } else if (nodeResult.error) {
+        accumulator.error = nodeResult.error;
       }
     }
   }
@@ -568,7 +581,13 @@ class AutomationEngine {
     }
 
     try {
-      const result = this.evaluateCondition(condition, inputData);
+      let result = this.evaluateCondition(condition, inputData);
+
+      if (!result && condition.field === 'event_type' && condition.operator === 'equals' &&
+          condition.value === 'message_received' && inputData.event_type === 'widget_message_received') {
+        result = true;
+      }
+
       return { success: result, output: { ...inputData, conditionResult: result } };
     } catch (error) {
       return { success: false, output: {}, error: error.message };
@@ -928,13 +947,17 @@ class AutomationEngine {
     }).populate('ai_model');
 
     if (!chatbot) {
+      console.error('[AIAgent] Chatbot not found. chatbotId:', resolved.chatbotId, 'userId:', userId);
       return { success: false, output: inputData, error: 'Chatbot not found' };
     }
 
     const modelDoc = chatbot.ai_model;
     if (!modelDoc || !modelDoc.provider) {
+      console.error('[AIAgent] AI model missing/invalid. chatbot:', chatbot._id, 'ai_model ref:', chatbot.ai_model);
       return { success: false, output: inputData, error: 'Chatbot AI model is missing or invalid' };
     }
+
+    console.log('[AIAgent] Running AI for chatbot:', chatbot.name || chatbot._id, 'model:', modelDoc.model_id);
 
     const incomingText = inputData.message || '';
     const plainModel = typeof modelDoc.toObject === 'function' ? modelDoc.toObject() : modelDoc;
@@ -977,6 +1000,7 @@ class AutomationEngine {
       replyText = out.text;
       toolLog = out.toolLog || [];
     } catch (e) {
+      console.error('[AIAgent] AI call failed:', e.message);
       return { success: false, output: inputData, error: e.message };
     }
 

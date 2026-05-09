@@ -36,6 +36,7 @@ const WidgetConfigForm: React.FC<Props> = ({ initial, isSaving, onSave, onClose 
     position: initial?.position || "right",
     title: initial?.title || "Chat with us",
     subtitle: initial?.subtitle || "We usually reply within minutes",
+    header_logo_url: initial?.header_logo_url || "",
     allowed_domains: initial?.allowed_domains?.join(", ") || "",
     is_active: initial?.is_active ?? true,
   });
@@ -145,6 +146,14 @@ const WidgetConfigForm: React.FC<Props> = ({ initial, isSaving, onSave, onClose 
               </Field>
               <Field label="Subtitle">
                 <input className={INPUT_CLS} value={form.subtitle} onChange={(e) => set("subtitle", e.target.value)} />
+              </Field>
+              <Field label="Header & bot logo URL (optional)">
+                <input
+                  className={INPUT_CLS}
+                  value={form.header_logo_url}
+                  onChange={(e) => set("header_logo_url", e.target.value)}
+                  placeholder="https://… (empty = default Botfeed logo)"
+                />
               </Field>
               <Field label="Primary color">
                 <div className="flex items-center gap-2">

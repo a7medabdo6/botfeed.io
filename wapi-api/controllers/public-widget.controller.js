@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 export async function getConfig(req, res) {
   try {
     const widget = await WidgetConfig.findOne({ api_key: req.params.apiKey, is_active: true })
-      .select('mode whatsapp_number prefill_message wa_style welcome_message placeholder_text primary_color bubble_bottom_offset_px position bubble_icon title subtitle escalate_to_human')
+      .select('mode whatsapp_number prefill_message wa_style welcome_message placeholder_text primary_color bubble_bottom_offset_px position bubble_icon title subtitle header_logo_url escalate_to_human')
       .lean();
     if (!widget) return res.status(404).json({ success: false, message: 'Widget not found' });
     return res.json({ success: true, data: widget });

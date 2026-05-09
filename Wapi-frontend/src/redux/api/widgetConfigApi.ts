@@ -20,6 +20,8 @@ export interface WidgetConfigData {
   bubble_icon: string;
   title: string;
   subtitle: string;
+  /** Absolute image URL for widget header and bot avatars; omit for default Botfeed mark on the API host */
+  header_logo_url?: string;
   api_key: string;
   allowed_domains: string[];
   is_active: boolean;

@@ -27,6 +27,8 @@ const widgetConfigSchema = new mongoose.Schema({
   bubble_icon: { type: String, default: 'chat' },
   title: { type: String, default: 'Chat with us' },
   subtitle: { type: String, default: 'We usually reply within minutes' },
+  /** Optional absolute URL for header + bot avatars; empty uses /public/widget-brand-logo.svg on this API host */
+  header_logo_url: { type: String, default: '', trim: true },
 
   // Auth / security
   api_key: { type: String, unique: true, index: true },

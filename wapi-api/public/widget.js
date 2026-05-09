@@ -32,10 +32,79 @@
   var messages = [];
   var HOST_SUFFIX = String(API_KEY).replace(/[^a-zA-Z0-9]/g, '').slice(-20) || 'widget';
   var MSG_AREA_ID = 'bf-msg-area-' + HOST_SUFFIX;
+  var typingVisible = false;
+  var typingTimer = null;
+  var TYPING_MAX_MS = 90000;
 
   /* ---------- Helpers ---------- */
   function el(tag, cls) { var e = document.createElement(tag); if (cls) e.className = cls; return e; }
   function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  function getBrandLogoUrl() {
+    var u = config && config.header_logo_url && String(config.header_logo_url).trim();
+    if (u) return u;
+    return BASE_URL + '/public/widget-brand-logo.svg';
+  }
+
+  function clearTypingTimer() {
+    if (typingTimer) {
+      clearTimeout(typingTimer);
+      typingTimer = null;
+    }
+  }
+
+  function setTyping(on) {
+    typingVisible = !!on;
+    if (!typingVisible) clearTypingTimer();
+    mountTypingIndicator();
+  }
+
+  function startTypingWithTimeout() {
+    typingVisible = true;
+    clearTypingTimer();
+    typingTimer = setTimeout(function () { setTyping(false); }, TYPING_MAX_MS);
+    mountTypingIndicator();
+  }
+
+  function mountTypingIndicator() {
+    var area = shadow.getElementById(MSG_AREA_ID);
+    if (!area) return;
+    var prev = area.querySelector('.bf-typing-indicator');
+    if (prev) prev.remove();
+    if (!typingVisible) return;
+    var row = el('div', 'bf-msg-row bf-msg-row-bot bf-typing-indicator');
+    var av = el('img', 'bf-avatar');
+    av.src = getBrandLogoUrl();
+    av.alt = '';
+    av.width = 32;
+    av.height = 32;
+    av.loading = 'lazy';
+    av.decoding = 'async';
+    av.onerror = function () { av.style.visibility = 'hidden'; };
+    var bubble = el('div', 'bf-typing-bubble');
+    bubble.innerHTML = '<span class="bf-typing-text">Typing</span><span class="bf-typing-dots" aria-hidden="true"><span></span><span></span><span></span></span>';
+    row.appendChild(av);
+    row.appendChild(bubble);
+    area.appendChild(row);
+    area.scrollTop = area.scrollHeight;
+  }
+
+  function appendBotRow(area, text, isWelcome) {
+    var row = el('div', 'bf-msg-row bf-msg-row-bot' + (isWelcome ? ' bf-msg-welcome-row' : ''));
+    var av = el('img', 'bf-avatar');
+    av.src = getBrandLogoUrl();
+    av.alt = '';
+    av.width = 32;
+    av.height = 32;
+    av.loading = 'lazy';
+    av.decoding = 'async';
+    av.onerror = function () { av.style.visibility = 'hidden'; };
+    var bubble = el('div', 'bf-msg bf-msg-bot' + (isWelcome ? ' bf-msg-welcome' : ' bf-msg-dynamic'));
+    bubble.textContent = text;
+    row.appendChild(av);
+    row.appendChild(bubble);
+    area.appendChild(row);
+  }
 
   /* ---------- Icons ---------- */
   var ICONS = {
@@ -131,8 +200,18 @@
         transports: ['websocket', 'polling'],
       });
       socket.on('widget:reply', function (msg) {
+        setTyping(false);
         messages.push(msg);
         renderMessages();
+      });
+      socket.on('widget:typing', function (data) {
+        if (data && data.from === 'assistant') startTypingWithTimeout();
+      });
+      socket.on('widget:error', function () {
+        setTyping(false);
+      });
+      socket.on('widget:typing_done', function () {
+        setTyping(false);
       });
       socket.on('widget:escalate', function () {
         appendSystemMsg('You have been connected to a live agent.');
@@ -180,9 +259,31 @@
 
     // Header
     var header = el('div', 'bf-header');
-    header.innerHTML = '<div class="bf-header-text"><div class="bf-title">' + esc(config.title || 'Chat with us') + '</div><div class="bf-subtitle">' + esc(config.subtitle || '') + '</div></div><button class="bf-close">' + ICONS.close + '</button>';
+    var brand = el('div', 'bf-header-brand');
+    var logo = el('img', 'bf-header-logo');
+    logo.src = getBrandLogoUrl();
+    logo.alt = '';
+    logo.width = 44;
+    logo.height = 44;
+    logo.loading = 'lazy';
+    logo.decoding = 'async';
+    logo.onerror = function () { brand.style.display = 'none'; };
+    brand.appendChild(logo);
+    var ht = el('div', 'bf-header-text');
+    var titleEl = el('div', 'bf-title');
+    titleEl.textContent = config.title || 'Chat with us';
+    var subEl = el('div', 'bf-subtitle');
+    subEl.textContent = config.subtitle || '';
+    ht.appendChild(titleEl);
+    ht.appendChild(subEl);
+    var closeBtn = el('button', 'bf-close');
+    closeBtn.type = 'button';
+    closeBtn.innerHTML = ICONS.close;
+    closeBtn.addEventListener('click', toggle);
+    header.appendChild(brand);
+    header.appendChild(ht);
+    header.appendChild(closeBtn);
     panel.appendChild(header);
-    header.querySelector('.bf-close').addEventListener('click', toggle);
 
     if (config.mode === 'both') {
       var tabs = el('div', 'bf-tabs');
@@ -221,9 +322,7 @@
     msgArea.id = MSG_AREA_ID;
 
     if (config.welcome_message) {
-      var welcome = el('div', 'bf-msg bf-msg-bot');
-      welcome.textContent = config.welcome_message;
-      msgArea.appendChild(welcome);
+      appendBotRow(msgArea, config.welcome_message, true);
     }
     wrap.appendChild(msgArea);
 
@@ -248,12 +347,14 @@
       if (socket && conversationId) {
         messages.push({ content: text, direction: 'inbound', sender_type: 'visitor', created_at: new Date().toISOString() });
         renderMessages();
+        startTypingWithTimeout();
         socket.emit('widget:message', { content: text });
       } else {
         initSession(function () {
           connectSocket();
           messages.push({ content: text, direction: 'inbound', sender_type: 'visitor', created_at: new Date().toISOString() });
           renderMessages();
+          startTypingWithTimeout();
           if (socket) socket.emit('widget:message', { content: text });
         });
       }
@@ -275,16 +376,25 @@
   function renderMessages() {
     var area = shadow.getElementById(MSG_AREA_ID);
     if (!area) return;
-    // keep welcome message node if present
     var nodes = area.querySelectorAll('.bf-msg-dynamic, .bf-msg-system');
     nodes.forEach(function (n) { n.remove(); });
+    var rows = area.querySelectorAll('.bf-msg-row-bot');
+    rows.forEach(function (n) {
+      if (n.classList.contains('bf-msg-welcome-row')) return;
+      if (n.classList.contains('bf-typing-indicator')) return;
+      n.remove();
+    });
 
     messages.forEach(function (m) {
-      var cls = m.sender_type === 'visitor' ? 'bf-msg bf-msg-user bf-msg-dynamic' : 'bf-msg bf-msg-bot bf-msg-dynamic';
-      var d = el('div', cls);
-      d.textContent = m.content;
-      area.appendChild(d);
+      if (m.sender_type === 'visitor') {
+        var d = el('div', 'bf-msg bf-msg-user bf-msg-dynamic');
+        d.textContent = m.content;
+        area.appendChild(d);
+      } else {
+        appendBotRow(area, m.content, false);
+      }
     });
+    mountTypingIndicator();
     area.scrollTop = area.scrollHeight;
   }
 
@@ -313,8 +423,10 @@
       + '.bf-bubble:hover{transform:scale(1.08);}'
       + '.bf-panel{position:fixed;bottom:' + panelBottomPx + 'px;' + posRule + 'width:380px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:#fff;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;z-index:' + zBase + ';}'
       + '.bf-hidden{display:none!important;}'
-      + '.bf-header{background:' + primary + ';color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}'
-      + '.bf-header-text{flex:1;}'
+      + '.bf-header{background:' + primary + ';color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px;justify-content:space-between;}'
+      + '.bf-header-brand{flex-shrink:0;display:flex;align-items:center;}'
+      + '.bf-header-logo{width:44px;height:44px;border-radius:12px;display:block;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,.12);}'
+      + '.bf-header-text{flex:1;min-width:0;}'
       + '.bf-title{font-size:16px;font-weight:600;}'
       + '.bf-subtitle{font-size:12px;opacity:.85;margin-top:2px;}'
       + '.bf-close{background:none;border:none;color:#fff;cursor:pointer;padding:4px;display:flex;align-items:center;justify-content:center;}'
@@ -322,10 +434,22 @@
       + '.bf-tab{flex:1;padding:10px;font-size:13px;font-weight:500;background:none;border:none;cursor:pointer;color:#6b7280;border-bottom:2px solid transparent;transition:all .2s;}'
       + '.bf-tab-active{color:' + primary + ';border-bottom-color:' + primary + ';}'
       + '.bf-chat-view{display:flex;flex-direction:column;flex:1;min-height:0;}'
-      + '.bf-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;}'
+      + '.bf-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;}'
+      + '.bf-msg-row{display:flex;align-items:flex-end;gap:8px;max-width:92%;align-self:flex-start;}'
+      + '.bf-msg-row-bot{align-self:flex-start;}'
+      + '.bf-avatar{width:32px;height:32px;border-radius:10px;flex-shrink:0;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.08);}'
       + '.bf-msg{max-width:80%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.45;word-break:break-word;}'
+      + '.bf-msg-row .bf-msg-bot{max-width:calc(100% - 40px);}'
       + '.bf-msg-bot{align-self:flex-start;background:#f3f4f6;color:#111827;border-bottom-left-radius:4px;}'
+      + '.bf-msg-welcome{background:#eef2f6;}'
       + '.bf-msg-user{align-self:flex-end;background:' + primary + ';color:#fff;border-bottom-right-radius:4px;}'
+      + '.bf-typing-bubble{display:flex;align-items:center;gap:6px;padding:10px 14px;border-radius:14px;background:#e5e7eb;color:#374151;font-size:13px;border-bottom-left-radius:4px;}'
+      + '.bf-typing-text{font-weight:500;}'
+      + '.bf-typing-dots{display:inline-flex;gap:3px;align-items:center;height:14px;}'
+      + '.bf-typing-dots span{width:5px;height:5px;border-radius:50%;background:' + primary + ';animation:bf-dot 1.2s ease-in-out infinite;}'
+      + '.bf-typing-dots span:nth-child(2){animation-delay:.2s;}'
+      + '.bf-typing-dots span:nth-child(3){animation-delay:.4s;}'
+      + '@keyframes bf-dot{0%,80%,100%{transform:translateY(0);opacity:.35;}40%{transform:translateY(-4px);opacity:1;}}'
       + '.bf-msg-system{align-self:center;background:transparent;color:#6b7280;font-size:12px;font-style:italic;}'
       + '.bf-input-bar{display:flex;align-items:center;border-top:1px solid #e5e7eb;padding:8px 10px;gap:8px;}'
       + '.bf-input{flex:1;border:1px solid #d1d5db;border-radius:20px;padding:8px 14px;font-size:14px;outline:none;transition:border-color .2s;}'

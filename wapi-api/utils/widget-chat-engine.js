@@ -89,6 +89,10 @@ export async function handleVisitorMessage({ conversationId, content, io }) {
       await emitBotReply(conversationId, holdMsg, room, io);
     }
 
+    if (io) {
+      io.of('/widget').to(room).emit('widget:typing', { from: 'assistant' });
+    }
+
     // Try automation engine first (flow-based widget trigger). Only boolean true = flow matched & ran.
     let flowMatched = false;
     try {
@@ -109,8 +113,12 @@ export async function handleVisitorMessage({ conversationId, content, io }) {
       const aiReply = await generateBotReply(conversation, widget, content);
       if (aiReply) {
         await emitBotReply(conversationId, aiReply, room, io);
+      } else if (io) {
+        io.of('/widget').to(room).emit('widget:typing_done', {});
       }
     }
+  } else if (io) {
+    io.of('/widget').to(room).emit('widget:typing_done', {});
   }
   // status === 'human' && agentClaimed: only human agent replies via socket
 }

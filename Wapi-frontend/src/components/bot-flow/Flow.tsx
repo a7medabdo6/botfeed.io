@@ -1007,12 +1007,20 @@ const FlowCanvas = () => {
             const isOrderReceived = tNode.data.triggerType === "order received";
             const isAnyMessage = tNode.data.triggerType === "any message";
 
+            const isWidgetTrigger = tNode.data.nodeType === "widget_trigger" || tNode.data.channel === "chatbot_widget" || (Array.isArray(tNode.data.channels) && tNode.data.channels.includes("chatbot_widget"));
+
             let condition = null;
             if (isOrderReceived) {
               condition = {
                 field: "event_type",
                 operator: "equals",
                 value: "order_received",
+              };
+            } else if (isAnyMessage && isWidgetTrigger) {
+              condition = {
+                field: "event_type",
+                operator: "equals",
+                value: "widget_message_received",
               };
             } else if (isAnyMessage) {
               condition = {
