@@ -122,6 +122,7 @@ const footerSectionSchema = new mongoose.Schema({
 });
 
 const landingPageSchema = new mongoose.Schema({
+  landing_chatbot_widget_key: { type: String, default: '' },
   hero_section: heroSectionSchema,
   features_section: featuresSectionSchema,
   platform_section: platformSectionSchema,

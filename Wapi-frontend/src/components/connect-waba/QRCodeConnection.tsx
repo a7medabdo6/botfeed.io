@@ -42,8 +42,9 @@ const QRCodeConnection = ({ isDisabled }: QRCodeConnectionProps) => {
 
       if (isBaileys && targetWabaId) {
         try {
-          const res = await getQRCode(targetWabaId).unwrap();
+          const res = await getQRCode({ wabaId: targetWabaId, sync_chat: true }).unwrap();
           if (res?.success) {
+            toast.info("سيتم مزامنة الرسائل وجهات الاتصال القديمة في الخلفية بعد الربط.");
             refetchWorkspaces();
             return;
           }
@@ -75,8 +76,9 @@ const QRCodeConnection = ({ isDisabled }: QRCodeConnectionProps) => {
           const newWabaId = response.data.waba_id;
           setWabaId(newWabaId);
 
-          const qrRes = await getQRCode(newWabaId).unwrap();
+          const qrRes = await getQRCode({ wabaId: newWabaId, sync_chat: true }).unwrap();
           if (qrRes?.success && qrRes.data?.qr_code) {
+            toast.info("سيتم مزامنة الرسائل وجهات الاتصال القديمة في الخلفية بعد الربط.");
             refetchWorkspaces();
           } else {
             setStatus("failed");
@@ -128,7 +130,7 @@ const QRCodeConnection = ({ isDisabled }: QRCodeConnectionProps) => {
   const handleRefreshQR = async () => {
     if (wabaId) {
       try {
-        await getQRCode(wabaId).unwrap();
+        await getQRCode({ wabaId, sync_chat: true }).unwrap();
         refetchWorkspaces();
       } catch (error: any) {
         toast.error(error?.error || "Failed to refresh QR code");
@@ -196,7 +198,7 @@ const QRCodeConnection = ({ isDisabled }: QRCodeConnectionProps) => {
                   </div>
                   <div>
                     <p className="text-xs font-bold text-primary">{status === "scanning" ? "QR Generated" : "Awaiting Scan"}</p>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400">{status === "scanning" ? "Point your phone at the QR code" : "Initializing secure connection..."}</p>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400">{status === "scanning" ? "Point your phone at the QR code (old chats/contacts will sync after linking)" : "Initializing secure connection..."}</p>
                   </div>
                 </div>
               )}

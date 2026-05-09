@@ -10,13 +10,11 @@ import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { toast } from "sonner";
 import ChatbotGrid from "./ChatbotGrid";
-import ChatbotTrainSection from "./ChatbotTrainSection";
 
 const ChatbotSection: React.FC<ChatbotSectionProps> = ({ wabaId, onToggleSidebar, chatbotListReturnHref = "/chatbots" }) => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [deleteId, setDeleteId] = useState<string | null>(null);
-  const [trainingChatbot, setTrainingChatbot] = useState<Chatbot | null>(null);
 
   const { data: chatbotsData, isLoading, refetch } = useGetChatbotsQuery({ waba_id: wabaId }, { skip: !wabaId });
   const [deleteChatbot, { isLoading: isDeleting }] = useDeleteChatbotMutation();
@@ -36,6 +34,13 @@ const ChatbotSection: React.FC<ChatbotSectionProps> = ({ wabaId, onToggleSidebar
     [router, returnQuery],
   );
 
+  const goToTrain = useCallback(
+    (chatbot: Chatbot) => {
+      router.push(`/chatbots/${chatbot._id}/train${returnQuery}`);
+    },
+    [router, returnQuery],
+  );
+
   const handleDelete = async () => {
     if (!deleteId) return;
     try {
@@ -46,18 +51,6 @@ const ChatbotSection: React.FC<ChatbotSectionProps> = ({ wabaId, onToggleSidebar
       toast.error(error?.data?.message || "Failed to delete chatbot");
     }
   };
-
-  if (trainingChatbot) {
-    return (
-      <ChatbotTrainSection
-        chatbot={trainingChatbot}
-        onBack={() => {
-          setTrainingChatbot(null);
-          refetch();
-        }}
-      />
-    );
-  }
 
   return (
     <div className="flex-1 flex flex-col min-w-0 sm:p-6 p-4 overflow-y-auto custom-scrollbar">
@@ -81,7 +74,7 @@ const ChatbotSection: React.FC<ChatbotSectionProps> = ({ wabaId, onToggleSidebar
           isLoading={isLoading}
           onEdit={goToEdit}
           onDelete={setDeleteId}
-          onTrain={setTrainingChatbot}
+          onTrain={goToTrain}
           onAdd={goToCreate}
         />
       </div>

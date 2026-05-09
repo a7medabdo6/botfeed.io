@@ -7,6 +7,7 @@ const getLandingPage = async (req, res) => {
 
     if (!landingPage) {
       landingPage = new LandingPage({
+        landing_chatbot_widget_key: '',
         hero_section: {
           badge: 'حيث يلتقي عميلك بك — على كل الشبكات',
           title: 'منصّة واحدة لكل قنوات التواصل التي تعتني بها علامتك',
@@ -256,6 +257,7 @@ const getLandingPage = async (req, res) => {
 const updateLandingPage = async (req, res) => {
   try {
     const {
+      landing_chatbot_widget_key,
       hero_section,
       features_section,
       platform_section,
@@ -267,6 +269,10 @@ const updateLandingPage = async (req, res) => {
     } = req.body;
 
     const updateData = {};
+
+    if (landing_chatbot_widget_key !== undefined) {
+      updateData.landing_chatbot_widget_key = String(landing_chatbot_widget_key || '').trim();
+    }
 
     if (hero_section) {
       updateData.hero_section = hero_section;

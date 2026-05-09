@@ -1,17 +1,20 @@
 "use client";
 
 import { WidgetConfigData } from "@/src/redux/api/widgetConfigApi";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check, Pencil, Trash2 } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import { Button } from "@/src/elements/ui/button";
 
 interface Props {
   config: WidgetConfigData;
+  onEdit?: (config: WidgetConfigData) => void;
+  onDelete?: (config: WidgetConfigData) => void;
 }
 
 const MODES: Record<string, string> = { whatsapp: "WhatsApp", chatbot: "AI Chatbot", both: "Both" };
 
-const WidgetConfigCard: React.FC<Props> = ({ config }) => {
+const WidgetConfigCard: React.FC<Props> = ({ config, onEdit, onDelete }) => {
   const [copied, setCopied] = useState(false);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/api\/?$/, "") || "";
@@ -42,6 +45,7 @@ const WidgetConfigCard: React.FC<Props> = ({ config }) => {
       <div className="flex flex-wrap gap-2 text-xs text-gray-500 dark:text-gray-400">
         <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">{MODES[config.mode] || config.mode}</span>
         <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">{config.position}</span>
+        {config.workspace_id ? <span className="px-2 py-0.5 rounded bg-sky-100 text-sky-700 dark:bg-sky-900/20 dark:text-sky-300">Workspace-bound</span> : null}
         {config.allowed_domains.length > 0 && (
           <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">{config.allowed_domains.length} domain{config.allowed_domains.length > 1 ? "s" : ""}</span>
         )}
@@ -60,6 +64,16 @@ const WidgetConfigCard: React.FC<Props> = ({ config }) => {
       </div>
 
       <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">Managed via Flow Builder</p>
+      <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/60">
+        <Button type="button" variant="outline" size="sm" className="h-8" onClick={() => onEdit?.(config)}>
+          <Pencil size={14} className="mr-1" />
+          Edit
+        </Button>
+        <Button type="button" variant="outline" size="sm" className="h-8 text-rose-600 border-rose-200 hover:bg-rose-50 dark:border-rose-900/40 dark:hover:bg-rose-950/20" onClick={() => onDelete?.(config)}>
+          <Trash2 size={14} className="mr-1" />
+          Delete
+        </Button>
+      </div>
     </div>
   );
 };

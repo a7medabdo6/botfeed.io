@@ -15,6 +15,8 @@ interface Props {
 }
 
 const WidgetConfigForm: React.FC<Props> = ({ initial, isSaving, onSave, onClose }) => {
+  const selectedWorkspace = useAppSelector((s) => s.workspace.selectedWorkspace);
+  const workspaceId = selectedWorkspace?._id || "";
   const wabaId = useAppSelector((s) => s.workspace.selectedWorkspace?.waba_id) || "";
   const { data: chatbotsData } = useGetChatbotsQuery({ waba_id: wabaId }, { skip: !wabaId });
   const chatbots = chatbotsData?.data || [];
@@ -40,15 +42,21 @@ const WidgetConfigForm: React.FC<Props> = ({ initial, isSaving, onSave, onClose 
 
   const set = (key: string, val: any) => setForm((f) => ({ ...f, [key]: val }));
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const submitForm = () => {
+    if (!workspaceId) return;
     const payload: any = { ...form };
+    payload.workspace_id = workspaceId;
     payload.allowed_domains = form.allowed_domains
       .split(",")
       .map((d: string) => d.trim())
       .filter(Boolean);
     payload.chatbot_id = form.chatbot_id || null;
     onSave(payload);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    submitForm();
   };
 
   return (
@@ -64,6 +72,11 @@ const WidgetConfigForm: React.FC<Props> = ({ initial, isSaving, onSave, onClose 
         </div>
 
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto px-6 py-5 space-y-5 custom-scrollbar">
+          <Field label="Workspace">
+            <input className={INPUT_CLS} value={selectedWorkspace?.name || "No workspace selected"} readOnly />
+            {!workspaceId ? <p className="text-[11px] text-rose-500 mt-1">Select a workspace first to create or edit widget configs.</p> : null}
+          </Field>
+
           {/* Name */}
           <Field label="Name">
             <input className={INPUT_CLS} value={form.name} onChange={(e) => set("name", e.target.value)} required />
@@ -176,7 +189,7 @@ const WidgetConfigForm: React.FC<Props> = ({ initial, isSaving, onSave, onClose 
           <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition">
             Cancel
           </button>
-          <button onClick={handleSubmit} disabled={isSaving} className="px-5 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:opacity-90 transition disabled:opacity-50 flex items-center gap-2">
+          <button onClick={submitForm} disabled={isSaving || !workspaceId} className="px-5 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:opacity-90 transition disabled:opacity-50 flex items-center gap-2">
             {isSaving && <Loader2 size={14} className="animate-spin" />}
             {initial ? "Update" : "Create"}
           </button>

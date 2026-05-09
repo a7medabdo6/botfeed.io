@@ -3,6 +3,7 @@
 
 import { Button } from "@/src/elements/ui/button";
 import { useGetLandingPageQuery, useUpdateLandingPageMutation } from "@/src/redux/api/landingPageApi";
+import { useGetAdminWidgetConfigsQuery } from "@/src/redux/api/widgetConfigApi";
 import CommonHeader from "@/src/shared/CommonHeader";
 import { LandingPageData } from "@/src/types/landingPage";
 import { CreditCard, HelpCircle, Layers, Layout, MessageSquareQuote, Monitor, PhoneCall, RefreshCw, Rocket, Save } from "lucide-react";
@@ -75,6 +76,7 @@ type TabId = (typeof tabs)[number]["id"];
 const LandingPageContainer = () => {
   const { t } = useTranslation();
   const { data: landingResponse, isLoading, refetch } = useGetLandingPageQuery();
+  const { data: widgetConfigsResponse } = useGetAdminWidgetConfigsQuery({ page: 1, is_active: "true" });
   const [updateLandingPage, { isLoading: isUpdating }] = useUpdateLandingPageMutation();
 
   const [activeTab, setActiveTab] = useState<TabId>("hero");
@@ -91,6 +93,12 @@ const LandingPageContainer = () => {
   const handleSectionChange = (section: keyof LandingPageData, sectionData: any) => {
     if (!formData) return;
     setFormData({ ...formData, [section]: sectionData });
+    setIsDirty(true);
+  };
+
+  const handleWidgetKeyChange = (value: string) => {
+    if (!formData) return;
+    setFormData({ ...formData, landing_chatbot_widget_key: value });
     setIsDirty(true);
   };
 
@@ -176,6 +184,8 @@ const LandingPageContainer = () => {
   };
 
   const activeTabInfo = tabs.find((t) => t.id === activeTab)!;
+  const widgetConfigs = widgetConfigsResponse?.data || [];
+  const chatbotWidgets = widgetConfigs.filter((w) => w.is_active && (w.mode === "chatbot" || w.mode === "both"));
 
   return (
     <div className="flex flex-col min-h-full pb-10">
@@ -226,6 +236,25 @@ const LandingPageContainer = () => {
 
         {/* Form Content Area */}
         <div className="flex-1 min-w-0 flex flex-col">
+          <div className="bg-white dark:bg-(--card-color) p-4 lg:p-5 rounded-lg border border-gray-100 dark:border-(--card-border-color) shadow-lg mb-4 lg:mb-6">
+            <div className="flex flex-col gap-2">
+              <p className="text-sm font-bold text-gray-900 dark:text-gray-100">Landing Chatbot Widget</p>
+              <p className="text-xs text-gray-500">Set this from admin so frontend does not need NEXT_PUBLIC_LANDING_CHATBOT_WIDGET_KEY.</p>
+              <select
+                className="w-full rounded-lg border border-gray-200 dark:border-(--card-border-color) bg-white dark:bg-(--input-color) px-3 py-2 text-sm"
+                value={formData?.landing_chatbot_widget_key || ""}
+                onChange={(e) => handleWidgetKeyChange(e.target.value)}
+              >
+                <option value="">No widget (disabled)</option>
+                {chatbotWidgets.map((w) => (
+                  <option key={w._id} value={w.api_key}>
+                    {w.name} ({w.mode}) - {w.api_key}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
           {/* Section Header Card */}
           <div className="bg-white dark:bg-(--card-color) p-4 lg:p-5 rounded-lg flex-wrap shadow-xl shadow-gray-200/20 dark:shadow-none border border-gray-100 dark:border-(--card-border-color) mb-6 lg:mb-8 flex flex-col [@media(min-width:1421px)]:flex-row [@media(min-width:1421px)]:items-center justify-between gap-4 lg:gap-6 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/2 rounded-full -mr-32 -mt-32 hidden [@media(min-width:1421px)]:block" />

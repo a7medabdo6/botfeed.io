@@ -61,7 +61,9 @@ function FunnelEditorForm({
   publicId: string | undefined;
 }) {
   const { t } = useTranslation();
-  const { data: widgetsRes } = useGetWidgetConfigsQuery();
+  const initialWorkspaceId = workspaceIdFromFunnel(funnel);
+  const [workspaceId, setWorkspaceId] = useState(initialWorkspaceId);
+  const { data: widgetsRes } = useGetWidgetConfigsQuery(workspaceId ? { workspace_id: workspaceId } : undefined);
   const { data: wsRes } = useGetWorkspacesQuery();
   const [updateFunnel, { isLoading: isSaving }] = useUpdateFunnelPageMutation();
   const [publishFunnel, { isLoading: isPublishing }] = usePublishFunnelPageMutation();
@@ -75,7 +77,6 @@ function FunnelEditorForm({
   );
   const [waId, setWaId] = useState(funnel.whatsapp_widget_config_id || "");
   const [botId, setBotId] = useState(funnel.chatbot_widget_config_id || "");
-  const [workspaceId, setWorkspaceId] = useState(workspaceIdFromFunnel(funnel));
   const [customDomain, setCustomDomain] = useState(funnel.custom_domain || "");
   const [abEnabled, setAbEnabled] = useState(Boolean(funnel.ab_test_enabled));
   const [abBlocksB, setAbBlocksB] = useState<FunnelBlock[]>(Array.isArray(funnel.ab_blocks_b) ? funnel.ab_blocks_b : []);
@@ -199,7 +200,15 @@ function FunnelEditorForm({
 
         <label className="block text-xs font-medium text-slate-600 dark:text-slate-400">
           {t("funnels.field_workspace")}
-          <select className="mt-1 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-(--input-color) px-3 py-2 text-sm" value={workspaceId} onChange={(e) => setWorkspaceId(e.target.value)}>
+          <select
+            className="mt-1 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-(--input-color) px-3 py-2 text-sm"
+            value={workspaceId}
+            onChange={(e) => {
+              setWorkspaceId(e.target.value);
+              setWaId("");
+              setBotId("");
+            }}
+          >
             <option value="">{t("funnels.workspace_none")}</option>
             {workspaces.map((w) => (
               <option key={w._id} value={w._id}>

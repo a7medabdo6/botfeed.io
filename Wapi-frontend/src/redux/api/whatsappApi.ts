@@ -59,9 +59,13 @@ export const whatsappApi = baseApi.enhanceEndpoints({ addTagTypes: ["Whatsapp", 
         url: "/whatsapp/phone-numbers",
       }),
     }),
-    getBaileysQRCode: builder.query<{ success: boolean; data?: { qr_code?: string; status?: string } }, string>({
-      query: (wabaId) => ({
+    getBaileysQRCode: builder.query<
+      { success: boolean; data?: { qr_code?: string; status?: string } },
+      { wabaId: string; sync_chat?: boolean }
+    >({
+      query: ({ wabaId, sync_chat = false }) => ({
         url: `/whatsapp/baileys/qrcode/${wabaId}`,
+        params: { sync_chat },
       }),
       providesTags: ["WhatsappStatus"],
     }),

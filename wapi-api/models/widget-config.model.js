@@ -3,6 +3,7 @@ import crypto from 'crypto';
 
 const widgetConfigSchema = new mongoose.Schema({
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  workspace_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Workspace', default: null, index: true },
   name: { type: String, required: true, trim: true, default: 'My Widget' },
   mode: { type: String, enum: ['whatsapp', 'chatbot', 'both'], default: 'both' },
 

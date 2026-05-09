@@ -149,6 +149,7 @@ export interface FooterSection {
 
 export interface LandingPageData {
   _id?: string;
+  landing_chatbot_widget_key?: string;
   hero_section: HeroSection;
   features_section: FeaturesSection;
   platform_section: PlatformSection;

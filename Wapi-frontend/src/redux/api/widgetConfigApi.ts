@@ -3,6 +3,7 @@ import { baseApi } from "./baseApi";
 export interface WidgetConfigData {
   _id: string;
   user_id: string;
+  workspace_id?: string | null;
   name: string;
   mode: "whatsapp" | "chatbot" | "both";
   whatsapp_number: string;
@@ -75,8 +76,8 @@ export const widgetConfigApi = baseApi
   .enhanceEndpoints({ addTagTypes: ["WidgetConfig", "WebConversation"] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getWidgetConfigs: builder.query<ListResponse, void>({
-        query: () => "/widget-configs",
+      getWidgetConfigs: builder.query<ListResponse, { workspace_id?: string; mode?: "whatsapp" | "chatbot" | "both" } | void>({
+        query: (params) => ({ url: "/widget-configs", params: params || undefined }),
         providesTags: ["WidgetConfig"],
       }),
       getWidgetConfigById: builder.query<SingleResponse, string>({
@@ -95,7 +96,7 @@ export const widgetConfigApi = baseApi
         query: (id) => ({ url: `/widget-configs/${id}`, method: "DELETE" }),
         invalidatesTags: ["WidgetConfig"],
       }),
-      getWebConversations: builder.query<ConversationsResponse, { status?: string; widget_config_id?: string; page?: number }>({
+      getWebConversations: builder.query<ConversationsResponse, { status?: string; widget_config_id?: string; workspace_id?: string; page?: number }>({
         query: (params) => ({ url: "/widget-configs/conversations/list", params }),
         providesTags: ["WebConversation"],
       }),

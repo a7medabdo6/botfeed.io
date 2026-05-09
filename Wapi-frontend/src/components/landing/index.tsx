@@ -4,6 +4,7 @@ import BrandCarousel from "./BrandCarousel";
 import Channels from "./Channels";
 import Features from "./Features";
 import Footer from "./Footer";
+import FunnelWidgetScripts from "../funnels/FunnelWidgetScripts";
 import Header from "./Header";
 import Home from "./Home";
 import HowItWorks from "./HowItWorks";
@@ -12,9 +13,16 @@ import TapTop from "./TapTop";
 import WhyChoose from "./WhyChoose";
 import { useEffect } from "react";
 import { useTheme } from "next-themes";
+import { useGetLandingPageQuery } from "@/src/redux/api/landingPageApi";
 
 const Landing = () => {
   const { theme, setTheme } = useTheme();
+  const { data: landingData } = useGetLandingPageQuery();
+  const adminConfiguredWidgetKey = landingData?.data?.landing_chatbot_widget_key?.trim() || null;
+  const envFallbackWidgetKey = process.env.NEXT_PUBLIC_LANDING_CHATBOT_WIDGET_KEY || null;
+  const widgetKey = adminConfiguredWidgetKey || envFallbackWidgetKey || "wk_f2fdfc31e77251757dd82869505f5fab624dd8b86d6db92b";
+  const apiRaw = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5001/api";
+  const scriptSrc = (apiRaw.includes("/api") ? apiRaw : `${apiRaw.replace(/\/$/, "")}/api`).replace(/\/api\/?$/, "/public/widget.js");
 
   useEffect(() => {
     const previousTheme = theme;
@@ -74,6 +82,7 @@ const Landing = () => {
       {/* <Connect data={data.contact_section} /> */}
       {/* <Footer data={data.footer_section} /> */}
       <TapTop />
+      {widgetKey ? <FunnelWidgetScripts scriptSrc={scriptSrc} whatsappKey={null} chatbotKey={widgetKey} /> : null}
     </div>
   );
 };
