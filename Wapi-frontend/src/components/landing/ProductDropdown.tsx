@@ -94,7 +94,7 @@ const ProductDropdown = ({ scrollToSection }: { scrollToSection: (id: string) =>
     <div className="relative group" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <button
         className={`flex items-center gap-1 text-[17px] font-medium transition-colors cursor-pointer py-2
-        ${isOpen ? "text-primary" : "text-slate-300 hover:text-white"}`}
+        ${isOpen ? "text-primary" : "text-[#475569] hover:text-primary"}`}
         onClick={() => scrollToSection("features")}
       >
         {t("landing.header.product")}

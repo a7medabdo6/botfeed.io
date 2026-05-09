@@ -17,11 +17,11 @@ import { DynamicLogo } from "./common/DynamicLogo";
 const API_URL = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
 
 const resolveUrl = (url?: string): string => {
-  if (!url || url.length <= 0) return "/branding/botfeed-logo.png";
+  if (!url || url.length <= 0) return "/assets/branding/botfeed-logo.png";
   return url.startsWith("http") ? url : `${API_URL}${url}`;
 };
 
-const DEFAULT_FAVICON = "/branding/botfeed-logo.png";
+const DEFAULT_FAVICON = "/assets/branding/botfeed-logo.png";
 
 function applyFavicon(href: string) {
   if (typeof window === "undefined") return;

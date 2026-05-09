@@ -157,11 +157,11 @@ const Sidebar = ({ onMenuClick }: SidebarProps) => {
 
     if (isVisuallyExpanded) {
       const url = isDark ? logo_dark_url : logo_light_url;
-      return resolveUrl(url) || "/branding/botfeed-logo.png";
+      return resolveUrl(url) || "/assets/branding/botfeed-logo.png";
     }
 
     const url = isDark ? sidebar_dark_logo_url : sidebar_light_logo_url;
-    return resolveUrl(url) || "/branding/botfeed-logo.png";
+    return resolveUrl(url) || "/assets/branding/botfeed-logo.png";
   }, [mounted, theme, isVisuallyExpanded, logo_light_url, logo_dark_url, sidebar_light_logo_url, sidebar_dark_logo_url]);
 
   const [openSections, setOpenSections] = useState<string[]>(["sidebar.integrations", "sidebar.auto_responses", "sidebar.my_subscription", "sidebar.marketing"]);

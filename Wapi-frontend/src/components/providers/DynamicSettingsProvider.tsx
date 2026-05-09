@@ -15,7 +15,7 @@ const resolveUrl = (url?: string): string => {
   return url.startsWith("http") ? url : `${API_URL}${url}`;
 };
 
-const DEFAULT_FAVICON = "/branding/botfeed-logo.png";
+const DEFAULT_FAVICON = "/assets/branding/botfeed-logo.png";
 
 function applyFavicon(href: string) {
   if (typeof window === "undefined") return;

@@ -19,17 +19,21 @@ const Testimonial: React.FC<TestimonialProps> = ({ data }) => {
   if (testimonialsFinal.length === 0) return null;
 
   return (
-    <section id="testimonials" className="bg-[#F8FCFF] py-[calc(30px+(100-30)*((100vw-320px)/(1920-320)))] overflow-hidden px-0 pb-0">
-      <div className="mx-[calc(16px+(195-16)*((100vw-320px)/(1920-320)))] overflow-hidden">
-        <div className="text-center mb-[calc(12px+(35-12)*((100vw-320px)/(1920-320)))]">
-          <span className="text-[16px] font-bold uppercase tracking-[0.45em] text-primary">{data.badge || t("landing.sections.testimonials_badge")}</span>
-          <h2 className="mt-2.5 text-[clamp(1.5rem,1rem+2.5vw,2.875rem)] max-w-[calc(288px+(830-288)*((100vw-320px)/(1920-320)))] font-extrabold leading-[1.2] tracking-tight text-[#1a2b3b] mx-auto whitespace-pre-wrap">{data.title}</h2>
+    <section id="testimonials" className="bg-[#F8FAFC] py-[calc(40px+(100-40)*((100vw-320px)/(1920-320)))] overflow-hidden">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 md:mb-16">
+          <span className="inline-block text-[14px] font-bold uppercase tracking-[0.2em] text-primary mb-3">
+            {data.badge || t("landing.sections.testimonials_badge")}
+          </span>
+          <h2 className="text-[calc(22px+(42-22)*((100vw-320px)/(1920-320)))] font-extrabold leading-[1.2] tracking-tight text-[#0F172A] max-w-2xl mx-auto whitespace-pre-wrap">
+            {data.title}
+          </h2>
         </div>
 
-        <div className="relative pb-2 sm:pb-4">
+        <div className="relative">
           <Swiper
             modules={[Autoplay]}
-            spaceBetween={20}
+            spaceBetween={24}
             slidesPerView={3}
             centeredSlides={true}
             loop={testimonialsFinal.length > 3}
@@ -41,41 +45,41 @@ const Testimonial: React.FC<TestimonialProps> = ({ data }) => {
             onRealIndexChange={(swiper) => {
               setActiveIndex(swiper.realIndex % testimonials.length);
             }}
-            autoplay={testimonialsFinal.length > 1 ? { delay: 3000, disableOnInteraction: false } : false}
+            autoplay={testimonialsFinal.length > 1 ? { delay: 4000, disableOnInteraction: false } : false}
             breakpoints={{
-              320: { slidesPerView: Math.min(1, testimonialsFinal.length), spaceBetween: 20 },
-              640: { slidesPerView: Math.min(1.5, testimonialsFinal.length), spaceBetween: 25 },
-              768: { slidesPerView: Math.min(2, testimonialsFinal.length), spaceBetween: 30 },
-              1024: { slidesPerView: Math.min(3, testimonialsFinal.length), spaceBetween: 40 },
+              320: { slidesPerView: Math.min(1, testimonialsFinal.length), spaceBetween: 16 },
+              640: { slidesPerView: Math.min(1.5, testimonialsFinal.length), spaceBetween: 20 },
+              768: { slidesPerView: Math.min(2, testimonialsFinal.length), spaceBetween: 24 },
+              1024: { slidesPerView: Math.min(3, testimonialsFinal.length), spaceBetween: 28 },
             }}
             className="testimonial-swiper"
           >
             {testimonialsFinal.map((item, idx) => (
-              <SwiperSlide key={idx} className="h-auto! py-10 px-2 sm:px-4">
+              <SwiperSlide key={idx} className="h-auto! py-4">
                 {({ isActive }) => (
                   <div
-                    className={`feature-box transition-all duration-700 ease-in-out h-full max-w-117.5 max-h-104
-                      ${isActive ? "md:translate-y-4 scale-105 z-10 opacity-100" : "md:-translate-y-4 scale-95 opacity-50"}
+                    className={`transition-all duration-500 ease-out h-full
+                      ${isActive ? "scale-[1.02] opacity-100" : "scale-95 opacity-60"}
                     `}
                   >
-                    <div className="testimonial-card bg-white rounded-4xl p-7 h-full flex flex-col shadow-[0_16px_60px_rgba(0,174,239,0.10)] relative ">
-                      <div className="mb-6">
-                        <div className="bg-primary w-13 h-13 rounded-[14px] flex items-center justify-center shadow-[0_6px_20px_rgba(0,174,239,0.25)]">
-                          <Quote className="text-white fill-white transform scale-x-[-1]" size={24} strokeWidth={0} />
+                    <div className="bg-white rounded-2xl p-6 h-full flex flex-col border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgba(0,174,239,0.08)] transition-shadow">
+                      <div className="mb-5">
+                        <div className="bg-[#00AEEF10] w-11 h-11 rounded-xl flex items-center justify-center">
+                          <Quote className="text-primary fill-primary transform scale-x-[-1]" size={20} strokeWidth={0} />
                         </div>
                       </div>
 
-                      <p className="text-[#64748b] text-[18px] mb-5 grow font-regular">{item.description}</p>
+                      <p className="text-[#475569] text-[15px] mb-6 grow leading-relaxed">{item.description}</p>
 
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 pt-4 border-t border-[#F1F5F9]">
                         <Images src={item?.user_image} alt={item?.user_name || "image"} className="w-10 h-10 max-w-10 max-h-10 rounded-full object-cover shrink-0" width={100} height={100} unoptimized />
-                        <div>
-                          <h4 className="font-bold text-[#1a2b3b] text-[16px] leading-tight">{item.user_name}</h4>
-                          <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="text-[16px] text-[#64748b] italic">{item.user_post}</span>
-                            <Star size={12} className="fill-[#facb15] text-[#facb15] ml-1 shrink-0" />
-                            <span className="text-[13px] font-bold text-[#1a2b3b]">{item.rating?.toFixed(1) || "5.0"}</span>
-                          </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-[#0F172A] text-[15px] leading-tight">{item.user_name}</h4>
+                          <span className="text-[14px] text-[#94A3B8]">{item.user_post}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Star size={14} className="fill-[#FBBF24] text-[#FBBF24]" />
+                          <span className="text-[14px] font-bold text-[#0F172A]">{item.rating?.toFixed(1) || "5.0"}</span>
                         </div>
                       </div>
                     </div>
@@ -85,12 +89,12 @@ const Testimonial: React.FC<TestimonialProps> = ({ data }) => {
             ))}
           </Swiper>
 
-          <div className="flex justify-center gap-2 mt-16">
+          <div className="flex justify-center gap-2 mt-10">
             {testimonials.map((_, i) => (
               <span
                 key={i}
                 className={`block rounded-full transition-all duration-300 cursor-pointer
-                  ${activeIndex === i ? "w-6 h-2.5 bg-primary" : "w-2.5 h-2.5 bg-gray-300"}`}
+                  ${activeIndex === i ? "w-6 h-2 bg-primary" : "w-2 h-2 bg-[#CBD5E1]"}`}
               />
             ))}
           </div>

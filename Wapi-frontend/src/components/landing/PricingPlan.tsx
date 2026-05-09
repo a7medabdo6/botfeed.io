@@ -76,25 +76,19 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
   return (
     <section
       id="pricing"
-      className="bg-[#F0F9FF] py-[calc(60px+(140-60)*((100vw-320px)/(1920-320)))] pb-0"
+      className="bg-white py-[calc(40px+(100-40)*((100vw-320px)/(1920-320)))]"
       style={{ overflowX: "clip" }}
     >
-      <div className="mx-[calc(16px+(195-16)*((100vw-320px)/(1920-320)))]">
-      <div style={{justifyContent: "center",
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "column"}} className="flex flex-col gap-[calc(20px+(40-20)*((100vw-320px)/(1920-320)))]">
-            <div style={{justifyContent: "center",
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "column"}} className="[@media(max-width:1024px)]:text-center">
-              <span className="text-[14px] font-bold uppercase tracking-[0.2em] text-primary">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col items-center gap-[calc(16px+(32-16)*((100vw-320px)/(1920-320)))]">
+            <div className="flex flex-col items-center text-center">
+              <span className="inline-block text-[14px] font-bold uppercase tracking-[0.2em] text-primary mb-3">
                 {data.badge || t("landing.pricing.badge_fallback")}
               </span>
-              <h2 className="mt-4 text-[calc(28px+(56-28)*((100vw-320px)/(1920-320)))] font-extrabold leading-[1.1] tracking-tight text-[#0F172A] whitespace-pre-wrap">
+              <h2 className="text-[calc(22px+(42-22)*((100vw-320px)/(1920-320)))] font-extrabold leading-[1.1] tracking-tight text-[#0F172A] whitespace-pre-wrap max-w-2xl">
                 {data.title || t("landing.pricing.title_fallback")}
               </h2>
-              <p className="mt-6 text-[18px] leading-relaxed text-[#64748B] whitespace-pre-wrap">
+              <p className="mt-4 text-[16px] leading-relaxed text-[#64748B] whitespace-pre-wrap max-w-xl">
                 {data.description || t("landing.pricing.desc_fallback")}
               </p>
             </div>
@@ -121,7 +115,7 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
                 <p className="text-sm font-bold text-[#0F172A] leading-tight">
                   {t("landing.pricing.rated", { rating: "4.9" })}
                 </p>
-                <p className="text-[12px] text-[#64748B]">
+                <p className="text-[14px] text-[#64748B]">
                   {t("landing.pricing.customers", { count: data.subscribed_count || "0" })}
                 </p>
               </div>
@@ -231,7 +225,7 @@ const PricingPlan: React.FC<PricingPlanProps> = ({ data }) => {
                             {t("landing.pricing.choose_plan")}
                           </button>
                           {plan!.is_featured && (
-                            <p className="text-center text-[13px] text-[#64748B] font-medium">
+                            <p className="text-center text-[14px] text-[#64748B] font-medium">
                               {t("landing.pricing.or_contact_sales")}{" "}
                               <a
                                 href="#"

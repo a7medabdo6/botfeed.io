@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Images from "../../shared/Image";
 import { PlatformProps } from "../../types/landingPage";
 import { getStaticPlatformImage } from "@/src/constants/landing-static-media";
+import { CheckCircle2 } from "lucide-react";
 
 const Platform: React.FC<PlatformProps> = ({ data }) => {
   const progressRef = useRef<HTMLDivElement>(null);
@@ -36,61 +37,92 @@ const Platform: React.FC<PlatformProps> = ({ data }) => {
   if (steps.length === 0) return null;
 
   return (
-    <section id="support" className="bg-white py-[calc(30px+(100-30)*((100vw-320px)/(1920-320)))]">
-      <div className="mx-[calc(16px+(50-16)*((100vw-320px)/(1920-320)))]">
-        <div className="relative overflow-hidden rounded-[32px] sm:rounded-[48px] lg:rounded-[64px] bg-[#0B1929] px-4 pt-6 sm:px-8 sm:pt-8 lg:px-16 lg:pt-12 pb-0">
-          <div className="relative z-10 text-center mb-8 lg:mb-10 flex justify-center flex-col items-center">
-            <span className="sm:text-[16px] text-[15px] font-bold uppercase tracking-[0.2em] text-primary">{data.badge || "Platform"}</span>
-            <h2 className="mt-3 text-[clamp(1.5rem,1rem+2.5vw,2.875rem)] font-extrabold tracking-[1] text-white whitespace-pre-wrap max-w-212.5 break-all">{data.title}</h2>
+    <section id="support" className="bg-white py-[calc(40px+(100-40)*((100vw-320px)/(1920-320)))]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 md:mb-16">
+          <span className="inline-block text-[14px] font-bold uppercase tracking-[0.2em] text-primary mb-3">
+            {data.badge || "Platform"}
+          </span>
+          <h2 className="text-[calc(22px+(42-22)*((100vw-320px)/(1920-320)))] font-extrabold tracking-tight text-[#0F172A] whitespace-pre-wrap max-w-2xl mx-auto">
+            {data.title}
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* Image/Swiper side */}
+          <div className="relative w-full overflow-hidden rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] shadow-[0_8px_40px_rgba(0,174,239,0.06)]">
+            <Swiper
+              loop
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+              onSlideChange={(swiper) => setActiveStep(swiper.realIndex)}
+              modules={[Autoplay, Pagination, EffectFade]}
+              effect="fade"
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              className="h-full w-full platform-swiper cursor-grab active:cursor-grabbing aspect-[4/3]"
+            >
+              {steps.map((step, index) => (
+                <SwiperSlide key={index}>
+                  <div className="relative h-full w-full">
+                    <Images
+                      src={getStaticPlatformImage(index)}
+                      alt={step.title}
+                      fill
+                      className="object-cover rounded-2xl"
+                      priority={index === 0}
+                      unoptimized
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
 
-          <div className="relative z-10 grid [@media(max-width:1200px)]:grid-cols-1 gap-8 grid-cols-2 lg:gap-12">
-            <div className="relative w-full overflow-hidden rounded-t-[24px] sm:rounded-t-[32px] bg-white/2 shadow-2xl platform-border h-65 sm:h-90 lg:h-120">
-              <Swiper loop onSwiper={(swiper) => (swiperRef.current = swiper)} onSlideChange={(swiper) => setActiveStep(swiper.realIndex)} modules={[Autoplay, Pagination, EffectFade]} effect="fade" slidesPerView={1} pagination={{ clickable: true }} onAutoplayStart={() => console.log("AUTOPLAY STARTED")} className="h-full w-full platform-swiper cursor-grab active:cursor-grabbing">
-                {steps.map((step, index) => (
-                  <SwiperSlide key={index}>
-                    <div className="relative h-full w-full">
-                      <Images src={getStaticPlatformImage(index)} alt={step.title} fill className="object-cover rounded-tr-[24px] max-w-237.5 max-h-134 rounded-tl-[24px] [@media(max-width:1200px)]:rounded-[24px] bg-[#0B1929]" priority={index === 0} unoptimized />
-                    </div>
-                  </SwiperSlide>
+          {/* Content side */}
+          <div className="flex flex-col gap-6">
+            {/* Step indicators */}
+            {steps.length > 1 && (
+              <div className="flex items-center gap-3 mb-2">
+                {steps.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleStepClick(i)}
+                    className={`flex h-9 w-9 items-center justify-center rounded-full text-[12px] font-bold transition-all duration-300
+                      ${i === activeStep ? "bg-primary text-white shadow-[0_4px_12px_rgba(0,174,239,0.3)]" : i < activeStep ? "bg-primary/20 text-primary" : "bg-[#F1F5F9] text-[#94A3B8] border border-[#E2E8F0]"}`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </button>
                 ))}
-              </Swiper>
-            </div>
-
-            <div className="flex flex-col gap-[calc(8px+(24-8)*((100vw-320px)/(1920-320)))] lg:pl-8 pb-8 sm:pb-12 lg:pb-16">
-              {steps.length > 1 && (
-                <div className="relative flex items-center justify-between py-4">
-                  <div className="absolute left-0 right-0 top-1/2 h-0.75 sm:h-1 -translate-y-1/2 bg-[linear-gradient(90deg,rgba(0,174,239,0)_0%,#00AEEF_50%,rgba(0,174,239,0)_100%)]" />
-                  <div ref={progressRef} className="absolute left-0 top-1/2 h-0.75 sm:h-1 w-0 -translate-y-1/2 bg-primary/80 shadow-[0_0_8px_rgba(0,174,239,0.5)] z-0" />
-
-                  {steps.map((step, i) => (
-                    <button
-                      key={i}
-                      onClick={() => handleStepClick(i)}
-                      className={`relative z-10 flex h-8.5 w-8.5 sm:h-10 sm:w-10 lg:h-11 lg:w-11 items-center justify-center rounded-full text-[10px] sm:text-[12px] lg:text-[13px] font-bold transition-all duration-500
-                      ${i === activeStep ? "bg-primary text-white shadow-[0_0_20px_rgba(0,174,239,0.4)]" : i < activeStep ? "bg-primary text-white" : "bg-[#0F172A] text-white border border-white/10"}`}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </button>
-                  ))}
+                <div className="flex-1 h-1 bg-[#F1F5F9] rounded-full overflow-hidden ml-2">
+                  <div ref={progressRef} className="h-full bg-primary rounded-full transition-all" style={{ width: 0 }} />
                 </div>
-              )}
-
-              <div className="min-h-30 sm:min-h-35 lg:min-h-40">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-primary">{steps[activeStep].tagline}</span>
-                <h3 className="mt-2 text-xl sm:text-2xl lg:text-3xl font-bold text-white max-w-190.75 break-all">{steps[activeStep].title}</h3>
-                <p className="mt-3 text-white/60 text-[13px] sm:text-[14px] lg:text-[15px] leading-relaxed">{steps[activeStep].description}</p>
               </div>
+            )}
 
-              <ul className="space-y-3 sm:space-y-4">
-                {(steps[activeStep].bullets || []).map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3 text-[13px] sm:text-[14px] text-white/80">
-                    <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary break-all" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+            {/* Active step content */}
+            <div>
+              {steps[activeStep].tagline && (
+                <span className="text-[13px] font-bold uppercase tracking-widest text-primary">
+                  {steps[activeStep].tagline}
+                </span>
+              )}
+              <h3 className="mt-2 text-[calc(18px+(28-18)*((100vw-320px)/(1920-320)))] font-bold text-[#0F172A]">
+                {steps[activeStep].title}
+              </h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-[#64748B]">
+                {steps[activeStep].description}
+              </p>
             </div>
+
+            {/* Bullet points */}
+            <ul className="space-y-3">
+              {(steps[activeStep].bullets || []).map((feature, i) => (
+                <li key={i} className="flex items-start gap-3 text-[14px] text-[#475569]">
+                  <CheckCircle2 size={18} className="text-primary shrink-0 mt-0.5" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
