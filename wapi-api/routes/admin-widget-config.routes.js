@@ -6,7 +6,10 @@ import WebConversation from '../models/web-conversation.model.js';
 const router = express.Router();
 
 function adminOnly(req, res, next) {
-  if (req.user?.role !== 'admin') return res.status(403).json({ success: false, message: 'Admin only' });
+  const role = req.user?.role;
+  if (role !== 'admin' && role !== 'super_admin') {
+    return res.status(403).json({ success: false, message: 'Admin only' });
+  }
   next();
 }
 

@@ -38,7 +38,11 @@ export async function list(req, res) {
       if (workspaceId && !(await assertWorkspaceOwnership(ownerId, workspaceId))) {
         return res.status(403).json({ success: false, message: 'Workspace not found or not owned by this account' });
       }
-      filter.workspace_id = workspaceId;
+      if (workspaceId && req.query.include_unassigned === 'true') {
+        filter.workspace_id = { $in: [workspaceId, null] };
+      } else {
+        filter.workspace_id = workspaceId;
+      }
     }
     if (req.query.mode) {
       filter.mode = req.query.mode;

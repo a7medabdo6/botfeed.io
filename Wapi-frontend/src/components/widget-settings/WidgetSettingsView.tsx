@@ -3,7 +3,6 @@
 
 import CommonHeader from "@/src/shared/CommonHeader";
 import {
-  useCreateWidgetConfigMutation,
   useDeleteWidgetConfigMutation,
   useGetWidgetConfigsQuery,
   useUpdateWidgetConfigMutation,
@@ -23,10 +22,9 @@ const WidgetSettingsView: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  const { data, isLoading, refetch } = useGetWidgetConfigsQuery(workspaceId ? { workspace_id: workspaceId } : undefined, {
+  const { data, isLoading, refetch } = useGetWidgetConfigsQuery(workspaceId ? { workspace_id: workspaceId, include_unassigned: "true" } : undefined, {
     skip: !workspaceId,
   });
-  const [createWidgetConfig] = useCreateWidgetConfigMutation();
   const [updateWidgetConfig] = useUpdateWidgetConfigMutation();
   const [deleteWidgetConfig] = useDeleteWidgetConfigMutation();
 
@@ -37,13 +35,12 @@ const WidgetSettingsView: React.FC = () => {
   const onSave = async (payload: Partial<WidgetConfigData>) => {
     try {
       setIsSaving(true);
-      if (editing?._id) {
-        await updateWidgetConfig({ id: editing._id, data: payload }).unwrap();
-        toast.success("Widget config updated");
-      } else {
-        await createWidgetConfig(payload).unwrap();
-        toast.success("Widget config created");
+      if (!editing?._id) {
+        toast.error("Create new widget configs from Flow Builder website widget trigger only.");
+        return;
       }
+      await updateWidgetConfig({ id: editing._id, data: payload }).unwrap();
+      toast.success("Widget config updated");
       setIsFormOpen(false);
       setEditing(null);
     } catch (error: any) {
@@ -67,16 +64,11 @@ const WidgetSettingsView: React.FC = () => {
     <div className="flex-1 flex flex-col min-w-0 sm:p-6 p-4 overflow-y-auto custom-scrollbar">
       <CommonHeader
         title="Chat Widgets"
-        description="Create workspace-specific widget configs, then embed the chatbot key on landing pages."
+        description="Widgets are auto-created from Flow Builder when using the website widget trigger."
         onSearch={setSearchTerm}
         searchTerm={searchTerm}
         searchPlaceholder="Search widgets..."
         onRefresh={refetch}
-        onAddClick={() => {
-          setEditing(null);
-          setIsFormOpen(true);
-        }}
-        addLabel="Create Widget Config"
       />
 
       {!workspaceId ? (
@@ -85,7 +77,7 @@ const WidgetSettingsView: React.FC = () => {
         <div className="flex items-center justify-center py-20 text-sm text-gray-500">Loading…</div>
       ) : configs.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center text-sm text-gray-500 dark:text-gray-400">
-          <p>No widget configs for this workspace yet. Create one now.</p>
+          <p>No widgets yet. Create one from <strong>Flow Builder</strong> by adding a website widget trigger, then save the flow.</p>
         </div>
       ) : (
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">

@@ -15,6 +15,11 @@ const automationFlowSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  workspace_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Workspace',
+    default: null
+  },
   is_active: {
     type: Boolean,
     default: true

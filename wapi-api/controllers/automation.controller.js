@@ -40,6 +40,7 @@ async function syncWidgetConfigForFlow(flow) {
 
     const update = {
       user_id: flow.user_id,
+      workspace_id: flow.workspace_id || null,
       name: flow.name || 'Widget',
       mode: 'chatbot',
       chatbot_id: null,
@@ -154,7 +155,7 @@ export const getAutomationFlow = async (req, res) => {
 export const createAutomationFlow = async (req, res) => {
   try {
     const userId = req.user.owner_id;
-    const { name, description, nodes, connections, triggers, settings } = req.body;
+    const { name, description, nodes, connections, triggers, settings, workspace_id } = req.body;
 
     if (!name || !nodes || !Array.isArray(nodes)) {
       return res.status(400).json({
@@ -172,6 +173,7 @@ export const createAutomationFlow = async (req, res) => {
       name,
       description: description || '',
       user_id: userId,
+      workspace_id: workspace_id || null,
       nodes: nodes || [],
       connections: connections || [],
       triggers: triggers || [],
@@ -204,7 +206,7 @@ export const updateAutomationFlow = async (req, res) => {
   try {
     const userId = req.user.owner_id;
     const { flowId } = req.params;
-    const { name, description, nodes, connections, triggers, settings, is_active } = req.body;
+    const { name, description, nodes, connections, triggers, settings, is_active, workspace_id } = req.body;
 
     const flow = await AutomationFlow.findOne({
       _id: flowId,
@@ -231,6 +233,7 @@ export const updateAutomationFlow = async (req, res) => {
     if (triggers !== undefined) flow.triggers = triggers;
     if (settings !== undefined) flow.settings = settings;
     if (is_active !== undefined) flow.is_active = is_active;
+    if (workspace_id !== undefined) flow.workspace_id = workspace_id || null;
 
     await flow.save();
 

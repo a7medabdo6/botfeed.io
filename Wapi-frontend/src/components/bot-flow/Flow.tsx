@@ -1280,6 +1280,7 @@ const FlowCanvas = () => {
         name: flowName,
         description: `Handles ${Array.isArray(triggerNodes[0].data.keywords) && triggerNodes[0].data.keywords.length > 0 ? triggerNodes[0].data.keywords.join(", ") : triggerNodes[0].data.triggerType} and related interactive menus`,
         is_active: true,
+        workspace_id: selectedWorkspace?._id || null,
         triggers,
         nodes: formattedNodes,
         connections: formattedConnections,

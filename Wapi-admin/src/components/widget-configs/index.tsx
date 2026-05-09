@@ -19,12 +19,13 @@ export default function AdminWidgetConfigs() {
   const [page, setPage] = useState(1);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data, isLoading, refetch } = useGetAdminWidgetConfigsQuery({ page });
+  const { data, error, isLoading, refetch } = useGetAdminWidgetConfigsQuery({ page });
   const [updateWidget] = useUpdateAdminWidgetConfigMutation();
   const [deleteWidget, { isLoading: isDeleting }] = useDeleteAdminWidgetConfigMutation();
 
   const configs = data?.data || [];
   const pagination = data?.pagination;
+  const errorMessage = (error as any)?.data?.message || (error as any)?.error;
 
   const toggleActive = async (cfg: AdminWidgetConfig) => {
     try {
@@ -62,6 +63,8 @@ export default function AdminWidgetConfigs() {
 
       {isLoading ? (
         <div className="text-center py-20 text-gray-500 text-sm">Loading…</div>
+      ) : errorMessage ? (
+        <div className="text-center py-20 text-red-500 text-sm">{errorMessage}</div>
       ) : configs.length === 0 ? (
         <div className="text-center py-20 text-gray-500 text-sm">No widgets found.</div>
       ) : (

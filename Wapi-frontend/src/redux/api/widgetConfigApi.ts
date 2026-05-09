@@ -76,7 +76,7 @@ export const widgetConfigApi = baseApi
   .enhanceEndpoints({ addTagTypes: ["WidgetConfig", "WebConversation"] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getWidgetConfigs: builder.query<ListResponse, { workspace_id?: string; mode?: "whatsapp" | "chatbot" | "both" } | void>({
+      getWidgetConfigs: builder.query<ListResponse, { workspace_id?: string; mode?: "whatsapp" | "chatbot" | "both"; include_unassigned?: "true" | "false" } | void>({
         query: (params) => ({ url: "/widget-configs", params: params || undefined }),
         providesTags: ["WidgetConfig"],
       }),
