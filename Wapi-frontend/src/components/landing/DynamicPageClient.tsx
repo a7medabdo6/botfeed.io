@@ -78,7 +78,7 @@ const DynamicPageClient: React.FC<DynamicPageClientProps> = ({ slug }) => {
         </div>
       </main>
 
-      {footerData && <Footer data={footerData} />}
+      {/* {footerData && <Footer data={footerData} />} */}
     </div>
   );
 };

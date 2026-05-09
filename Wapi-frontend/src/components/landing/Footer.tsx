@@ -2,7 +2,12 @@
 
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
-const Footer = () => {
+
+type FooterProps = {
+  data?: unknown;
+};
+
+const Footer = ({ data: _data }: FooterProps) => {
   const quickLinks = [
     { label: "الرئيسية", href: "#home" },
     { label: "المميزات", href: "#features" },
