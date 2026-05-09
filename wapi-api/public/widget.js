@@ -81,7 +81,10 @@
     fetch(API_BASE + '/config')
       .then(function (r) { return r.json(); })
       .then(function (res) {
-        if (!res.success) return;
+        if (!res.success || !res.data) {
+          console.error('[BotfeedWidget] Invalid widget config response:', res);
+          return;
+        }
         config = res.data;
         applyConfig();
         buildPanel();
@@ -154,6 +157,10 @@
   }
 
   function toggle() {
+    if (!config || !config.mode) {
+      console.error('[BotfeedWidget] Widget config not loaded or invalid for key:', API_KEY);
+      return;
+    }
     isOpen = !isOpen;
     if (isOpen) {
       panel.classList.remove('bf-hidden');

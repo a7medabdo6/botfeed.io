@@ -20,7 +20,7 @@ const Landing = () => {
   const { data: landingData } = useGetLandingPageQuery();
   const adminConfiguredWidgetKey = landingData?.data?.landing_chatbot_widget_key?.trim() || null;
   const envFallbackWidgetKey = process.env.NEXT_PUBLIC_LANDING_CHATBOT_WIDGET_KEY || null;
-  const widgetKey = adminConfiguredWidgetKey || envFallbackWidgetKey || "wk_2711169e952ece69ebc711fc4f122614f4f4d679dc3f28ef";
+  const widgetKey = adminConfiguredWidgetKey || envFallbackWidgetKey ;
   const apiRaw = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5001/api";
   const scriptSrc = (apiRaw.includes("/api") ? apiRaw : `${apiRaw.replace(/\/$/, "")}/api`).replace(/\/api\/?$/, "/public/widget.js");
   useEffect(() => {
